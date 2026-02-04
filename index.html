@@ -5,26 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Дневник</title>
     
-    <!-- PWA для iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Дневник">
-    
-    <!-- PWA для Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6366f1" id="theme-color-meta">
-    <meta name="application-name" content="Дневник">
     
-    <!-- Иконки -->
     <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
     <link rel="shortcut icon" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
-    
-    <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,7 +31,6 @@
             --text-secondary: rgba(255,255,255,0.7);
             --text-muted: rgba(255,255,255,0.4);
             --accent: #6366f1;
-            --accent-light: #8b5cf6;
         }
         
         [data-theme="light"] {
@@ -57,16 +46,8 @@
             --text-muted: rgba(0,0,0,0.4);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        html {
-            height: -webkit-fill-available;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { height: -webkit-fill-available; }
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -80,9 +61,7 @@
         
         .safe-area-top {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: env(safe-area-inset-top);
             background: var(--bg-secondary);
             z-index: 101;
@@ -134,38 +113,33 @@
             background-clip: text;
         }
         
-        .header-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
         .header-date {
-            font-size: 0.85em;
+            font-size: 0.9em;
             color: var(--text-secondary);
             font-weight: 500;
-        }
-        
-        .header-week {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-        
-        .header-week.upper {
-            color: #34d399;
-        }
-        
-        .header-week.lower {
-            color: #fb7185;
         }
         
         .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        .header-week {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .header-week.upper {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: #000;
+        }
+        
+        .header-week.lower {
+            background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
+            color: #fff;
         }
         
         .theme-toggle {
@@ -183,9 +157,7 @@
             transition: all 0.2s;
         }
         
-        .theme-toggle:hover {
-            background: var(--bg-card-hover);
-        }
+        .theme-toggle:hover { background: var(--bg-card-hover); }
         
         .user-info {
             display: flex;
@@ -213,53 +185,17 @@
             font-size: 0.9em;
             transition: all 0.2s;
             font-family: inherit;
-            touch-action: manipulation;
         }
         
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: #fff;
-        }
-        
-        .btn-secondary {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-        
-        .btn-danger {
-            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-            color: #fff;
-        }
-        
-        .btn-success {
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            color: #000;
-        }
-        
-        .btn-warning {
-            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            color: #000;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        
-        .btn:active {
-            transform: scale(0.98);
-        }
-        
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.8em;
-        }
-        
-        .btn-xs {
-            padding: 4px 8px;
-            font-size: 0.75em;
-        }
+        .btn-primary { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; }
+        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
+        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: #fff; }
+        .btn-success { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: #000; }
+        .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        .btn:active { transform: scale(0.98); }
+        .btn-sm { padding: 6px 12px; font-size: 0.8em; }
+        .btn-xs { padding: 4px 8px; font-size: 0.75em; }
         
         .btn-icon {
             width: 44px;
@@ -277,13 +213,8 @@
             transition: all 0.2s;
         }
         
-        .btn-icon:hover {
-            background: var(--bg-card-hover);
-        }
-        
-        .btn-icon:active {
-            transform: scale(0.95);
-        }
+        .btn-icon:hover { background: var(--bg-card-hover); }
+        .btn-icon:active { transform: scale(0.95); }
         
         .week-navigator {
             display: flex;
@@ -299,29 +230,32 @@
         
         .week-dates {
             text-align: center;
-            min-width: 160px;
+            min-width: 180px;
         }
         
         .week-dates-range {
             font-size: 1.2em;
             font-weight: 700;
             color: var(--text-primary);
+            margin-bottom: 4px;
         }
         
-        /* Навигация - скрываем для гостей если одна вкладка */
+        .week-dates-type {
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .week-dates-type.upper { color: #34d399; }
+        .week-dates-type.lower { color: #fb7185; }
+        
         .nav {
             display: flex;
             gap: 8px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 5px;
         }
         
-        .nav.hidden {
-            display: none;
-        }
+        .nav.hidden { display: none; }
         
         .nav-btn {
             padding: 12px 20px;
@@ -335,57 +269,30 @@
             transition: all 0.2s;
             font-family: inherit;
             border: 1px solid var(--border-color);
-            white-space: nowrap;
-            flex-shrink: 0;
         }
         
-        .nav-btn:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
-        }
+        .nav-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+        .nav-btn.active { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; border-color: transparent; }
         
-        .nav-btn.active {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: #fff;
-            border-color: transparent;
-        }
-        
-        .section {
-            display: none;
-        }
-        
-        .section.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s ease; }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .days-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+        .days-grid { display: flex; flex-direction: column; gap: 16px; }
         
         .day-block {
             background: var(--bg-card);
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            transition: all 0.3s;
         }
         
-        .day-block.today {
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
-        }
-        
-        .day-block.has-changes {
-            border-color: rgba(245, 158, 11, 0.4);
-        }
+        .day-block.today { border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 0 30px rgba(99, 102, 241, 0.1); }
+        .day-block.has-changes { border-color: rgba(245, 158, 11, 0.4); }
         
         .day-header {
             display: flex;
@@ -405,44 +312,13 @@
             color: var(--text-primary);
         }
         
-        .day-title .date {
-            font-weight: 400;
-            color: var(--text-muted);
-            font-size: 0.9em;
-        }
+        .day-title .date { font-weight: 400; color: var(--text-muted); font-size: 0.9em; }
+        .day-badges { display: flex; gap: 6px; }
+        .today-label { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 0.7em; font-weight: 600; }
+        .changes-label { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; padding: 4px 10px; border-radius: 12px; font-size: 0.7em; font-weight: 600; }
         
-        .day-badges {
-            display: flex;
-            gap: 6px;
-        }
-        
-        .today-label {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: 600;
-        }
-        
-        .changes-label {
-            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            color: #000;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: 600;
-        }
-        
-        .day-content {
-            padding: 10px;
-        }
-        
-        .lessons-list {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .day-content { padding: 10px; }
+        .lessons-list { display: flex; flex-direction: column; gap: 6px; }
         
         .lesson-row {
             display: flex;
@@ -453,21 +329,11 @@
             border-radius: 10px;
             transition: all 0.2s;
             cursor: pointer;
-            border: 1px solid transparent;
         }
         
-        .lesson-row:hover {
-            background: var(--bg-card-hover);
-        }
-        
-        .lesson-row.empty {
-            opacity: 0.5;
-        }
-        
-        .lesson-row.changed {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
+        .lesson-row:hover { background: var(--bg-card-hover); }
+        .lesson-row.empty { opacity: 0.5; }
+        .lesson-row.changed { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); }
         
         .lesson-number {
             width: 44px;
@@ -481,55 +347,14 @@
             flex-shrink: 0;
         }
         
-        .lesson-num {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        
-        .lesson-time {
-            font-size: 0.6em;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-        
-        .lesson-info {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .lesson-name-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 4px;
-            flex-wrap: wrap;
-        }
-        
-        .lesson-name {
-            font-weight: 600;
-            font-size: 0.95em;
-            color: var(--text-primary);
-        }
-        
-        .lesson-details {
-            display: flex;
-            gap: 12px;
-            font-size: 0.8em;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-        }
-        
-        .lesson-room {
-            color: var(--accent);
-        }
-        
-        .lesson-empty-text {
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 0.9em;
-        }
+        .lesson-num { font-size: 1.2em; font-weight: 700; color: var(--accent); }
+        .lesson-time { font-size: 0.6em; color: var(--text-muted); margin-top: 2px; }
+        .lesson-info { flex: 1; min-width: 0; }
+        .lesson-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+        .lesson-name { font-weight: 600; font-size: 0.95em; color: var(--text-primary); }
+        .lesson-details { display: flex; gap: 12px; font-size: 0.8em; color: var(--text-muted); margin-bottom: 6px; flex-wrap: wrap; }
+        .lesson-room { color: var(--accent); }
+        .lesson-empty-text { color: var(--text-muted); font-style: italic; font-size: 0.9em; }
         
         .lesson-homework {
             margin-top: 8px;
@@ -539,35 +364,11 @@
             border-left: 3px solid var(--accent);
         }
         
-        .lesson-homework-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        
-        .lesson-homework-title {
-            font-size: 0.7em;
-            color: var(--accent);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .lesson-homework-text {
-            font-size: 0.85em;
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-        
-        .lesson-homework.done {
-            opacity: 0.5;
-            border-left-color: #10b981;
-        }
-        
-        .lesson-homework.done .lesson-homework-text {
-            text-decoration: line-through;
-        }
+        .lesson-homework-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+        .lesson-homework-title { font-size: 0.7em; color: var(--accent); font-weight: 600; text-transform: uppercase; }
+        .lesson-homework-text { font-size: 0.85em; line-height: 1.4; color: var(--text-primary); }
+        .lesson-homework.done { opacity: 0.5; border-left-color: #10b981; }
+        .lesson-homework.done .lesson-homework-text { text-decoration: line-through; }
         
         .add-hw-btn {
             padding: 4px 8px;
@@ -578,13 +379,9 @@
             cursor: pointer;
             font-size: 0.75em;
             font-weight: 600;
-            transition: all 0.2s;
         }
         
-        .add-hw-btn:active {
-            background: var(--accent);
-            color: #fff;
-        }
+        .add-hw-btn:active { background: var(--accent); color: #fff; }
         
         .changes-wrapper, .settings-wrapper {
             background: var(--bg-card);
@@ -593,29 +390,9 @@
             border: 1px solid var(--border-color);
         }
         
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .section-title {
-            font-size: 1.1em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-primary);
-        }
-        
-        .changes-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .section-title { font-size: 1.1em; font-weight: 600; color: var(--text-primary); }
+        .changes-list { display: flex; flex-direction: column; gap: 12px; }
         
         .change-card {
             background: rgba(245, 158, 11, 0.1);
@@ -624,26 +401,9 @@
             padding: 14px;
         }
         
-        .change-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .change-date {
-            font-weight: 600;
-            font-size: 1em;
-            color: #fbbf24;
-        }
-        
-        .change-lessons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        .change-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px; }
+        .change-date { font-weight: 600; font-size: 1em; color: #fbbf24; }
+        .change-lessons { display: flex; flex-direction: column; gap: 8px; }
         
         .change-lesson-row {
             display: flex;
@@ -654,9 +414,7 @@
             border-radius: 8px;
         }
         
-        [data-theme="light"] .change-lesson-row {
-            background: rgba(0,0,0,0.05);
-        }
+        [data-theme="light"] .change-lesson-row { background: rgba(0,0,0,0.05); }
         
         .change-pair-num {
             width: 28px;
@@ -669,27 +427,11 @@
             font-weight: 700;
             color: #fbbf24;
             font-size: 0.9em;
-            flex-shrink: 0;
         }
         
-        .change-lesson-info {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .change-lesson-name {
-            font-weight: 600;
-            font-size: 0.95em;
-            color: var(--text-primary);
-        }
-        
-        .change-lesson-details {
-            font-size: 0.8em;
-            color: var(--text-muted);
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .change-lesson-info { flex: 1; }
+        .change-lesson-name { font-weight: 600; font-size: 0.95em; color: var(--text-primary); }
+        .change-lesson-details { font-size: 0.8em; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
         
         .setting-row {
             display: flex;
@@ -703,16 +445,8 @@
             gap: 12px;
         }
         
-        .setting-info h4 {
-            margin-bottom: 4px;
-            font-size: 0.95em;
-            color: var(--text-primary);
-        }
-        
-        .setting-info p {
-            font-size: 0.8em;
-            color: var(--text-muted);
-        }
+        .setting-info h4 { margin-bottom: 4px; font-size: 0.95em; color: var(--text-primary); }
+        .setting-info p { font-size: 0.8em; color: var(--text-muted); }
         
         .setting-input {
             padding: 10px 14px;
@@ -721,34 +455,23 @@
             border-radius: 10px;
             color: var(--text-primary);
             font-family: inherit;
-            font-size: 0.95em;
         }
         
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.85);
             z-index: 1000;
             align-items: flex-start;
             justify-content: center;
             padding: 20px;
             padding-top: calc(40px + env(safe-area-inset-top));
-            padding-bottom: calc(20px + env(safe-area-inset-bottom));
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
         
-        [data-theme="light"] .modal-overlay {
-            background: rgba(0,0,0,0.5);
-        }
-        
-        .modal-overlay.active {
-            display: flex;
-        }
+        [data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.5); }
+        .modal-overlay.active { display: flex; }
         
         .modal {
             background: var(--bg-secondary);
@@ -766,25 +489,11 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
         
-        .modal h3 {
-            margin-bottom: 20px;
-            font-size: 1.15em;
-            color: var(--text-primary);
-        }
+        .modal h3 { margin-bottom: 20px; font-size: 1.15em; color: var(--text-primary); }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; color: var(--text-secondary); font-size: 0.85em; }
         
-        .form-group {
-            margin-bottom: 16px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: var(--text-secondary);
-            font-size: 0.85em;
-        }
-        
-        .form-group input,
-        .form-group textarea {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 12px 14px;
             border: 1px solid var(--border-light);
@@ -796,46 +505,14 @@
             -webkit-appearance: none;
         }
         
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .modal-buttons .btn { flex: 1; }
         
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .modal-buttons .btn {
-            flex: 1;
-        }
-        
-        .change-pairs-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .change-pair-row {
-            background: var(--bg-card);
-            border-radius: 10px;
-            padding: 12px;
-        }
-        
-        .change-pair-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
+        .change-pairs-form { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .change-pair-row { background: var(--bg-card); border-radius: 10px; padding: 12px; }
+        .change-pair-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
         
         .change-pair-num-badge {
             width: 26px;
@@ -850,11 +527,7 @@
             font-size: 0.85em;
         }
         
-        .change-pair-inputs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .change-pair-inputs { display: flex; gap: 8px; flex-wrap: wrap; }
         
         .change-pair-inputs input {
             flex: 1;
@@ -869,18 +542,11 @@
             -webkit-appearance: none;
         }
         
-        .change-pair-inputs input:focus {
-            outline: none;
-            border-color: #f59e0b;
-        }
-        
-        .change-pair-inputs input::placeholder {
-            color: var(--text-muted);
-        }
+        .change-pair-inputs input:focus { outline: none; border-color: #f59e0b; }
+        .change-pair-inputs input::placeholder { color: var(--text-muted); }
         
         .login-screen {
             min-height: 100vh;
-            min-height: -webkit-fill-available;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -898,24 +564,9 @@
             border: 1px solid var(--border-color);
         }
         
-        .login-logo {
-            text-align: center;
-            font-size: 4em;
-            margin-bottom: 10px;
-        }
-        
-        .login-container h2 {
-            text-align: center;
-            margin-bottom: 8px;
-            font-size: 1.6em;
-            color: var(--text-primary);
-        }
-        
-        .login-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 28px;
-        }
+        .login-logo { text-align: center; font-size: 4em; margin-bottom: 10px; }
+        .login-container h2 { text-align: center; margin-bottom: 8px; font-size: 1.6em; color: var(--text-primary); }
+        .login-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 28px; }
         
         .login-error {
             background: rgba(244, 63, 94, 0.1);
@@ -928,11 +579,7 @@
             font-size: 0.9em;
         }
         
-        .login-container .btn {
-            width: 100%;
-            padding: 14px;
-            margin-top: 10px;
-        }
+        .login-container .btn { width: 100%; padding: 14px; margin-top: 10px; }
         
         .divider {
             display: flex;
@@ -943,26 +590,14 @@
             font-size: 0.85em;
         }
         
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-color);
-        }
-        
-        .no-items {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-        }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
+        .no-items { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         
         .install-prompt {
             position: fixed;
-            bottom: 20px;
+            bottom: calc(20px + env(safe-area-inset-bottom));
             left: 20px;
             right: 20px;
-            bottom: calc(20px + env(safe-area-inset-bottom));
             background: var(--bg-secondary);
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 16px;
@@ -974,103 +609,31 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         
-        .install-prompt.show {
-            display: flex;
-            animation: slideUp 0.3s ease;
-        }
+        .install-prompt.show { display: flex; animation: slideUp 0.3s ease; }
         
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .install-prompt-icon {
-            font-size: 2em;
-        }
-        
-        .install-prompt-text {
-            flex: 1;
-        }
-        
-        .install-prompt-text h4 {
-            font-size: 0.95em;
-            margin-bottom: 2px;
-            color: var(--text-primary);
-        }
-        
-        .install-prompt-text p {
-            font-size: 0.8em;
-            color: var(--text-muted);
-        }
-        
-        .install-prompt-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5em;
-            cursor: pointer;
-            padding: 5px;
-        }
+        .install-prompt-icon { font-size: 2em; }
+        .install-prompt-text { flex: 1; }
+        .install-prompt-text h4 { font-size: 0.95em; margin-bottom: 2px; color: var(--text-primary); }
+        .install-prompt-text p { font-size: 0.8em; color: var(--text-muted); }
+        .install-prompt-close { background: none; border: none; color: var(--text-muted); font-size: 1.5em; cursor: pointer; padding: 5px; }
         
         @media (max-width: 500px) {
-            .header-content {
-                gap: 10px;
-            }
-            
-            .header-left {
-                gap: 12px;
-            }
-            
-            .logo {
-                font-size: 1.3em;
-            }
-            
-            .header-date {
-                font-size: 0.8em;
-            }
-            
-            .header-week {
-                font-size: 0.75em;
-            }
-            
-            .user-info span:not(.admin-badge) {
-                display: none;
-            }
-            
-            .week-navigator {
-                padding: 14px 16px;
-                gap: 15px;
-            }
-            
-            .week-dates-range {
-                font-size: 1.1em;
-            }
-            
-            .btn-icon {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .lesson-row {
-                padding: 8px;
-            }
-            
-            .change-pair-inputs {
-                flex-direction: column;
-            }
-            
-            .change-pair-inputs input {
-                width: 100%;
-            }
-            
-            .modal {
-                padding: 20px;
-            }
-            
-            .setting-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            .header-content { gap: 10px; }
+            .header-left { gap: 10px; }
+            .logo { font-size: 1.2em; }
+            .header-date { font-size: 0.8em; }
+            .user-info span:not(.admin-badge) { display: none; }
+            .week-navigator { padding: 14px; gap: 15px; }
+            .week-dates-range { font-size: 1em; }
+            .btn-icon { width: 40px; height: 40px; }
+            .change-pair-inputs { flex-direction: column; }
+            .change-pair-inputs input { width: 100%; }
+            .setting-row { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -1082,9 +645,7 @@
             <div class="login-logo">📚</div>
             <h2>Дневник</h2>
             <p class="login-subtitle">Техникум</p>
-            
             <div class="login-error" id="login-error" style="display: none;"></div>
-            
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email">
@@ -1094,9 +655,7 @@
                 <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
             </div>
             <button class="btn btn-primary" onclick="login()">Войти</button>
-            
             <div class="divider">или</div>
-            
             <button class="btn btn-secondary" onclick="enterAsGuest()">Войти как гость</button>
         </div>
     </div>
@@ -1106,12 +665,10 @@
             <div class="header-content">
                 <div class="header-left">
                     <div class="logo">📚 Дневник</div>
-                    <div class="header-info">
-                        <div class="header-date" id="header-date">6 февраля, четверг</div>
-                        <div class="header-week" id="header-week">☀️ Верхняя неделя</div>
-                    </div>
+                    <div class="header-date" id="header-date">6 февраля, четверг</div>
                 </div>
                 <div class="header-right">
+                    <div class="header-week" id="header-week">☀️ Верхняя</div>
                     <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
                         <span id="theme-icon">🌙</span>
                     </button>
@@ -1129,6 +686,7 @@
                 <button class="btn-icon" onclick="prevWeek()">←</button>
                 <div class="week-dates">
                     <div class="week-dates-range" id="week-range">01.01 — 06.01</div>
+                    <div class="week-dates-type" id="week-type">☀️ Верхняя неделя</div>
                 </div>
                 <button class="btn-icon" onclick="nextWeek()">→</button>
             </div>
@@ -1156,7 +714,6 @@
             <div class="section" id="settings">
                 <div class="settings-wrapper">
                     <h2 class="section-title" style="margin-bottom: 20px;">⚙️ Настройки</h2>
-                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Тема оформления</h4>
@@ -1164,7 +721,6 @@
                         </div>
                         <button class="btn btn-secondary" onclick="toggleTheme()">Сменить тему</button>
                     </div>
-                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Начало отсчёта недель</h4>
@@ -1172,7 +728,6 @@
                         </div>
                         <input type="date" class="setting-input" id="week-start-date">
                     </div>
-                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Время пар</h4>
@@ -1180,7 +735,6 @@
                         </div>
                         <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
                     </div>
-                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Очистить всё</h4>
@@ -1209,7 +763,6 @@
             <input type="hidden" id="edit-day">
             <input type="hidden" id="edit-pair">
             <input type="hidden" id="edit-week">
-            
             <div class="form-group">
                 <label>Предмет</label>
                 <input type="text" id="lesson-name" placeholder="Математика">
@@ -1222,7 +775,6 @@
                 <label>Преподаватель</label>
                 <input type="text" id="lesson-teacher" placeholder="Иванов И.И.">
             </div>
-            
             <div class="modal-buttons">
                 <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
                 <button class="btn btn-danger" onclick="deleteLesson()">Удалить</button>
@@ -1236,7 +788,6 @@
             <h3>📝 Добавить домашку</h3>
             <input type="hidden" id="hw-date">
             <input type="hidden" id="hw-pair">
-            
             <div class="form-group">
                 <label>Предмет</label>
                 <input type="text" id="hw-subject" readonly style="opacity: 0.7;">
@@ -1245,7 +796,6 @@
                 <label>Задание</label>
                 <textarea id="hw-task" placeholder="Что нужно сделать..."></textarea>
             </div>
-            
             <div class="modal-buttons">
                 <button class="btn btn-secondary" onclick="closeModal('homework-modal')">Отмена</button>
                 <button class="btn btn-primary" onclick="saveHomework()">Сохранить</button>
@@ -1257,16 +807,13 @@
         <div class="modal">
             <h3>📝 Изменение расписания</h3>
             <input type="hidden" id="change-edit-id">
-            
             <div class="form-group">
                 <label>Дата</label>
                 <input type="date" id="change-date">
             </div>
-            
             <p style="color: var(--text-muted); font-size: 0.8em; margin-bottom: 12px;">
                 Заполни только те пары, которые будут. Пустые = нет пары.
             </p>
-            
             <div class="change-pairs-form">
                 <div class="change-pair-row">
                     <div class="change-pair-header">
@@ -1324,7 +871,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="modal-buttons">
                 <button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button>
                 <button class="btn btn-danger" id="delete-change-btn" onclick="deleteChange()" style="display: none;">Удалить</button>
@@ -1349,7 +895,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
-        // ============ ТЕМА ============
         function initTheme() {
             const saved = localStorage.getItem('theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -1361,19 +906,15 @@
             localStorage.setItem('theme', theme);
             const icon = document.getElementById('theme-icon');
             if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-            const meta = document.getElementById('theme-color-meta');
-            if (meta) meta.content = theme === 'dark' ? '#0a0a0f' : '#ffffff';
             document.querySelector('.safe-area-top').style.background = theme === 'dark' ? '#12121a' : '#ffffff';
         }
         
         function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            setTheme(current === 'dark' ? 'light' : 'dark');
+            setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         }
         
         initTheme();
         
-        // ============ FIREBASE ============
         const firebaseConfig = {
             apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
             authDomain: "my-diary-e223c.firebaseapp.com",
@@ -1393,12 +934,8 @@
         const DAYS_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
         const DAYS_FULL = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         
-        let currentUser = null;
-        let isAdmin = false;
-        let isGuest = false;
-        let schedule = { upper: {}, lower: {} };
-        let homeworkList = [];
-        let changesList = [];
+        let currentUser = null, isAdmin = false, isGuest = false;
+        let schedule = { upper: {}, lower: {} }, homeworkList = [], changesList = [];
         let settings = {
             weekStartDate: null,
             pairTimes: [
@@ -1413,7 +950,6 @@
         let viewWeekStart = getMonday(new Date());
         let deferredPrompt = null;
         
-        // ============ PWA ============
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -1436,7 +972,6 @@
             localStorage.setItem('installPromptDismissed', 'true');
         }
         
-        // ============ ДАТЫ ============
         function getMonday(date) {
             const d = new Date(date);
             d.setHours(12, 0, 0, 0);
@@ -1465,11 +1000,9 @@
         }
         
         function formatHeaderDate(date) {
-            const d = new Date(date);
-            return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' });
+            return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' });
         }
         
-        // ============ АВТОРИЗАЦИЯ ============
         auth.onAuthStateChanged(user => {
             if (user) {
                 currentUser = user;
@@ -1523,18 +1056,12 @@
             document.getElementById('changes-nav').style.display = isAdmin ? 'inline-block' : 'none';
             document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email?.split('@')[0] || '');
             
-            // Скрыть навигацию для гостей (у них только одна вкладка)
             const nav = document.getElementById('main-nav');
-            if (isGuest || !isAdmin) {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
-            }
+            nav.classList.toggle('hidden', !isAdmin);
             
             init();
         }
         
-        // ============ ИНИЦИАЛИЗАЦИЯ ============
         function init() {
             setupNavigation();
             loadData();
@@ -1557,38 +1084,19 @@
             db.ref('settings').on('value', snap => {
                 if (snap.val()) {
                     settings = { ...settings, ...snap.val() };
-                    if (settings.weekStartDate) {
-                        document.getElementById('week-start-date').value = settings.weekStartDate;
-                    }
+                    if (settings.weekStartDate) document.getElementById('week-start-date').value = settings.weekStartDate;
                 }
                 updateAll();
                 updateHeaderInfo();
             });
             
-            db.ref('schedule').on('value', snap => {
-                schedule = snap.val() || { upper: {}, lower: {} };
-                renderDays();
-            });
+            db.ref('schedule').on('value', snap => { schedule = snap.val() || { upper: {}, lower: {} }; renderDays(); });
+            db.ref('homework').on('value', snap => { const data = snap.val(); homeworkList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []; renderDays(); });
+            db.ref('changes').on('value', snap => { const data = snap.val(); changesList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []; renderDays(); renderChanges(); });
             
-            db.ref('homework').on('value', snap => {
-                const data = snap.val();
-                homeworkList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
-                renderDays();
-            });
-            
-            db.ref('changes').on('value', snap => {
-                const data = snap.val();
-                changesList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
-                renderDays();
-                renderChanges();
-            });
-            
-            document.getElementById('week-start-date').addEventListener('change', e => {
-                if (isAdmin) db.ref('settings/weekStartDate').set(e.target.value);
-            });
+            document.getElementById('week-start-date').addEventListener('change', e => { if (isAdmin) db.ref('settings/weekStartDate').set(e.target.value); });
         }
         
-        // ============ HEADER INFO ============
         function updateHeaderInfo() {
             const today = new Date();
             const weekType = getWeekType(getMonday(today));
@@ -1596,11 +1104,10 @@
             document.getElementById('header-date').textContent = formatHeaderDate(today);
             
             const weekEl = document.getElementById('header-week');
-            weekEl.textContent = weekType === 'upper' ? '☀️ Верхняя неделя' : '🌙 Нижняя неделя';
+            weekEl.textContent = weekType === 'upper' ? '☀️ Верхняя' : '🌙 Нижняя';
             weekEl.className = 'header-week ' + weekType;
         }
         
-        // ============ НЕДЕЛЯ ============
         function getWeekType(mondayDate) {
             if (!settings.weekStartDate) {
                 const start = new Date(mondayDate.getFullYear(), 0, 1);
@@ -1609,21 +1116,25 @@
             }
             const startDate = getMonday(parseDateKey(settings.weekStartDate));
             const diffDays = Math.round((mondayDate - startDate) / (24 * 60 * 60 * 1000));
-            const diffWeeks = Math.floor(diffDays / 7);
-            return diffWeeks % 2 === 0 ? 'upper' : 'lower';
+            return Math.floor(diffDays / 7) % 2 === 0 ? 'upper' : 'lower';
         }
         
         function updateWeekNavigator() {
             const weekEnd = new Date(viewWeekStart);
             weekEnd.setDate(weekEnd.getDate() + 5);
+            const weekType = getWeekType(viewWeekStart);
+            
             document.getElementById('week-range').textContent = `${formatDateShort(viewWeekStart)} — ${formatDateShort(weekEnd)}`;
+            
+            const typeEl = document.getElementById('week-type');
+            typeEl.textContent = weekType === 'upper' ? '☀️ Верхняя неделя' : '🌙 Нижняя неделя';
+            typeEl.className = 'week-dates-type ' + weekType;
         }
         
         function prevWeek() { viewWeekStart.setDate(viewWeekStart.getDate() - 7); updateAll(); }
         function nextWeek() { viewWeekStart.setDate(viewWeekStart.getDate() + 7); updateAll(); }
         function updateAll() { updateWeekNavigator(); renderDays(); }
         
-        // ============ РЕНДЕР ============
         function renderDays() {
             const grid = document.getElementById('days-grid');
             const weekType = getWeekType(viewWeekStart);
@@ -1704,10 +1215,12 @@
                 <div class="lesson-homework ${hw.done ? 'done' : ''}" onclick="event.stopPropagation();">
                     <div class="lesson-homework-header">
                         <span class="lesson-homework-title">📝 Домашка</span>
-                        <div>
-                            <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleHW('${hw.id}')">${hw.done ? '↩' : '✓'}</button>
-                            ${isAdmin ? `<button class="btn btn-xs btn-danger" onclick="deleteHW('${hw.id}')">✕</button>` : ''}
-                        </div>
+                        ${isAdmin ? `
+                            <div>
+                                <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleHW('${hw.id}')">${hw.done ? '↩' : '✓'}</button>
+                                <button class="btn btn-xs btn-danger" onclick="deleteHW('${hw.id}')">✕</button>
+                            </div>
+                        ` : ''}
                     </div>
                     <div class="lesson-homework-text">${escapeHtml(hw.task)}</div>
                 </div>
@@ -1754,7 +1267,6 @@
             return html || '<div style="color: var(--text-muted); padding: 10px;">Пар нет</div>';
         }
         
-        // ============ МОДАЛКИ ============
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         
@@ -1785,10 +1297,7 @@
         
         function deleteLesson() {
             if (!isAdmin) return;
-            const day = document.getElementById('edit-day').value;
-            const pair = document.getElementById('edit-pair').value;
-            const week = document.getElementById('edit-week').value;
-            db.ref(`schedule/${week}/${day}/${pair}`).remove();
+            db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();
             closeModal('lesson-modal');
         }
         
@@ -1803,12 +1312,14 @@
         
         function saveHomework() {
             if (!isAdmin) return;
-            const date = document.getElementById('hw-date').value;
-            const pair = parseInt(document.getElementById('hw-pair').value);
-            const subject = document.getElementById('hw-subject').value;
             const task = document.getElementById('hw-task').value.trim();
             if (!task) { alert('Введите задание'); return; }
-            db.ref('homework').push({ date, pair, subject, task, done: false, created: new Date().toISOString() });
+            db.ref('homework').push({
+                date: document.getElementById('hw-date').value,
+                pair: parseInt(document.getElementById('hw-pair').value),
+                subject: document.getElementById('hw-subject').value,
+                task, done: false, created: new Date().toISOString()
+            });
             closeModal('homework-modal');
         }
         
@@ -1899,10 +1410,7 @@
             if (!isAdmin) return;
             const times = [];
             for (let i = 0; i < 5; i++) {
-                times.push({
-                    start: document.getElementById(`time-start-${i}`).value,
-                    end: document.getElementById(`time-end-${i}`).value
-                });
+                times.push({ start: document.getElementById(`time-start-${i}`).value, end: document.getElementById(`time-end-${i}`).value });
             }
             db.ref('settings/pairTimes').set(times);
             closeModal('times-modal');
