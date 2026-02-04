@@ -2,33 +2,70 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дневник техникума</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Дневник</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Дневник">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="description" content="Дневник техникума">
+    
+    <!-- Иконки для iOS -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236366f1' width='100' height='100' rx='20'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>📚</text></svg>">
+    
+    <!-- Manifest для Android -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        &quot;name&quot;: &quot;Дневник техникума&quot;,
+        &quot;short_name&quot;: &quot;Дневник&quot;,
+        &quot;start_url&quot;: &quot;.&quot;,
+        &quot;display&quot;: &quot;standalone&quot;,
+        &quot;background_color&quot;: &quot;%230a0a0f&quot;,
+        &quot;theme_color&quot;: &quot;%236366f1&quot;,
+        &quot;icons&quot;: [{
+            &quot;src&quot;: &quot;data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236366f1' width='100' height='100' rx='20'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>📚</text></svg>&quot;,
+            &quot;sizes&quot;: &quot;192x192&quot;,
+            &quot;type&quot;: &quot;image/svg+xml&quot;
+        }]
+    }">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #0a0a0f;
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             color: #fff;
+            -webkit-font-smoothing: antialiased;
         }
         
+        html {
+            height: -webkit-fill-available;
+        }
+        
+        /* Safe area для iPhone с чёлкой */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
         }
         
         header {
             background: linear-gradient(135deg, #12121a 0%, #0a0a0f 100%);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             padding: 15px 20px;
+            padding-top: calc(15px + env(safe-area-inset-top));
             position: sticky;
             top: 0;
             z-index: 100;
@@ -102,6 +139,7 @@
             font-size: 0.9em;
             transition: all 0.2s;
             font-family: inherit;
+            touch-action: manipulation;
         }
         
         .btn-primary {
@@ -134,6 +172,10 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
         
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
         .btn-sm {
             padding: 6px 12px;
             font-size: 0.8em;
@@ -145,13 +187,13 @@
         }
         
         .btn-icon {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1.2em;
             background: rgba(255,255,255,0.1);
             color: #fff;
@@ -164,12 +206,16 @@
             background: rgba(255,255,255,0.2);
         }
         
+        .btn-icon:active {
+            transform: scale(0.95);
+        }
+        
         .week-navigator {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            padding: 25px;
+            gap: 15px;
+            padding: 20px;
             background: rgba(255,255,255,0.02);
             border-radius: 16px;
             margin-bottom: 25px;
@@ -178,11 +224,11 @@
         
         .week-dates {
             text-align: center;
-            min-width: 200px;
+            min-width: 180px;
         }
         
         .week-dates-range {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: 700;
             margin-bottom: 5px;
         }
@@ -210,20 +256,25 @@
             gap: 8px;
             margin-bottom: 25px;
             flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
         }
         
         .nav-btn {
-            padding: 12px 24px;
+            padding: 12px 20px;
             border: none;
             background: rgba(255,255,255,0.03);
             color: rgba(255,255,255,0.7);
             border-radius: 12px;
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 500;
             transition: all 0.2s;
             font-family: inherit;
             border: 1px solid rgba(255,255,255,0.05);
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .nav-btn:hover {
@@ -254,7 +305,7 @@
         .days-grid {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
         
         .day-block {
@@ -282,17 +333,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
+            padding: 14px 16px;
             background: rgba(255,255,255,0.03);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         
         .day-title {
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .day-title .date {
@@ -303,50 +354,54 @@
         
         .day-badges {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
         
         .today-label {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: #fff;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
             font-weight: 600;
         }
         
         .changes-label {
             background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
             color: #000;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
             font-weight: 600;
         }
         
         .day-content {
-            padding: 12px;
+            padding: 10px;
         }
         
         .lessons-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         
         .lesson-row {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 12px;
+            gap: 10px;
+            padding: 10px;
             background: rgba(255,255,255,0.03);
-            border-radius: 12px;
+            border-radius: 10px;
             transition: all 0.2s;
             cursor: pointer;
         }
         
         .lesson-row:hover {
             background: rgba(255,255,255,0.06);
+        }
+        
+        .lesson-row:active {
+            background: rgba(255,255,255,0.08);
         }
         
         .lesson-row.empty {
@@ -363,25 +418,25 @@
         }
         
         .lesson-number {
-            width: 50px;
+            width: 44px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8px;
+            padding: 6px;
             background: rgba(99, 102, 241, 0.15);
-            border-radius: 10px;
+            border-radius: 8px;
             flex-shrink: 0;
         }
         
         .lesson-num {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: 700;
             color: #8b5cf6;
         }
         
         .lesson-time {
-            font-size: 0.65em;
+            font-size: 0.6em;
             color: rgba(255,255,255,0.4);
             margin-top: 2px;
         }
@@ -394,22 +449,22 @@
         .lesson-name-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 4px;
             flex-wrap: wrap;
         }
         
         .lesson-name {
             font-weight: 600;
-            font-size: 1em;
+            font-size: 0.95em;
         }
         
         .lesson-details {
             display: flex;
-            gap: 15px;
-            font-size: 0.85em;
+            gap: 12px;
+            font-size: 0.8em;
             color: rgba(255,255,255,0.5);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             flex-wrap: wrap;
         }
         
@@ -420,11 +475,12 @@
         .lesson-empty-text {
             color: rgba(255,255,255,0.3);
             font-style: italic;
+            font-size: 0.9em;
         }
         
         .lesson-homework {
             margin-top: 8px;
-            padding: 10px 12px;
+            padding: 10px;
             background: rgba(99, 102, 241, 0.1);
             border-radius: 8px;
             border-left: 3px solid #6366f1;
@@ -438,7 +494,7 @@
         }
         
         .lesson-homework-title {
-            font-size: 0.75em;
+            font-size: 0.7em;
             color: #8b5cf6;
             font-weight: 600;
             text-transform: uppercase;
@@ -446,7 +502,7 @@
         }
         
         .lesson-homework-text {
-            font-size: 0.9em;
+            font-size: 0.85em;
             line-height: 1.4;
         }
         
@@ -460,23 +516,18 @@
         }
         
         .add-hw-btn {
-            padding: 4px 10px;
+            padding: 4px 8px;
             background: rgba(99, 102, 241, 0.2);
             border: none;
             color: #8b5cf6;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.8em;
+            font-size: 0.75em;
             font-weight: 600;
-            opacity: 0;
             transition: all 0.2s;
         }
         
-        .lesson-row:hover .add-hw-btn {
-            opacity: 1;
-        }
-        
-        .add-hw-btn:hover {
+        .add-hw-btn:active {
             background: #6366f1;
             color: #fff;
         }
@@ -484,7 +535,7 @@
         .changes-wrapper {
             background: rgba(255,255,255,0.02);
             border-radius: 16px;
-            padding: 25px;
+            padding: 20px;
             border: 1px solid rgba(255,255,255,0.05);
         }
         
@@ -498,7 +549,7 @@
         }
         
         .section-title {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -508,14 +559,14 @@
         .changes-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
         .change-card {
             background: rgba(245, 158, 11, 0.1);
             border: 1px solid rgba(245, 158, 11, 0.2);
             border-radius: 12px;
-            padding: 16px;
+            padding: 14px;
         }
         
         .change-header {
@@ -523,11 +574,13 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .change-date {
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1em;
             color: #fbbf24;
         }
         
@@ -540,45 +593,48 @@
         .change-lesson-row {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             padding: 10px;
             background: rgba(0,0,0,0.2);
             border-radius: 8px;
         }
         
         .change-pair-num {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             background: rgba(245, 158, 11, 0.3);
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             color: #fbbf24;
+            font-size: 0.9em;
             flex-shrink: 0;
         }
         
         .change-lesson-info {
             flex: 1;
+            min-width: 0;
         }
         
         .change-lesson-name {
             font-weight: 600;
+            font-size: 0.95em;
         }
         
         .change-lesson-details {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: rgba(255,255,255,0.5);
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         
         .settings-wrapper {
             background: rgba(255,255,255,0.02);
             border-radius: 16px;
-            padding: 25px;
+            padding: 20px;
             border: 1px solid rgba(255,255,255,0.05);
         }
         
@@ -586,30 +642,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
             background: rgba(255,255,255,0.03);
             border-radius: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
         }
         
         .setting-info h4 {
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            font-size: 0.95em;
         }
         
         .setting-info p {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: rgba(255,255,255,0.4);
         }
         
         .setting-input {
-            padding: 10px 15px;
+            padding: 10px 14px;
             border: 1px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
             color: #fff;
             font-family: inherit;
+            font-size: 0.95em;
         }
         
         .modal-overlay {
@@ -624,7 +682,9 @@
             align-items: flex-start;
             justify-content: center;
             padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top));
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .modal-overlay.active {
@@ -634,9 +694,9 @@
         .modal {
             background: #16161f;
             border-radius: 20px;
-            padding: 30px;
+            padding: 24px;
             width: 100%;
-            max-width: 550px;
+            max-width: 500px;
             border: 1px solid rgba(255,255,255,0.1);
             animation: modalIn 0.3s ease;
             margin: auto;
@@ -648,31 +708,32 @@
         }
         
         .modal h3 {
-            margin-bottom: 25px;
-            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-size: 1.15em;
         }
         
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: rgba(255,255,255,0.6);
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px 14px;
             border: 1px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
             color: #fff;
             font-size: 1em;
             font-family: inherit;
+            -webkit-appearance: none;
         }
         
         .form-group textarea {
@@ -689,7 +750,7 @@
         .modal-buttons {
             display: flex;
             gap: 10px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
         
         .modal-buttons .btn {
@@ -699,7 +760,7 @@
         .change-pairs-form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-top: 15px;
         }
         
@@ -712,21 +773,21 @@
         .change-pair-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 10px;
         }
         
         .change-pair-num-badge {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             background: rgba(245, 158, 11, 0.3);
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             color: #fbbf24;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
         
         .change-pair-inputs {
@@ -737,14 +798,15 @@
         
         .change-pair-inputs input {
             flex: 1;
-            min-width: 100px;
-            padding: 10px 12px;
+            min-width: 80px;
+            padding: 10px;
             border: 1px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05);
             border-radius: 8px;
             color: #fff;
             font-size: 0.9em;
             font-family: inherit;
+            -webkit-appearance: none;
         }
         
         .change-pair-inputs input:focus {
@@ -758,31 +820,39 @@
         
         .login-screen {
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top));
         }
         
         .login-container {
             width: 100%;
-            max-width: 400px;
-            padding: 40px;
+            max-width: 380px;
+            padding: 32px;
             background: rgba(255,255,255,0.02);
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.05);
         }
         
+        .login-logo {
+            text-align: center;
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+        
         .login-container h2 {
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 1.8em;
+            margin-bottom: 8px;
+            font-size: 1.6em;
         }
         
         .login-subtitle {
             text-align: center;
             color: rgba(255,255,255,0.5);
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
         
         .login-error {
@@ -806,7 +876,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            margin: 25px 0;
+            margin: 24px 0;
             color: rgba(255,255,255,0.3);
             font-size: 0.85em;
         }
@@ -821,23 +891,87 @@
         
         .no-items {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
             color: rgba(255,255,255,0.3);
         }
         
-        @media (max-width: 600px) {
+        /* Install prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: calc(20px + env(safe-area-inset-bottom));
+            background: linear-gradient(135deg, #1a1a2e 0%, #16161f 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .install-prompt.show {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .install-prompt-icon {
+            font-size: 2em;
+        }
+        
+        .install-prompt-text {
+            flex: 1;
+        }
+        
+        .install-prompt-text h4 {
+            font-size: 0.95em;
+            margin-bottom: 2px;
+        }
+        
+        .install-prompt-text p {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .install-prompt-close {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        @media (max-width: 500px) {
             .header-content {
                 justify-content: center;
                 text-align: center;
             }
             
+            .header-right {
+                width: 100%;
+                justify-content: center;
+            }
+            
             .week-navigator {
-                flex-direction: column;
-                gap: 15px;
+                padding: 16px;
+                gap: 10px;
+            }
+            
+            .week-dates-range {
+                font-size: 1.1em;
             }
             
             .lesson-row {
-                flex-wrap: wrap;
+                padding: 8px;
             }
             
             .change-pair-inputs {
@@ -847,24 +981,34 @@
             .change-pair-inputs input {
                 width: 100%;
             }
+            
+            .modal {
+                padding: 20px;
+            }
+            
+            .setting-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
     <div id="login-screen" class="login-screen">
         <div class="login-container">
-            <h2>📚 Дневник</h2>
+            <div class="login-logo">📚</div>
+            <h2>Дневник</h2>
             <p class="login-subtitle">Техникум</p>
             
             <div class="login-error" id="login-error" style="display: none;"></div>
             
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" id="login-email" placeholder="admin@example.com">
+                <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email">
             </div>
             <div class="form-group">
                 <label>Пароль</label>
-                <input type="password" id="login-password" placeholder="••••••••">
+                <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
             </div>
             <button class="btn btn-primary" onclick="login()">Войти</button>
             
@@ -913,7 +1057,7 @@
             <div class="section" id="changes">
                 <div class="changes-wrapper">
                     <div class="section-header">
-                        <h2 class="section-title">📝 Изменения в расписании</h2>
+                        <h2 class="section-title">📝 Изменения</h2>
                         <button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button>
                     </div>
                     <div class="changes-list" id="changes-list"></div>
@@ -922,12 +1066,12 @@
             
             <div class="section" id="settings">
                 <div class="settings-wrapper">
-                    <h2 class="section-title" style="margin-bottom: 25px;">⚙️ Настройки</h2>
+                    <h2 class="section-title" style="margin-bottom: 20px;">⚙️ Настройки</h2>
                     
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Начало отсчёта недель</h4>
-                            <p>Дата понедельника верхней недели</p>
+                            <p>Понедельник верхней недели</p>
                         </div>
                         <input type="date" class="setting-input" id="week-start-date">
                     </div>
@@ -943,13 +1087,24 @@
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Очистить всё</h4>
-                            <p>Удалить расписание и домашку</p>
+                            <p>Удалить все данные</p>
                         </div>
                         <button class="btn btn-danger" onclick="clearAllData()">Очистить</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Install prompt -->
+    <div class="install-prompt" id="install-prompt">
+        <div class="install-prompt-icon">📲</div>
+        <div class="install-prompt-text">
+            <h4>Добавить на экран</h4>
+            <p>Установи как приложение</p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="installApp()">Добавить</button>
+        <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
     </div>
     
     <div class="modal-overlay" id="lesson-modal">
@@ -988,7 +1143,7 @@
             
             <div class="form-group">
                 <label>Предмет</label>
-                <input type="text" id="hw-subject" placeholder="Математика" readonly style="opacity: 0.7;">
+                <input type="text" id="hw-subject" readonly style="opacity: 0.7;">
             </div>
             <div class="form-group">
                 <label>Задание</label>
@@ -1008,67 +1163,67 @@
             <input type="hidden" id="change-edit-id">
             
             <div class="form-group">
-                <label>Дата изменения</label>
+                <label>Дата</label>
                 <input type="date" id="change-date">
             </div>
             
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.85em; margin-bottom: 15px;">
-                Заполните только те пары, которые будут в этот день. Пустые поля = нет пары.
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.8em; margin-bottom: 12px;">
+                Заполни только те пары, которые будут. Пустые = нет пары.
             </p>
             
             <div class="change-pairs-form" id="change-pairs-form">
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">1</span>
-                        <span style="font-weight: 500;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p1-name" placeholder="Предмет">
-                        <input type="text" id="change-p1-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p1-room" placeholder="Каб." style="max-width: 70px;">
                         <input type="text" id="change-p1-teacher" placeholder="Преподаватель">
                     </div>
                 </div>
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">2</span>
-                        <span style="font-weight: 500;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p2-name" placeholder="Предмет">
-                        <input type="text" id="change-p2-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p2-room" placeholder="Каб." style="max-width: 70px;">
                         <input type="text" id="change-p2-teacher" placeholder="Преподаватель">
                     </div>
                 </div>
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">3</span>
-                        <span style="font-weight: 500;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p3-name" placeholder="Предмет">
-                        <input type="text" id="change-p3-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p3-room" placeholder="Каб." style="max-width: 70px;">
                         <input type="text" id="change-p3-teacher" placeholder="Преподаватель">
                     </div>
                 </div>
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">4</span>
-                        <span style="font-weight: 500;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p4-name" placeholder="Предмет">
-                        <input type="text" id="change-p4-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p4-room" placeholder="Каб." style="max-width: 70px;">
                         <input type="text" id="change-p4-teacher" placeholder="Преподаватель">
                     </div>
                 </div>
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">5</span>
-                        <span style="font-weight: 500;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p5-name" placeholder="Предмет">
-                        <input type="text" id="change-p5-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p5-room" placeholder="Каб." style="max-width: 70px;">
                         <input type="text" id="change-p5-teacher" placeholder="Преподаватель">
                     </div>
                 </div>
@@ -1112,9 +1267,10 @@
         const auth = firebase.auth();
         const db = firebase.database();
         
-        const ADMIN_UIDS = [
-            "zFKU6TAgIuhZetCOuWpHvDDw6Oj2"
-        ];
+        // Сохранение сессии на 7 дней
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        
+        const ADMIN_UIDS = ["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
         
         const DAYS_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
         const DAYS_FULL = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
@@ -1138,20 +1294,46 @@
         };
         
         let viewWeekStart = getMonday(new Date());
+        let deferredPrompt = null;
         
-        // ============ ИСПРАВЛЕННЫЕ ФУНКЦИИ ДАТ ============
+        // ============ PWA INSTALL ============
         
-        // Получить понедельник недели (без проблем с часовыми поясами)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => {
+                if (!localStorage.getItem('installPromptDismissed')) {
+                    document.getElementById('install-prompt').classList.add('show');
+                }
+            }, 3000);
+        });
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                    deferredPrompt = null;
+                    hideInstallPrompt();
+                });
+            }
+        }
+        
+        function hideInstallPrompt() {
+            document.getElementById('install-prompt').classList.remove('show');
+            localStorage.setItem('installPromptDismissed', 'true');
+        }
+        
+        // ============ ДАТЫ ============
+        
         function getMonday(date) {
             const d = new Date(date);
-            d.setHours(12, 0, 0, 0); // Устанавливаем полдень, чтобы избежать проблем с часовыми поясами
+            d.setHours(12, 0, 0, 0);
             const day = d.getDay();
             const diff = d.getDate() - day + (day === 0 ? -6 : 1);
             d.setDate(diff);
             return d;
         }
         
-        // Форматировать дату как YYYY-MM-DD (локальная дата, не UTC!)
         function formatDateKey(date) {
             const d = new Date(date);
             const year = d.getFullYear();
@@ -1160,7 +1342,6 @@
             return `${year}-${month}-${day}`;
         }
         
-        // Парсить дату из YYYY-MM-DD (возвращает локальную дату)
         function parseDateKey(dateStr) {
             const [year, month, day] = dateStr.split('-').map(Number);
             return new Date(year, month - 1, day, 12, 0, 0);
@@ -1173,8 +1354,7 @@
         
         function formatDateFull(date) {
             const d = new Date(date);
-            const options = { weekday: 'long', day: 'numeric', month: 'long' };
-            return d.toLocaleDateString('ru-RU', options);
+            return d.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
         }
         
         // ============ АВТОРИЗАЦИЯ ============
@@ -1185,8 +1365,12 @@
                 isAdmin = ADMIN_UIDS.includes(user.uid);
                 isGuest = false;
                 showApp();
-            } else if (isGuest) {
-                showApp();
+            } else {
+                // Проверяем гостевую сессию
+                if (localStorage.getItem('guestSession')) {
+                    isGuest = true;
+                    showApp();
+                }
             }
         });
         
@@ -1213,10 +1397,12 @@
             isGuest = true;
             isAdmin = false;
             currentUser = null;
+            localStorage.setItem('guestSession', 'true');
             showApp();
         }
         
         function logout() {
+            localStorage.removeItem('guestSession');
             auth.signOut().then(() => {
                 isGuest = false;
                 isAdmin = false;
@@ -1233,7 +1419,7 @@
             document.getElementById('admin-badge').style.display = isAdmin ? 'inline' : 'none';
             document.getElementById('settings-nav').style.display = isAdmin ? 'inline-block' : 'none';
             document.getElementById('changes-nav').style.display = isAdmin ? 'inline-block' : 'none';
-            document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email || '');
+            document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email?.split('@')[0] || '');
             
             init();
         }
@@ -1344,7 +1530,7 @@
             renderDays();
         }
         
-        // ============ РЕНДЕР ДНЕЙ ============
+        // ============ РЕНДЕР ============
         
         function renderDays() {
             const grid = document.getElementById('days-grid');
@@ -1363,11 +1549,8 @@
                 const dateKey = formatDateKey(dayDate);
                 const isToday = dateKey === todayKey;
                 
-                // Проверяем изменения на этот день
                 const dayChange = changesList.find(c => c.date === dateKey);
                 const hasChanges = !!dayChange;
-                
-                // Получаем уроки (с учётом изменений)
                 const dayLessons = hasChanges ? (dayChange.lessons || {}) : (weekData[dayKey] || {});
                 
                 html += `
@@ -1378,7 +1561,7 @@
                                 <span class="date">${formatDateShort(dayDate)}</span>
                             </div>
                             <div class="day-badges">
-                                ${hasChanges ? '<span class="changes-label">⚡ Изменения</span>' : ''}
+                                ${hasChanges ? '<span class="changes-label">⚡ Замена</span>' : ''}
                                 ${isToday ? '<span class="today-label">Сегодня</span>' : ''}
                             </div>
                         </div>
@@ -1401,11 +1584,7 @@
                 const lesson = lessons[pair];
                 const hasLesson = lesson && lesson.name;
                 const time = settings.pairTimes[pair - 1];
-                
-                // Находим домашку для этого дня и пары
-                const hwForLesson = homeworkList.filter(hw => 
-                    hw.date === dateKey && hw.pair === pair
-                );
+                const hwForLesson = homeworkList.filter(hw => hw.date === dateKey && hw.pair === pair);
                 
                 html += `
                     <div class="lesson-row ${hasLesson ? '' : 'empty'} ${hasChanges && hasLesson ? 'changed' : ''}" 
@@ -1418,18 +1597,14 @@
                             ${hasLesson ? `
                                 <div class="lesson-name-row">
                                     <span class="lesson-name">${escapeHtml(lesson.name)}</span>
-                                    ${isAdmin ? `
-                                        <button class="add-hw-btn" onclick="event.stopPropagation(); openHomeworkModal('${dateKey}', ${pair}, '${escapeHtml(lesson.name)}')" title="Добавить ДЗ">+ ДЗ</button>
-                                    ` : ''}
+                                    ${isAdmin ? `<button class="add-hw-btn" onclick="event.stopPropagation(); openHomeworkModal('${dateKey}', ${pair}, '${escapeHtml(lesson.name)}')">+ ДЗ</button>` : ''}
                                 </div>
                                 <div class="lesson-details">
                                     ${lesson.room ? `<span class="lesson-room">📍 ${escapeHtml(lesson.room)}</span>` : ''}
                                     ${lesson.teacher ? `<span>👤 ${escapeHtml(lesson.teacher)}</span>` : ''}
                                 </div>
                                 ${renderLessonHomework(hwForLesson)}
-                            ` : `
-                                <span class="lesson-empty-text">${isAdmin && !hasChanges ? 'Нажмите, чтобы добавить' : 'Нет пары'}</span>
-                            `}
+                            ` : `<span class="lesson-empty-text">${isAdmin && !hasChanges ? 'Добавить' : '—'}</span>`}
                         </div>
                     </div>
                 `;
@@ -1446,9 +1621,7 @@
                     <div class="lesson-homework-header">
                         <span class="lesson-homework-title">📝 Домашка</span>
                         <div>
-                            <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleHW('${hw.id}')">
-                                ${hw.done ? '↩' : '✓'}
-                            </button>
+                            <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleHW('${hw.id}')">${hw.done ? '↩' : '✓'}</button>
                             ${isAdmin ? `<button class="btn btn-xs btn-danger" onclick="deleteHW('${hw.id}')">✕</button>` : ''}
                         </div>
                     </div>
@@ -1457,42 +1630,35 @@
             `).join('');
         }
         
-        // ============ ИЗМЕНЕНИЯ ============
-        
         function renderChanges() {
             const list = document.getElementById('changes-list');
             
             if (changesList.length === 0) {
-                list.innerHTML = '<div class="no-items">Нет изменений в расписании</div>';
+                list.innerHTML = '<div class="no-items">Нет изменений</div>';
                 return;
             }
             
-            // Сортируем по дате
             const sorted = [...changesList].sort((a, b) => a.date.localeCompare(b.date));
             
             list.innerHTML = sorted.map(change => {
                 const date = parseDateKey(change.date);
-                const dateStr = formatDateFull(date);
-                
                 return `
                     <div class="change-card">
                         <div class="change-header">
-                            <span class="change-date">${dateStr}</span>
+                            <span class="change-date">${formatDateFull(date)}</span>
                             <div>
                                 <button class="btn btn-sm btn-secondary" onclick="editChange('${change.id}')">✏️</button>
                                 <button class="btn btn-sm btn-danger" onclick="deleteChangeById('${change.id}')">✕</button>
                             </div>
                         </div>
-                        <div class="change-lessons">
-                            ${renderChangeLessons(change.lessons)}
-                        </div>
+                        <div class="change-lessons">${renderChangeLessons(change.lessons)}</div>
                     </div>
                 `;
             }).join('');
         }
         
         function renderChangeLessons(lessons) {
-            if (!lessons) return '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Все пары отменены</div>';
+            if (!lessons) return '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Пар нет</div>';
             
             let html = '';
             for (let pair = 1; pair <= 5; pair++) {
@@ -1512,16 +1678,89 @@
                     `;
                 }
             }
-            return html || '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Все пары отменены</div>';
+            return html || '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Пар нет</div>';
+        }
+        
+        // ============ МОДАЛКИ ============
+        
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        function openLessonModal(day, pair, week) {
+            if (!isAdmin) return;
+            document.getElementById('edit-day').value = day;
+            document.getElementById('edit-pair').value = pair;
+            document.getElementById('edit-week').value = week;
+            
+            const lesson = schedule[week]?.[day]?.[pair] || {};
+            document.getElementById('lesson-name').value = lesson.name || '';
+            document.getElementById('lesson-room').value = lesson.room || '';
+            document.getElementById('lesson-teacher').value = lesson.teacher || '';
+            openModal('lesson-modal');
+        }
+        
+        function saveLesson() {
+            if (!isAdmin) return;
+            const day = document.getElementById('edit-day').value;
+            const pair = document.getElementById('edit-pair').value;
+            const week = document.getElementById('edit-week').value;
+            const name = document.getElementById('lesson-name').value.trim();
+            const room = document.getElementById('lesson-room').value.trim();
+            const teacher = document.getElementById('lesson-teacher').value.trim();
+            
+            if (name) {
+                db.ref(`schedule/${week}/${day}/${pair}`).set({ name, room, teacher });
+            } else {
+                db.ref(`schedule/${week}/${day}/${pair}`).remove();
+            }
+            closeModal('lesson-modal');
+        }
+        
+        function deleteLesson() {
+            if (!isAdmin) return;
+            const day = document.getElementById('edit-day').value;
+            const pair = document.getElementById('edit-pair').value;
+            const week = document.getElementById('edit-week').value;
+            db.ref(`schedule/${week}/${day}/${pair}`).remove();
+            closeModal('lesson-modal');
+        }
+        
+        function openHomeworkModal(dateKey, pair, subject) {
+            if (!isAdmin) return;
+            document.getElementById('hw-date').value = dateKey;
+            document.getElementById('hw-pair').value = pair;
+            document.getElementById('hw-subject').value = subject;
+            document.getElementById('hw-task').value = '';
+            openModal('homework-modal');
+        }
+        
+        function saveHomework() {
+            if (!isAdmin) return;
+            const date = document.getElementById('hw-date').value;
+            const pair = parseInt(document.getElementById('hw-pair').value);
+            const subject = document.getElementById('hw-subject').value;
+            const task = document.getElementById('hw-task').value.trim();
+            
+            if (!task) { alert('Введите задание'); return; }
+            
+            db.ref('homework').push({ date, pair, subject, task, done: false, created: new Date().toISOString() });
+            closeModal('homework-modal');
+        }
+        
+        function toggleHW(id) {
+            const hw = homeworkList.find(h => h.id === id);
+            if (hw) db.ref(`homework/${id}/done`).set(!hw.done);
+        }
+        
+        function deleteHW(id) {
+            if (!isAdmin) return;
+            if (confirm('Удалить?')) db.ref(`homework/${id}`).remove();
         }
         
         function openChangeModal(editId = null) {
             if (!isAdmin) return;
-            
             document.getElementById('change-edit-id').value = editId || '';
             document.getElementById('delete-change-btn').style.display = editId ? 'block' : 'none';
-            
-            // Очищаем форму
             document.getElementById('change-date').value = '';
             for (let i = 1; i <= 5; i++) {
                 document.getElementById(`change-p${i}-name`).value = '';
@@ -1529,7 +1768,6 @@
                 document.getElementById(`change-p${i}-teacher`).value = '';
             }
             
-            // Если редактирование, заполняем данные
             if (editId) {
                 const change = changesList.find(c => c.id === editId);
                 if (change) {
@@ -1546,194 +1784,57 @@
                     }
                 }
             }
-            
             openModal('change-modal');
         }
         
-        function editChange(id) {
-            openChangeModal(id);
-        }
+        function editChange(id) { openChangeModal(id); }
         
         function saveChange() {
             if (!isAdmin) return;
-            
             const editId = document.getElementById('change-edit-id').value;
             const date = document.getElementById('change-date').value;
-            
-            if (!date) {
-                alert('Выберите дату');
-                return;
-            }
+            if (!date) { alert('Выберите дату'); return; }
             
             const lessons = {};
-            let hasAnyLesson = false;
-            
+            let hasAny = false;
             for (let i = 1; i <= 5; i++) {
                 const name = document.getElementById(`change-p${i}-name`).value.trim();
                 const room = document.getElementById(`change-p${i}-room`).value.trim();
                 const teacher = document.getElementById(`change-p${i}-teacher`).value.trim();
-                
-                if (name) {
-                    lessons[i] = { name, room, teacher };
-                    hasAnyLesson = true;
-                }
+                if (name) { lessons[i] = { name, room, teacher }; hasAny = true; }
             }
             
-            const changeData = { date, lessons: hasAnyLesson ? lessons : null };
-            
-            if (editId) {
-                db.ref(`changes/${editId}`).set(changeData);
-            } else {
-                db.ref('changes').push(changeData);
-            }
-            
+            const data = { date, lessons: hasAny ? lessons : null };
+            if (editId) db.ref(`changes/${editId}`).set(data);
+            else db.ref('changes').push(data);
             closeModal('change-modal');
         }
         
         function deleteChange() {
-            const editId = document.getElementById('change-edit-id').value;
-            if (editId) {
-                deleteChangeById(editId);
-                closeModal('change-modal');
-            }
+            const id = document.getElementById('change-edit-id').value;
+            if (id) { deleteChangeById(id); closeModal('change-modal'); }
         }
         
         function deleteChangeById(id) {
             if (!isAdmin) return;
-            if (confirm('Удалить изменение?')) {
-                db.ref(`changes/${id}`).remove();
-            }
+            if (confirm('Удалить?')) db.ref(`changes/${id}`).remove();
         }
-        
-        // ============ МОДАЛКИ ============
-        
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
-        
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-        
-        function openLessonModal(day, pair, week) {
-            if (!isAdmin) return;
-            
-            document.getElementById('edit-day').value = day;
-            document.getElementById('edit-pair').value = pair;
-            document.getElementById('edit-week').value = week;
-            
-            const lesson = schedule[week]?.[day]?.[pair] || {};
-            document.getElementById('lesson-name').value = lesson.name || '';
-            document.getElementById('lesson-room').value = lesson.room || '';
-            document.getElementById('lesson-teacher').value = lesson.teacher || '';
-            
-            openModal('lesson-modal');
-        }
-        
-        function saveLesson() {
-            if (!isAdmin) return;
-            
-            const day = document.getElementById('edit-day').value;
-            const pair = document.getElementById('edit-pair').value;
-            const week = document.getElementById('edit-week').value;
-            
-            const name = document.getElementById('lesson-name').value.trim();
-            const room = document.getElementById('lesson-room').value.trim();
-            const teacher = document.getElementById('lesson-teacher').value.trim();
-            
-            if (name) {
-                db.ref(`schedule/${week}/${day}/${pair}`).set({ name, room, teacher });
-            } else {
-                db.ref(`schedule/${week}/${day}/${pair}`).remove();
-            }
-            
-            closeModal('lesson-modal');
-        }
-        
-        function deleteLesson() {
-            if (!isAdmin) return;
-            
-            const day = document.getElementById('edit-day').value;
-            const pair = document.getElementById('edit-pair').value;
-            const week = document.getElementById('edit-week').value;
-            
-            db.ref(`schedule/${week}/${day}/${pair}`).remove();
-            closeModal('lesson-modal');
-        }
-        
-        // ============ ДОМАШКА ============
-        
-        function openHomeworkModal(dateKey, pair, subject) {
-            if (!isAdmin) return;
-            
-            document.getElementById('hw-date').value = dateKey;
-            document.getElementById('hw-pair').value = pair;
-            document.getElementById('hw-subject').value = subject;
-            document.getElementById('hw-task').value = '';
-            
-            openModal('homework-modal');
-        }
-        
-        function saveHomework() {
-            if (!isAdmin) return;
-            
-            const date = document.getElementById('hw-date').value;
-            const pair = parseInt(document.getElementById('hw-pair').value);
-            const subject = document.getElementById('hw-subject').value;
-            const task = document.getElementById('hw-task').value.trim();
-            
-            if (!task) {
-                alert('Введите задание');
-                return;
-            }
-            
-            db.ref('homework').push({
-                date,
-                pair,
-                subject,
-                task,
-                done: false,
-                created: new Date().toISOString()
-            });
-            
-            closeModal('homework-modal');
-        }
-        
-        function toggleHW(id) {
-            const hw = homeworkList.find(h => h.id === id);
-            if (hw) {
-                db.ref(`homework/${id}/done`).set(!hw.done);
-            }
-        }
-        
-        function deleteHW(id) {
-            if (!isAdmin) return;
-            if (confirm('Удалить домашку?')) {
-                db.ref(`homework/${id}`).remove();
-            }
-        }
-        
-        // ============ НАСТРОЙКИ ============
         
         function openTimesModal() {
             if (!isAdmin) return;
-            
-            const form = document.getElementById('times-form');
-            form.innerHTML = settings.pairTimes.map((t, i) => `
+            document.getElementById('times-form').innerHTML = settings.pairTimes.map((t, i) => `
                 <div class="form-group" style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
-                    <span style="min-width: 55px; font-weight: 500;">${i + 1} пара</span>
+                    <span style="min-width: 50px; font-weight: 500;">${i + 1} пара</span>
                     <input type="time" id="time-start-${i}" value="${t.start}" class="setting-input" style="flex: 1;">
                     <span style="color: rgba(255,255,255,0.3);">—</span>
                     <input type="time" id="time-end-${i}" value="${t.end}" class="setting-input" style="flex: 1;">
                 </div>
             `).join('');
-            
             openModal('times-modal');
         }
         
         function savePairTimes() {
             if (!isAdmin) return;
-            
             const times = [];
             for (let i = 0; i < 5; i++) {
                 times.push({
@@ -1747,14 +1848,12 @@
         
         function clearAllData() {
             if (!isAdmin) return;
-            if (confirm('Удалить ВСЁ? Это нельзя отменить!')) {
+            if (confirm('Удалить ВСЁ?')) {
                 db.ref('schedule').remove();
                 db.ref('homework').remove();
                 db.ref('changes').remove();
             }
         }
-        
-        // ============ УТИЛИТЫ ============
         
         function escapeHtml(text) {
             if (!text) return '';
@@ -1763,18 +1862,12 @@
             return div.innerHTML;
         }
         
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', e => {
-                if (e.target === overlay) overlay.classList.remove('active');
-            });
+        document.querySelectorAll('.modal-overlay').forEach(o => {
+            o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); });
         });
         
-        document.getElementById('login-password').addEventListener('keypress', e => {
-            if (e.key === 'Enter') login();
-        });
-        document.getElementById('login-email').addEventListener('keypress', e => {
-            if (e.key === 'Enter') document.getElementById('login-password').focus();
-        });
+        document.getElementById('login-password').addEventListener('keypress', e => { if (e.key === 'Enter') login(); });
+        document.getElementById('login-email').addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('login-password').focus(); });
     </script>
 </body>
 </html>
