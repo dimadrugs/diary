@@ -9,7 +9,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Дневник">
-    <meta name="apple-touch-fullscreen" content="yes">
     
     <!-- PWA для Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,14 +17,12 @@
     
     <!-- Иконки -->
     <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
+    <link rel="shortcut icon" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
-    <link rel="apple-touch-startup-image" href="icon-512.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
-    <link rel="shortcut icon" href="icon-192.png">
     
     <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -45,7 +42,6 @@
             --text-muted: rgba(255,255,255,0.4);
             --accent: #6366f1;
             --accent-light: #8b5cf6;
-            --status-bar-bg: #0a0a0f;
         }
         
         [data-theme="light"] {
@@ -59,9 +55,6 @@
             --text-primary: #1a1a1a;
             --text-secondary: rgba(0,0,0,0.7);
             --text-muted: rgba(0,0,0,0.4);
-            --accent: #6366f1;
-            --accent-light: #8b5cf6;
-            --status-bar-bg: #ffffff;
         }
         
         * {
@@ -85,7 +78,6 @@
             transition: background 0.3s, color 0.3s;
         }
         
-        /* Safe Area для iPhone с чёлкой */
         .safe-area-top {
             position: fixed;
             top: 0;
@@ -124,6 +116,12 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
             gap: 15px;
         }
         
@@ -136,10 +134,38 @@
             background-clip: text;
         }
         
+        .header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .header-date {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .header-week {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .header-week.upper {
+            color: #34d399;
+        }
+        
+        .header-week.lower {
+            color: #fb7185;
+        }
+        
         .header-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .theme-toggle {
@@ -161,27 +187,10 @@
             background: var(--bg-card-hover);
         }
         
-        .week-type-badge {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-        }
-        
-        .week-upper {
-            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-            color: #000;
-        }
-        
-        .week-lower {
-            background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
-            color: #fff;
-        }
-        
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-size: 0.85em;
             color: var(--text-secondary);
         }
@@ -280,52 +289,38 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            padding: 20px;
+            gap: 20px;
+            padding: 16px 20px;
             background: var(--bg-card);
             border-radius: 16px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
         
         .week-dates {
             text-align: center;
-            min-width: 180px;
+            min-width: 160px;
         }
         
         .week-dates-range {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: 700;
-            margin-bottom: 5px;
             color: var(--text-primary);
         }
         
-        .week-dates-label {
-            font-size: 0.85em;
-            color: var(--text-muted);
-        }
-        
-        .week-dates-label.upper {
-            color: #34d399;
-        }
-        
-        .week-dates-label.lower {
-            color: #fb7185;
-        }
-        
-        .today-btn {
-            padding: 8px 16px;
-            font-size: 0.85em;
-        }
-        
+        /* Навигация - скрываем для гостей если одна вкладка */
         .nav {
             display: flex;
             gap: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 5px;
+        }
+        
+        .nav.hidden {
+            display: none;
         }
         
         .nav-btn {
@@ -462,10 +457,6 @@
         }
         
         .lesson-row:hover {
-            background: var(--bg-card-hover);
-        }
-        
-        .lesson-row:active {
             background: var(--bg-card-hover);
         }
         
@@ -966,7 +957,6 @@
             color: var(--text-muted);
         }
         
-        /* Install prompt */
         .install-prompt {
             position: fixed;
             bottom: 20px;
@@ -1024,24 +1014,41 @@
         
         @media (max-width: 500px) {
             .header-content {
-                justify-content: space-between;
+                gap: 10px;
             }
             
-            .header-right {
-                width: auto;
+            .header-left {
+                gap: 12px;
             }
             
-            .user-info {
+            .logo {
+                font-size: 1.3em;
+            }
+            
+            .header-date {
+                font-size: 0.8em;
+            }
+            
+            .header-week {
+                font-size: 0.75em;
+            }
+            
+            .user-info span:not(.admin-badge) {
                 display: none;
             }
             
             .week-navigator {
-                padding: 16px;
-                gap: 10px;
+                padding: 14px 16px;
+                gap: 15px;
             }
             
             .week-dates-range {
                 font-size: 1.1em;
+            }
+            
+            .btn-icon {
+                width: 40px;
+                height: 40px;
             }
             
             .lesson-row {
@@ -1068,7 +1075,6 @@
     </style>
 </head>
 <body>
-    <!-- Safe area top fill for iPhone -->
     <div class="safe-area-top"></div>
     
     <div id="login-screen" class="login-screen">
@@ -1098,12 +1104,17 @@
     <div id="app" style="display: none;">
         <header>
             <div class="header-content">
-                <div class="logo">📚 Дневник</div>
+                <div class="header-left">
+                    <div class="logo">📚 Дневник</div>
+                    <div class="header-info">
+                        <div class="header-date" id="header-date">6 февраля, четверг</div>
+                        <div class="header-week" id="header-week">☀️ Верхняя неделя</div>
+                    </div>
+                </div>
                 <div class="header-right">
                     <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
                         <span id="theme-icon">🌙</span>
                     </button>
-                    <div id="week-type-badge" class="week-type-badge week-upper">☀️ Верхняя</div>
                     <div class="user-info">
                         <span id="user-email"></span>
                         <span class="admin-badge" id="admin-badge" style="display: none;">Админ</span>
@@ -1117,17 +1128,15 @@
             <div class="week-navigator">
                 <button class="btn-icon" onclick="prevWeek()">←</button>
                 <div class="week-dates">
-                    <div class="week-dates-range" id="week-range">01.01 — 07.01</div>
-                    <div class="week-dates-label" id="week-label">Верхняя неделя</div>
+                    <div class="week-dates-range" id="week-range">01.01 — 06.01</div>
                 </div>
                 <button class="btn-icon" onclick="nextWeek()">→</button>
-                <button class="btn btn-secondary today-btn" onclick="goToCurrentWeek()">Сегодня</button>
             </div>
             
-            <div class="nav">
+            <div class="nav" id="main-nav">
                 <button class="nav-btn active" data-section="home">🏠 Расписание</button>
-                <button class="nav-btn" data-section="changes" id="changes-nav" style="display: none;">📝 Изменения</button>
-                <button class="nav-btn" data-section="settings" id="settings-nav" style="display: none;">⚙️ Настройки</button>
+                <button class="nav-btn" data-section="changes" id="changes-nav">📝 Изменения</button>
+                <button class="nav-btn" data-section="settings" id="settings-nav">⚙️ Настройки</button>
             </div>
             
             <div class="section active" id="home">
@@ -1258,7 +1267,7 @@
                 Заполни только те пары, которые будут. Пустые = нет пары.
             </p>
             
-            <div class="change-pairs-form" id="change-pairs-form">
+            <div class="change-pairs-form">
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">1</span>
@@ -1344,26 +1353,17 @@
         function initTheme() {
             const saved = localStorage.getItem('theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = saved || (prefersDark ? 'dark' : 'light');
-            setTheme(theme);
+            setTheme(saved || (prefersDark ? 'dark' : 'light'));
         }
         
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            
             const icon = document.getElementById('theme-icon');
             if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-            
-            // Обновляем meta theme-color
             const meta = document.getElementById('theme-color-meta');
-            if (meta) {
-                meta.content = theme === 'dark' ? '#0a0a0f' : '#ffffff';
-            }
-            
-            // Обновляем safe-area цвет
-            document.querySelector('.safe-area-top').style.background = 
-                theme === 'dark' ? '#12121a' : '#ffffff';
+            if (meta) meta.content = theme === 'dark' ? '#0a0a0f' : '#ffffff';
+            document.querySelector('.safe-area-top').style.background = theme === 'dark' ? '#12121a' : '#ffffff';
         }
         
         function toggleTheme() {
@@ -1387,18 +1387,15 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.database();
-        
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
         
         const ADMIN_UIDS = ["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
-        
         const DAYS_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
         const DAYS_FULL = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         
         let currentUser = null;
         let isAdmin = false;
         let isGuest = false;
-        
         let schedule = { upper: {}, lower: {} };
         let homeworkList = [];
         let changesList = [];
@@ -1430,10 +1427,7 @@
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => {
-                    deferredPrompt = null;
-                    hideInstallPrompt();
-                });
+                deferredPrompt.userChoice.then(() => { deferredPrompt = null; hideInstallPrompt(); });
             }
         }
         
@@ -1447,8 +1441,7 @@
             const d = new Date(date);
             d.setHours(12, 0, 0, 0);
             const day = d.getDay();
-            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-            d.setDate(diff);
+            d.setDate(d.getDate() - day + (day === 0 ? -6 : 1));
             return d;
         }
         
@@ -1468,8 +1461,12 @@
         }
         
         function formatDateFull(date) {
+            return new Date(date).toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+        
+        function formatHeaderDate(date) {
             const d = new Date(date);
-            return d.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+            return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' });
         }
         
         // ============ АВТОРИЗАЦИЯ ============
@@ -1488,14 +1485,8 @@
         function login() {
             const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
-            
-            if (!email || !password) {
-                showLoginError('Введите email и пароль');
-                return;
-            }
-            
-            auth.signInWithEmailAndPassword(email, password)
-                .catch(() => showLoginError('Неверный email или пароль'));
+            if (!email || !password) { showLoginError('Введите email и пароль'); return; }
+            auth.signInWithEmailAndPassword(email, password).catch(() => showLoginError('Неверный email или пароль'));
         }
         
         function showLoginError(msg) {
@@ -1532,6 +1523,14 @@
             document.getElementById('changes-nav').style.display = isAdmin ? 'inline-block' : 'none';
             document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email?.split('@')[0] || '');
             
+            // Скрыть навигацию для гостей (у них только одна вкладка)
+            const nav = document.getElementById('main-nav');
+            if (isGuest || !isAdmin) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            
             init();
         }
         
@@ -1540,6 +1539,7 @@
             setupNavigation();
             loadData();
             viewWeekStart = getMonday(new Date());
+            updateHeaderInfo();
         }
         
         function setupNavigation() {
@@ -1562,6 +1562,7 @@
                     }
                 }
                 updateAll();
+                updateHeaderInfo();
             });
             
             db.ref('schedule').on('value', snap => {
@@ -1587,6 +1588,18 @@
             });
         }
         
+        // ============ HEADER INFO ============
+        function updateHeaderInfo() {
+            const today = new Date();
+            const weekType = getWeekType(getMonday(today));
+            
+            document.getElementById('header-date').textContent = formatHeaderDate(today);
+            
+            const weekEl = document.getElementById('header-week');
+            weekEl.textContent = weekType === 'upper' ? '☀️ Верхняя неделя' : '🌙 Нижняя неделя';
+            weekEl.className = 'header-week ' + weekType;
+        }
+        
         // ============ НЕДЕЛЯ ============
         function getWeekType(mondayDate) {
             if (!settings.weekStartDate) {
@@ -1594,7 +1607,6 @@
                 const weekNum = Math.ceil(((mondayDate - start) / 86400000 + start.getDay() + 1) / 7);
                 return weekNum % 2 === 1 ? 'upper' : 'lower';
             }
-            
             const startDate = getMonday(parseDateKey(settings.weekStartDate));
             const diffDays = Math.round((mondayDate - startDate) / (24 * 60 * 60 * 1000));
             const diffWeeks = Math.floor(diffDays / 7);
@@ -1604,24 +1616,11 @@
         function updateWeekNavigator() {
             const weekEnd = new Date(viewWeekStart);
             weekEnd.setDate(weekEnd.getDate() + 5);
-            
-            const weekType = getWeekType(viewWeekStart);
-            
-            document.getElementById('week-range').textContent = 
-                `${formatDateShort(viewWeekStart)} — ${formatDateShort(weekEnd)}`;
-            
-            const label = document.getElementById('week-label');
-            label.textContent = weekType === 'upper' ? '☀️ Верхняя неделя' : '🌙 Нижняя неделя';
-            label.className = 'week-dates-label ' + weekType;
-            
-            const badge = document.getElementById('week-type-badge');
-            badge.textContent = weekType === 'upper' ? '☀️ Верхняя' : '🌙 Нижняя';
-            badge.className = 'week-type-badge week-' + weekType;
+            document.getElementById('week-range').textContent = `${formatDateShort(viewWeekStart)} — ${formatDateShort(weekEnd)}`;
         }
         
         function prevWeek() { viewWeekStart.setDate(viewWeekStart.getDate() - 7); updateAll(); }
         function nextWeek() { viewWeekStart.setDate(viewWeekStart.getDate() + 7); updateAll(); }
-        function goToCurrentWeek() { viewWeekStart = getMonday(new Date()); updateAll(); }
         function updateAll() { updateWeekNavigator(); renderDays(); }
         
         // ============ РЕНДЕР ============
@@ -1632,15 +1631,12 @@
             const todayKey = formatDateKey(new Date());
             
             let html = '';
-            
             for (let i = 0; i < 6; i++) {
                 const dayDate = new Date(viewWeekStart);
                 dayDate.setDate(dayDate.getDate() + i);
-                
                 const dayKey = DAYS_SHORT[i];
                 const dateKey = formatDateKey(dayDate);
                 const isToday = dateKey === todayKey;
-                
                 const dayChange = changesList.find(c => c.date === dateKey);
                 const hasChanges = !!dayChange;
                 const dayLessons = hasChanges ? (dayChange.lessons || {}) : (weekData[dayKey] || {});
@@ -1665,13 +1661,11 @@
                     </div>
                 `;
             }
-            
             grid.innerHTML = html;
         }
         
         function renderLessons(dayKey, lessons, weekType, dateKey, hasChanges) {
             let html = '';
-            
             for (let pair = 1; pair <= 5; pair++) {
                 const lesson = lessons[pair];
                 const hasLesson = lesson && lesson.name;
@@ -1701,7 +1695,6 @@
                     </div>
                 `;
             }
-            
             return html;
         }
         
@@ -1723,11 +1716,7 @@
         
         function renderChanges() {
             const list = document.getElementById('changes-list');
-            if (changesList.length === 0) {
-                list.innerHTML = '<div class="no-items">Нет изменений</div>';
-                return;
-            }
-            
+            if (changesList.length === 0) { list.innerHTML = '<div class="no-items">Нет изменений</div>'; return; }
             list.innerHTML = [...changesList].sort((a, b) => a.date.localeCompare(b.date)).map(change => `
                 <div class="change-card">
                     <div class="change-header">
