@@ -11,9 +11,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6366f1" id="theme-color-meta">
     
-    <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
-    <link rel="shortcut icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="icon-192.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="manifest" href="manifest.json">
     
@@ -31,6 +29,7 @@
             --text-secondary: rgba(255,255,255,0.7);
             --text-muted: rgba(255,255,255,0.4);
             --accent: #6366f1;
+            --accent-light: #8b5cf6;
         }
         
         [data-theme="light"] {
@@ -46,7 +45,13 @@
             --text-muted: rgba(0,0,0,0.4);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         html { height: -webkit-fill-available; }
         
         body {
@@ -57,6 +62,7 @@
             color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
             transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
         
         .safe-area-top {
@@ -76,6 +82,7 @@
             padding-bottom: calc(20px + env(safe-area-inset-bottom));
         }
         
+        /* Header */
         header {
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
@@ -94,7 +101,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             gap: 12px;
         }
         
@@ -142,40 +148,237 @@
             color: #fff;
         }
         
-        .theme-toggle {
+        /* Avatar */
+        .avatar {
             width: 40px;
             height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1em;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar.admin {
+            border-color: #fbbf24;
+        }
+        
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 320px;
+            max-width: 85vw;
+            height: 100%;
+            background: var(--bg-secondary);
+            z-index: 201;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+        }
+        
+        .sidebar.active {
+            right: 0;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sidebar-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.5em;
+            color: #fff;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .sidebar-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .sidebar-user-name {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .sidebar-user-email {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .sidebar-user-role {
+            display: inline-block;
+            padding: 2px 8px;
             border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        
+        .sidebar-user-role.admin {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #000;
+        }
+        
+        .sidebar-user-role.guest {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+        
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            top: calc(20px + env(safe-area-inset-top));
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-card);
             color: var(--text-primary);
+            border-radius: 50%;
             font-size: 1.2em;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
         }
         
-        .theme-toggle:hover { background: var(--bg-card-hover); }
+        .sidebar-menu {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
         
-        .user-info {
+        .sidebar-section {
+            padding: 10px 20px;
+        }
+        
+        .sidebar-section-title {
+            font-size: 0.75em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85em;
-            color: var(--text-secondary);
+            gap: 12px;
+            padding: 14px 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            font-size: 1em;
+            font-family: inherit;
+            text-align: left;
         }
         
-        .admin-badge {
-            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            color: #000;
-            padding: 4px 10px;
-            border-radius: 15px;
+        .sidebar-item:hover {
+            background: var(--bg-card-hover);
+        }
+        
+        .sidebar-item-icon {
+            font-size: 1.3em;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .sidebar-item-text {
+            flex: 1;
+        }
+        
+        .sidebar-item-badge {
+            padding: 2px 8px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 10px;
             font-size: 0.75em;
             font-weight: 600;
         }
         
+        .sidebar-item.danger {
+            color: #f43f5e;
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8em;
+        }
+        
+        /* Buttons */
         .btn {
             padding: 10px 20px;
             border: none;
@@ -185,17 +388,47 @@
             font-size: 0.9em;
             transition: all 0.2s;
             font-family: inherit;
+            touch-action: manipulation;
         }
         
-        .btn-primary { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; }
-        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: #fff; }
-        .btn-success { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: #000; }
-        .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-        .btn:active { transform: scale(0.98); }
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            color: #fff;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: #000;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #000;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
         .btn-sm { padding: 6px 12px; font-size: 0.8em; }
         .btn-xs { padding: 4px 8px; font-size: 0.75em; }
+        .btn-full { width: 100%; }
         
         .btn-icon {
             width: 44px;
@@ -216,6 +449,7 @@
         .btn-icon:hover { background: var(--bg-card-hover); }
         .btn-icon:active { transform: scale(0.95); }
         
+        /* Week Navigator */
         .week-navigator {
             display: flex;
             align-items: center;
@@ -248,11 +482,15 @@
         .week-dates-type.upper { color: #34d399; }
         .week-dates-type.lower { color: #fb7185; }
         
+        /* Navigation */
         .nav {
             display: flex;
             gap: 8px;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
         }
         
         .nav.hidden { display: none; }
@@ -269,11 +507,22 @@
             transition: all 0.2s;
             font-family: inherit;
             border: 1px solid var(--border-color);
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
-        .nav-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        .nav-btn.active { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; border-color: transparent; }
+        .nav-btn:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
         
+        .nav-btn.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border-color: transparent;
+        }
+        
+        /* Sections */
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.3s ease; }
         
@@ -282,15 +531,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .days-grid { display: flex; flex-direction: column; gap: 16px; }
+        /* Day blocks */
+        .days-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
         
         .day-block {
             background: var(--bg-card);
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-color);
+            transition: all 0.3s;
         }
         
+        .day-block:hover { border-color: rgba(99, 102, 241, 0.2); }
         .day-block.today { border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 0 30px rgba(99, 102, 241, 0.1); }
         .day-block.has-changes { border-color: rgba(245, 158, 11, 0.4); }
         
@@ -312,10 +568,31 @@
             color: var(--text-primary);
         }
         
-        .day-title .date { font-weight: 400; color: var(--text-muted); font-size: 0.9em; }
+        .day-title .date {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+        
         .day-badges { display: flex; gap: 6px; }
-        .today-label { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 0.7em; font-weight: 600; }
-        .changes-label { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; padding: 4px 10px; border-radius: 12px; font-size: 0.7em; font-weight: 600; }
+        
+        .today-label {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+        
+        .changes-label {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
         
         .day-content { padding: 10px; }
         .lessons-list { display: flex; flex-direction: column; gap: 6px; }
@@ -329,10 +606,12 @@
             border-radius: 10px;
             transition: all 0.2s;
             cursor: pointer;
+            border: 1px solid transparent;
         }
         
         .lesson-row:hover { background: var(--bg-card-hover); }
         .lesson-row.empty { opacity: 0.5; }
+        .lesson-row.empty:hover { opacity: 0.8; }
         .lesson-row.changed { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); }
         
         .lesson-number {
@@ -379,19 +658,39 @@
             cursor: pointer;
             font-size: 0.75em;
             font-weight: 600;
+            transition: all 0.2s;
         }
         
+        .add-hw-btn:hover { background: rgba(99, 102, 241, 0.3); }
         .add-hw-btn:active { background: var(--accent); color: #fff; }
         
-        .changes-wrapper, .settings-wrapper {
+        /* Wrappers */
+        .changes-wrapper, .settings-wrapper, .profile-wrapper {
             background: var(--bg-card);
             border-radius: 16px;
             padding: 20px;
             border: 1px solid var(--border-color);
         }
         
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .section-title { font-size: 1.1em; font-weight: 600; color: var(--text-primary); }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        
+        /* Changes */
         .changes-list { display: flex; flex-direction: column; gap: 12px; }
         
         .change-card {
@@ -427,13 +726,15 @@
             font-weight: 700;
             color: #fbbf24;
             font-size: 0.9em;
+            flex-shrink: 0;
         }
         
-        .change-lesson-info { flex: 1; }
+        .change-lesson-info { flex: 1; min-width: 0; }
         .change-lesson-name { font-weight: 600; font-size: 0.95em; color: var(--text-primary); }
         .change-lesson-details { font-size: 0.8em; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
         
-        .setting-row {
+        /* Settings & Profile */
+        .setting-row, .profile-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -445,18 +746,93 @@
             gap: 12px;
         }
         
-        .setting-info h4 { margin-bottom: 4px; font-size: 0.95em; color: var(--text-primary); }
+        .setting-info h4, .profile-label { margin-bottom: 4px; font-size: 0.95em; color: var(--text-primary); }
         .setting-info p { font-size: 0.8em; color: var(--text-muted); }
         
-        .setting-input {
+        .setting-input, .profile-input {
             padding: 10px 14px;
             border: 1px solid var(--border-light);
             background: var(--bg-input);
             border-radius: 10px;
             color: var(--text-primary);
             font-family: inherit;
+            font-size: 0.95em;
         }
         
+        .setting-input:focus, .profile-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        /* Profile specific */
+        .profile-avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-avatar-edit {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 0.4em;
+            padding: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .profile-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .profile-email {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+        
+        .profile-section {
+            margin-bottom: 25px;
+        }
+        
+        .profile-section-title {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-left: 5px;
+        }
+        
+        /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -467,7 +843,9 @@
             justify-content: center;
             padding: 20px;
             padding-top: calc(40px + env(safe-area-inset-top));
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         [data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.5); }
@@ -510,6 +888,53 @@
         .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
         .modal-buttons .btn { flex: 1; }
         
+        /* Auth Tabs */
+        .auth-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 5px;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        
+        .auth-tab.active {
+            background: var(--accent);
+            color: #fff;
+        }
+        
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        
+        /* Phone input */
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .phone-code {
+            width: 80px;
+            text-align: center;
+        }
+        
+        .phone-number {
+            flex: 1;
+        }
+        
+        /* Change pairs form */
         .change-pairs-form { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
         .change-pair-row { background: var(--bg-card); border-radius: 10px; padding: 12px; }
         .change-pair-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
@@ -545,8 +970,10 @@
         .change-pair-inputs input:focus { outline: none; border-color: #f59e0b; }
         .change-pair-inputs input::placeholder { color: var(--text-muted); }
         
+        /* Login screen */
         .login-screen {
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -557,7 +984,7 @@
         
         .login-container {
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             padding: 32px;
             background: var(--bg-card);
             border-radius: 20px;
@@ -568,15 +995,24 @@
         .login-container h2 { text-align: center; margin-bottom: 8px; font-size: 1.6em; color: var(--text-primary); }
         .login-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 28px; }
         
-        .login-error {
-            background: rgba(244, 63, 94, 0.1);
-            border: 1px solid rgba(244, 63, 94, 0.3);
-            color: #fb7185;
+        .login-error, .login-success {
             padding: 12px;
             border-radius: 10px;
             text-align: center;
             margin-bottom: 20px;
             font-size: 0.9em;
+        }
+        
+        .login-error {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #fb7185;
+        }
+        
+        .login-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
         }
         
         .login-container .btn { width: 100%; padding: 14px; margin-top: 10px; }
@@ -593,6 +1029,7 @@
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
         .no-items { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         
+        /* Install prompt */
         .install-prompt {
             position: fixed;
             bottom: calc(20px + env(safe-area-inset-bottom));
@@ -622,44 +1059,79 @@
         .install-prompt-text p { font-size: 0.8em; color: var(--text-muted); }
         .install-prompt-close { background: none; border: none; color: var(--text-muted); font-size: 1.5em; cursor: pointer; padding: 5px; }
         
+        /* Responsive */
         @media (max-width: 500px) {
             .header-content { gap: 10px; }
             .header-left { gap: 10px; }
             .logo { font-size: 1.2em; }
             .header-date { font-size: 0.8em; }
-            .user-info span:not(.admin-badge) { display: none; }
             .week-navigator { padding: 14px; gap: 15px; }
             .week-dates-range { font-size: 1em; }
             .btn-icon { width: 40px; height: 40px; }
+            .lesson-row { padding: 8px; }
             .change-pair-inputs { flex-direction: column; }
             .change-pair-inputs input { width: 100%; }
+            .modal { padding: 20px; }
             .setting-row { flex-direction: column; align-items: flex-start; }
+            .sidebar { width: 280px; }
         }
     </style>
 </head>
 <body>
     <div class="safe-area-top"></div>
     
+    <!-- Login Screen -->
     <div id="login-screen" class="login-screen">
         <div class="login-container">
             <div class="login-logo">📚</div>
             <h2>Дневник</h2>
             <p class="login-subtitle">Техникум</p>
+            
             <div class="login-error" id="login-error" style="display: none;"></div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email">
+            <div class="login-success" id="login-success" style="display: none;"></div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Вход</button>
+                <button class="auth-tab" onclick="switchAuthTab('register')">Регистрация</button>
             </div>
-            <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+            
+            <!-- Login Form -->
+            <div class="auth-form active" id="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+                </div>
+                <button class="btn btn-primary" onclick="loginWithEmail()">Войти</button>
             </div>
-            <button class="btn btn-primary" onclick="login()">Войти</button>
+            
+            <!-- Register Form -->
+            <div class="auth-form" id="register-form">
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" id="register-name" placeholder="Как тебя зовут?">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="register-email" placeholder="your@email.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="register-password" placeholder="Минимум 6 символов" autocomplete="new-password">
+                </div>
+                <button class="btn btn-primary" onclick="registerWithEmail()">Зарегистрироваться</button>
+            </div>
+            
             <div class="divider">или</div>
+            
             <button class="btn btn-secondary" onclick="enterAsGuest()">Войти как гость</button>
         </div>
     </div>
     
+    <!-- Main App -->
     <div id="app" style="display: none;">
         <header>
             <div class="header-content">
@@ -669,17 +1141,80 @@
                 </div>
                 <div class="header-right">
                     <div class="header-week" id="header-week">☀️ Верхняя</div>
-                    <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
-                        <span id="theme-icon">🌙</span>
-                    </button>
-                    <div class="user-info">
-                        <span id="user-email"></span>
-                        <span class="admin-badge" id="admin-badge" style="display: none;">Админ</span>
+                    <div class="avatar" id="header-avatar" onclick="toggleSidebar()">
+                        <span id="avatar-letter">?</span>
                     </div>
-                    <button class="btn btn-secondary btn-sm" onclick="logout()">Выйти</button>
                 </div>
             </div>
         </header>
+        
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+            
+            <div class="sidebar-header">
+                <div class="sidebar-avatar" id="sidebar-avatar">
+                    <span id="sidebar-avatar-letter">?</span>
+                </div>
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name" id="sidebar-user-name">Гость</div>
+                    <div class="sidebar-user-email" id="sidebar-user-email">Не авторизован</div>
+                    <span class="sidebar-user-role guest" id="sidebar-user-role">Гость</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Меню</div>
+                </div>
+                
+                <button class="sidebar-item" onclick="openSection('home'); closeSidebar();">
+                    <span class="sidebar-item-icon">🏠</span>
+                    <span class="sidebar-item-text">Расписание</span>
+                </button>
+                
+                <button class="sidebar-item" onclick="openSection('profile'); closeSidebar();">
+                    <span class="sidebar-item-icon">👤</span>
+                    <span class="sidebar-item-text">Профиль</span>
+                </button>
+                
+                <button class="sidebar-item" id="sidebar-grades" style="display: none;">
+                    <span class="sidebar-item-icon">📊</span>
+                    <span class="sidebar-item-text">Оценки</span>
+                    <span class="sidebar-item-badge">Скоро</span>
+                </button>
+                
+                <button class="sidebar-item" id="sidebar-changes" onclick="openSection('changes'); closeSidebar();" style="display: none;">
+                    <span class="sidebar-item-icon">📝</span>
+                    <span class="sidebar-item-text">Изменения</span>
+                </button>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Настройки</div>
+                </div>
+                
+                <button class="sidebar-item" onclick="toggleTheme()">
+                    <span class="sidebar-item-icon" id="sidebar-theme-icon">🌙</span>
+                    <span class="sidebar-item-text">Сменить тему</span>
+                </button>
+                
+                <button class="sidebar-item" id="sidebar-settings" onclick="openSection('settings'); closeSidebar();" style="display: none;">
+                    <span class="sidebar-item-icon">⚙️</span>
+                    <span class="sidebar-item-text">Настройки</span>
+                </button>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button class="sidebar-item danger" onclick="logout()">
+                    <span class="sidebar-item-icon">🚪</span>
+                    <span class="sidebar-item-text">Выйти</span>
+                </button>
+                <p style="margin-top: 15px;">Версия 1.0</p>
+            </div>
+        </div>
         
         <div class="container">
             <div class="week-navigator">
@@ -693,14 +1228,65 @@
             
             <div class="nav" id="main-nav">
                 <button class="nav-btn active" data-section="home">🏠 Расписание</button>
-                <button class="nav-btn" data-section="changes" id="changes-nav">📝 Изменения</button>
-                <button class="nav-btn" data-section="settings" id="settings-nav">⚙️ Настройки</button>
+                <button class="nav-btn" data-section="changes" id="nav-changes">📝 Изменения</button>
+                <button class="nav-btn" data-section="settings" id="nav-settings">⚙️ Настройки</button>
             </div>
             
+            <!-- Home Section -->
             <div class="section active" id="home">
                 <div class="days-grid" id="days-grid"></div>
             </div>
             
+            <!-- Profile Section -->
+            <div class="section" id="profile">
+                <div class="profile-wrapper">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar-large" id="profile-avatar-large">
+                            <span id="profile-avatar-letter">?</span>
+                            <div class="profile-avatar-edit" onclick="changeAvatar()">Изменить</div>
+                        </div>
+                        <div class="profile-name" id="profile-name">Гость</div>
+                        <div class="profile-email" id="profile-email">Не авторизован</div>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <div class="profile-section-title">Личные данные</div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <h4>Имя</h4>
+                                <p id="profile-display-name">Не указано</p>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="editName()">Изменить</button>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <h4>Email</h4>
+                                <p id="profile-display-email">Не указан</p>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <h4>Телефон</h4>
+                                <p id="profile-display-phone">Не привязан</p>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="linkPhone()">Привязать</button>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-section" id="guest-register-section" style="display: none;">
+                        <div class="profile-section-title">Создать аккаунт</div>
+                        <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">
+                            Зарегистрируйся, чтобы сохранить данные и получить доступ к оценкам
+                        </p>
+                        <button class="btn btn-primary btn-full" onclick="showRegisterFromGuest()">Зарегистрироваться</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Changes Section -->
             <div class="section" id="changes">
                 <div class="changes-wrapper">
                     <div class="section-header">
@@ -711,9 +1297,11 @@
                 </div>
             </div>
             
+            <!-- Settings Section -->
             <div class="section" id="settings">
                 <div class="settings-wrapper">
                     <h2 class="section-title" style="margin-bottom: 20px;">⚙️ Настройки</h2>
+                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Тема оформления</h4>
@@ -721,6 +1309,7 @@
                         </div>
                         <button class="btn btn-secondary" onclick="toggleTheme()">Сменить тему</button>
                     </div>
+                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Начало отсчёта недель</h4>
@@ -728,6 +1317,7 @@
                         </div>
                         <input type="date" class="setting-input" id="week-start-date">
                     </div>
+                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Время пар</h4>
@@ -735,6 +1325,7 @@
                         </div>
                         <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
                     </div>
+                    
                     <div class="setting-row">
                         <div class="setting-info">
                             <h4>Очистить всё</h4>
@@ -747,6 +1338,7 @@
         </div>
     </div>
     
+    <!-- Install Prompt -->
     <div class="install-prompt" id="install-prompt">
         <div class="install-prompt-icon">📲</div>
         <div class="install-prompt-text">
@@ -757,6 +1349,7 @@
         <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
     </div>
     
+    <!-- Modals -->
     <div class="modal-overlay" id="lesson-modal">
         <div class="modal">
             <h3>✏️ Редактировать пару</h3>
@@ -815,61 +1408,19 @@
                 Заполни только те пары, которые будут. Пустые = нет пары.
             </p>
             <div class="change-pairs-form">
-                <div class="change-pair-row">
-                    <div class="change-pair-header">
-                        <span class="change-pair-num-badge">1</span>
-                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
+                ${[1,2,3,4,5].map(i => `
+                    <div class="change-pair-row">
+                        <div class="change-pair-header">
+                            <span class="change-pair-num-badge">${i}</span>
+                            <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
+                        </div>
+                        <div class="change-pair-inputs">
+                            <input type="text" id="change-p${i}-name" placeholder="Предмет">
+                            <input type="text" id="change-p${i}-room" placeholder="Каб." style="max-width: 70px;">
+                            <input type="text" id="change-p${i}-teacher" placeholder="Преподаватель">
+                        </div>
                     </div>
-                    <div class="change-pair-inputs">
-                        <input type="text" id="change-p1-name" placeholder="Предмет">
-                        <input type="text" id="change-p1-room" placeholder="Каб." style="max-width: 70px;">
-                        <input type="text" id="change-p1-teacher" placeholder="Преподаватель">
-                    </div>
-                </div>
-                <div class="change-pair-row">
-                    <div class="change-pair-header">
-                        <span class="change-pair-num-badge">2</span>
-                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
-                    </div>
-                    <div class="change-pair-inputs">
-                        <input type="text" id="change-p2-name" placeholder="Предмет">
-                        <input type="text" id="change-p2-room" placeholder="Каб." style="max-width: 70px;">
-                        <input type="text" id="change-p2-teacher" placeholder="Преподаватель">
-                    </div>
-                </div>
-                <div class="change-pair-row">
-                    <div class="change-pair-header">
-                        <span class="change-pair-num-badge">3</span>
-                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
-                    </div>
-                    <div class="change-pair-inputs">
-                        <input type="text" id="change-p3-name" placeholder="Предмет">
-                        <input type="text" id="change-p3-room" placeholder="Каб." style="max-width: 70px;">
-                        <input type="text" id="change-p3-teacher" placeholder="Преподаватель">
-                    </div>
-                </div>
-                <div class="change-pair-row">
-                    <div class="change-pair-header">
-                        <span class="change-pair-num-badge">4</span>
-                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
-                    </div>
-                    <div class="change-pair-inputs">
-                        <input type="text" id="change-p4-name" placeholder="Предмет">
-                        <input type="text" id="change-p4-room" placeholder="Каб." style="max-width: 70px;">
-                        <input type="text" id="change-p4-teacher" placeholder="Преподаватель">
-                    </div>
-                </div>
-                <div class="change-pair-row">
-                    <div class="change-pair-header">
-                        <span class="change-pair-num-badge">5</span>
-                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
-                    </div>
-                    <div class="change-pair-inputs">
-                        <input type="text" id="change-p5-name" placeholder="Предмет">
-                        <input type="text" id="change-p5-room" placeholder="Каб." style="max-width: 70px;">
-                        <input type="text" id="change-p5-teacher" placeholder="Преподаватель">
-                    </div>
-                </div>
+                `).join('')}
             </div>
             <div class="modal-buttons">
                 <button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button>
@@ -889,32 +1440,61 @@
             </div>
         </div>
     </div>
+    
+    <div class="modal-overlay" id="name-modal">
+        <div class="modal">
+            <h3>✏️ Изменить имя</h3>
+            <div class="form-group">
+                <label>Имя</label>
+                <input type="text" id="new-name" placeholder="Как тебя зовут?">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('name-modal')">Отмена</button>
+                <button class="btn btn-primary" onclick="saveName()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="phone-modal">
+        <div class="modal">
+            <h3>📱 Привязать телефон</h3>
+            <div class="form-group">
+                <label>Номер телефона</label>
+                <div class="phone-input-group">
+                    <input type="text" class="phone-code" value="+7" readonly>
+                    <input type="tel" id="phone-number" class="phone-number" placeholder="999 123 45 67">
+                </div>
+            </div>
+            <div id="recaptcha-container"></div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('phone-modal')">Отмена</button>
+                <button class="btn btn-primary" onclick="sendPhoneCode()">Отправить код</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="verify-modal">
+        <div class="modal">
+            <h3>✅ Подтверждение</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Введите код из SMS</p>
+            <div class="form-group">
+                <label>Код подтверждения</label>
+                <input type="text" id="verify-code" placeholder="123456" maxlength="6" style="text-align: center; font-size: 1.5em; letter-spacing: 5px;">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('verify-modal')">Отмена</button>
+                <button class="btn btn-primary" onclick="verifyPhoneCode()">Подтвердить</button>
+            </div>
+        </div>
+    </div>
 
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
-        function initTheme() {
-            const saved = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setTheme(saved || (prefersDark ? 'dark' : 'light'));
-        }
-        
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            const icon = document.getElementById('theme-icon');
-            if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-            document.querySelector('.safe-area-top').style.background = theme === 'dark' ? '#12121a' : '#ffffff';
-        }
-        
-        function toggleTheme() {
-            setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        }
-        
-        initTheme();
-        
+        // ============ CONFIG ============
         const firebaseConfig = {
             apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
             authDomain: "my-diary-e223c.firebaseapp.com",
@@ -934,8 +1514,14 @@
         const DAYS_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
         const DAYS_FULL = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         
-        let currentUser = null, isAdmin = false, isGuest = false;
-        let schedule = { upper: {}, lower: {} }, homeworkList = [], changesList = [];
+        // ============ STATE ============
+        let currentUser = null;
+        let userProfile = null;
+        let isAdmin = false;
+        let isGuest = false;
+        let schedule = { upper: {}, lower: {} };
+        let homeworkList = [];
+        let changesList = [];
         let settings = {
             weekStartDate: null,
             pairTimes: [
@@ -946,10 +1532,34 @@
                 { start: '15:30', end: '17:00' }
             ]
         };
-        
         let viewWeekStart = getMonday(new Date());
         let deferredPrompt = null;
+        let confirmationResult = null;
         
+        // ============ THEME ============
+        function initTheme() {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(saved || (prefersDark ? 'dark' : 'light'));
+        }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            const sidebarIcon = document.getElementById('sidebar-theme-icon');
+            if (sidebarIcon) sidebarIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            document.querySelector('.safe-area-top').style.background = theme === 'dark' ? '#12121a' : '#ffffff';
+        }
+        
+        function toggleTheme() {
+            setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
+        
+        initTheme();
+        
+        // ============ PWA ============
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -972,6 +1582,7 @@
             localStorage.setItem('installPromptDismissed', 'true');
         }
         
+        // ============ DATES ============
         function getMonday(date) {
             const d = new Date(date);
             d.setHours(12, 0, 0, 0);
@@ -1003,63 +1614,271 @@
             return new Date(date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' });
         }
         
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                isAdmin = ADMIN_UIDS.includes(user.uid);
-                isGuest = false;
-                showApp();
-            } else if (localStorage.getItem('guestSession')) {
-                isGuest = true;
-                showApp();
-            }
-        });
-        
-        function login() {
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-            if (!email || !password) { showLoginError('Введите email и пароль'); return; }
-            auth.signInWithEmailAndPassword(email, password).catch(() => showLoginError('Неверный email или пароль'));
+        // ============ AUTH ============
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            document.querySelector(`.auth-tab:${tab === 'login' ? 'first-child' : 'last-child'}`).classList.add('active');
+            document.getElementById(`${tab}-form`).classList.add('active');
+            hideAuthMessages();
         }
         
-        function showLoginError(msg) {
+        function hideAuthMessages() {
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('login-success').style.display = 'none';
+        }
+        
+        function showAuthError(msg) {
             const el = document.getElementById('login-error');
             el.textContent = msg;
             el.style.display = 'block';
+            document.getElementById('login-success').style.display = 'none';
+        }
+        
+        function showAuthSuccess(msg) {
+            const el = document.getElementById('login-success');
+            el.textContent = msg;
+            el.style.display = 'block';
+            document.getElementById('login-error').style.display = 'none';
+        }
+        
+        function loginWithEmail() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            if (!email || !password) { showAuthError('Введите email и пароль'); return; }
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(err => showAuthError(getErrorMessage(err.code)));
+        }
+        
+        function registerWithEmail() {
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value;
+            
+            if (!name) { showAuthError('Введите имя'); return; }
+            if (!email) { showAuthError('Введите email'); return; }
+            if (password.length < 6) { showAuthError('Пароль минимум 6 символов'); return; }
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(result => {
+                    return result.user.updateProfile({ displayName: name }).then(() => {
+                        return db.ref(`users/${result.user.uid}`).set({
+                            name: name,
+                            email: email,
+                            createdAt: new Date().toISOString()
+                        });
+                    });
+                })
+                .catch(err => showAuthError(getErrorMessage(err.code)));
+        }
+        
+        function getErrorMessage(code) {
+            const messages = {
+                'auth/email-already-in-use': 'Email уже зарегистрирован',
+                'auth/invalid-email': 'Неверный формат email',
+                'auth/user-not-found': 'Пользователь не найден',
+                'auth/wrong-password': 'Неверный пароль',
+                'auth/weak-password': 'Слишком простой пароль',
+                'auth/too-many-requests': 'Слишком много попыток. Подождите.'
+            };
+            return messages[code] || 'Произошла ошибка';
         }
         
         function enterAsGuest() {
             isGuest = true;
             isAdmin = false;
             currentUser = null;
+            userProfile = { name: 'Гость' };
             localStorage.setItem('guestSession', 'true');
             showApp();
         }
         
         function logout() {
+            closeSidebar();
             localStorage.removeItem('guestSession');
             auth.signOut().then(() => {
                 isGuest = false;
                 isAdmin = false;
                 currentUser = null;
+                userProfile = null;
                 document.getElementById('app').style.display = 'none';
                 document.getElementById('login-screen').style.display = 'flex';
             });
         }
         
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                isAdmin = ADMIN_UIDS.includes(user.uid);
+                isGuest = false;
+                loadUserProfile(user.uid);
+            } else if (localStorage.getItem('guestSession')) {
+                isGuest = true;
+                userProfile = { name: 'Гость' };
+                showApp();
+            }
+        });
+        
+        function loadUserProfile(uid) {
+            db.ref(`users/${uid}`).on('value', snap => {
+                userProfile = snap.val() || {};
+                userProfile.name = userProfile.name || currentUser.displayName || 'Пользователь';
+                userProfile.email = currentUser.email;
+                userProfile.phone = currentUser.phoneNumber;
+                showApp();
+                updateProfileUI();
+            });
+        }
+        
+        // ============ SIDEBAR ============
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        }
+        
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebar-overlay').classList.remove('active');
+        }
+        
+        function updateProfileUI() {
+            const name = userProfile?.name || 'Гость';
+            const email = userProfile?.email || (isGuest ? 'Гостевой режим' : '');
+            const letter = name.charAt(0).toUpperCase();
+            
+            // Avatar
+            document.getElementById('avatar-letter').textContent = letter;
+            document.getElementById('sidebar-avatar-letter').textContent = letter;
+            document.getElementById('profile-avatar-letter').textContent = letter;
+            
+            // Sidebar
+            document.getElementById('sidebar-user-name').textContent = name;
+            document.getElementById('sidebar-user-email').textContent = email;
+            
+            const roleEl = document.getElementById('sidebar-user-role');
+            if (isAdmin) {
+                roleEl.textContent = 'Администратор';
+                roleEl.className = 'sidebar-user-role admin';
+                document.getElementById('header-avatar').classList.add('admin');
+            } else if (isGuest) {
+                roleEl.textContent = 'Гость';
+                roleEl.className = 'sidebar-user-role guest';
+            } else {
+                roleEl.textContent = 'Пользователь';
+                roleEl.className = 'sidebar-user-role';
+            }
+            
+            // Profile page
+            document.getElementById('profile-name').textContent = name;
+            document.getElementById('profile-email').textContent = email;
+            document.getElementById('profile-display-name').textContent = name;
+            document.getElementById('profile-display-email').textContent = email || 'Не указан';
+            document.getElementById('profile-display-phone').textContent = userProfile?.phone || 'Не привязан';
+            
+            // Show/hide elements
+            document.getElementById('sidebar-changes').style.display = isAdmin ? 'flex' : 'none';
+            document.getElementById('sidebar-settings').style.display = isAdmin ? 'flex' : 'none';
+            document.getElementById('sidebar-grades').style.display = isGuest ? 'none' : 'flex';
+            document.getElementById('guest-register-section').style.display = isGuest ? 'block' : 'none';
+        }
+        
+        // ============ PROFILE ACTIONS ============
+        function editName() {
+            document.getElementById('new-name').value = userProfile?.name || '';
+            openModal('name-modal');
+        }
+        
+        function saveName() {
+            const name = document.getElementById('new-name').value.trim();
+            if (!name) { alert('Введите имя'); return; }
+            
+            if (currentUser) {
+                currentUser.updateProfile({ displayName: name }).then(() => {
+                    db.ref(`users/${currentUser.uid}/name`).set(name);
+                    userProfile.name = name;
+                    updateProfileUI();
+                    closeModal('name-modal');
+                });
+            }
+        }
+        
+        function linkPhone() {
+            openModal('phone-modal');
+        }
+        
+                function sendPhoneCode() {
+            const phone = document.getElementById('phone-number').value.trim();
+            if (!phone) { alert('Введите номер'); return; }
+            
+            const fullPhone = '+7' + phone.replace(/\D/g, '');
+            
+            if (!window.recaptchaVerifier) {
+                window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                    'size': 'normal',
+                    'callback': (response) => {}
+                });
+            }
+            
+            auth.currentUser.linkWithPhoneNumber(fullPhone, window.recaptchaVerifier)
+                .then((confirmationResult) => {
+                    window.confirmationResult = confirmationResult;
+                    closeModal('phone-modal');
+                    openModal('verify-modal');
+                }).catch((error) => {
+                    alert('Ошибка: ' + error.message);
+                    if (window.recaptchaVerifier) {
+                        window.recaptchaVerifier.clear();
+                        window.recaptchaVerifier = null;
+                    }
+                });
+        }
+        
+        function verifyPhoneCode() {
+            const code = document.getElementById('verify-code').value.trim();
+            if (!code) { alert('Введите код'); return; }
+            
+            window.confirmationResult.confirm(code).then((result) => {
+                db.ref(`users/${result.user.uid}/phone`).set(result.user.phoneNumber);
+                closeModal('verify-modal');
+                alert('Телефон успешно привязан!');
+            }).catch((error) => {
+                alert('Неверный код');
+            });
+        }
+        
+        function showRegisterFromGuest() {
+            logout();
+            setTimeout(() => {
+                switchAuthTab('register');
+            }, 300);
+        }
+        
+        function openSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Обновляем навигацию если это основные разделы
+            const navBtn = document.querySelector(`.nav-btn[data-section="${sectionId}"]`);
+            if (navBtn) navBtn.classList.add('active');
+        }
+        
+        // ============ APP LOGIC ============
         function showApp() {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app').style.display = 'block';
             
-            document.getElementById('admin-badge').style.display = isAdmin ? 'inline' : 'none';
-            document.getElementById('settings-nav').style.display = isAdmin ? 'inline-block' : 'none';
-            document.getElementById('changes-nav').style.display = isAdmin ? 'inline-block' : 'none';
-            document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email?.split('@')[0] || '');
-            
-            const nav = document.getElementById('main-nav');
-            nav.classList.toggle('hidden', !isAdmin);
+            // Админские права
+            const adminElements = ['admin-badge', 'nav-changes', 'nav-settings'];
+            adminElements.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = isAdmin ? (el.tagName === 'SPAN' ? 'inline' : 'inline-block') : 'none';
+            });
             
             init();
+            if (currentUser) loadUserProfile(currentUser.uid);
+            else updateProfileUI();
         }
         
         function init() {
@@ -1072,10 +1891,7 @@
         function setupNavigation() {
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                    btn.classList.add('active');
-                    document.getElementById(btn.dataset.section).classList.add('active');
+                    openSection(btn.dataset.section);
                 });
             });
         }
@@ -1084,25 +1900,44 @@
             db.ref('settings').on('value', snap => {
                 if (snap.val()) {
                     settings = { ...settings, ...snap.val() };
-                    if (settings.weekStartDate) document.getElementById('week-start-date').value = settings.weekStartDate;
+                    if (settings.weekStartDate) {
+                        document.getElementById('week-start-date').value = settings.weekStartDate;
+                    }
                 }
                 updateAll();
                 updateHeaderInfo();
             });
             
-            db.ref('schedule').on('value', snap => { schedule = snap.val() || { upper: {}, lower: {} }; renderDays(); });
-            db.ref('homework').on('value', snap => { const data = snap.val(); homeworkList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []; renderDays(); });
-            db.ref('changes').on('value', snap => { const data = snap.val(); changesList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []; renderDays(); renderChanges(); });
+            db.ref('schedule').on('value', snap => {
+                schedule = snap.val() || { upper: {}, lower: {} };
+                renderDays();
+            });
             
-            document.getElementById('week-start-date').addEventListener('change', e => { if (isAdmin) db.ref('settings/weekStartDate').set(e.target.value); });
+            db.ref('homework').on('value', snap => {
+                const data = snap.val();
+                homeworkList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
+                renderDays();
+            });
+            
+            db.ref('changes').on('value', snap => {
+                const data = snap.val();
+                changesList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
+                renderDays();
+                renderChanges();
+            });
+            
+            document.getElementById('week-start-date').addEventListener('change', e => {
+                if (isAdmin) db.ref('settings/weekStartDate').set(e.target.value);
+            });
         }
+        
+        // ============ RENDER LOGIC (Schedule, Homework, Changes) ============
+        // Здесь используется тот же код рендера, что и раньше, но с адаптацией под новую структуру
         
         function updateHeaderInfo() {
             const today = new Date();
             const weekType = getWeekType(getMonday(today));
-            
             document.getElementById('header-date').textContent = formatHeaderDate(today);
-            
             const weekEl = document.getElementById('header-week');
             weekEl.textContent = weekType === 'upper' ? '☀️ Верхняя' : '🌙 Нижняя';
             weekEl.className = 'header-week ' + weekType;
@@ -1267,6 +2102,7 @@
             return html || '<div style="color: var(--text-muted); padding: 10px;">Пар нет</div>';
         }
         
+        // ============ MODALS & ACTIONS ============
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         
@@ -1297,7 +2133,10 @@
         
         function deleteLesson() {
             if (!isAdmin) return;
-            db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();
+            const day = document.getElementById('edit-day').value;
+            const pair = document.getElementById('edit-pair').value;
+            const week = document.getElementById('edit-week').value;
+            db.ref(`schedule/${week}/${day}/${pair}`).remove();
             closeModal('lesson-modal');
         }
         
@@ -1312,14 +2151,12 @@
         
         function saveHomework() {
             if (!isAdmin) return;
+            const date = document.getElementById('hw-date').value;
+            const pair = parseInt(document.getElementById('hw-pair').value);
+            const subject = document.getElementById('hw-subject').value;
             const task = document.getElementById('hw-task').value.trim();
             if (!task) { alert('Введите задание'); return; }
-            db.ref('homework').push({
-                date: document.getElementById('hw-date').value,
-                pair: parseInt(document.getElementById('hw-pair').value),
-                subject: document.getElementById('hw-subject').value,
-                task, done: false, created: new Date().toISOString()
-            });
+            db.ref('homework').push({ date, pair, subject, task, done: false, created: new Date().toISOString() });
             closeModal('homework-modal');
         }
         
@@ -1436,7 +2273,7 @@
             o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); });
         });
         
-        document.getElementById('login-password').addEventListener('keypress', e => { if (e.key === 'Enter') login(); });
+        document.getElementById('login-password').addEventListener('keypress', e => { if (e.key === 'Enter') loginWithEmail(); });
         document.getElementById('login-email').addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('login-password').focus(); });
     </script>
 </body>
