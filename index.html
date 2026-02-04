@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дневник техникума</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #12121a 0%, #0a0a0f 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .week-type-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .week-upper {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: #000;
+        }
+        
+        .week-lower {
+            background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
+            color: #fff;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .admin-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            color: #fff;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            color: #000;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #000;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8em;
+        }
+        
+        .btn-xs {
+            padding: 4px 8px;
+            font-size: 0.75em;
+        }
+        
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 1.2em;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-icon:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .week-navigator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .week-dates {
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .week-dates-range {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .week-dates-label {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .week-dates-label.upper {
+            color: #34d399;
+        }
+        
+        .week-dates-label.lower {
+            color: #fb7185;
+        }
+        
+        .today-btn {
+            padding: 8px 16px;
+            font-size: 0.85em;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            background: rgba(255,255,255,0.03);
+            color: rgba(255,255,255,0.7);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: inherit;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border-color: transparent;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .days-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .day-block {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        
+        .day-block:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+        
+        .day-block.today {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+        }
+        
+        .day-block.has-changes {
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .day-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .day-title .date {
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9em;
+        }
+        
+        .day-badges {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .today-label {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        
+        .changes-label {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        
+        .day-content {
+            padding: 12px;
+        }
+        
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .lesson-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .lesson-row:hover {
+            background: rgba(255,255,255,0.06);
+        }
+        
+        .lesson-row.empty {
+            opacity: 0.5;
+        }
+        
+        .lesson-row.empty:hover {
+            opacity: 0.8;
+        }
+        
+        .lesson-row.changed {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .lesson-number {
+            width: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background: rgba(99, 102, 241, 0.15);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        
+        .lesson-num {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #8b5cf6;
+        }
+        
+        .lesson-time {
+            font-size: 0.65em;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+        
+        .lesson-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .lesson-name-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+        
+        .lesson-name {
+            font-weight: 600;
+            font-size: 1em;
+        }
+        
+        .lesson-details {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .lesson-room {
+            color: #8b5cf6;
+        }
+        
+        .lesson-empty-text {
+            color: rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+        
+        .lesson-homework {
+            margin-top: 8px;
+            padding: 10px 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #6366f1;
+        }
+        
+        .lesson-homework-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .lesson-homework-title {
+            font-size: 0.75em;
+            color: #8b5cf6;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .lesson-homework-text {
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .lesson-homework.done {
+            opacity: 0.5;
+            border-left-color: #10b981;
+        }
+        
+        .lesson-homework.done .lesson-homework-text {
+            text-decoration: line-through;
+        }
+        
+        .add-hw-btn {
+            padding: 4px 10px;
+            background: rgba(99, 102, 241, 0.2);
+            border: none;
+            color: #8b5cf6;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.2s;
+        }
+        
+        .lesson-row:hover .add-hw-btn {
+            opacity: 1;
+        }
+        
+        .add-hw-btn:hover {
+            background: #6366f1;
+            color: #fff;
+        }
+        
+        .changes-wrapper {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .changes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .change-card {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        
+        .change-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .change-date {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #fbbf24;
+        }
+        
+        .change-lessons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .change-lesson-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        
+        .change-pair-num {
+            width: 30px;
+            height: 30px;
+            background: rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fbbf24;
+            flex-shrink: 0;
+        }
+        
+        .change-lesson-info {
+            flex: 1;
+        }
+        
+        .change-lesson-name {
+            font-weight: 600;
+        }
+        
+        .change-lesson-details {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.5);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .settings-wrapper {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .setting-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .setting-info p {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.4);
+        }
+        
+        .setting-input {
+            padding: 10px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            color: #fff;
+            font-family: inherit;
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: #16161f;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 550px;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: modalIn 0.3s ease;
+            margin: auto;
+        }
+        
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .modal h3 {
+            margin-bottom: 25px;
+            font-size: 1.2em;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9em;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .modal-buttons .btn {
+            flex: 1;
+        }
+        
+        .change-pairs-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .change-pair-row {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 12px;
+        }
+        
+        .change-pair-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .change-pair-num-badge {
+            width: 28px;
+            height: 28px;
+            background: rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fbbf24;
+            font-size: 0.9em;
+        }
+        
+        .change-pair-inputs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .change-pair-inputs input {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9em;
+            font-family: inherit;
+        }
+        
+        .change-pair-inputs input:focus {
+            outline: none;
+            border-color: #f59e0b;
+        }
+        
+        .change-pair-inputs input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        
+        .login-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 30px;
+        }
+        
+        .login-error {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #fb7185;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        
+        .login-container .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85em;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .no-items {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.3);
+        }
+        
+        @media (max-width: 600px) {
+            .header-content {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .week-navigator {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .lesson-row {
+                flex-wrap: wrap;
+            }
+            
+            .change-pair-inputs {
+                flex-direction: column;
+            }
+            
+            .change-pair-inputs input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <h2>📚 Дневник</h2>
+            <p class="login-subtitle">Техникум</p>
+            
+            <div class="login-error" id="login-error" style="display: none;"></div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="admin@example.com">
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+            <button class="btn btn-primary" onclick="login()">Войти</button>
+            
+            <div class="divider">или</div>
+            
+            <button class="btn btn-secondary" onclick="enterAsGuest()">Войти как гость</button>
+        </div>
+    </div>
+    
+    <div id="app" style="display: none;">
+        <header>
+            <div class="header-content">
+                <div class="logo">📚 Дневник</div>
+                <div class="header-right">
+                    <div id="week-type-badge" class="week-type-badge week-upper">☀️ Верхняя</div>
+                    <div class="user-info">
+                        <span id="user-email"></span>
+                        <span class="admin-badge" id="admin-badge" style="display: none;">Админ</span>
+                        <button class="btn btn-secondary btn-sm" onclick="logout()">Выйти</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="week-navigator">
+                <button class="btn-icon" onclick="prevWeek()">←</button>
+                <div class="week-dates">
+                    <div class="week-dates-range" id="week-range">01.01 — 07.01</div>
+                    <div class="week-dates-label" id="week-label">Верхняя неделя</div>
+                </div>
+                <button class="btn-icon" onclick="nextWeek()">→</button>
+                <button class="btn btn-secondary today-btn" onclick="goToCurrentWeek()">Сегодня</button>
+            </div>
+            
+            <div class="nav">
+                <button class="nav-btn active" data-section="home">🏠 Расписание</button>
+                <button class="nav-btn" data-section="changes" id="changes-nav" style="display: none;">📝 Изменения</button>
+                <button class="nav-btn" data-section="settings" id="settings-nav" style="display: none;">⚙️ Настройки</button>
+            </div>
+            
+            <div class="section active" id="home">
+                <div class="days-grid" id="days-grid"></div>
+            </div>
+            
+            <div class="section" id="changes">
+                <div class="changes-wrapper">
+                    <div class="section-header">
+                        <h2 class="section-title">📝 Изменения в расписании</h2>
+                        <button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button>
+                    </div>
+                    <div class="changes-list" id="changes-list"></div>
+                </div>
+            </div>
+            
+            <div class="section" id="settings">
+                <div class="settings-wrapper">
+                    <h2 class="section-title" style="margin-bottom: 25px;">⚙️ Настройки</h2>
+                    
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Начало отсчёта недель</h4>
+                            <p>Дата понедельника верхней недели</p>
+                        </div>
+                        <input type="date" class="setting-input" id="week-start-date">
+                    </div>
+                    
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Время пар</h4>
+                            <p>Начало и конец каждой пары</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
+                    </div>
+                    
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h4>Очистить всё</h4>
+                            <p>Удалить расписание и домашку</p>
+                        </div>
+                        <button class="btn btn-danger" onclick="clearAllData()">Очистить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="lesson-modal">
+        <div class="modal">
+            <h3>✏️ Редактировать пару</h3>
+            <input type="hidden" id="edit-day">
+            <input type="hidden" id="edit-pair">
+            <input type="hidden" id="edit-week">
+            
+            <div class="form-group">
+                <label>Предмет</label>
+                <input type="text" id="lesson-name" placeholder="Математика">
+            </div>
+            <div class="form-group">
+                <label>Аудитория</label>
+                <input type="text" id="lesson-room" placeholder="Каб. 301">
+            </div>
+            <div class="form-group">
+                <label>Преподаватель</label>
+                <input type="text" id="lesson-teacher" placeholder="Иванов И.И.">
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
+                <button class="btn btn-danger" onclick="deleteLesson()">Удалить</button>
+                <button class="btn btn-primary" onclick="saveLesson()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="homework-modal">
+        <div class="modal">
+            <h3>📝 Добавить домашку</h3>
+            <input type="hidden" id="hw-date">
+            <input type="hidden" id="hw-pair">
+            
+            <div class="form-group">
+                <label>Предмет</label>
+                <input type="text" id="hw-subject" placeholder="Математика" readonly style="opacity: 0.7;">
+            </div>
+            <div class="form-group">
+                <label>Задание</label>
+                <textarea id="hw-task" placeholder="Что нужно сделать..."></textarea>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('homework-modal')">Отмена</button>
+                <button class="btn btn-primary" onclick="saveHomework()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="change-modal">
+        <div class="modal">
+            <h3>📝 Изменение расписания</h3>
+            <input type="hidden" id="change-edit-id">
+            
+            <div class="form-group">
+                <label>Дата изменения</label>
+                <input type="date" id="change-date">
+            </div>
+            
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.85em; margin-bottom: 15px;">
+                Заполните только те пары, которые будут в этот день. Пустые поля = нет пары.
+            </p>
+            
+            <div class="change-pairs-form" id="change-pairs-form">
+                <div class="change-pair-row">
+                    <div class="change-pair-header">
+                        <span class="change-pair-num-badge">1</span>
+                        <span style="font-weight: 500;">пара</span>
+                    </div>
+                    <div class="change-pair-inputs">
+                        <input type="text" id="change-p1-name" placeholder="Предмет">
+                        <input type="text" id="change-p1-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p1-teacher" placeholder="Преподаватель">
+                    </div>
+                </div>
+                <div class="change-pair-row">
+                    <div class="change-pair-header">
+                        <span class="change-pair-num-badge">2</span>
+                        <span style="font-weight: 500;">пара</span>
+                    </div>
+                    <div class="change-pair-inputs">
+                        <input type="text" id="change-p2-name" placeholder="Предмет">
+                        <input type="text" id="change-p2-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p2-teacher" placeholder="Преподаватель">
+                    </div>
+                </div>
+                <div class="change-pair-row">
+                    <div class="change-pair-header">
+                        <span class="change-pair-num-badge">3</span>
+                        <span style="font-weight: 500;">пара</span>
+                    </div>
+                    <div class="change-pair-inputs">
+                        <input type="text" id="change-p3-name" placeholder="Предмет">
+                        <input type="text" id="change-p3-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p3-teacher" placeholder="Преподаватель">
+                    </div>
+                </div>
+                <div class="change-pair-row">
+                    <div class="change-pair-header">
+                        <span class="change-pair-num-badge">4</span>
+                        <span style="font-weight: 500;">пара</span>
+                    </div>
+                    <div class="change-pair-inputs">
+                        <input type="text" id="change-p4-name" placeholder="Предмет">
+                        <input type="text" id="change-p4-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p4-teacher" placeholder="Преподаватель">
+                    </div>
+                </div>
+                <div class="change-pair-row">
+                    <div class="change-pair-header">
+                        <span class="change-pair-num-badge">5</span>
+                        <span style="font-weight: 500;">пара</span>
+                    </div>
+                    <div class="change-pair-inputs">
+                        <input type="text" id="change-p5-name" placeholder="Предмет">
+                        <input type="text" id="change-p5-room" placeholder="Кабинет" style="max-width: 100px;">
+                        <input type="text" id="change-p5-teacher" placeholder="Преподаватель">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button>
+                <button class="btn btn-danger" id="delete-change-btn" onclick="deleteChange()" style="display: none;">Удалить</button>
+                <button class="btn btn-primary" onclick="saveChange()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="times-modal">
+        <div class="modal">
+            <h3>🕐 Время пар</h3>
+            <div id="times-form"></div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button>
+                <button class="btn btn-primary" onclick="savePairTimes()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
+            authDomain: "my-diary-e223c.firebaseapp.com",
+            databaseURL: "https://my-diary-e223c-default-rtdb.firebaseio.com",
+            projectId: "my-diary-e223c",
+            storageBucket: "my-diary-e223c.firebasestorage.app",
+            messagingSenderId: "903986378920",
+            appId: "1:903986378920:web:b6ebc6691f6d767f78aa9d"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        
+        const ADMIN_UIDS = [
+            "zFKU6TAgIuhZetCOuWpHvDDw6Oj2"
+        ];
+        
+        const DAYS_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+        const DAYS_FULL = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+        
+        let currentUser = null;
+        let isAdmin = false;
+        let isGuest = false;
+        
+        let schedule = { upper: {}, lower: {} };
+        let homeworkList = [];
+        let changesList = [];
+        let settings = {
+            weekStartDate: null,
+            pairTimes: [
+                { start: '08:30', end: '10:00' },
+                { start: '10:10', end: '11:40' },
+                { start: '12:10', end: '13:40' },
+                { start: '13:50', end: '15:20' },
+                { start: '15:30', end: '17:00' }
+            ]
+        };
+        
+        let viewWeekStart = getMonday(new Date());
+        
+        // ============ ИСПРАВЛЕННЫЕ ФУНКЦИИ ДАТ ============
+        
+        // Получить понедельник недели (без проблем с часовыми поясами)
+        function getMonday(date) {
+            const d = new Date(date);
+            d.setHours(12, 0, 0, 0); // Устанавливаем полдень, чтобы избежать проблем с часовыми поясами
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            d.setDate(diff);
+            return d;
+        }
+        
+        // Форматировать дату как YYYY-MM-DD (локальная дата, не UTC!)
+        function formatDateKey(date) {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // Парсить дату из YYYY-MM-DD (возвращает локальную дату)
+        function parseDateKey(dateStr) {
+            const [year, month, day] = dateStr.split('-').map(Number);
+            return new Date(year, month - 1, day, 12, 0, 0);
+        }
+        
+        function formatDateShort(date) {
+            const d = new Date(date);
+            return String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0');
+        }
+        
+        function formatDateFull(date) {
+            const d = new Date(date);
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            return d.toLocaleDateString('ru-RU', options);
+        }
+        
+        // ============ АВТОРИЗАЦИЯ ============
+        
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                currentUser = user;
+                isAdmin = ADMIN_UIDS.includes(user.uid);
+                isGuest = false;
+                showApp();
+            } else if (isGuest) {
+                showApp();
+            }
+        });
+        
+        function login() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            
+            if (!email || !password) {
+                showLoginError('Введите email и пароль');
+                return;
+            }
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(() => showLoginError('Неверный email или пароль'));
+        }
+        
+        function showLoginError(msg) {
+            const el = document.getElementById('login-error');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+        
+        function enterAsGuest() {
+            isGuest = true;
+            isAdmin = false;
+            currentUser = null;
+            showApp();
+        }
+        
+        function logout() {
+            auth.signOut().then(() => {
+                isGuest = false;
+                isAdmin = false;
+                currentUser = null;
+                document.getElementById('app').style.display = 'none';
+                document.getElementById('login-screen').style.display = 'flex';
+            });
+        }
+        
+        function showApp() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            
+            document.getElementById('admin-badge').style.display = isAdmin ? 'inline' : 'none';
+            document.getElementById('settings-nav').style.display = isAdmin ? 'inline-block' : 'none';
+            document.getElementById('changes-nav').style.display = isAdmin ? 'inline-block' : 'none';
+            document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email || '');
+            
+            init();
+        }
+        
+        // ============ ИНИЦИАЛИЗАЦИЯ ============
+        
+        function init() {
+            setupNavigation();
+            loadData();
+            viewWeekStart = getMonday(new Date());
+        }
+        
+        function setupNavigation() {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(btn.dataset.section).classList.add('active');
+                });
+            });
+        }
+        
+        function loadData() {
+            db.ref('settings').on('value', snap => {
+                if (snap.val()) {
+                    settings = { ...settings, ...snap.val() };
+                    if (settings.weekStartDate) {
+                        document.getElementById('week-start-date').value = settings.weekStartDate;
+                    }
+                }
+                updateAll();
+            });
+            
+            db.ref('schedule').on('value', snap => {
+                schedule = snap.val() || { upper: {}, lower: {} };
+                renderDays();
+            });
+            
+            db.ref('homework').on('value', snap => {
+                const data = snap.val();
+                homeworkList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
+                renderDays();
+            });
+            
+            db.ref('changes').on('value', snap => {
+                const data = snap.val();
+                changesList = data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : [];
+                renderDays();
+                renderChanges();
+            });
+            
+            document.getElementById('week-start-date').addEventListener('change', e => {
+                if (isAdmin) db.ref('settings/weekStartDate').set(e.target.value);
+            });
+        }
+        
+        // ============ НЕДЕЛЯ ============
+        
+        function getWeekType(mondayDate) {
+            if (!settings.weekStartDate) {
+                const start = new Date(mondayDate.getFullYear(), 0, 1);
+                const weekNum = Math.ceil(((mondayDate - start) / 86400000 + start.getDay() + 1) / 7);
+                return weekNum % 2 === 1 ? 'upper' : 'lower';
+            }
+            
+            const startDate = getMonday(parseDateKey(settings.weekStartDate));
+            const diffDays = Math.round((mondayDate - startDate) / (24 * 60 * 60 * 1000));
+            const diffWeeks = Math.floor(diffDays / 7);
+            return diffWeeks % 2 === 0 ? 'upper' : 'lower';
+        }
+        
+        function updateWeekNavigator() {
+            const weekEnd = new Date(viewWeekStart);
+            weekEnd.setDate(weekEnd.getDate() + 5);
+            
+            const weekType = getWeekType(viewWeekStart);
+            
+            document.getElementById('week-range').textContent = 
+                `${formatDateShort(viewWeekStart)} — ${formatDateShort(weekEnd)}`;
+            
+            const label = document.getElementById('week-label');
+            label.textContent = weekType === 'upper' ? '☀️ Верхняя неделя' : '🌙 Нижняя неделя';
+            label.className = 'week-dates-label ' + weekType;
+            
+            const badge = document.getElementById('week-type-badge');
+            badge.textContent = weekType === 'upper' ? '☀️ Верхняя' : '🌙 Нижняя';
+            badge.className = 'week-type-badge week-' + weekType;
+        }
+        
+        function prevWeek() {
+            viewWeekStart.setDate(viewWeekStart.getDate() - 7);
+            updateAll();
+        }
+        
+        function nextWeek() {
+            viewWeekStart.setDate(viewWeekStart.getDate() + 7);
+            updateAll();
+        }
+        
+        function goToCurrentWeek() {
+            viewWeekStart = getMonday(new Date());
+            updateAll();
+        }
+        
+        function updateAll() {
+            updateWeekNavigator();
+            renderDays();
+        }
+        
+        // ============ РЕНДЕР ДНЕЙ ============
+        
+        function renderDays() {
+            const grid = document.getElementById('days-grid');
+            const weekType = getWeekType(viewWeekStart);
+            const weekData = schedule[weekType] || {};
+            const today = new Date();
+            const todayKey = formatDateKey(today);
+            
+            let html = '';
+            
+            for (let i = 0; i < 6; i++) {
+                const dayDate = new Date(viewWeekStart);
+                dayDate.setDate(dayDate.getDate() + i);
+                
+                const dayKey = DAYS_SHORT[i];
+                const dateKey = formatDateKey(dayDate);
+                const isToday = dateKey === todayKey;
+                
+                // Проверяем изменения на этот день
+                const dayChange = changesList.find(c => c.date === dateKey);
+                const hasChanges = !!dayChange;
+                
+                // Получаем уроки (с учётом изменений)
+                const dayLessons = hasChanges ? (dayChange.lessons || {}) : (weekData[dayKey] || {});
+                
+                html += `
+                    <div class="day-block ${isToday ? 'today' : ''} ${hasChanges ? 'has-changes' : ''}">
+                        <div class="day-header">
+                            <div class="day-title">
+                                ${DAYS_FULL[i]}
+                                <span class="date">${formatDateShort(dayDate)}</span>
+                            </div>
+                            <div class="day-badges">
+                                ${hasChanges ? '<span class="changes-label">⚡ Изменения</span>' : ''}
+                                ${isToday ? '<span class="today-label">Сегодня</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="day-content">
+                            <div class="lessons-list">
+                                ${renderLessons(dayKey, dayLessons, weekType, dateKey, hasChanges)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            grid.innerHTML = html;
+        }
+        
+        function renderLessons(dayKey, lessons, weekType, dateKey, hasChanges) {
+            let html = '';
+            
+            for (let pair = 1; pair <= 5; pair++) {
+                const lesson = lessons[pair];
+                const hasLesson = lesson && lesson.name;
+                const time = settings.pairTimes[pair - 1];
+                
+                // Находим домашку для этого дня и пары
+                const hwForLesson = homeworkList.filter(hw => 
+                    hw.date === dateKey && hw.pair === pair
+                );
+                
+                html += `
+                    <div class="lesson-row ${hasLesson ? '' : 'empty'} ${hasChanges && hasLesson ? 'changed' : ''}" 
+                         onclick="${isAdmin && !hasChanges ? `openLessonModal('${dayKey}', ${pair}, '${weekType}')` : ''}">
+                        <div class="lesson-number">
+                            <div class="lesson-num">${pair}</div>
+                            <div class="lesson-time">${time?.start || ''}</div>
+                        </div>
+                        <div class="lesson-info">
+                            ${hasLesson ? `
+                                <div class="lesson-name-row">
+                                    <span class="lesson-name">${escapeHtml(lesson.name)}</span>
+                                    ${isAdmin ? `
+                                        <button class="add-hw-btn" onclick="event.stopPropagation(); openHomeworkModal('${dateKey}', ${pair}, '${escapeHtml(lesson.name)}')" title="Добавить ДЗ">+ ДЗ</button>
+                                    ` : ''}
+                                </div>
+                                <div class="lesson-details">
+                                    ${lesson.room ? `<span class="lesson-room">📍 ${escapeHtml(lesson.room)}</span>` : ''}
+                                    ${lesson.teacher ? `<span>👤 ${escapeHtml(lesson.teacher)}</span>` : ''}
+                                </div>
+                                ${renderLessonHomework(hwForLesson)}
+                            ` : `
+                                <span class="lesson-empty-text">${isAdmin && !hasChanges ? 'Нажмите, чтобы добавить' : 'Нет пары'}</span>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            return html;
+        }
+        
+        function renderLessonHomework(hwList) {
+            if (!hwList || hwList.length === 0) return '';
+            
+            return hwList.map(hw => `
+                <div class="lesson-homework ${hw.done ? 'done' : ''}" onclick="event.stopPropagation();">
+                    <div class="lesson-homework-header">
+                        <span class="lesson-homework-title">📝 Домашка</span>
+                        <div>
+                            <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleHW('${hw.id}')">
+                                ${hw.done ? '↩' : '✓'}
+                            </button>
+                            ${isAdmin ? `<button class="btn btn-xs btn-danger" onclick="deleteHW('${hw.id}')">✕</button>` : ''}
+                        </div>
+                    </div>
+                    <div class="lesson-homework-text">${escapeHtml(hw.task)}</div>
+                </div>
+            `).join('');
+        }
+        
+        // ============ ИЗМЕНЕНИЯ ============
+        
+        function renderChanges() {
+            const list = document.getElementById('changes-list');
+            
+            if (changesList.length === 0) {
+                list.innerHTML = '<div class="no-items">Нет изменений в расписании</div>';
+                return;
+            }
+            
+            // Сортируем по дате
+            const sorted = [...changesList].sort((a, b) => a.date.localeCompare(b.date));
+            
+            list.innerHTML = sorted.map(change => {
+                const date = parseDateKey(change.date);
+                const dateStr = formatDateFull(date);
+                
+                return `
+                    <div class="change-card">
+                        <div class="change-header">
+                            <span class="change-date">${dateStr}</span>
+                            <div>
+                                <button class="btn btn-sm btn-secondary" onclick="editChange('${change.id}')">✏️</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteChangeById('${change.id}')">✕</button>
+                            </div>
+                        </div>
+                        <div class="change-lessons">
+                            ${renderChangeLessons(change.lessons)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function renderChangeLessons(lessons) {
+            if (!lessons) return '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Все пары отменены</div>';
+            
+            let html = '';
+            for (let pair = 1; pair <= 5; pair++) {
+                const lesson = lessons[pair];
+                if (lesson && lesson.name) {
+                    html += `
+                        <div class="change-lesson-row">
+                            <div class="change-pair-num">${pair}</div>
+                            <div class="change-lesson-info">
+                                <div class="change-lesson-name">${escapeHtml(lesson.name)}</div>
+                                <div class="change-lesson-details">
+                                    ${lesson.room ? `<span>📍 ${escapeHtml(lesson.room)}</span>` : ''}
+                                    ${lesson.teacher ? `<span>👤 ${escapeHtml(lesson.teacher)}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            return html || '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Все пары отменены</div>';
+        }
+        
+        function openChangeModal(editId = null) {
+            if (!isAdmin) return;
+            
+            document.getElementById('change-edit-id').value = editId || '';
+            document.getElementById('delete-change-btn').style.display = editId ? 'block' : 'none';
+            
+            // Очищаем форму
+            document.getElementById('change-date').value = '';
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`change-p${i}-name`).value = '';
+                document.getElementById(`change-p${i}-room`).value = '';
+                document.getElementById(`change-p${i}-teacher`).value = '';
+            }
+            
+            // Если редактирование, заполняем данные
+            if (editId) {
+                const change = changesList.find(c => c.id === editId);
+                if (change) {
+                    document.getElementById('change-date').value = change.date;
+                    if (change.lessons) {
+                        for (let i = 1; i <= 5; i++) {
+                            const lesson = change.lessons[i];
+                            if (lesson) {
+                                document.getElementById(`change-p${i}-name`).value = lesson.name || '';
+                                document.getElementById(`change-p${i}-room`).value = lesson.room || '';
+                                document.getElementById(`change-p${i}-teacher`).value = lesson.teacher || '';
+                            }
+                        }
+                    }
+                }
+            }
+            
+            openModal('change-modal');
+        }
+        
+        function editChange(id) {
+            openChangeModal(id);
+        }
+        
+        function saveChange() {
+            if (!isAdmin) return;
+            
+            const editId = document.getElementById('change-edit-id').value;
+            const date = document.getElementById('change-date').value;
+            
+            if (!date) {
+                alert('Выберите дату');
+                return;
+            }
+            
+            const lessons = {};
+            let hasAnyLesson = false;
+            
+            for (let i = 1; i <= 5; i++) {
+                const name = document.getElementById(`change-p${i}-name`).value.trim();
+                const room = document.getElementById(`change-p${i}-room`).value.trim();
+                const teacher = document.getElementById(`change-p${i}-teacher`).value.trim();
+                
+                if (name) {
+                    lessons[i] = { name, room, teacher };
+                    hasAnyLesson = true;
+                }
+            }
+            
+            const changeData = { date, lessons: hasAnyLesson ? lessons : null };
+            
+            if (editId) {
+                db.ref(`changes/${editId}`).set(changeData);
+            } else {
+                db.ref('changes').push(changeData);
+            }
+            
+            closeModal('change-modal');
+        }
+        
+        function deleteChange() {
+            const editId = document.getElementById('change-edit-id').value;
+            if (editId) {
+                deleteChangeById(editId);
+                closeModal('change-modal');
+            }
+        }
+        
+        function deleteChangeById(id) {
+            if (!isAdmin) return;
+            if (confirm('Удалить изменение?')) {
+                db.ref(`changes/${id}`).remove();
+            }
+        }
+        
+        // ============ МОДАЛКИ ============
+        
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        
+        function openLessonModal(day, pair, week) {
+            if (!isAdmin) return;
+            
+            document.getElementById('edit-day').value = day;
+            document.getElementById('edit-pair').value = pair;
+            document.getElementById('edit-week').value = week;
+            
+            const lesson = schedule[week]?.[day]?.[pair] || {};
+            document.getElementById('lesson-name').value = lesson.name || '';
+            document.getElementById('lesson-room').value = lesson.room || '';
+            document.getElementById('lesson-teacher').value = lesson.teacher || '';
+            
+            openModal('lesson-modal');
+        }
+        
+        function saveLesson() {
+            if (!isAdmin) return;
+            
+            const day = document.getElementById('edit-day').value;
+            const pair = document.getElementById('edit-pair').value;
+            const week = document.getElementById('edit-week').value;
+            
+            const name = document.getElementById('lesson-name').value.trim();
+            const room = document.getElementById('lesson-room').value.trim();
+            const teacher = document.getElementById('lesson-teacher').value.trim();
+            
+            if (name) {
+                db.ref(`schedule/${week}/${day}/${pair}`).set({ name, room, teacher });
+            } else {
+                db.ref(`schedule/${week}/${day}/${pair}`).remove();
+            }
+            
+            closeModal('lesson-modal');
+        }
+        
+        function deleteLesson() {
+            if (!isAdmin) return;
+            
+            const day = document.getElementById('edit-day').value;
+            const pair = document.getElementById('edit-pair').value;
+            const week = document.getElementById('edit-week').value;
+            
+            db.ref(`schedule/${week}/${day}/${pair}`).remove();
+            closeModal('lesson-modal');
+        }
+        
+        // ============ ДОМАШКА ============
+        
+        function openHomeworkModal(dateKey, pair, subject) {
+            if (!isAdmin) return;
+            
+            document.getElementById('hw-date').value = dateKey;
+            document.getElementById('hw-pair').value = pair;
+            document.getElementById('hw-subject').value = subject;
+            document.getElementById('hw-task').value = '';
+            
+            openModal('homework-modal');
+        }
+        
+        function saveHomework() {
+            if (!isAdmin) return;
+            
+            const date = document.getElementById('hw-date').value;
+            const pair = parseInt(document.getElementById('hw-pair').value);
+            const subject = document.getElementById('hw-subject').value;
+            const task = document.getElementById('hw-task').value.trim();
+            
+            if (!task) {
+                alert('Введите задание');
+                return;
+            }
+            
+            db.ref('homework').push({
+                date,
+                pair,
+                subject,
+                task,
+                done: false,
+                created: new Date().toISOString()
+            });
+            
+            closeModal('homework-modal');
+        }
+        
+        function toggleHW(id) {
+            const hw = homeworkList.find(h => h.id === id);
+            if (hw) {
+                db.ref(`homework/${id}/done`).set(!hw.done);
+            }
+        }
+        
+        function deleteHW(id) {
+            if (!isAdmin) return;
+            if (confirm('Удалить домашку?')) {
+                db.ref(`homework/${id}`).remove();
+            }
+        }
+        
+        // ============ НАСТРОЙКИ ============
+        
+        function openTimesModal() {
+            if (!isAdmin) return;
+            
+            const form = document.getElementById('times-form');
+            form.innerHTML = settings.pairTimes.map((t, i) => `
+                <div class="form-group" style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
+                    <span style="min-width: 55px; font-weight: 500;">${i + 1} пара</span>
+                    <input type="time" id="time-start-${i}" value="${t.start}" class="setting-input" style="flex: 1;">
+                    <span style="color: rgba(255,255,255,0.3);">—</span>
+                    <input type="time" id="time-end-${i}" value="${t.end}" class="setting-input" style="flex: 1;">
+                </div>
+            `).join('');
+            
+            openModal('times-modal');
+        }
+        
+        function savePairTimes() {
+            if (!isAdmin) return;
+            
+            const times = [];
+            for (let i = 0; i < 5; i++) {
+                times.push({
+                    start: document.getElementById(`time-start-${i}`).value,
+                    end: document.getElementById(`time-end-${i}`).value
+                });
+            }
+            db.ref('settings/pairTimes').set(times);
+            closeModal('times-modal');
+        }
+        
+        function clearAllData() {
+            if (!isAdmin) return;
+            if (confirm('Удалить ВСЁ? Это нельзя отменить!')) {
+                db.ref('schedule').remove();
+                db.ref('homework').remove();
+                db.ref('changes').remove();
+            }
+        }
+        
+        // ============ УТИЛИТЫ ============
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', e => {
+                if (e.target === overlay) overlay.classList.remove('active');
+            });
+        });
+        
+        document.getElementById('login-password').addEventListener('keypress', e => {
+            if (e.key === 'Enter') login();
+        });
+        document.getElementById('login-email').addEventListener('keypress', e => {
+            if (e.key === 'Enter') document.getElementById('login-password').focus();
+        });
+    </script>
+</body>
+</html>
