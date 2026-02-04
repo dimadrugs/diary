@@ -2,37 +2,55 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Дневник</title>
     
-    <!-- PWA Meta Tags -->
+    <!-- PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Дневник">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0a0a0f">
-    <meta name="description" content="Дневник техникума">
+    <meta name="theme-color" content="#6366f1" id="theme-color-meta">
     
-    <!-- Иконки для iOS -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236366f1' width='100' height='100' rx='20'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>📚</text></svg>">
-    
-    <!-- Manifest для Android -->
-    <link rel="manifest" href="data:application/manifest+json,{
-        &quot;name&quot;: &quot;Дневник техникума&quot;,
-        &quot;short_name&quot;: &quot;Дневник&quot;,
-        &quot;start_url&quot;: &quot;.&quot;,
-        &quot;display&quot;: &quot;standalone&quot;,
-        &quot;background_color&quot;: &quot;%230a0a0f&quot;,
-        &quot;theme_color&quot;: &quot;%236366f1&quot;,
-        &quot;icons&quot;: [{
-            &quot;src&quot;: &quot;data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236366f1' width='100' height='100' rx='20'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white'>📚</text></svg>&quot;,
-            &quot;sizes&quot;: &quot;192x192&quot;,
-            &quot;type&quot;: &quot;image/svg+xml&quot;
-        }]
-    }">
+    <!-- Иконки -->
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="manifest" href="manifest.json">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(255,255,255,0.02);
+            --bg-card-hover: rgba(255,255,255,0.05);
+            --bg-input: rgba(255,255,255,0.05);
+            --border-color: rgba(255,255,255,0.05);
+            --border-light: rgba(255,255,255,0.1);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255,255,255,0.7);
+            --text-muted: rgba(255,255,255,0.4);
+            --accent: #6366f1;
+            --accent-light: #8b5cf6;
+            --status-bar-bg: #0a0a0f;
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(0,0,0,0.03);
+            --bg-card-hover: rgba(0,0,0,0.06);
+            --bg-input: rgba(0,0,0,0.05);
+            --border-color: rgba(0,0,0,0.08);
+            --border-light: rgba(0,0,0,0.12);
+            --text-primary: #1a1a1a;
+            --text-secondary: rgba(0,0,0,0.7);
+            --text-muted: rgba(0,0,0,0.4);
+            --accent: #6366f1;
+            --accent-light: #8b5cf6;
+            --status-bar-bg: #ffffff;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -40,32 +58,47 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0a0f;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            color: #fff;
-            -webkit-font-smoothing: antialiased;
-        }
-        
         html {
             height: -webkit-fill-available;
         }
         
-        /* Safe area для iPhone с чёлкой */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        /* Safe Area для iPhone с чёлкой */
+        .safe-area-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: env(safe-area-inset-top);
+            background: var(--bg-secondary);
+            z-index: 101;
+        }
+        
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
+            padding-left: calc(20px + env(safe-area-inset-left));
+            padding-right: calc(20px + env(safe-area-inset-right));
             padding-bottom: calc(20px + env(safe-area-inset-bottom));
         }
         
         header {
-            background: linear-gradient(135deg, #12121a 0%, #0a0a0f 100%);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
             padding: 15px 20px;
             padding-top: calc(15px + env(safe-area-inset-top));
+            padding-left: calc(20px + env(safe-area-inset-left));
+            padding-right: calc(20px + env(safe-area-inset-right));
             position: sticky;
             top: 0;
             z-index: 100;
@@ -93,7 +126,26 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+        }
+        
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--bg-card-hover);
         }
         
         .week-type-badge {
@@ -118,7 +170,7 @@
             align-items: center;
             gap: 10px;
             font-size: 0.85em;
-            color: rgba(255,255,255,0.6);
+            color: var(--text-secondary);
         }
         
         .admin-badge {
@@ -148,8 +200,9 @@
         }
         
         .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
         
         .btn-danger {
@@ -169,7 +222,7 @@
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
         
         .btn:active {
@@ -195,15 +248,15 @@
             justify-content: center;
             border-radius: 12px;
             font-size: 1.2em;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            border: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
             cursor: pointer;
             transition: all 0.2s;
         }
         
         .btn-icon:hover {
-            background: rgba(255,255,255,0.2);
+            background: var(--bg-card-hover);
         }
         
         .btn-icon:active {
@@ -216,10 +269,10 @@
             justify-content: center;
             gap: 15px;
             padding: 20px;
-            background: rgba(255,255,255,0.02);
+            background: var(--bg-card);
             border-radius: 16px;
             margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
         }
         
         .week-dates {
@@ -231,11 +284,12 @@
             font-size: 1.3em;
             font-weight: 700;
             margin-bottom: 5px;
+            color: var(--text-primary);
         }
         
         .week-dates-label {
             font-size: 0.85em;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
         }
         
         .week-dates-label.upper {
@@ -264,22 +318,22 @@
         .nav-btn {
             padding: 12px 20px;
             border: none;
-            background: rgba(255,255,255,0.03);
-            color: rgba(255,255,255,0.7);
+            background: var(--bg-card);
+            color: var(--text-secondary);
             border-radius: 12px;
             cursor: pointer;
             font-size: 0.9em;
             font-weight: 500;
             transition: all 0.2s;
             font-family: inherit;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
             white-space: nowrap;
             flex-shrink: 0;
         }
         
         .nav-btn:hover {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
         }
         
         .nav-btn.active {
@@ -309,15 +363,11 @@
         }
         
         .day-block {
-            background: rgba(255,255,255,0.02);
+            background: var(--bg-card);
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
             transition: all 0.3s;
-        }
-        
-        .day-block:hover {
-            border-color: rgba(99, 102, 241, 0.2);
         }
         
         .day-block.today {
@@ -334,8 +384,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 14px 16px;
-            background: rgba(255,255,255,0.03);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: var(--bg-card-hover);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .day-title {
@@ -344,11 +394,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-primary);
         }
         
         .day-title .date {
             font-weight: 400;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
             font-size: 0.9em;
         }
         
@@ -390,26 +441,23 @@
             align-items: flex-start;
             gap: 10px;
             padding: 10px;
-            background: rgba(255,255,255,0.03);
+            background: var(--bg-card);
             border-radius: 10px;
             transition: all 0.2s;
             cursor: pointer;
+            border: 1px solid transparent;
         }
         
         .lesson-row:hover {
-            background: rgba(255,255,255,0.06);
+            background: var(--bg-card-hover);
         }
         
         .lesson-row:active {
-            background: rgba(255,255,255,0.08);
+            background: var(--bg-card-hover);
         }
         
         .lesson-row.empty {
             opacity: 0.5;
-        }
-        
-        .lesson-row.empty:hover {
-            opacity: 0.8;
         }
         
         .lesson-row.changed {
@@ -432,12 +480,12 @@
         .lesson-num {
             font-size: 1.2em;
             font-weight: 700;
-            color: #8b5cf6;
+            color: var(--accent);
         }
         
         .lesson-time {
             font-size: 0.6em;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-muted);
             margin-top: 2px;
         }
         
@@ -457,23 +505,24 @@
         .lesson-name {
             font-weight: 600;
             font-size: 0.95em;
+            color: var(--text-primary);
         }
         
         .lesson-details {
             display: flex;
             gap: 12px;
             font-size: 0.8em;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
             margin-bottom: 6px;
             flex-wrap: wrap;
         }
         
         .lesson-room {
-            color: #8b5cf6;
+            color: var(--accent);
         }
         
         .lesson-empty-text {
-            color: rgba(255,255,255,0.3);
+            color: var(--text-muted);
             font-style: italic;
             font-size: 0.9em;
         }
@@ -483,7 +532,7 @@
             padding: 10px;
             background: rgba(99, 102, 241, 0.1);
             border-radius: 8px;
-            border-left: 3px solid #6366f1;
+            border-left: 3px solid var(--accent);
         }
         
         .lesson-homework-header {
@@ -495,7 +544,7 @@
         
         .lesson-homework-title {
             font-size: 0.7em;
-            color: #8b5cf6;
+            color: var(--accent);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -504,6 +553,7 @@
         .lesson-homework-text {
             font-size: 0.85em;
             line-height: 1.4;
+            color: var(--text-primary);
         }
         
         .lesson-homework.done {
@@ -519,7 +569,7 @@
             padding: 4px 8px;
             background: rgba(99, 102, 241, 0.2);
             border: none;
-            color: #8b5cf6;
+            color: var(--accent);
             border-radius: 6px;
             cursor: pointer;
             font-size: 0.75em;
@@ -528,15 +578,15 @@
         }
         
         .add-hw-btn:active {
-            background: #6366f1;
+            background: var(--accent);
             color: #fff;
         }
         
-        .changes-wrapper {
-            background: rgba(255,255,255,0.02);
+        .changes-wrapper, .settings-wrapper {
+            background: var(--bg-card);
             border-radius: 16px;
             padding: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
         }
         
         .section-header {
@@ -554,6 +604,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-primary);
         }
         
         .changes-list {
@@ -595,8 +646,12 @@
             align-items: center;
             gap: 10px;
             padding: 10px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.15);
             border-radius: 8px;
+        }
+        
+        [data-theme="light"] .change-lesson-row {
+            background: rgba(0,0,0,0.05);
         }
         
         .change-pair-num {
@@ -621,21 +676,15 @@
         .change-lesson-name {
             font-weight: 600;
             font-size: 0.95em;
+            color: var(--text-primary);
         }
         
         .change-lesson-details {
             font-size: 0.8em;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-        }
-        
-        .settings-wrapper {
-            background: rgba(255,255,255,0.02);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
         }
         
         .setting-row {
@@ -643,7 +692,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px;
-            background: rgba(255,255,255,0.03);
+            background: var(--bg-card-hover);
             border-radius: 12px;
             margin-bottom: 10px;
             flex-wrap: wrap;
@@ -653,19 +702,20 @@
         .setting-info h4 {
             margin-bottom: 4px;
             font-size: 0.95em;
+            color: var(--text-primary);
         }
         
         .setting-info p {
             font-size: 0.8em;
-            color: rgba(255,255,255,0.4);
+            color: var(--text-muted);
         }
         
         .setting-input {
             padding: 10px 14px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light);
+            background: var(--bg-input);
             border-radius: 10px;
-            color: #fff;
+            color: var(--text-primary);
             font-family: inherit;
             font-size: 0.95em;
         }
@@ -682,9 +732,14 @@
             align-items: flex-start;
             justify-content: center;
             padding: 20px;
-            padding-top: calc(20px + env(safe-area-inset-top));
+            padding-top: calc(40px + env(safe-area-inset-top));
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+        }
+        
+        [data-theme="light"] .modal-overlay {
+            background: rgba(0,0,0,0.5);
         }
         
         .modal-overlay.active {
@@ -692,12 +747,12 @@
         }
         
         .modal {
-            background: #16161f;
+            background: var(--bg-secondary);
             border-radius: 20px;
             padding: 24px;
             width: 100%;
             max-width: 500px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
             animation: modalIn 0.3s ease;
             margin: auto;
         }
@@ -710,6 +765,7 @@
         .modal h3 {
             margin-bottom: 20px;
             font-size: 1.15em;
+            color: var(--text-primary);
         }
         
         .form-group {
@@ -719,7 +775,7 @@
         .form-group label {
             display: block;
             margin-bottom: 6px;
-            color: rgba(255,255,255,0.6);
+            color: var(--text-secondary);
             font-size: 0.85em;
         }
         
@@ -727,10 +783,10 @@
         .form-group textarea {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light);
+            background: var(--bg-input);
             border-radius: 10px;
-            color: #fff;
+            color: var(--text-primary);
             font-size: 1em;
             font-family: inherit;
             -webkit-appearance: none;
@@ -744,7 +800,7 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: var(--accent);
         }
         
         .modal-buttons {
@@ -765,7 +821,7 @@
         }
         
         .change-pair-row {
-            background: rgba(255,255,255,0.03);
+            background: var(--bg-card);
             border-radius: 10px;
             padding: 12px;
         }
@@ -800,10 +856,10 @@
             flex: 1;
             min-width: 80px;
             padding: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light);
+            background: var(--bg-input);
             border-radius: 8px;
-            color: #fff;
+            color: var(--text-primary);
             font-size: 0.9em;
             font-family: inherit;
             -webkit-appearance: none;
@@ -815,7 +871,7 @@
         }
         
         .change-pair-inputs input::placeholder {
-            color: rgba(255,255,255,0.3);
+            color: var(--text-muted);
         }
         
         .login-screen {
@@ -826,15 +882,16 @@
             justify-content: center;
             padding: 20px;
             padding-top: calc(20px + env(safe-area-inset-top));
+            background: var(--bg-primary);
         }
         
         .login-container {
             width: 100%;
             max-width: 380px;
             padding: 32px;
-            background: rgba(255,255,255,0.02);
+            background: var(--bg-card);
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
         }
         
         .login-logo {
@@ -847,11 +904,12 @@
             text-align: center;
             margin-bottom: 8px;
             font-size: 1.6em;
+            color: var(--text-primary);
         }
         
         .login-subtitle {
             text-align: center;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
             margin-bottom: 28px;
         }
         
@@ -877,7 +935,7 @@
             align-items: center;
             gap: 15px;
             margin: 24px 0;
-            color: rgba(255,255,255,0.3);
+            color: var(--text-muted);
             font-size: 0.85em;
         }
         
@@ -886,13 +944,13 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(255,255,255,0.1);
+            background: var(--border-color);
         }
         
         .no-items {
             text-align: center;
             padding: 40px 20px;
-            color: rgba(255,255,255,0.3);
+            color: var(--text-muted);
         }
         
         /* Install prompt */
@@ -902,7 +960,7 @@
             left: 20px;
             right: 20px;
             bottom: calc(20px + env(safe-area-inset-bottom));
-            background: linear-gradient(135deg, #1a1a2e 0%, #16161f 100%);
+            background: var(--bg-secondary);
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 16px;
             padding: 16px;
@@ -910,7 +968,7 @@
             align-items: center;
             gap: 12px;
             z-index: 999;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         
         .install-prompt.show {
@@ -934,17 +992,18 @@
         .install-prompt-text h4 {
             font-size: 0.95em;
             margin-bottom: 2px;
+            color: var(--text-primary);
         }
         
         .install-prompt-text p {
             font-size: 0.8em;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
         }
         
         .install-prompt-close {
             background: none;
             border: none;
-            color: rgba(255,255,255,0.5);
+            color: var(--text-muted);
             font-size: 1.5em;
             cursor: pointer;
             padding: 5px;
@@ -952,13 +1011,15 @@
         
         @media (max-width: 500px) {
             .header-content {
-                justify-content: center;
-                text-align: center;
+                justify-content: space-between;
             }
             
             .header-right {
-                width: 100%;
-                justify-content: center;
+                width: auto;
+            }
+            
+            .user-info {
+                display: none;
             }
             
             .week-navigator {
@@ -994,6 +1055,9 @@
     </style>
 </head>
 <body>
+    <!-- Safe area top fill for iPhone -->
+    <div class="safe-area-top"></div>
+    
     <div id="login-screen" class="login-screen">
         <div class="login-container">
             <div class="login-logo">📚</div>
@@ -1023,12 +1087,15 @@
             <div class="header-content">
                 <div class="logo">📚 Дневник</div>
                 <div class="header-right">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
+                        <span id="theme-icon">🌙</span>
+                    </button>
                     <div id="week-type-badge" class="week-type-badge week-upper">☀️ Верхняя</div>
                     <div class="user-info">
                         <span id="user-email"></span>
                         <span class="admin-badge" id="admin-badge" style="display: none;">Админ</span>
-                        <button class="btn btn-secondary btn-sm" onclick="logout()">Выйти</button>
                     </div>
+                    <button class="btn btn-secondary btn-sm" onclick="logout()">Выйти</button>
                 </div>
             </div>
         </header>
@@ -1070,6 +1137,14 @@
                     
                     <div class="setting-row">
                         <div class="setting-info">
+                            <h4>Тема оформления</h4>
+                            <p>Светлая или тёмная</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="toggleTheme()">Сменить тему</button>
+                    </div>
+                    
+                    <div class="setting-row">
+                        <div class="setting-info">
                             <h4>Начало отсчёта недель</h4>
                             <p>Понедельник верхней недели</p>
                         </div>
@@ -1096,7 +1171,6 @@
         </div>
     </div>
     
-    <!-- Install prompt -->
     <div class="install-prompt" id="install-prompt">
         <div class="install-prompt-icon">📲</div>
         <div class="install-prompt-text">
@@ -1167,7 +1241,7 @@
                 <input type="date" id="change-date">
             </div>
             
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.8em; margin-bottom: 12px;">
+            <p style="color: var(--text-muted); font-size: 0.8em; margin-bottom: 12px;">
                 Заполни только те пары, которые будут. Пустые = нет пары.
             </p>
             
@@ -1175,7 +1249,7 @@
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">1</span>
-                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p1-name" placeholder="Предмет">
@@ -1186,7 +1260,7 @@
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">2</span>
-                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p2-name" placeholder="Предмет">
@@ -1197,7 +1271,7 @@
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">3</span>
-                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p3-name" placeholder="Предмет">
@@ -1208,7 +1282,7 @@
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">4</span>
-                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p4-name" placeholder="Предмет">
@@ -1219,7 +1293,7 @@
                 <div class="change-pair-row">
                     <div class="change-pair-header">
                         <span class="change-pair-num-badge">5</span>
-                        <span style="font-weight: 500; font-size: 0.9em;">пара</span>
+                        <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
                     </div>
                     <div class="change-pair-inputs">
                         <input type="text" id="change-p5-name" placeholder="Предмет">
@@ -1253,6 +1327,40 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
+        // ============ ТЕМА ============
+        function initTheme() {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = saved || (prefersDark ? 'dark' : 'light');
+            setTheme(theme);
+        }
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            
+            // Обновляем meta theme-color
+            const meta = document.getElementById('theme-color-meta');
+            if (meta) {
+                meta.content = theme === 'dark' ? '#0a0a0f' : '#ffffff';
+            }
+            
+            // Обновляем safe-area цвет
+            document.querySelector('.safe-area-top').style.background = 
+                theme === 'dark' ? '#12121a' : '#ffffff';
+        }
+        
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        }
+        
+        initTheme();
+        
+        // ============ FIREBASE ============
         const firebaseConfig = {
             apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
             authDomain: "my-diary-e223c.firebaseapp.com",
@@ -1267,7 +1375,6 @@
         const auth = firebase.auth();
         const db = firebase.database();
         
-        // Сохранение сессии на 7 дней
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
         
         const ADMIN_UIDS = ["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
@@ -1296,8 +1403,7 @@
         let viewWeekStart = getMonday(new Date());
         let deferredPrompt = null;
         
-        // ============ PWA INSTALL ============
-        
+        // ============ PWA ============
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -1311,7 +1417,7 @@
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choice) => {
+                deferredPrompt.userChoice.then(() => {
                     deferredPrompt = null;
                     hideInstallPrompt();
                 });
@@ -1324,7 +1430,6 @@
         }
         
         // ============ ДАТЫ ============
-        
         function getMonday(date) {
             const d = new Date(date);
             d.setHours(12, 0, 0, 0);
@@ -1336,10 +1441,7 @@
         
         function formatDateKey(date) {
             const d = new Date(date);
-            const year = d.getFullYear();
-            const month = String(d.getMonth() + 1).padStart(2, '0');
-            const day = String(d.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         }
         
         function parseDateKey(dateStr) {
@@ -1358,19 +1460,15 @@
         }
         
         // ============ АВТОРИЗАЦИЯ ============
-        
         auth.onAuthStateChanged(user => {
             if (user) {
                 currentUser = user;
                 isAdmin = ADMIN_UIDS.includes(user.uid);
                 isGuest = false;
                 showApp();
-            } else {
-                // Проверяем гостевую сессию
-                if (localStorage.getItem('guestSession')) {
-                    isGuest = true;
-                    showApp();
-                }
+            } else if (localStorage.getItem('guestSession')) {
+                isGuest = true;
+                showApp();
             }
         });
         
@@ -1425,7 +1523,6 @@
         }
         
         // ============ ИНИЦИАЛИЗАЦИЯ ============
-        
         function init() {
             setupNavigation();
             loadData();
@@ -1478,7 +1575,6 @@
         }
         
         // ============ НЕДЕЛЯ ============
-        
         function getWeekType(mondayDate) {
             if (!settings.weekStartDate) {
                 const start = new Date(mondayDate.getFullYear(), 0, 1);
@@ -1510,34 +1606,17 @@
             badge.className = 'week-type-badge week-' + weekType;
         }
         
-        function prevWeek() {
-            viewWeekStart.setDate(viewWeekStart.getDate() - 7);
-            updateAll();
-        }
-        
-        function nextWeek() {
-            viewWeekStart.setDate(viewWeekStart.getDate() + 7);
-            updateAll();
-        }
-        
-        function goToCurrentWeek() {
-            viewWeekStart = getMonday(new Date());
-            updateAll();
-        }
-        
-        function updateAll() {
-            updateWeekNavigator();
-            renderDays();
-        }
+        function prevWeek() { viewWeekStart.setDate(viewWeekStart.getDate() - 7); updateAll(); }
+        function nextWeek() { viewWeekStart.setDate(viewWeekStart.getDate() + 7); updateAll(); }
+        function goToCurrentWeek() { viewWeekStart = getMonday(new Date()); updateAll(); }
+        function updateAll() { updateWeekNavigator(); renderDays(); }
         
         // ============ РЕНДЕР ============
-        
         function renderDays() {
             const grid = document.getElementById('days-grid');
             const weekType = getWeekType(viewWeekStart);
             const weekData = schedule[weekType] || {};
-            const today = new Date();
-            const todayKey = formatDateKey(today);
+            const todayKey = formatDateKey(new Date());
             
             let html = '';
             
@@ -1615,7 +1694,6 @@
         
         function renderLessonHomework(hwList) {
             if (!hwList || hwList.length === 0) return '';
-            
             return hwList.map(hw => `
                 <div class="lesson-homework ${hw.done ? 'done' : ''}" onclick="event.stopPropagation();">
                     <div class="lesson-homework-header">
@@ -1632,34 +1710,27 @@
         
         function renderChanges() {
             const list = document.getElementById('changes-list');
-            
             if (changesList.length === 0) {
                 list.innerHTML = '<div class="no-items">Нет изменений</div>';
                 return;
             }
             
-            const sorted = [...changesList].sort((a, b) => a.date.localeCompare(b.date));
-            
-            list.innerHTML = sorted.map(change => {
-                const date = parseDateKey(change.date);
-                return `
-                    <div class="change-card">
-                        <div class="change-header">
-                            <span class="change-date">${formatDateFull(date)}</span>
-                            <div>
-                                <button class="btn btn-sm btn-secondary" onclick="editChange('${change.id}')">✏️</button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteChangeById('${change.id}')">✕</button>
-                            </div>
+            list.innerHTML = [...changesList].sort((a, b) => a.date.localeCompare(b.date)).map(change => `
+                <div class="change-card">
+                    <div class="change-header">
+                        <span class="change-date">${formatDateFull(parseDateKey(change.date))}</span>
+                        <div>
+                            <button class="btn btn-sm btn-secondary" onclick="editChange('${change.id}')">✏️</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteChangeById('${change.id}')">✕</button>
                         </div>
-                        <div class="change-lessons">${renderChangeLessons(change.lessons)}</div>
                     </div>
-                `;
-            }).join('');
+                    <div class="change-lessons">${renderChangeLessons(change.lessons)}</div>
+                </div>
+            `).join('');
         }
         
         function renderChangeLessons(lessons) {
-            if (!lessons) return '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Пар нет</div>';
-            
+            if (!lessons) return '<div style="color: var(--text-muted); padding: 10px;">Пар нет</div>';
             let html = '';
             for (let pair = 1; pair <= 5; pair++) {
                 const lesson = lessons[pair];
@@ -1678,11 +1749,10 @@
                     `;
                 }
             }
-            return html || '<div style="color: rgba(255,255,255,0.4); padding: 10px;">Пар нет</div>';
+            return html || '<div style="color: var(--text-muted); padding: 10px;">Пар нет</div>';
         }
         
         // ============ МОДАЛКИ ============
-        
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         
@@ -1691,7 +1761,6 @@
             document.getElementById('edit-day').value = day;
             document.getElementById('edit-pair').value = pair;
             document.getElementById('edit-week').value = week;
-            
             const lesson = schedule[week]?.[day]?.[pair] || {};
             document.getElementById('lesson-name').value = lesson.name || '';
             document.getElementById('lesson-room').value = lesson.room || '';
@@ -1707,12 +1776,8 @@
             const name = document.getElementById('lesson-name').value.trim();
             const room = document.getElementById('lesson-room').value.trim();
             const teacher = document.getElementById('lesson-teacher').value.trim();
-            
-            if (name) {
-                db.ref(`schedule/${week}/${day}/${pair}`).set({ name, room, teacher });
-            } else {
-                db.ref(`schedule/${week}/${day}/${pair}`).remove();
-            }
+            if (name) db.ref(`schedule/${week}/${day}/${pair}`).set({ name, room, teacher });
+            else db.ref(`schedule/${week}/${day}/${pair}`).remove();
             closeModal('lesson-modal');
         }
         
@@ -1740,9 +1805,7 @@
             const pair = parseInt(document.getElementById('hw-pair').value);
             const subject = document.getElementById('hw-subject').value;
             const task = document.getElementById('hw-task').value.trim();
-            
             if (!task) { alert('Введите задание'); return; }
-            
             db.ref('homework').push({ date, pair, subject, task, done: false, created: new Date().toISOString() });
             closeModal('homework-modal');
         }
@@ -1767,7 +1830,6 @@
                 document.getElementById(`change-p${i}-room`).value = '';
                 document.getElementById(`change-p${i}-teacher`).value = '';
             }
-            
             if (editId) {
                 const change = changesList.find(c => c.id === editId);
                 if (change) {
@@ -1794,7 +1856,6 @@
             const editId = document.getElementById('change-edit-id').value;
             const date = document.getElementById('change-date').value;
             if (!date) { alert('Выберите дату'); return; }
-            
             const lessons = {};
             let hasAny = false;
             for (let i = 1; i <= 5; i++) {
@@ -1803,7 +1864,6 @@
                 const teacher = document.getElementById(`change-p${i}-teacher`).value.trim();
                 if (name) { lessons[i] = { name, room, teacher }; hasAny = true; }
             }
-            
             const data = { date, lessons: hasAny ? lessons : null };
             if (editId) db.ref(`changes/${editId}`).set(data);
             else db.ref('changes').push(data);
@@ -1826,7 +1886,7 @@
                 <div class="form-group" style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
                     <span style="min-width: 50px; font-weight: 500;">${i + 1} пара</span>
                     <input type="time" id="time-start-${i}" value="${t.start}" class="setting-input" style="flex: 1;">
-                    <span style="color: rgba(255,255,255,0.3);">—</span>
+                    <span style="color: var(--text-muted);">—</span>
                     <input type="time" id="time-end-${i}" value="${t.end}" class="setting-input" style="flex: 1;">
                 </div>
             `).join('');
