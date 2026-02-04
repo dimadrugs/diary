@@ -684,6 +684,21 @@
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
         .no-items { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         
+        /* Verify Screen */
+        .verify-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--bg-primary);
+            display: none;
+        }
+        .verify-screen.active { display: flex; }
+        
+        .verify-icon { font-size: 4em; text-align: center; margin-bottom: 20px; }
+        .verify-text { text-align: center; color: var(--text-secondary); margin-bottom: 30px; line-height: 1.5; }
+        
         .install-prompt {
             position: fixed;
             bottom: calc(20px + env(safe-area-inset-bottom));
@@ -733,6 +748,7 @@
 <body>
     <div class="safe-area-top"></div>
     
+    <!-- Login Screen -->
     <div id="login-screen" class="login-screen">
         <div class="login-container">
             <div class="login-logo">📚</div>
@@ -781,6 +797,22 @@
         </div>
     </div>
     
+    <!-- Verify Email Screen -->
+    <div id="verify-screen" class="verify-screen">
+        <div class="login-container">
+            <div class="verify-icon">✉️</div>
+            <h2>Подтвердите почту</h2>
+            <p class="verify-text">
+                Мы отправили письмо со ссылкой для подтверждения на ваш Email.<br><br>
+                Пожалуйста, перейдите по ссылке, а затем нажмите кнопку ниже.
+            </p>
+            <button class="btn btn-primary btn-full" onclick="checkVerification()">Я подтвердил почту</button>
+            <button class="btn btn-secondary btn-full" onclick="resendVerification()" style="margin-top: 10px;">Отправить письмо снова</button>
+            <button class="btn btn-danger btn-full" onclick="logout()" style="margin-top: 10px;">Выйти</button>
+        </div>
+    </div>
+    
+    <!-- Main App -->
     <div id="app" style="display: none;">
         <header>
             <div class="header-content">
@@ -1039,7 +1071,7 @@
         
         let currentUser = null, userProfile = null, isAdmin = false, isGuest = false;
         let schedule = { upper: {}, lower: {} }, homeworkList = [], changesList = [];
-        let settings = { weekStartDate: null, pairTimes: [{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}] };
+        let settings = { weekStartDate: null, pairTimes: [{start:'08:30',end:'10:10'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}] };
         let viewWeekStart = getMonday(new Date());
         let deferredPrompt = null;
         
@@ -1100,24 +1132,74 @@
             const email = document.getElementById('register-email').value.trim();
             const password = document.getElementById('register-password').value;
             if (!name || !email || password.length < 6) { showAuthError('Заполните все поля (пароль 6+ символов)'); return; }
+            
             auth.createUserWithEmailAndPassword(email, password).then(res => {
+                // ОТПРАВЛЯЕМ ПОДТВЕРЖДЕНИЕ
                 res.user.sendEmailVerification();
                 return res.user.updateProfile({displayName: name}).then(() => {
                     return db.ref(`users/${res.user.uid}`).set({ name, email, role: 'user', createdAt: new Date().toISOString() });
                 });
+            }).then(() => {
+                showVerifyScreen();
             }).catch(err => showAuthError('Ошибка: ' + err.message));
+        }
+        
+        // Показываем экран подтверждения почты
+        function showVerifyScreen() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app').style.display = 'none';
+            document.getElementById('verify-screen').classList.add('active');
+        }
+        
+        // Проверяем, нажал ли пользователь кнопку "Я подтвердил"
+        function checkVerification() {
+            if(auth.currentUser) {
+                auth.currentUser.reload().then(() => {
+                    if (auth.currentUser.emailVerified) {
+                        document.getElementById('verify-screen').classList.remove('active');
+                        // Перезапускаем логику входа
+                        isAdmin = ADMIN_UIDS.includes(auth.currentUser.uid);
+                        loadUserProfile(auth.currentUser.uid);
+                    } else {
+                        alert('Почта ещё не подтверждена. Проверьте папку Спам.');
+                    }
+                });
+            }
+        }
+        
+        function resendVerification() {
+            if(auth.currentUser) {
+                auth.currentUser.sendEmailVerification().then(() => alert('Письмо отправлено повторно')).catch(e => alert(e.message));
+            }
         }
         
         function enterAsGuest() { isGuest = true; isAdmin = false; currentUser = null; userProfile = {name:'Гость'}; localStorage.setItem('guestSession','true'); showApp(); }
         
         function logout() {
             closeSidebar(); localStorage.removeItem('guestSession');
+            document.getElementById('verify-screen').classList.remove('active');
             auth.signOut().then(() => { isGuest=false; isAdmin=false; currentUser=null; userProfile=null; document.getElementById('app').style.display='none'; document.getElementById('login-screen').style.display='flex'; });
         }
         
         auth.onAuthStateChanged(user => {
-            if (user) { currentUser = user; isAdmin = ADMIN_UIDS.includes(user.uid); isGuest = false; loadUserProfile(user.uid); }
+            if (user) {
+                // ГЛАВНАЯ ПРОВЕРКА ПОЧТЫ
+                if (user.emailVerified) {
+                    currentUser = user; 
+                    isAdmin = ADMIN_UIDS.includes(user.uid); 
+                    isGuest = false; 
+                    loadUserProfile(user.uid); 
+                } else {
+                    // Если почта НЕ подтверждена - показываем экран подтверждения
+                    showVerifyScreen();
+                }
+            }
             else if (localStorage.getItem('guestSession')) { isGuest = true; userProfile = {name:'Гость'}; showApp(); }
+            else {
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('app').style.display = 'none';
+                document.getElementById('verify-screen').classList.remove('active');
+            }
         });
         
         function loadUserProfile(uid) {
@@ -1178,6 +1260,7 @@
         
         function showApp() {
             document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('verify-screen').classList.remove('active');
             document.getElementById('app').style.display = 'block';
             ['admin-badge','nav-changes','nav-settings'].forEach(id => {
                 const el = document.getElementById(id);
@@ -1362,6 +1445,7 @@
         function escapeHtml(text) { if(!text)return ''; const d=document.createElement('div'); d.textContent=text; return d.innerHTML; }
         
         document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o) o.classList.remove('active'); }));
+        document.getElementById('login-password').addEventListener('keypress', e => { if (e.key === 'Enter') loginWithEmail(); });
     </script>
 </body>
 </html>
