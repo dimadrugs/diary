@@ -4,213 +4,172 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Дневник</title>
-  
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Дневник">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#6366f1" id="theme-color-meta">
-  
+  <meta name="theme-color" content="#6366f1">
   <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
-  <link rel="shortcut icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="manifest" href="manifest.json">
-  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #12121a;
-      --bg-card: rgba(255,255,255,0.02);
-      --bg-card-hover: rgba(255,255,255,0.05);
-      --bg-input: rgba(255,255,255,0.05);
-      --border-color: rgba(255,255,255,0.05);
-      --border-light: rgba(255,255,255,0.1);
-      --text-primary: #ffffff;
-      --text-secondary: rgba(255,255,255,0.7);
-      --text-muted: rgba(255,255,255,0.4);
-      --accent: #6366f1;
-    }
-    [data-theme="light"] {
-      --bg-primary: #f5f5f7;
-      --bg-secondary: #ffffff;
-      --bg-card: rgba(0,0,0,0.03);
-      --bg-card-hover: rgba(0,0,0,0.06);
-      --bg-input: rgba(0,0,0,0.05);
-      --border-color: rgba(0,0,0,0.08);
-      --border-light: rgba(0,0,0,0.12);
-      --text-primary: #1a1a1a;
-      --text-secondary: rgba(0,0,0,0.7);
-      --text-muted: rgba(0,0,0,0.4);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html { height: -webkit-fill-available; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-      color: var(--text-primary);
-      -webkit-font-smoothing: antialiased;
-      transition: background 0.3s, color 0.3s;
-    }
-    .safe-area-top { position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top); background: var(--bg-secondary); z-index: 101; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px; padding-left: calc(20px + env(safe-area-inset-left)); padding-right: calc(20px + env(safe-area-inset-right)); padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
-    header { background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 15px 20px; padding-top: calc(15px + env(safe-area-inset-top)); padding-left: calc(20px + env(safe-area-inset-left)); padding-right: calc(20px + env(safe-area-inset-right)); position: sticky; top: 0; z-index: 100; }
-    .header-content { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .header-left { display: flex; align-items: center; gap: 15px; }
-    .logo { font-size: 1.5em; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .header-date { font-size: 0.9em; color: var(--text-secondary); font-weight: 500; }
-    .header-right { display: flex; align-items: center; gap: 10px; }
-    .header-week { padding: 6px 14px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
-    .header-week.upper { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: #000; }
-    .header-week.lower { background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%); color: #fff; }
-    .theme-toggle { width: 40px; height: 40px; border-radius: 10px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-    .theme-toggle:hover { background: var(--bg-card-hover); }
-    .user-info { display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-secondary); }
-    .admin-badge { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; padding: 4px 10px; border-radius: 15px; font-size: 0.75em; font-weight: 600; }
-    .btn { padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.9em; transition: all 0.2s; font-family: inherit; }
-    .btn-primary { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; }
-    .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
-    .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: #fff; }
-    .btn-success { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: #000; }
-    .btn-warning { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-    .btn:active { transform: scale(0.98); }
-    .btn-sm { padding: 6px 12px; font-size: 0.8em; }
-    .btn-xs { padding: 4px 8px; font-size: 0.75em; }
-    .btn-icon { width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.2em; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s; }
-    .btn-icon:hover { background: var(--bg-card-hover); }
-    .btn-icon:active { transform: scale(0.95); }
-    .week-navigator { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 16px 20px; background: var(--bg-card); border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border-color); }
-    .week-dates { text-align: center; min-width: 180px; }
-    .week-dates-range { font-size: 1.2em; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-    .week-dates-type { font-size: 0.85em; font-weight: 600; }
-    .week-dates-type.upper { color: #34d399; }
-    .week-dates-type.lower { color: #fb7185; }
-    .nav { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-    .nav-btn { padding: 12px 20px; border: none; background: var(--bg-card); color: var(--text-secondary); border-radius: 12px; cursor: pointer; font-size: 0.9em; font-weight: 500; transition: all 0.2s; font-family: inherit; border: 1px solid var(--border-color); position: relative; }
-    .nav-btn:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-    .nav-btn.active { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; border-color: transparent; }
-    .section { display: none; }
-    .section.active { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    .days-grid { display: flex; flex-direction: column; gap: 16px; }
-    .day-block { background: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); }
-    .day-block.today { border-color: rgba(99, 102, 241, 0.4); box-shadow: 0 0 30px rgba(99, 102, 241, 0.1); }
-    .day-block.has-changes { border-color: rgba(245, 158, 11, 0.4); }
-    .day-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: var(--bg-card-hover); border-bottom: 1px solid var(--border-color); }
-    .day-title { font-size: 1em; font-weight: 600; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
-    .day-title .date { font-weight: 400; color: var(--text-muted); font-size: 0.9em; }
-    .day-badges { display: flex; gap: 6px; }
-    .today-label { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 0.7em; font-weight: 600; }
-    .changes-label { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000; padding: 4px 10px; border-radius: 12px; font-size: 0.7em; font-weight: 600; }
-    .day-content { padding: 10px; }
-    .lessons-list { display: flex; flex-direction: column; gap: 6px; }
-    .lesson-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px; background: var(--bg-card); border-radius: 10px; transition: all 0.2s; cursor: pointer; }
-    .lesson-row:hover { background: var(--bg-card-hover); }
-    .lesson-row.empty { opacity: 0.5; }
-    .lesson-row.changed { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); }
-    .lesson-number { width: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px; background: rgba(99, 102, 241, 0.15); border-radius: 8px; flex-shrink: 0; }
-    .lesson-num { font-size: 1.2em; font-weight: 700; color: var(--accent); }
-    .lesson-time { font-size: 0.6em; color: var(--text-muted); margin-top: 2px; }
-    .lesson-info { flex: 1; min-width: 0; }
-    .lesson-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
-    .lesson-name { font-weight: 600; font-size: 0.95em; color: var(--text-primary); }
-    .lesson-details { display: flex; gap: 12px; font-size: 0.8em; color: var(--text-muted); margin-bottom: 6px; flex-wrap: wrap; }
-    .lesson-room { color: var(--accent); }
-    .lesson-empty-text { color: var(--text-muted); font-style: italic; font-size: 0.9em; }
-    .lesson-homework { margin-top: 8px; padding: 10px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; border-left: 3px solid var(--accent); }
-    .lesson-homework-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-    .lesson-homework-title { font-size: 0.7em; color: var(--accent); font-weight: 600; text-transform: uppercase; }
-    .lesson-homework-text { font-size: 0.85em; line-height: 1.4; color: var(--text-primary); }
-    .lesson-homework.done { opacity: 0.5; border-left-color: #10b981; }
-    .lesson-homework.done .lesson-homework-text { text-decoration: line-through; }
-    .add-hw-btn { padding: 4px 8px; background: rgba(99, 102, 241, 0.2); border: none; color: var(--accent); border-radius: 6px; cursor: pointer; font-size: 0.75em; font-weight: 600; }
-    .add-hw-btn:active { background: var(--accent); color: #fff; }
-    .changes-wrapper, .settings-wrapper, .homework-wrapper { background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-color); }
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-    .section-title { font-size: 1.1em; font-weight: 600; color: var(--text-primary); }
-    .changes-list { display: flex; flex-direction: column; gap: 12px; }
-    .change-card { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px; padding: 14px; }
-    .change-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px; }
-    .change-date { font-weight: 600; font-size: 1em; color: #fbbf24; }
-    .change-lessons { display: flex; flex-direction: column; gap: 8px; }
-    .change-lesson-row { display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(0,0,0,0.15); border-radius: 8px; }
-    [data-theme="light"] .change-lesson-row { background: rgba(0,0,0,0.05); }
-    .change-pair-num { width: 28px; height: 28px; background: rgba(245, 158, 11, 0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fbbf24; font-size: 0.9em; }
-    .change-lesson-info { flex: 1; }
-    .change-lesson-name { font-weight: 600; font-size: 0.95em; color: var(--text-primary); }
-    .change-lesson-details { font-size: 0.8em; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
-    .setting-row { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: var(--bg-card-hover); border-radius: 12px; margin-bottom: 10px; flex-wrap: wrap; gap: 12px; }
-    .setting-info h4 { margin-bottom: 4px; font-size: 0.95em; color: var(--text-primary); }
-    .setting-info p { font-size: 0.8em; color: var(--text-muted); }
-    .setting-input { padding: 10px 14px; border: 1px solid var(--border-light); background: var(--bg-input); border-radius: 10px; color: var(--text-primary); font-family: inherit; }
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: flex-start; justify-content: center; padding: 20px; padding-top: calc(40px + env(safe-area-inset-top)); overflow-y: auto; }
-    [data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.5); }
-    .modal-overlay.active { display: flex; }
-    .modal { background: var(--bg-secondary); border-radius: 20px; padding: 24px; width: 100%; max-width: 500px; border: 1px solid var(--border-color); animation: modalIn 0.3s ease; margin: auto; }
-    @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(-20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-    .modal h3 { margin-bottom: 20px; font-size: 1.15em; color: var(--text-primary); }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; color: var(--text-secondary); font-size: 0.85em; }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--border-light); background: var(--bg-input); border-radius: 10px; color: var(--text-primary); font-size: 1em; font-family: inherit; -webkit-appearance: none; }
-    .form-group select { cursor: pointer; }
-    .form-group textarea { resize: vertical; min-height: 80px; }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
-    .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
-    .modal-buttons .btn { flex: 1; }
-    .change-pairs-form { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-    .change-pair-row { background: var(--bg-card); border-radius: 10px; padding: 12px; }
-    .change-pair-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-    .change-pair-num-badge { width: 26px; height: 26px; background: rgba(245, 158, 11, 0.3); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fbbf24; font-size: 0.85em; }
-    .change-pair-inputs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .change-pair-inputs input { flex: 1; min-width: 80px; padding: 10px; border: 1px solid var(--border-light); background: var(--bg-input); border-radius: 8px; color: var(--text-primary); font-size: 0.9em; font-family: inherit; -webkit-appearance: none; }
-    .change-pair-inputs input:focus { outline: none; border-color: #f59e0b; }
-    .change-pair-inputs input::placeholder { color: var(--text-muted); }
-    .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; padding-top: calc(20px + env(safe-area-inset-top)); background: var(--bg-primary); }
-    .login-container { width: 100%; max-width: 380px; padding: 32px; background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border-color); }
-    .login-logo { text-align: center; font-size: 4em; margin-bottom: 10px; }
-    .login-container h2 { text-align: center; margin-bottom: 8px; font-size: 1.6em; color: var(--text-primary); }
-    .login-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 28px; }
-    .login-error { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); color: #fb7185; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-size: 0.9em; }
-    .login-container .btn { width: 100%; padding: 14px; margin-top: 10px; }
-    .divider { display: flex; align-items: center; gap: 15px; margin: 24px 0; color: var(--text-muted); font-size: 0.85em; }
-    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
-    .no-items { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-    .install-prompt { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 20px; right: 20px; background: var(--bg-secondary); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 16px; padding: 16px; display: none; align-items: center; gap: 12px; z-index: 999; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
-    .install-prompt.show { display: flex; animation: slideUp 0.3s ease; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .install-prompt-icon { font-size: 2em; }
-    .install-prompt-text { flex: 1; }
-    .install-prompt-text h4 { font-size: 0.95em; margin-bottom: 2px; color: var(--text-primary); }
-    .install-prompt-text p { font-size: 0.8em; color: var(--text-muted); }
-    .install-prompt-close { background: none; border: none; color: var(--text-muted); font-size: 1.5em; cursor: pointer; padding: 5px; }
+    :root{--bg-primary:#0a0a0f;--bg-secondary:#12121a;--bg-card:rgba(255,255,255,0.02);--bg-card-hover:rgba(255,255,255,0.05);--bg-input:rgba(255,255,255,0.05);--border-color:rgba(255,255,255,0.05);--border-light:rgba(255,255,255,0.1);--text-primary:#fff;--text-secondary:rgba(255,255,255,0.7);--text-muted:rgba(255,255,255,0.4);--accent:#6366f1}
+    [data-theme="light"]{--bg-primary:#f5f5f7;--bg-secondary:#fff;--bg-card:rgba(0,0,0,0.03);--bg-card-hover:rgba(0,0,0,0.06);--bg-input:rgba(0,0,0,0.05);--border-color:rgba(0,0,0,0.08);--border-light:rgba(0,0,0,0.12);--text-primary:#1a1a1a;--text-secondary:rgba(0,0,0,0.7);--text-muted:rgba(0,0,0,0.4)}
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{height:-webkit-fill-available}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-primary);min-height:100vh;min-height:-webkit-fill-available;color:var(--text-primary);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+    .safe-area-top{position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg-secondary);z-index:101}
+    .container{max-width:1000px;margin:0 auto;padding:20px;padding-left:calc(20px + env(safe-area-inset-left));padding-right:calc(20px + env(safe-area-inset-right));padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+    header{background:var(--bg-secondary);border-bottom:1px solid var(--border-color);padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top));padding-left:calc(20px + env(safe-area-inset-left));padding-right:calc(20px + env(safe-area-inset-right));position:sticky;top:0;z-index:100}
+    .header-content{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+    .header-left{display:flex;align-items:center;gap:15px}
+    .logo{font-size:1.5em;font-weight:700;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .header-date{font-size:.9em;color:var(--text-secondary);font-weight:500}
+    .header-right{display:flex;align-items:center;gap:10px}
+    .header-week{padding:6px 14px;border-radius:20px;font-size:.8em;font-weight:600}
+    .header-week.upper{background:linear-gradient(135deg,#10b981,#34d399);color:#000}
+    .header-week.lower{background:linear-gradient(135deg,#f43f5e,#fb7185);color:#fff}
+    .theme-toggle{width:40px;height:40px;border-radius:10px;background:var(--bg-card);border:1px solid var(--border-color);color:var(--text-primary);font-size:1.2em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .theme-toggle:hover{background:var(--bg-card-hover)}
+    .user-info{display:flex;align-items:center;gap:8px;font-size:.85em;color:var(--text-secondary)}
+    .admin-badge{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000;padding:4px 10px;border-radius:15px;font-size:.75em;font-weight:600}
+    .btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.9em;transition:all .2s;font-family:inherit}
+    .btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff}
+    .btn-secondary{background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color)}
+    .btn-danger{background:linear-gradient(135deg,#ef4444,#f87171);color:#fff}
+    .btn-success{background:linear-gradient(135deg,#10b981,#34d399);color:#000}
+    .btn-warning{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(0,0,0,.2)}
+    .btn:active{transform:scale(.98)}
+    .btn-sm{padding:6px 12px;font-size:.8em}
+    .btn-xs{padding:4px 8px;font-size:.75em}
+    .btn-icon{width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:1.2em;background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border-color);cursor:pointer;transition:all .2s}
+    .btn-icon:hover{background:var(--bg-card-hover)}
+    .btn-icon:active{transform:scale(.95)}
+    .week-navigator{display:flex;align-items:center;justify-content:center;gap:20px;padding:16px 20px;background:var(--bg-card);border-radius:16px;margin-bottom:20px;border:1px solid var(--border-color)}
+    .week-dates{text-align:center;min-width:180px}
+    .week-dates-range{font-size:1.2em;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+    .week-dates-type{font-size:.85em;font-weight:600}
+    .week-dates-type.upper{color:#34d399}
+    .week-dates-type.lower{color:#fb7185}
+    .nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    .nav-btn{padding:12px 20px;border:none;background:var(--bg-card);color:var(--text-secondary);border-radius:12px;cursor:pointer;font-size:.9em;font-weight:500;transition:all .2s;font-family:inherit;border:1px solid var(--border-color);position:relative}
+    .nav-btn:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+    .nav-btn.active{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-color:transparent}
+    .section{display:none}
+    .section.active{display:block;animation:fadeIn .3s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+    .days-grid{display:flex;flex-direction:column;gap:16px}
+    .day-block{background:var(--bg-card);border-radius:16px;overflow:hidden;border:1px solid var(--border-color)}
+    .day-block.today{border-color:rgba(99,102,241,.4);box-shadow:0 0 30px rgba(99,102,241,.1)}
+    .day-block.has-changes{border-color:rgba(245,158,11,.4)}
+    .day-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--bg-card-hover);border-bottom:1px solid var(--border-color)}
+    .day-title{font-size:1em;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--text-primary)}
+    .day-title .date{font-weight:400;color:var(--text-muted);font-size:.9em}
+    .day-badges{display:flex;gap:6px}
+    .today-label{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:4px 10px;border-radius:12px;font-size:.7em;font-weight:600}
+    .changes-label{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000;padding:4px 10px;border-radius:12px;font-size:.7em;font-weight:600}
+    .day-content{padding:10px}
+    .lessons-list{display:flex;flex-direction:column;gap:6px}
+    .lesson-row{display:flex;align-items:flex-start;gap:10px;padding:10px;background:var(--bg-card);border-radius:10px;transition:all .2s;cursor:pointer}
+    .lesson-row:hover{background:var(--bg-card-hover)}
+    .lesson-row.empty{opacity:.5}
+    .lesson-row.changed{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3)}
+    .lesson-number{width:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;background:rgba(99,102,241,.15);border-radius:8px;flex-shrink:0}
+    .lesson-num{font-size:1.2em;font-weight:700;color:var(--accent)}
+    .lesson-time{font-size:.6em;color:var(--text-muted);margin-top:2px}
+    .lesson-info{flex:1;min-width:0}
+    .lesson-name-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+    .lesson-name{font-weight:600;font-size:.95em;color:var(--text-primary)}
+    .lesson-details{display:flex;gap:12px;font-size:.8em;color:var(--text-muted);margin-bottom:6px;flex-wrap:wrap}
+    .lesson-room{color:var(--accent)}
+    .lesson-empty-text{color:var(--text-muted);font-style:italic;font-size:.9em}
+    .lesson-homework{margin-top:8px;padding:10px;background:rgba(99,102,241,.1);border-radius:8px;border-left:3px solid var(--accent)}
+    .lesson-homework-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+    .lesson-homework-title{font-size:.7em;color:var(--accent);font-weight:600;text-transform:uppercase}
+    .lesson-homework-text{font-size:.85em;line-height:1.4;color:var(--text-primary)}
+    .lesson-homework.done{opacity:.5;border-left-color:#10b981}
+    .lesson-homework.done .lesson-homework-text{text-decoration:line-through}
+    .wrap-card{background:var(--bg-card);border-radius:16px;padding:20px;border:1px solid var(--border-color)}
+    .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:15px}
+    .section-title{font-size:1.1em;font-weight:600;color:var(--text-primary)}
+    .change-card{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:14px;margin-bottom:10px}
+    .change-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px}
+    .change-date{font-weight:600;font-size:1em;color:#fbbf24}
+    .change-lesson-row{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(0,0,0,.15);border-radius:8px;margin-bottom:6px}
+    [data-theme="light"] .change-lesson-row{background:rgba(0,0,0,.05)}
+    .change-pair-num{width:28px;height:28px;background:rgba(245,158,11,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fbbf24;font-size:.9em}
+    .change-lesson-info{flex:1}
+    .change-lesson-name{font-weight:600;font-size:.95em;color:var(--text-primary)}
+    .change-lesson-details{font-size:.8em;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+    .setting-row{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--bg-card-hover);border-radius:12px;margin-bottom:10px;flex-wrap:wrap;gap:12px}
+    .setting-info h4{margin-bottom:4px;font-size:.95em;color:var(--text-primary)}
+    .setting-info p{font-size:.8em;color:var(--text-muted)}
+    .setting-input{padding:10px 14px;border:1px solid var(--border-light);background:var(--bg-input);border-radius:10px;color:var(--text-primary);font-family:inherit}
+    .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:1000;align-items:flex-start;justify-content:center;padding:20px;padding-top:calc(40px + env(safe-area-inset-top));overflow-y:auto}
+    [data-theme="light"] .modal-overlay{background:rgba(0,0,0,.5)}
+    .modal-overlay.active{display:flex}
+    .modal{background:var(--bg-secondary);border-radius:20px;padding:24px;width:100%;max-width:500px;border:1px solid var(--border-color);animation:modalIn .3s ease;margin:auto}
+    @keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(-20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .modal h3{margin-bottom:20px;font-size:1.15em;color:var(--text-primary)}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;margin-bottom:6px;color:var(--text-secondary);font-size:.85em;font-weight:500}
+    .form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 14px;border:1px solid var(--border-light);background:var(--bg-input);border-radius:10px;color:var(--text-primary);font-size:1em;font-family:inherit;-webkit-appearance:none}
+    .form-group select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239ca3af' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+    .form-group textarea{resize:vertical;min-height:80px}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--accent)}
+    .modal-buttons{display:flex;gap:10px;margin-top:20px}
+    .modal-buttons .btn{flex:1}
+    .no-items{text-align:center;padding:40px 20px;color:var(--text-muted)}
+    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;padding-top:calc(20px + env(safe-area-inset-top));background:var(--bg-primary)}
+    .login-container{width:100%;max-width:380px;padding:32px;background:var(--bg-card);border-radius:20px;border:1px solid var(--border-color)}
+    .login-logo{text-align:center;font-size:4em;margin-bottom:10px}
+    .login-container h2{text-align:center;margin-bottom:8px;font-size:1.6em;color:var(--text-primary)}
+    .login-subtitle{text-align:center;color:var(--text-muted);margin-bottom:28px}
+    .login-error{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);color:#fb7185;padding:12px;border-radius:10px;text-align:center;margin-bottom:20px;font-size:.9em}
+    .login-container .btn{width:100%;padding:14px;margin-top:10px}
+    .divider{display:flex;align-items:center;gap:15px;margin:24px 0;color:var(--text-muted);font-size:.85em}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border-color)}
+    .install-prompt{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:20px;right:20px;background:var(--bg-secondary);border:1px solid rgba(99,102,241,.3);border-radius:16px;padding:16px;display:none;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+    .install-prompt.show{display:flex;animation:slideUp .3s ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .install-prompt-icon{font-size:2em}
+    .install-prompt-text{flex:1}
+    .install-prompt-text h4{font-size:.95em;margin-bottom:2px;color:var(--text-primary)}
+    .install-prompt-text p{font-size:.8em;color:var(--text-muted)}
+    .install-prompt-close{background:none;border:none;color:var(--text-muted);font-size:1.5em;cursor:pointer;padding:5px}
 
-    .hw-card { background: var(--bg-card-hover); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
-    .hw-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
-    .hw-card-subject { font-weight: 700; font-size: 1em; color: var(--accent); }
-    .hw-card-date { font-size: 0.8em; color: var(--text-muted); }
-    .hw-card-task { font-size: 0.9em; line-height: 1.5; color: var(--text-primary); margin-bottom: 8px; }
-    .hw-card-actions { display: flex; gap: 8px; }
-    .hw-card.done { opacity: 0.5; }
-    .hw-card.done .hw-card-task { text-decoration: line-through; }
-    .hw-badge { background: #ef4444; color: #fff; border-radius: 50%; min-width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: 700; margin-left: 6px; padding: 0 4px; }
-    .hw-target-info { font-size: 0.75em; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+    /* Subject cards */
+    .subject-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card-hover);border:1px solid var(--border-color);border-radius:12px;margin-bottom:8px}
+    .subject-icon{width:42px;height:42px;background:rgba(99,102,241,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3em;flex-shrink:0}
+    .subject-info{flex:1;min-width:0}
+    .subject-name{font-weight:600;font-size:.95em;color:var(--text-primary)}
+    .subject-meta{font-size:.8em;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
+    .subject-actions{display:flex;gap:6px}
 
-    @media (max-width: 500px) {
-      .header-content { gap: 10px; }
-      .header-left { gap: 10px; }
-      .logo { font-size: 1.2em; }
-      .header-date { font-size: 0.8em; }
-      .user-info span:not(.admin-badge) { display: none; }
-      .week-navigator { padding: 14px; gap: 15px; }
-      .week-dates-range { font-size: 1em; }
-      .btn-icon { width: 40px; height: 40px; }
-      .change-pair-inputs { flex-direction: column; }
-      .change-pair-inputs input { width: 100%; }
-      .setting-row { flex-direction: column; align-items: flex-start; }
+    /* HW tab cards */
+    .hw-card{background:var(--bg-card-hover);border:1px solid var(--border-color);border-radius:14px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+    .hw-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+    .hw-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px}
+    .hw-card-subject{font-weight:700;font-size:1.05em;color:var(--accent);display:flex;align-items:center;gap:8px}
+    .hw-card-subject-icon{width:32px;height:32px;background:rgba(99,102,241,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9em}
+    .hw-card-due{display:flex;align-items:center;gap:6px;font-size:.78em;color:var(--text-muted);background:var(--bg-card);padding:4px 10px;border-radius:20px;border:1px solid var(--border-color);white-space:nowrap}
+    .hw-card-task{font-size:.92em;line-height:1.6;color:var(--text-primary);padding:12px;background:var(--bg-card);border-radius:10px;margin-bottom:12px;border:1px solid var(--border-color)}
+    .hw-card-bottom{display:flex;justify-content:space-between;align-items:center}
+    .hw-card-actions{display:flex;gap:8px}
+    .hw-badge{background:#ef4444;color:#fff;border-radius:50%;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:.7em;font-weight:700;margin-left:6px;padding:0 4px}
+
+    /* Change pair select row */
+    .change-pair-row{background:var(--bg-card);border-radius:10px;padding:12px;margin-bottom:8px}
+    .change-pair-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .change-pair-num-badge{width:26px;height:26px;background:rgba(245,158,11,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fbbf24;font-size:.85em}
+
+    @media(max-width:500px){
+      .header-content{gap:10px}.header-left{gap:10px}.logo{font-size:1.2em}.header-date{font-size:.8em}
+      .user-info span:not(.admin-badge){display:none}.week-navigator{padding:14px;gap:15px}
+      .week-dates-range{font-size:1em}.btn-icon{width:40px;height:40px}
+      .setting-row{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
@@ -222,22 +181,16 @@
       <div class="login-logo">📚</div>
       <h2>Дневник</h2>
       <p class="login-subtitle">Техникум</p>
-      <div class="login-error" id="login-error" style="display: none;"></div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email">
-      </div>
-      <div class="form-group">
-        <label>Пароль</label>
-        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
-      </div>
+      <div class="login-error" id="login-error" style="display:none;"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email"></div>
+      <div class="form-group"><label>Пароль</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
       <button class="btn btn-primary" onclick="login()">Войти</button>
       <div class="divider">или</div>
       <button class="btn btn-secondary" onclick="enterAsGuest()">Войти как гость</button>
     </div>
   </div>
 
-  <div id="app" style="display: none;">
+  <div id="app" style="display:none;">
     <header>
       <div class="header-content">
         <div class="header-left">
@@ -246,12 +199,10 @@
         </div>
         <div class="header-right">
           <div class="header-week" id="header-week"></div>
-          <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему">
-            <span id="theme-icon">🌙</span>
-          </button>
+          <button class="theme-toggle" onclick="toggleTheme()" title="Сменить тему"><span id="theme-icon">🌙</span></button>
           <div class="user-info">
             <span id="user-email"></span>
-            <span class="admin-badge" id="admin-badge" style="display: none;">Админ</span>
+            <span class="admin-badge" id="admin-badge" style="display:none;">Админ</span>
           </div>
           <button class="btn btn-secondary btn-sm" onclick="logout()">Выйти</button>
         </div>
@@ -270,54 +221,58 @@
 
       <div class="nav" id="main-nav">
         <button class="nav-btn active" data-section="home">🏠 Расписание</button>
-        <button class="nav-btn" data-section="homework-tab" id="homework-nav">📋 Домашнее задание</button>
-        <button class="nav-btn" data-section="changes" id="changes-nav">📝 Изменения</button>
-        <button class="nav-btn" data-section="settings" id="settings-nav">⚙️ Настройки</button>
+        <button class="nav-btn" data-section="homework-tab" id="homework-nav">📋 ДЗ</button>
+        <button class="nav-btn admin-only" data-section="changes" id="changes-nav">📝 Изменения</button>
+        <button class="nav-btn admin-only" data-section="subjects" id="subjects-nav">📖 Предметы</button>
+        <button class="nav-btn admin-only" data-section="settings" id="settings-nav">⚙️ Настройки</button>
       </div>
 
+      <!-- РАСПИСАНИЕ -->
       <div class="section active" id="home">
         <div class="days-grid" id="days-grid"></div>
       </div>
 
+      <!-- ДЗ -->
       <div class="section" id="homework-tab">
-        <div class="homework-wrapper">
+        <div class="wrap-card">
           <div class="section-header">
             <h2 class="section-title">📋 Домашнее задание</h2>
-            <button class="btn btn-primary" onclick="openNewHwModal()" id="add-hw-tab-btn">+ Добавить</button>
+            <button class="btn btn-primary admin-only" onclick="openNewHwModal()" id="add-hw-btn">+ Добавить</button>
           </div>
           <div id="homework-tab-list"></div>
         </div>
       </div>
 
+      <!-- ИЗМЕНЕНИЯ -->
       <div class="section" id="changes">
-        <div class="changes-wrapper">
+        <div class="wrap-card">
           <div class="section-header">
-            <h2 class="section-title">📝 Изменения</h2>
+            <h2 class="section-title">📝 Изменения расписания</h2>
             <button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button>
           </div>
-          <div class="changes-list" id="changes-list"></div>
+          <div id="changes-list"></div>
         </div>
       </div>
 
+      <!-- ПРЕДМЕТЫ -->
+      <div class="section" id="subjects">
+        <div class="wrap-card">
+          <div class="section-header">
+            <h2 class="section-title">📖 Предметы</h2>
+            <button class="btn btn-primary" onclick="openSubjectModal()">+ Добавить</button>
+          </div>
+          <div id="subjects-list"></div>
+        </div>
+      </div>
+
+      <!-- НАСТРОЙКИ -->
       <div class="section" id="settings">
-        <div class="settings-wrapper">
-          <h2 class="section-title" style="margin-bottom: 20px;">⚙️ Настройки</h2>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Тема оформления</h4><p>Светлая или тёмная</p></div>
-            <button class="btn btn-secondary" onclick="toggleTheme()">Сменить тему</button>
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Начало отсчёта недель</h4><p>Понедельник верхней недели</p></div>
-            <input type="date" class="setting-input" id="week-start-date">
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Время пар</h4><p>Начало и конец каждой пары</p></div>
-            <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Очистить всё</h4><p>Удалить все данные</p></div>
-            <button class="btn btn-danger" onclick="clearAllData()">Очистить</button>
-          </div>
+        <div class="wrap-card">
+          <h2 class="section-title" style="margin-bottom:20px;">⚙️ Настройки</h2>
+          <div class="setting-row"><div class="setting-info"><h4>Тема оформления</h4><p>Светлая или тёмная</p></div><button class="btn btn-secondary" onclick="toggleTheme()">Сменить тему</button></div>
+          <div class="setting-row"><div class="setting-info"><h4>Начало отсчёта недель</h4><p>Понедельник верхней недели</p></div><input type="date" class="setting-input" id="week-start-date"></div>
+          <div class="setting-row"><div class="setting-info"><h4>Время пар</h4><p>Начало и конец каждой пары</p></div><button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button></div>
+          <div class="setting-row"><div class="setting-info"><h4>Очистить всё</h4><p>Удалить все данные</p></div><button class="btn btn-danger" onclick="clearAllData()">Очистить</button></div>
         </div>
       </div>
     </div>
@@ -330,720 +285,576 @@
     <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
   </div>
 
-  <!-- Edit lesson modal -->
-  <div class="modal-overlay" id="lesson-modal">
-    <div class="modal">
-      <h3>✏️ Редактировать пару</h3>
-      <input type="hidden" id="edit-day">
-      <input type="hidden" id="edit-pair">
-      <input type="hidden" id="edit-week">
-      <div class="form-group"><label>Предмет</label><input type="text" id="lesson-name" placeholder="Математика"></div>
-      <div class="form-group"><label>Аудитория</label><input type="text" id="lesson-room" placeholder="Каб. 301"></div>
-      <div class="form-group"><label>Преподаватель</label><input type="text" id="lesson-teacher" placeholder="Иванов И.И."></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
-        <button class="btn btn-danger" onclick="deleteLesson()">Удалить</button>
-        <button class="btn btn-primary" onclick="saveLesson()">Сохранить</button>
-      </div>
+  <!-- MODALS -->
+  <div class="modal-overlay" id="lesson-modal"><div class="modal">
+    <h3>✏️ Редактировать пару</h3>
+    <input type="hidden" id="edit-day"><input type="hidden" id="edit-pair"><input type="hidden" id="edit-week">
+    <div class="form-group"><label>Предмет</label><select id="lesson-subject-select"><option value="">Выберите предмет...</option></select></div>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
+      <button class="btn btn-danger" onclick="deleteLesson()">Очистить</button>
+      <button class="btn btn-primary" onclick="saveLesson()">Сохранить</button>
     </div>
-  </div>
+  </div></div>
 
-  <!-- Old homework modal (inline from schedule) -->
-  <div class="modal-overlay" id="homework-modal">
-    <div class="modal">
-      <h3>📝 Добавить домашку</h3>
-      <input type="hidden" id="hw-date">
-      <input type="hidden" id="hw-pair">
-      <div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity: 0.7;"></div>
-      <div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('homework-modal')">Отмена</button>
-        <button class="btn btn-primary" onclick="saveHomework()">Сохранить</button>
-      </div>
+  <div class="modal-overlay" id="homework-modal"><div class="modal">
+    <h3>📝 Домашка на эту пару</h3>
+    <input type="hidden" id="hw-date"><input type="hidden" id="hw-pair">
+    <div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.7;"></div>
+    <div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" onclick="closeModal('homework-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveHomework()">Сохранить</button>
     </div>
-  </div>
+  </div></div>
 
-  <!-- New homework modal (from homework tab) -->
-  <div class="modal-overlay" id="new-hw-modal">
-    <div class="modal">
-      <h3>📋 Новое домашнее задание</h3>
-      <div class="form-group">
-        <label>Предмет</label>
-        <select id="new-hw-subject"></select>
-      </div>
-      <div class="form-group">
-        <label>Задание</label>
-        <textarea id="new-hw-task" placeholder="Что нужно сделать..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Следующая пара будет:</label>
-        <input type="text" id="new-hw-next-info" readonly style="opacity: 0.7;">
-      </div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('new-hw-modal')">Отмена</button>
-        <button class="btn btn-primary" onclick="saveNewHw()">Сохранить</button>
+  <div class="modal-overlay" id="new-hw-modal"><div class="modal">
+    <h3 style="display:flex;align-items:center;gap:10px;">
+      <span style="width:40px;height:40px;background:rgba(99,102,241,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2em;">📋</span>
+      Новое домашнее задание
+    </h3>
+    <div class="form-group"><label>📖 Предмет</label><select id="new-hw-subject"><option value="">Выберите предмет...</option></select></div>
+    <div class="form-group"><label>📝 Задание</label><textarea id="new-hw-task" placeholder="Опишите что нужно сделать..." style="min-height:100px;"></textarea></div>
+    <div class="form-group">
+      <label>📅 Следующая пара</label>
+      <div id="new-hw-next-info" style="padding:12px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;font-size:.9em;color:var(--text-muted);min-height:44px;display:flex;align-items:center;">
+        Выберите предмет...
       </div>
     </div>
-  </div>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" onclick="closeModal('new-hw-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveNewHw()">💾 Сохранить</button>
+    </div>
+  </div></div>
 
-  <!-- Changes modal -->
-  <div class="modal-overlay" id="change-modal">
-    <div class="modal">
-      <h3>📝 Изменение расписания</h3>
-      <input type="hidden" id="change-edit-id">
-      <div class="form-group"><label>Дата</label><input type="date" id="change-date"></div>
-      <p style="color: var(--text-muted); font-size: 0.8em; margin-bottom: 12px;">Заполни только те пары, которые будут. Пустые = нет пары.</p>
-      <div class="change-pairs-form">
-        ${[1,2,3,4,5].map(i => `
-        <div class="change-pair-row">
-          <div class="change-pair-header">
-            <span class="change-pair-num-badge">${i}</span>
-            <span style="font-weight: 500; font-size: 0.9em; color: var(--text-secondary);">пара</span>
-          </div>
-          <div class="change-pair-inputs">
-            <input type="text" id="change-p${i}-name" placeholder="Предмет">
-            <input type="text" id="change-p${i}-room" placeholder="Каб." style="max-width: 70px;">
-            <input type="text" id="change-p${i}-teacher" placeholder="Преподаватель">
-          </div>
-        </div>`).join('')}
-      </div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button>
-        <button class="btn btn-danger" id="delete-change-btn" onclick="deleteChange()" style="display: none;">Удалить</button>
-        <button class="btn btn-primary" onclick="saveChange()">Сохранить</button>
-      </div>
+  <div class="modal-overlay" id="subject-modal"><div class="modal">
+    <h3>📖 Добавить предмет</h3>
+    <input type="hidden" id="subject-edit-id">
+    <div class="form-group"><label>Название</label><input type="text" id="subject-name" placeholder="Математика"></div>
+    <div class="form-group"><label>Аудитория</label><input type="text" id="subject-room" placeholder="Каб. 301"></div>
+    <div class="form-group"><label>Преподаватель</label><input type="text" id="subject-teacher" placeholder="Иванов И.И."></div>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" onclick="closeModal('subject-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveSubject()">Сохранить</button>
     </div>
-  </div>
+  </div></div>
 
-  <!-- Times modal -->
-  <div class="modal-overlay" id="times-modal">
-    <div class="modal">
-      <h3>🕐 Время пар</h3>
-      <div id="times-form"></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button>
-        <button class="btn btn-primary" onclick="savePairTimes()">Сохранить</button>
-      </div>
+  <div class="modal-overlay" id="change-modal"><div class="modal">
+    <h3>📝 Изменение расписания</h3>
+    <input type="hidden" id="change-edit-id">
+    <div class="form-group"><label>Дата</label><input type="date" id="change-date"></div>
+    <p style="color:var(--text-muted);font-size:.8em;margin-bottom:12px;">Выберите предметы для каждой пары. Пустое = нет пары.</p>
+    <div id="change-pairs-container"></div>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button>
+      <button class="btn btn-danger" id="delete-change-btn" onclick="deleteChange()" style="display:none;">Удалить</button>
+      <button class="btn btn-primary" onclick="saveChange()">Сохранить</button>
     </div>
-  </div>
+  </div></div>
+
+  <div class="modal-overlay" id="times-modal"><div class="modal">
+    <h3>🕐 Время пар</h3>
+    <div id="times-form"></div>
+    <div class="modal-buttons">
+      <button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="savePairTimes()">Сохранить</button>
+    </div>
+  </div></div>
 
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
   <script>
-    function initTheme() {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(saved || (prefersDark ? 'dark' : 'light'));
-    }
-    function setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      const icon = document.getElementById('theme-icon');
-      if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-      const sa = document.querySelector('.safe-area-top');
-      if (sa) sa.style.background = theme === 'dark' ? '#12121a' : '#ffffff';
-    }
-    function toggleTheme() {
-      setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
+    // ============ THEME ============
+    function initTheme(){const s=localStorage.getItem('theme');const p=window.matchMedia('(prefers-color-scheme:dark)').matches;setTheme(s||(p?'dark':'light'))}
+    function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const i=document.getElementById('theme-icon');if(i)i.textContent=t==='dark'?'☀️':'🌙';const s=document.querySelector('.safe-area-top');if(s)s.style.background=t==='dark'?'#12121a':'#fff'}
+    function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')}
     initTheme();
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
-      authDomain: "my-diary-e223c.firebaseapp.com",
-      databaseURL: "https://my-diary-e223c-default-rtdb.firebaseio.com",
-      projectId: "my-diary-e223c",
-      storageBucket: "my-diary-e223c.firebasestorage.app",
-      messagingSenderId: "903986378920",
-      appId: "1:903986378920:web:b6ebc6691f6d767f78aa9d"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
+    // ============ FIREBASE ============
+    firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
+    const auth=firebase.auth(),db=firebase.database();
     auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-    const ADMIN_UIDS = ["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
-    const DAYS_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-    const DAYS_FULL = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+    // ============ CONSTANTS ============
+    const ADMIN_UIDS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
+    const DAYS_SHORT=['Пн','Вт','Ср','Чт','Пт','Сб'];
+    const DAYS_FULL=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 
-    let currentUser = null, isAdmin = false, isGuest = false;
-    let schedule = { upper: {}, lower: {} }, homeworkList = [], changesList = [], newHwList = [];
-    let settings = {
-      weekStartDate: null,
-      pairTimes: [
-        { start: '08:30', end: '10:00' },
-        { start: '10:10', end: '11:40' },
-        { start: '12:10', end: '13:40' },
-        { start: '13:50', end: '15:20' },
-        { start: '15:30', end: '17:00' }
-      ]
-    };
+    // ============ STATE ============
+    let currentUser=null,isAdmin=false,isGuest=false;
+    let schedule={upper:{},lower:{}},homeworkList=[],changesList=[],newHwList=[],subjectsList=[];
+    let settings={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
+    let viewWeekStart=getMonday(new Date());
+    let deferredPrompt=null;
 
-    let viewWeekStart = getMonday(new Date());
-    let deferredPrompt = null;
+    // ============ PWA ============
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(!localStorage.getItem('installPromptDismissed'))document.getElementById('install-prompt').classList.add('show')},3000)});
+    function installApp(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;hideInstallPrompt()})}}
+    function hideInstallPrompt(){document.getElementById('install-prompt').classList.remove('show');localStorage.setItem('installPromptDismissed','true')}
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); deferredPrompt = e;
-      setTimeout(() => { if (!localStorage.getItem('installPromptDismissed')) document.getElementById('install-prompt').classList.add('show'); }, 3000);
-    });
-    function installApp() { if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; hideInstallPrompt(); }); } }
-    function hideInstallPrompt() { document.getElementById('install-prompt').classList.remove('show'); localStorage.setItem('installPromptDismissed', 'true'); }
+    // ============ UTILS ============
+    function getMonday(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
+    function formatDateKey(d){const r=new Date(d);return `${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
+    function parseDateKey(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0)}
+    function formatDateShort(d){const r=new Date(d);return String(r.getDate()).padStart(2,'0')+'.'+String(r.getMonth()+1).padStart(2,'0')}
+    function formatDateFull(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
+    function formatHeaderDate(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'})}
+    function escapeHtml(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML}
 
-    function getMonday(date) { const d = new Date(date); d.setHours(12,0,0,0); const day = d.getDay(); d.setDate(d.getDate() - day + (day === 0 ? -6 : 1)); return d; }
-    function formatDateKey(date) { const d = new Date(date); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
-    function parseDateKey(s) { const [y,m,d] = s.split('-').map(Number); return new Date(y,m-1,d,12,0,0); }
-    function formatDateShort(date) { const d = new Date(date); return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0'); }
-    function formatDateFull(date) { return new Date(date).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'}); }
-    function formatHeaderDate(date) { return new Date(date).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'}); }
-
-    auth.onAuthStateChanged(user => {
-      if (user) { currentUser = user; isAdmin = ADMIN_UIDS.includes(user.uid); isGuest = false; showApp(); }
-      else if (localStorage.getItem('guestSession')) { isGuest = true; showApp(); }
-    });
-
-    function login() {
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-      if (!email || !password) { showLoginError('Введите email и пароль'); return; }
-      auth.signInWithEmailAndPassword(email, password).catch(() => showLoginError('Неверный email или пароль'));
-    }
-    function showLoginError(msg) { const el = document.getElementById('login-error'); el.textContent = msg; el.style.display = 'block'; }
-    function enterAsGuest() { isGuest = true; isAdmin = false; currentUser = null; localStorage.setItem('guestSession','true'); showApp(); }
-    function logout() {
-      localStorage.removeItem('guestSession');
-      auth.signOut().then(() => { isGuest = false; isAdmin = false; currentUser = null; document.getElementById('app').style.display = 'none'; document.getElementById('login-screen').style.display = 'flex'; });
+    function getWeekType(mon){
+      if(!settings.weekStartDate){const s=new Date(mon.getFullYear(),0,1);const w=Math.ceil(((mon-s)/86400000+s.getDay()+1)/7);return w%2===1?'upper':'lower'}
+      const sd=getMonday(parseDateKey(settings.weekStartDate));const diff=Math.round((mon-sd)/(24*60*60*1000));return Math.floor(diff/7)%2===0?'upper':'lower'
     }
 
-    function showApp() {
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      document.getElementById('admin-badge').style.display = isAdmin ? 'inline' : 'none';
-      document.getElementById('settings-nav').style.display = isAdmin ? 'inline-block' : 'none';
-      document.getElementById('changes-nav').style.display = isAdmin ? 'inline-block' : 'none';
-      document.getElementById('add-hw-tab-btn').style.display = isAdmin ? 'inline-block' : 'none';
-      document.getElementById('homework-nav').style.display = 'inline-block';
-      document.getElementById('user-email').textContent = isGuest ? 'Гость' : (currentUser?.email?.split('@')[0] || '');
+    // ============ AUTH ============
+    auth.onAuthStateChanged(u=>{if(u){currentUser=u;isAdmin=ADMIN_UIDS.includes(u.uid);isGuest=false;showApp()}else if(localStorage.getItem('guestSession')){isGuest=true;showApp()}});
+    function login(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-password').value;if(!e||!p){showLoginError('Введите email и пароль');return}auth.signInWithEmailAndPassword(e,p).catch(()=>showLoginError('Неверный email или пароль'))}
+    function showLoginError(m){const e=document.getElementById('login-error');e.textContent=m;e.style.display='block'}
+    function enterAsGuest(){isGuest=true;isAdmin=false;currentUser=null;localStorage.setItem('guestSession','true');showApp()}
+    function logout(){localStorage.removeItem('guestSession');auth.signOut().then(()=>{isGuest=false;isAdmin=false;currentUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex'})}
+
+    function showApp(){
+      document.getElementById('login-screen').style.display='none';
+      document.getElementById('app').style.display='block';
+      document.getElementById('admin-badge').style.display=isAdmin?'inline':'none';
+      document.getElementById('user-email').textContent=isGuest?'Гость':(currentUser?.email?.split('@')[0]||'');
+      document.querySelectorAll('.admin-only').forEach(el=>el.style.display=isAdmin?'inline-block':'none');
       document.getElementById('main-nav').classList.remove('hidden');
       init();
     }
 
-    function init() { setupNavigation(); loadData(); viewWeekStart = getMonday(new Date()); updateHeaderInfo(); }
+    function init(){setupNavigation();loadData();viewWeekStart=getMonday(new Date());updateHeaderInfo()}
 
-    function setupNavigation() {
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    function setupNavigation(){
+      document.querySelectorAll('.nav-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+          document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
           btn.classList.add('active');
           document.getElementById(btn.dataset.section).classList.add('active');
         });
       });
     }
 
-    function loadData() {
-      db.ref('settings').on('value', snap => {
-        if (snap.val()) { settings = { ...settings, ...snap.val() }; if (settings.weekStartDate) document.getElementById('week-start-date').value = settings.weekStartDate; }
-        updateAll(); updateHeaderInfo();
-      });
-      db.ref('schedule').on('value', snap => { schedule = snap.val() || { upper: {}, lower: {} }; renderDays(); renderHomeworkTab(); });
-      db.ref('homework').on('value', snap => { const data = snap.val(); homeworkList = data ? Object.keys(data).map(k => ({id:k,...data[k]})) : []; renderDays(); });
-      db.ref('newHomework').on('value', snap => { const data = snap.val(); newHwList = data ? Object.keys(data).map(k => ({id:k,...data[k]})) : []; applyPastHomework(); renderHomeworkTab(); renderDays(); updateHwBadge(); });
-      db.ref('changes').on('value', snap => { const data = snap.val(); changesList = data ? Object.keys(data).map(k => ({id:k,...data[k]})) : []; applyPastChanges(); renderDays(); renderChanges(); });
-      document.getElementById('week-start-date').addEventListener('change', e => { if (isAdmin) db.ref('settings/weekStartDate').set(e.target.value); });
+    // ============ DATA ============
+    function loadData(){
+      db.ref('settings').on('value',s=>{if(s.val()){settings={...settings,...s.val()};if(settings.weekStartDate)document.getElementById('week-start-date').value=settings.weekStartDate}updateAll();updateHeaderInfo()});
+      db.ref('schedule').on('value',s=>{schedule=s.val()||{upper:{},lower:{}};renderDays()});
+      db.ref('homework').on('value',s=>{const d=s.val();homeworkList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDays()});
+      db.ref('subjects').on('value',s=>{const d=s.val();subjectsList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDays()});
+      db.ref('newHomework').on('value',s=>{const d=s.val();newHwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHomeworkTab();renderDays();updateHwBadge()});
+      db.ref('changes').on('value',s=>{const d=s.val();changesList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];applyPastChanges();renderDays();renderChanges()});
+      document.getElementById('week-start-date').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
     }
 
-    // ======== APPLY PAST CHANGES TO SCHEDULE ========
-    function applyPastChanges() {
-      if (!isAdmin) return; // only admin applies
-      const todayKey = formatDateKey(new Date());
-      changesList.forEach(change => {
-        if (change.date < todayKey) {
-          // Apply to schedule
-          const changeDate = parseDateKey(change.date);
-          const dayOfWeek = changeDate.getDay();
-          if (dayOfWeek === 0) return;
-          const dayIndex = dayOfWeek - 1;
-          if (dayIndex > 5) return;
-          const dayKey = DAYS_SHORT[dayIndex];
-          const weekType = getWeekType(getMonday(changeDate));
-
-          // Overwrite schedule for that day
-          const lessons = change.lessons || {};
-          // Clear all 5 pairs for that day, then set changed ones
-          const updates = {};
-          for (let p = 1; p <= 5; p++) {
-            if (lessons[p] && lessons[p].name) {
-              updates[`schedule/${weekType}/${dayKey}/${p}`] = lessons[p];
-            } else {
-              updates[`schedule/${weekType}/${dayKey}/${p}`] = null;
-            }
+    // ============ APPLY PAST CHANGES ============
+    function applyPastChanges(){
+      if(!isAdmin)return;
+      const todayKey=formatDateKey(new Date());
+      changesList.forEach(ch=>{
+        if(ch.date<todayKey){
+          const cd=parseDateKey(ch.date);const dow=cd.getDay();if(dow===0)return;
+          const di=dow-1;if(di>5)return;
+          const dk=DAYS_SHORT[di];const wt=getWeekType(getMonday(cd));
+          const updates={};const lessons=ch.lessons||{};
+          for(let p=1;p<=5;p++){
+            if(lessons[p]&&lessons[p].name)updates[`schedule/${wt}/${dk}/${p}`]=lessons[p];
+            else updates[`schedule/${wt}/${dk}/${p}`]=null;
           }
-          updates[`changes/${change.id}`] = null; // remove change
+          updates[`changes/${ch.id}`]=null;
           db.ref().update(updates);
         }
       });
     }
 
-    // ======== APPLY PAST HOMEWORK (fix in schedule) ========
-    function applyPastHomework() {
-      // When targetDate has passed, the homework stays displayed on that day in schedule
-      // but remove from the "new homework" tab list
-      // We don't need to do anything special - just filter in render
+    function updateHeaderInfo(){
+      const today=new Date();const wt=getWeekType(getMonday(today));
+      document.getElementById('header-date').textContent=formatHeaderDate(today);
+      const we=document.getElementById('header-week');
+      we.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';we.className='header-week '+wt;
     }
 
-    function updateHeaderInfo() {
-      const today = new Date();
-      const weekType = getWeekType(getMonday(today));
-      document.getElementById('header-date').textContent = formatHeaderDate(today);
-      const weekEl = document.getElementById('header-week');
-      weekEl.textContent = weekType === 'upper' ? '☀️ Верхняя' : '🌙 Нижняя';
-      weekEl.className = 'header-week ' + weekType;
+    function updateWeekNavigator(){
+      const we=new Date(viewWeekStart);we.setDate(we.getDate()+5);const wt=getWeekType(viewWeekStart);
+      document.getElementById('week-range').textContent=`${formatDateShort(viewWeekStart)} — ${formatDateShort(we)}`;
+      const te=document.getElementById('week-type');te.textContent=wt==='upper'?'☀️ Верхняя неделя':'🌙 Нижняя неделя';te.className='week-dates-type '+wt;
     }
 
-    function getWeekType(mondayDate) {
-      if (!settings.weekStartDate) {
-        const start = new Date(mondayDate.getFullYear(), 0, 1);
-        const weekNum = Math.ceil(((mondayDate - start) / 86400000 + start.getDay() + 1) / 7);
-        return weekNum % 2 === 1 ? 'upper' : 'lower';
-      }
-      const startDate = getMonday(parseDateKey(settings.weekStartDate));
-      const diffDays = Math.round((mondayDate - startDate) / (24*60*60*1000));
-      return Math.floor(diffDays / 7) % 2 === 0 ? 'upper' : 'lower';
-    }
+    function prevWeek(){viewWeekStart.setDate(viewWeekStart.getDate()-7);updateAll()}
+    function nextWeek(){viewWeekStart.setDate(viewWeekStart.getDate()+7);updateAll()}
+    function updateAll(){updateWeekNavigator();renderDays()}
 
-    function updateWeekNavigator() {
-      const weekEnd = new Date(viewWeekStart); weekEnd.setDate(weekEnd.getDate() + 5);
-      const weekType = getWeekType(viewWeekStart);
-      document.getElementById('week-range').textContent = `${formatDateShort(viewWeekStart)} — ${formatDateShort(weekEnd)}`;
-      const typeEl = document.getElementById('week-type');
-      typeEl.textContent = weekType === 'upper' ? '☀️ Верхняя неделя' : '🌙 Нижняя неделя';
-      typeEl.className = 'week-dates-type ' + weekType;
-    }
-
-    function prevWeek() { viewWeekStart.setDate(viewWeekStart.getDate() - 7); updateAll(); }
-    function nextWeek() { viewWeekStart.setDate(viewWeekStart.getDate() + 7); updateAll(); }
-    function updateAll() { updateWeekNavigator(); renderDays(); }
-
-    // ======== GET ALL UNIQUE SUBJECTS ========
-    function getAllSubjects() {
-      const subjects = new Set();
-      ['upper','lower'].forEach(wt => {
-        const week = schedule[wt] || {};
-        DAYS_SHORT.forEach(day => {
-          const dayData = week[day] || {};
-          for (let p = 1; p <= 5; p++) {
-            if (dayData[p] && dayData[p].name) subjects.add(dayData[p].name);
-          }
-        });
-      });
-      return [...subjects].sort();
-    }
-
-    // ======== FIND NEXT LESSON DATE ========
-    function findNextLessonDate(subjectName) {
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      
-      for (let offset = 1; offset <= 60; offset++) {
-        const checkDate = new Date(today);
-        checkDate.setDate(checkDate.getDate() + offset);
-        const dow = checkDate.getDay();
-        if (dow === 0) continue; // Sunday
-        const dayIndex = dow - 1;
-        if (dayIndex > 5) continue;
-        
-        const dateKey = formatDateKey(checkDate);
-        const dayKey = DAYS_SHORT[dayIndex];
-        const weekType = getWeekType(getMonday(checkDate));
-        
-        // Check for changes on that date
-        const dayChange = changesList.find(c => c.date === dateKey);
+    // ============ FIND NEXT LESSON ============
+    function findNextLessonDate(subjectName){
+      const today=new Date();today.setHours(0,0,0,0);
+      for(let off=1;off<=60;off++){
+        const cd=new Date(today);cd.setDate(cd.getDate()+off);
+        const dow=cd.getDay();if(dow===0)continue;
+        const di=dow-1;if(di>5)continue;
+        const dateKey=formatDateKey(cd);const dayKey=DAYS_SHORT[di];const wt=getWeekType(getMonday(cd));
+        const dayChange=changesList.find(c=>c.date===dateKey);
         let lessons;
-        if (dayChange) {
-          lessons = dayChange.lessons || {};
-        } else {
-          lessons = (schedule[weekType] || {})[dayKey] || {};
-        }
-        
-        for (let pair = 1; pair <= 5; pair++) {
-          const lesson = lessons[pair];
-          if (lesson && lesson.name && lesson.name.toLowerCase().trim() === subjectName.toLowerCase().trim()) {
-            return { date: dateKey, pair };
-          }
+        if(dayChange)lessons=dayChange.lessons||{};
+        else lessons=(schedule[wt]||{})[dayKey]||{};
+        for(let p=1;p<=5;p++){
+          const l=lessons[p];
+          if(l&&l.name&&l.name.toLowerCase().trim()===subjectName.toLowerCase().trim())return{date:dateKey,pair:p};
         }
       }
       return null;
     }
 
-    // ======== HOMEWORK TAB ========
-    function renderHomeworkTab() {
-      const container = document.getElementById('homework-tab-list');
-      const todayKey = formatDateKey(new Date());
-      
-      // Show only future (targetDate >= today) and not done
-      const pending = newHwList.filter(hw => hw.targetDate && hw.targetDate >= todayKey && !hw.done)
-        .sort((a, b) => a.targetDate.localeCompare(b.targetDate));
+    // ============ SUBJECTS ============
+    function renderSubjects(){
+      const c=document.getElementById('subjects-list');
+      if(subjectsList.length===0){c.innerHTML='<div class="no-items">📖 Добавьте предметы</div>';return}
+      c.innerHTML=subjectsList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`
+        <div class="subject-card">
+          <div class="subject-icon">📖</div>
+          <div class="subject-info">
+            <div class="subject-name">${escapeHtml(s.name)}</div>
+            <div class="subject-meta">
+              ${s.room?`<span>📍 ${escapeHtml(s.room)}</span>`:''}
+              ${s.teacher?`<span>👤 ${escapeHtml(s.teacher)}</span>`:''}
+            </div>
+          </div>
+          <div class="subject-actions">
+            <button class="btn btn-xs btn-secondary" onclick="editSubject('${s.id}')">✏️</button>
+            <button class="btn btn-xs btn-danger" onclick="deleteSubject('${s.id}')">✕</button>
+          </div>
+        </div>`).join('');
+    }
 
-      if (pending.length === 0) {
-        container.innerHTML = '<div class="no-items">📚 Нет предстоящих домашних заданий</div>';
-        return;
+    function openSubjectModal(editId=null){
+      document.getElementById('subject-edit-id').value=editId||'';
+      document.getElementById('subject-name').value='';
+      document.getElementById('subject-room').value='';
+      document.getElementById('subject-teacher').value='';
+      if(editId){
+        const s=subjectsList.find(x=>x.id===editId);
+        if(s){document.getElementById('subject-name').value=s.name||'';document.getElementById('subject-room').value=s.room||'';document.getElementById('subject-teacher').value=s.teacher||''}
       }
+      openModal('subject-modal');
+    }
+    function editSubject(id){openSubjectModal(id)}
+    function saveSubject(){
+      const id=document.getElementById('subject-edit-id').value;
+      const name=document.getElementById('subject-name').value.trim();
+      const room=document.getElementById('subject-room').value.trim();
+      const teacher=document.getElementById('subject-teacher').value.trim();
+      if(!name){alert('Введите название');return}
+      const data={name,room,teacher};
+      if(id)db.ref(`subjects/${id}`).set(data);
+      else db.ref('subjects').push(data);
+      closeModal('subject-modal');
+    }
+    function deleteSubject(id){if(confirm('Удалить предмет?'))db.ref(`subjects/${id}`).remove()}
 
-      container.innerHTML = pending.map(hw => `
+    function getSubjectOptions(selected=''){
+      return '<option value="">— нет пары —</option>'+subjectsList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<option value="${s.id}" ${selected===s.id?'selected':''}>${escapeHtml(s.name)} ${s.room?'('+escapeHtml(s.room)+')':''}</option>`).join('');
+    }
+
+    function getSubjectById(id){return subjectsList.find(s=>s.id===id)||null}
+
+    // ============ HOMEWORK TAB ============
+    function renderHomeworkTab(){
+      const c=document.getElementById('homework-tab-list');
+      const todayKey=formatDateKey(new Date());
+      const pending=newHwList.filter(hw=>hw.targetDate&&hw.targetDate>=todayKey&&!hw.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
+      if(pending.length===0){c.innerHTML='<div class="no-items">📚 Нет предстоящих домашних заданий</div>';return}
+      c.innerHTML=pending.map(hw=>`
         <div class="hw-card">
-          <div class="hw-card-header">
-            <span class="hw-card-subject">${escapeHtml(hw.subject)}</span>
-            <span class="hw-card-date">📅 к ${formatDateFull(parseDateKey(hw.targetDate))}</span>
+          <div class="hw-card-top">
+            <div class="hw-card-subject">
+              <span class="hw-card-subject-icon">📖</span>
+              ${escapeHtml(hw.subject)}
+            </div>
+            <div class="hw-card-due">📅 ${formatDateFull(parseDateKey(hw.targetDate))}</div>
           </div>
           <div class="hw-card-task">${escapeHtml(hw.task)}</div>
-          <div class="hw-card-actions">
-            <button class="btn btn-xs btn-success" onclick="toggleNewHw('${hw.id}')">✓ Выполнено</button>
-            ${isAdmin ? `<button class="btn btn-xs btn-danger" onclick="deleteNewHw('${hw.id}')">✕ Удалить</button>` : ''}
+          <div class="hw-card-bottom">
+            <div class="hw-card-actions">
+              <button class="btn btn-xs btn-success" onclick="toggleNewHw('${hw.id}')">✓ Выполнено</button>
+              ${isAdmin?`<button class="btn btn-xs btn-danger" onclick="deleteNewHw('${hw.id}')">✕ Удалить</button>`:''}
+            </div>
           </div>
-        </div>
-      `).join('');
+        </div>`).join('');
     }
 
-    function updateHwBadge() {
-      const todayKey = formatDateKey(new Date());
-      const count = newHwList.filter(hw => hw.targetDate && hw.targetDate >= todayKey && !hw.done).length;
-      const navBtn = document.getElementById('homework-nav');
-      navBtn.innerHTML = count > 0 ? `📋 ДЗ <span class="hw-badge">${count}</span>` : '📋 Домашнее задание';
+    function updateHwBadge(){
+      const todayKey=formatDateKey(new Date());
+      const count=newHwList.filter(hw=>hw.targetDate&&hw.targetDate>=todayKey&&!hw.done).length;
+      const btn=document.getElementById('homework-nav');
+      btn.innerHTML=count>0?`📋 ДЗ <span class="hw-badge">${count}</span>`:'📋 ДЗ';
     }
 
-    function openNewHwModal() {
-      if (!isAdmin) return;
-      const subjects = getAllSubjects();
-      const sel = document.getElementById('new-hw-subject');
-      sel.innerHTML = '<option value="">Выберите предмет...</option>' + subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
-      document.getElementById('new-hw-task').value = '';
-      document.getElementById('new-hw-next-info').value = '';
-      
-      sel.onchange = () => {
-        const subj = sel.value;
-        if (!subj) { document.getElementById('new-hw-next-info').value = ''; return; }
-        const next = findNextLessonDate(subj);
-        if (next) {
-          document.getElementById('new-hw-next-info').value = formatDateFull(parseDateKey(next.date)) + ` (пара ${next.pair})`;
-        } else {
-          document.getElementById('new-hw-next-info').value = 'Не найдено в ближайшие 2 месяца';
-        }
+    function openNewHwModal(){
+      if(!isAdmin)return;
+      const sel=document.getElementById('new-hw-subject');
+      sel.innerHTML='<option value="">Выберите предмет...</option>'+subjectsList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)} ${s.room?'('+escapeHtml(s.room)+')':''}</option>`).join('');
+      document.getElementById('new-hw-task').value='';
+      document.getElementById('new-hw-next-info').innerHTML='<span style="color:var(--text-muted)">Выберите предмет...</span>';
+      sel.onchange=()=>{
+        const subj=sel.value;
+        if(!subj){document.getElementById('new-hw-next-info').innerHTML='<span style="color:var(--text-muted)">Выберите предмет...</span>';return}
+        const next=findNextLessonDate(subj);
+        if(next){document.getElementById('new-hw-next-info').innerHTML=`<span style="color:var(--accent);font-weight:600;">📅 ${formatDateFull(parseDateKey(next.date))}</span><span style="margin-left:8px;color:var(--text-muted)">(пара ${next.pair})</span>`}
+        else{document.getElementById('new-hw-next-info').innerHTML='<span style="color:#fb7185">❌ Не найдено в ближайшие 2 месяца</span>'}
       };
-      
       openModal('new-hw-modal');
     }
 
-    function saveNewHw() {
-      if (!isAdmin) return;
-      const subject = document.getElementById('new-hw-subject').value;
-      const task = document.getElementById('new-hw-task').value.trim();
-      if (!subject) { alert('Выберите предмет'); return; }
-      if (!task) { alert('Введите задание'); return; }
-      
-      const next = findNextLessonDate(subject);
-      if (!next) { alert('Не найдена следующая пара для этого предмета'); return; }
-      
-      db.ref('newHomework').push({
-        subject,
-        task,
-        targetDate: next.date,
-        targetPair: next.pair,
-        done: false,
-        created: new Date().toISOString()
-      });
+    function saveNewHw(){
+      if(!isAdmin)return;
+      const subject=document.getElementById('new-hw-subject').value;
+      const task=document.getElementById('new-hw-task').value.trim();
+      if(!subject){alert('Выберите предмет');return}
+      if(!task){alert('Введите задание');return}
+      const next=findNextLessonDate(subject);
+      if(!next){alert('Не найдена следующая пара');return}
+      db.ref('newHomework').push({subject,task,targetDate:next.date,targetPair:next.pair,done:false,created:new Date().toISOString()});
       closeModal('new-hw-modal');
     }
+    function toggleNewHw(id){const hw=newHwList.find(h=>h.id===id);if(hw)db.ref(`newHomework/${id}/done`).set(!hw.done)}
+    function deleteNewHw(id){if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
 
-    function toggleNewHw(id) {
-      const hw = newHwList.find(h => h.id === id);
-      if (hw) db.ref(`newHomework/${id}/done`).set(!hw.done);
-    }
-
-    function deleteNewHw(id) {
-      if (confirm('Удалить?')) db.ref(`newHomework/${id}`).remove();
-    }
-
-    // ======== RENDER DAYS ========
-    function renderDays() {
-      const grid = document.getElementById('days-grid');
-      const weekType = getWeekType(viewWeekStart);
-      const weekData = schedule[weekType] || {};
-      const todayKey = formatDateKey(new Date());
-
-      let html = '';
-      for (let i = 0; i < 6; i++) {
-        const dayDate = new Date(viewWeekStart);
-        dayDate.setDate(dayDate.getDate() + i);
-        const dayKey = DAYS_SHORT[i];
-        const dateKey = formatDateKey(dayDate);
-        const isToday = dateKey === todayKey;
-        const dayChange = changesList.find(c => c.date === dateKey);
-        const hasChanges = !!dayChange;
-        const dayLessons = hasChanges ? (dayChange.lessons || {}) : (weekData[dayKey] || {});
-
-        html += `
-          <div class="day-block ${isToday ? 'today' : ''} ${hasChanges ? 'has-changes' : ''}">
-            <div class="day-header">
-              <div class="day-title">${DAYS_FULL[i]} <span class="date">${formatDateShort(dayDate)}</span></div>
-              <div class="day-badges">
-                ${hasChanges ? '<span class="changes-label">⚡ Замена</span>' : ''}
-                ${isToday ? '<span class="today-label">Сегодня</span>' : ''}
-              </div>
-            </div>
-            <div class="day-content">
-              <div class="lessons-list">${renderLessons(dayKey, dayLessons, weekType, dateKey, hasChanges)}</div>
-            </div>
-          </div>`;
+    // ============ RENDER DAYS ============
+    function renderDays(){
+      const grid=document.getElementById('days-grid');
+      const weekType=getWeekType(viewWeekStart);
+      const weekData=schedule[weekType]||{};
+      const todayKey=formatDateKey(new Date());
+      let html='';
+      for(let i=0;i<6;i++){
+        const dayDate=new Date(viewWeekStart);dayDate.setDate(dayDate.getDate()+i);
+        const dayKey=DAYS_SHORT[i];const dateKey=formatDateKey(dayDate);
+        const isToday=dateKey===todayKey;
+        const dayChange=changesList.find(c=>c.date===dateKey);
+        const hasChanges=!!dayChange;
+        const dayLessons=hasChanges?(dayChange.lessons||{}):(weekData[dayKey]||{});
+        html+=`<div class="day-block ${isToday?'today':''} ${hasChanges?'has-changes':''}">
+          <div class="day-header">
+            <div class="day-title">${DAYS_FULL[i]} <span class="date">${formatDateShort(dayDate)}</span></div>
+            <div class="day-badges">${hasChanges?'<span class="changes-label">⚡ Замена</span>':''}${isToday?'<span class="today-label">Сегодня</span>':''}</div>
+          </div>
+          <div class="day-content"><div class="lessons-list">${renderLessons(dayKey,dayLessons,weekType,dateKey,hasChanges)}</div></div>
+        </div>`;
       }
-      grid.innerHTML = html;
+      grid.innerHTML=html;
     }
 
-    function renderLessons(dayKey, lessons, weekType, dateKey, hasChanges) {
-      let html = '';
-      for (let pair = 1; pair <= 5; pair++) {
-        const lesson = lessons[pair];
-        const hasLesson = lesson && lesson.name;
-        const time = settings.pairTimes[pair - 1];
-        
-        // Old homework (from 'homework' node)
-        const hwForLesson = homeworkList.filter(hw => hw.date === dateKey && hw.pair === pair);
-        
-        // New homework (from 'newHomework' node) targeting this date+pair
-        const newHwForLesson = newHwList.filter(hw => hw.targetDate === dateKey && hw.targetPair === pair);
-
-        html += `
-          <div class="lesson-row ${hasLesson ? '' : 'empty'} ${hasChanges && hasLesson ? 'changed' : ''}" 
-            onclick="${isAdmin && !hasChanges ? `openLessonModal('${dayKey}', ${pair}, '${weekType}')` : ''}">
-            <div class="lesson-number">
-              <div class="lesson-num">${pair}</div>
-              <div class="lesson-time">${time?.start || ''}</div>
+    function renderLessons(dayKey,lessons,weekType,dateKey,hasChanges){
+      let html='';
+      for(let pair=1;pair<=5;pair++){
+        const lesson=lessons[pair];const hasLesson=lesson&&lesson.name;const time=settings.pairTimes[pair-1];
+        const hwOld=homeworkList.filter(hw=>hw.date===dateKey&&hw.pair===pair);
+        const hwNew=newHwList.filter(hw=>hw.targetDate===dateKey&&hw.targetPair===pair);
+        html+=`<div class="lesson-row ${hasLesson?'':'empty'} ${hasChanges&&hasLesson?'changed':''}" onclick="${isAdmin&&!hasChanges?`openLessonModal('${dayKey}',${pair},'${weekType}')`:''}">
+          <div class="lesson-number"><div class="lesson-num">${pair}</div><div class="lesson-time">${time?.start||''}</div></div>
+          <div class="lesson-info">${hasLesson?`
+            <div class="lesson-name-row">
+              <span class="lesson-name">${escapeHtml(lesson.name)}</span>
+              ${isAdmin?`<button class="add-hw-btn" onclick="event.stopPropagation();openHomeworkModal('${dateKey}',${pair},'${escapeHtml(lesson.name)}')">+ ДЗ</button>`:''}
             </div>
-            <div class="lesson-info">
-              ${hasLesson ? `
-                <div class="lesson-name-row">
-                  <span class="lesson-name">${escapeHtml(lesson.name)}</span>
-                  ${isAdmin ? `<button class="add-hw-btn" onclick="event.stopPropagation(); openHomeworkModal('${dateKey}', ${pair}, '${escapeHtml(lesson.name)}')">+ ДЗ</button>` : ''}
-                </div>
-                <div class="lesson-details">
-                  ${lesson.room ? `<span class="lesson-room">📍 ${escapeHtml(lesson.room)}</span>` : ''}
-                  ${lesson.teacher ? `<span>👤 ${escapeHtml(lesson.teacher)}</span>` : ''}
-                </div>
-                ${renderLessonHomework(hwForLesson)}
-                ${renderNewHomeworkOnLesson(newHwForLesson)}
-              ` : `<span class="lesson-empty-text">${isAdmin && !hasChanges ? 'Добавить' : '—'}</span>`}
+            <div class="lesson-details">
+              ${lesson.room?`<span class="lesson-room">📍 ${escapeHtml(lesson.room)}</span>`:''}
+              ${lesson.teacher?`<span>👤 ${escapeHtml(lesson.teacher)}</span>`:''}
             </div>
-          </div>`;
+            ${renderHwBlock(hwOld,'📝 Домашка','hw')}
+            ${renderHwBlock(hwNew,'📋 ДЗ (задано)','newhw')}
+          `:`<span class="lesson-empty-text">${isAdmin&&!hasChanges?'Добавить':'—'}</span>`}</div>
+        </div>`;
       }
       return html;
     }
 
-    function renderLessonHomework(hwList) {
-      if (!hwList || hwList.length === 0) return '';
-      return hwList.map(hw => `
-        <div class="lesson-homework ${hw.done ? 'done' : ''}" onclick="event.stopPropagation();">
+    function renderHwBlock(list,title,type){
+      if(!list||list.length===0)return'';
+      return list.map(hw=>`
+        <div class="lesson-homework ${hw.done?'done':''}" onclick="event.stopPropagation();">
           <div class="lesson-homework-header">
-            <span class="lesson-homework-title">📝 Домашка</span>
-            ${isAdmin ? `<div>
-              <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleHW('${hw.id}')">${hw.done ? '↩' : '✓'}</button>
-              <button class="btn btn-xs btn-danger" onclick="deleteHW('${hw.id}')">✕</button>
-            </div>` : ''}
-          </div>
-          <div class="lesson-homework-text">${escapeHtml(hw.task)}</div>
-        </div>`).join('');
-    }
-
-    function renderNewHomeworkOnLesson(hwList) {
-      if (!hwList || hwList.length === 0) return '';
-      return hwList.map(hw => `
-        <div class="lesson-homework ${hw.done ? 'done' : ''}" onclick="event.stopPropagation();">
-          <div class="lesson-homework-header">
-            <span class="lesson-homework-title">📋 ДЗ (задано заранее)</span>
+            <span class="lesson-homework-title">${title}</span>
             <div>
-              <button class="btn btn-xs ${hw.done ? 'btn-secondary' : 'btn-success'}" onclick="toggleNewHw('${hw.id}')">${hw.done ? '↩' : '✓'}</button>
-              ${isAdmin ? `<button class="btn btn-xs btn-danger" onclick="deleteNewHw('${hw.id}')">✕</button>` : ''}
+              <button class="btn btn-xs ${hw.done?'btn-secondary':'btn-success'}" onclick="${type==='hw'?`toggleHW('${hw.id}')`:`toggleNewHw('${hw.id}')`}">${hw.done?'↩':'✓'}</button>
+              ${isAdmin?`<button class="btn btn-xs btn-danger" onclick="${type==='hw'?`deleteHW('${hw.id}')`:`deleteNewHw('${hw.id}')`}">✕</button>`:''}
             </div>
           </div>
           <div class="lesson-homework-text">${escapeHtml(hw.task)}</div>
         </div>`).join('');
     }
 
-    // ======== CHANGES ========
-    function renderChanges() {
-      const list = document.getElementById('changes-list');
-      const todayKey = formatDateKey(new Date());
-      // Show only future changes (today and later)
-      const futureChanges = changesList.filter(c => c.date >= todayKey).sort((a,b) => a.date.localeCompare(b.date));
-      
-      if (futureChanges.length === 0) { list.innerHTML = '<div class="no-items">Нет изменений</div>'; return; }
-      list.innerHTML = futureChanges.map(change => `
+    // ============ CHANGES ============
+    function renderChanges(){
+      const list=document.getElementById('changes-list');
+      const todayKey=formatDateKey(new Date());
+      const future=changesList.filter(c=>c.date>=todayKey).sort((a,b)=>a.date.localeCompare(b.date));
+      if(future.length===0){list.innerHTML='<div class="no-items">Нет изменений</div>';return}
+      list.innerHTML=future.map(ch=>`
         <div class="change-card">
           <div class="change-header">
-            <span class="change-date">${formatDateFull(parseDateKey(change.date))}</span>
+            <span class="change-date">${formatDateFull(parseDateKey(ch.date))}</span>
             <div>
-              <button class="btn btn-sm btn-secondary" onclick="editChange('${change.id}')">✏️</button>
-              <button class="btn btn-sm btn-danger" onclick="deleteChangeById('${change.id}')">✕</button>
+              <button class="btn btn-sm btn-secondary" onclick="editChange('${ch.id}')">✏️</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteChangeById('${ch.id}')">✕</button>
             </div>
           </div>
-          <div class="change-lessons">${renderChangeLessons(change.lessons)}</div>
+          <div>${renderChangeLessons(ch.lessons)}</div>
         </div>`).join('');
     }
 
-    function renderChangeLessons(lessons) {
-      if (!lessons) return '<div style="color: var(--text-muted); padding: 10px;">Пар нет</div>';
-      let html = '';
-      for (let pair = 1; pair <= 5; pair++) {
-        const lesson = lessons[pair];
-        if (lesson && lesson.name) {
-          html += `
-            <div class="change-lesson-row">
-              <div class="change-pair-num">${pair}</div>
-              <div class="change-lesson-info">
-                <div class="change-lesson-name">${escapeHtml(lesson.name)}</div>
-                <div class="change-lesson-details">
-                  ${lesson.room ? `<span>📍 ${escapeHtml(lesson.room)}</span>` : ''}
-                  ${lesson.teacher ? `<span>👤 ${escapeHtml(lesson.teacher)}</span>` : ''}
-                </div>
-              </div>
-            </div>`;
-        }
+    function renderChangeLessons(lessons){
+      if(!lessons)return'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
+      let html='';
+      for(let p=1;p<=5;p++){const l=lessons[p];if(l&&l.name){
+        html+=`<div class="change-lesson-row"><div class="change-pair-num">${p}</div><div class="change-lesson-info"><div class="change-lesson-name">${escapeHtml(l.name)}</div><div class="change-lesson-details">${l.room?`<span>📍 ${escapeHtml(l.room)}</span>`:''}${l.teacher?`<span>👤 ${escapeHtml(l.teacher)}</span>`:''}</div></div></div>`;
+      }}
+      return html||'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
+    }
+
+    function openChangeModal(editId=null){
+      if(!isAdmin)return;
+      document.getElementById('change-edit-id').value=editId||'';
+      document.getElementById('delete-change-btn').style.display=editId?'block':'none';
+      document.getElementById('change-date').value='';
+      
+      // Build pair selectors from subjects
+      let pairsHtml='';
+      for(let i=1;i<=5;i++){
+        pairsHtml+=`<div class="change-pair-row">
+          <div class="change-pair-header">
+            <span class="change-pair-num-badge">${i}</span>
+            <span style="font-weight:500;font-size:.9em;color:var(--text-secondary);">пара</span>
+          </div>
+          <div class="form-group" style="margin-bottom:0;"><select id="change-p${i}-subject">${getSubjectOptions()}</select></div>
+        </div>`;
       }
-      return html || '<div style="color: var(--text-muted); padding: 10px;">Пар нет</div>';
-    }
+      document.getElementById('change-pairs-container').innerHTML=pairsHtml;
 
-    // ======== MODALS ========
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-    function openLessonModal(day, pair, week) {
-      if (!isAdmin) return;
-      document.getElementById('edit-day').value = day;
-      document.getElementById('edit-pair').value = pair;
-      document.getElementById('edit-week').value = week;
-      const lesson = schedule[week]?.[day]?.[pair] || {};
-      document.getElementById('lesson-name').value = lesson.name || '';
-      document.getElementById('lesson-room').value = lesson.room || '';
-      document.getElementById('lesson-teacher').value = lesson.teacher || '';
-      openModal('lesson-modal');
-    }
-
-    function saveLesson() {
-      if (!isAdmin) return;
-      const day = document.getElementById('edit-day').value;
-      const pair = document.getElementById('edit-pair').value;
-      const week = document.getElementById('edit-week').value;
-      const name = document.getElementById('lesson-name').value.trim();
-      const room = document.getElementById('lesson-room').value.trim();
-      const teacher = document.getElementById('lesson-teacher').value.trim();
-      if (name) db.ref(`schedule/${week}/${day}/${pair}`).set({ name, room, teacher });
-      else db.ref(`schedule/${week}/${day}/${pair}`).remove();
-      closeModal('lesson-modal');
-    }
-
-    function deleteLesson() {
-      if (!isAdmin) return;
-      db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();
-      closeModal('lesson-modal');
-    }
-
-    // Old homework (inline)
-    function openHomeworkModal(dateKey, pair, subject) {
-      if (!isAdmin) return;
-      document.getElementById('hw-date').value = dateKey;
-      document.getElementById('hw-pair').value = pair;
-      document.getElementById('hw-subject').value = subject;
-      document.getElementById('hw-task').value = '';
-      openModal('homework-modal');
-    }
-
-    function saveHomework() {
-      if (!isAdmin) return;
-      const task = document.getElementById('hw-task').value.trim();
-      if (!task) { alert('Введите задание'); return; }
-      db.ref('homework').push({
-        date: document.getElementById('hw-date').value,
-        pair: parseInt(document.getElementById('hw-pair').value),
-        subject: document.getElementById('hw-subject').value,
-        task, done: false, created: new Date().toISOString()
-      });
-      closeModal('homework-modal');
-    }
-
-    function toggleHW(id) { const hw = homeworkList.find(h => h.id === id); if (hw) db.ref(`homework/${id}/done`).set(!hw.done); }
-    function deleteHW(id) { if (!isAdmin) return; if (confirm('Удалить?')) db.ref(`homework/${id}`).remove(); }
-
-    // Changes
-    function openChangeModal(editId = null) {
-      if (!isAdmin) return;
-      document.getElementById('change-edit-id').value = editId || '';
-      document.getElementById('delete-change-btn').style.display = editId ? 'block' : 'none';
-      document.getElementById('change-date').value = '';
-      for (let i = 1; i <= 5; i++) { document.getElementById(`change-p${i}-name`).value = ''; document.getElementById(`change-p${i}-room`).value = ''; document.getElementById(`change-p${i}-teacher`).value = ''; }
-      if (editId) {
-        const change = changesList.find(c => c.id === editId);
-        if (change) {
-          document.getElementById('change-date').value = change.date;
-          if (change.lessons) { for (let i = 1; i <= 5; i++) { const l = change.lessons[i]; if (l) { document.getElementById(`change-p${i}-name`).value = l.name||''; document.getElementById(`change-p${i}-room`).value = l.room||''; document.getElementById(`change-p${i}-teacher`).value = l.teacher||''; } } }
+      if(editId){
+        const ch=changesList.find(c=>c.id===editId);
+        if(ch){
+          document.getElementById('change-date').value=ch.date;
+          if(ch.lessons){
+            for(let i=1;i<=5;i++){
+              const l=ch.lessons[i];
+              if(l&&l.name){
+                // Find subject id by name
+                const subj=subjectsList.find(s=>s.name===l.name);
+                if(subj)document.getElementById(`change-p${i}-subject`).value=subj.id;
+              }
+            }
+          }
         }
       }
       openModal('change-modal');
     }
 
-    function editChange(id) { openChangeModal(id); }
+    function editChange(id){openChangeModal(id)}
 
-    function saveChange() {
-      if (!isAdmin) return;
-      const editId = document.getElementById('change-edit-id').value;
-      const date = document.getElementById('change-date').value;
-      if (!date) { alert('Выберите дату'); return; }
-      const lessons = {}; let hasAny = false;
-      for (let i = 1; i <= 5; i++) {
-        const name = document.getElementById(`change-p${i}-name`).value.trim();
-        const room = document.getElementById(`change-p${i}-room`).value.trim();
-        const teacher = document.getElementById(`change-p${i}-teacher`).value.trim();
-        if (name) { lessons[i] = { name, room, teacher }; hasAny = true; }
+    function saveChange(){
+      if(!isAdmin)return;
+      const editId=document.getElementById('change-edit-id').value;
+      const date=document.getElementById('change-date').value;
+      if(!date){alert('Выберите дату');return}
+      const lessons={};let hasAny=false;
+      for(let i=1;i<=5;i++){
+        const subjId=document.getElementById(`change-p${i}-subject`).value;
+        if(subjId){
+          const subj=getSubjectById(subjId);
+          if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};hasAny=true}
+        }
       }
-      const data = { date, lessons: hasAny ? lessons : null };
-      if (editId) db.ref(`changes/${editId}`).set(data);
+      const data={date,lessons:hasAny?lessons:null};
+      if(editId)db.ref(`changes/${editId}`).set(data);
       else db.ref('changes').push(data);
       closeModal('change-modal');
     }
 
-    function deleteChange() { const id = document.getElementById('change-edit-id').value; if (id) { deleteChangeById(id); closeModal('change-modal'); } }
-    function deleteChangeById(id) { if (!isAdmin) return; if (confirm('Удалить?')) db.ref(`changes/${id}`).remove(); }
+    function deleteChange(){const id=document.getElementById('change-edit-id').value;if(id){deleteChangeById(id);closeModal('change-modal')}}
+    function deleteChangeById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
 
-    function openTimesModal() {
-      if (!isAdmin) return;
-      document.getElementById('times-form').innerHTML = settings.pairTimes.map((t, i) => `
-        <div class="form-group" style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
-          <span style="min-width: 50px; font-weight: 500;">${i+1} пара</span>
-          <input type="time" id="time-start-${i}" value="${t.start}" class="setting-input" style="flex: 1;">
-          <span style="color: var(--text-muted);">—</span>
-          <input type="time" id="time-end-${i}" value="${t.end}" class="setting-input" style="flex: 1;">
+    // ============ MODALS ============
+    function openModal(id){document.getElementById(id).classList.add('active')}
+    function closeModal(id){document.getElementById(id).classList.remove('active')}
+
+    function openLessonModal(day,pair,week){
+      if(!isAdmin)return;
+      document.getElementById('edit-day').value=day;
+      document.getElementById('edit-pair').value=pair;
+      document.getElementById('edit-week').value=week;
+      const sel=document.getElementById('lesson-subject-select');
+      const lesson=schedule[week]?.[day]?.[pair]||{};
+      // Find current subject id
+      let currentSubjId='';
+      if(lesson.name){const subj=subjectsList.find(s=>s.name===lesson.name);if(subj)currentSubjId=subj.id}
+      sel.innerHTML=getSubjectOptions(currentSubjId);
+      openModal('lesson-modal');
+    }
+
+    function saveLesson(){
+      if(!isAdmin)return;
+      const day=document.getElementById('edit-day').value;
+      const pair=document.getElementById('edit-pair').value;
+      const week=document.getElementById('edit-week').value;
+      const subjId=document.getElementById('lesson-subject-select').value;
+      if(subjId){
+        const subj=getSubjectById(subjId);
+        if(subj)db.ref(`schedule/${week}/${day}/${pair}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});
+      } else {
+        db.ref(`schedule/${week}/${day}/${pair}`).remove();
+      }
+      closeModal('lesson-modal');
+    }
+
+    function deleteLesson(){
+      if(!isAdmin)return;
+      db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();
+      closeModal('lesson-modal');
+    }
+
+    // Old inline homework
+    function openHomeworkModal(dateKey,pair,subject){
+      if(!isAdmin)return;
+      document.getElementById('hw-date').value=dateKey;
+      document.getElementById('hw-pair').value=pair;
+      document.getElementById('hw-subject').value=subject;
+      document.getElementById('hw-task').value='';
+      openModal('homework-modal');
+    }
+    function saveHomework(){
+      if(!isAdmin)return;
+      const task=document.getElementById('hw-task').value.trim();
+      if(!task){alert('Введите задание');return}
+      db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task,done:false,created:new Date().toISOString()});
+      closeModal('homework-modal');
+    }
+    function toggleHW(id){const hw=homeworkList.find(h=>h.id===id);if(hw)db.ref(`homework/${id}/done`).set(!hw.done)}
+    function deleteHW(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
+
+    // Times
+    function openTimesModal(){
+      if(!isAdmin)return;
+      document.getElementById('times-form').innerHTML=settings.pairTimes.map((t,i)=>`
+        <div class="form-group" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">
+          <span style="min-width:50px;font-weight:500;">${i+1} пара</span>
+          <input type="time" id="time-start-${i}" value="${t.start}" class="setting-input" style="flex:1;">
+          <span style="color:var(--text-muted);">—</span>
+          <input type="time" id="time-end-${i}" value="${t.end}" class="setting-input" style="flex:1;">
         </div>`).join('');
       openModal('times-modal');
     }
-
-    function savePairTimes() {
-      if (!isAdmin) return;
-      const times = [];
-      for (let i = 0; i < 5; i++) { times.push({ start: document.getElementById(`time-start-${i}`).value, end: document.getElementById(`time-end-${i}`).value }); }
-      db.ref('settings/pairTimes').set(times);
-      closeModal('times-modal');
+    function savePairTimes(){
+      if(!isAdmin)return;
+      const times=[];for(let i=0;i<5;i++){times.push({start:document.getElementById(`time-start-${i}`).value,end:document.getElementById(`time-end-${i}`).value})}
+      db.ref('settings/pairTimes').set(times);closeModal('times-modal');
     }
 
-    function clearAllData() {
-      if (!isAdmin) return;
-      if (confirm('Удалить ВСЁ?')) { db.ref('schedule').remove(); db.ref('homework').remove(); db.ref('newHomework').remove(); db.ref('changes').remove(); }
-    }
+    function clearAllData(){if(!isAdmin)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
-    function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-
-    document.querySelectorAll('.modal-overlay').forEach(o => { o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); }); });
-    document.getElementById('login-password').addEventListener('keypress', e => { if (e.key === 'Enter') login(); });
-    document.getElementById('login-email').addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('login-password').focus(); });
+    document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active')})});
+    document.getElementById('login-password').addEventListener('keypress',e=>{if(e.key==='Enter')login()});
+    document.getElementById('login-email').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('login-password').focus()});
   </script>
 </body>
 </html>
