@@ -132,14 +132,10 @@
     .install-prompt{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:20px;right:20px;background:var(--bg-secondary);border:1px solid rgba(99,102,241,.3);border-radius:16px;padding:16px;display:none;align-items:center;gap:12px;z-index:999;box-shadow:0 10px 40px rgba(0,0,0,.3)}
     .install-prompt.show{display:flex;animation:slideUp .3s ease}
     @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    .install-prompt-icon{font-size:2em}
-    .install-prompt-text{flex:1}
+    .install-prompt-icon{font-size:2em}.install-prompt-text{flex:1}
     .install-prompt-text h4{font-size:.95em;margin-bottom:2px;color:var(--text-primary)}
     .install-prompt-text p{font-size:.8em;color:var(--text-muted)}
     .install-prompt-close{background:none;border:none;color:var(--text-muted);font-size:1.5em;cursor:pointer;padding:5px}
-
-    /* Custom dropdown */
-    .custom-select{position:relative;width:100%}
     .cs-trigger{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg-input);border:1px solid var(--border-light);border-radius:10px;cursor:pointer;transition:border-color .2s;min-height:48px;user-select:none}
     .cs-trigger:hover{border-color:var(--accent)}
     .cs-trigger.open{border-color:var(--accent);border-radius:10px 10px 0 0}
@@ -160,17 +156,15 @@
     .cs-option .cso-text{flex:1;min-width:0}
     .cs-option .cso-name{font-weight:600;font-size:.88em;color:var(--text-primary)}
     .cs-option .cso-meta{font-size:.73em;color:var(--text-muted)}
-    .cs-option.empty-opt{color:var(--text-muted)}
     .cs-option.empty-opt .cso-icon{background:rgba(239,68,68,.12);color:#f87171}
     .cs-option.empty-opt:hover{background:rgba(239,68,68,.08)}
-
+    .custom-select{position:relative;width:100%}
     .subject-card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card-hover);border:1px solid var(--border-color);border-radius:12px;margin-bottom:8px}
     .subject-icon{width:42px;height:42px;background:rgba(99,102,241,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3em;flex-shrink:0}
     .subject-info{flex:1;min-width:0}
     .subject-name{font-weight:600;font-size:.95em;color:var(--text-primary)}
     .subject-meta{font-size:.8em;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap;margin-top:2px}
     .subject-actions{display:flex;gap:6px}
-
     .hw-card{background:var(--bg-card-hover);border:1px solid var(--border-color);border-radius:14px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
     .hw-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
     .hw-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px;flex-wrap:wrap}
@@ -180,17 +174,10 @@
     .hw-card-task{font-size:.92em;line-height:1.6;color:var(--text-primary);padding:12px;background:var(--bg-card);border-radius:10px;margin-bottom:12px;border:1px solid var(--border-color)}
     .hw-card-actions{display:flex;gap:8px}
     .hw-badge{background:#ef4444;color:#fff;border-radius:50%;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:.7em;font-weight:700;margin-left:6px;padding:0 4px}
-
     .change-pair-row{background:var(--bg-card);border-radius:10px;padding:12px;margin-bottom:8px}
     .change-pair-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
     .change-pair-num-badge{width:26px;height:26px;background:rgba(245,158,11,.3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fbbf24;font-size:.85em}
-
-    @media(max-width:500px){
-      .header-content{gap:10px}.header-left{gap:10px}.logo{font-size:1.2em}.header-date{font-size:.8em}
-      .user-info span:not(.admin-badge){display:none}.week-navigator{padding:14px;gap:15px}
-      .week-dates-range{font-size:1em}.btn-icon{width:40px;height:40px}
-      .setting-row{flex-direction:column;align-items:flex-start}
-    }
+    @media(max-width:500px){.header-content{gap:10px}.header-left{gap:10px}.logo{font-size:1.2em}.header-date{font-size:.8em}.user-info span:not(.admin-badge){display:none}.week-navigator{padding:14px;gap:15px}.week-dates-range{font-size:1em}.btn-icon{width:40px;height:40px}.setting-row{flex-direction:column;align-items:flex-start}}
   </style>
 </head>
 <body>
@@ -209,19 +196,10 @@
   <div id="app" style="display:none;">
     <header><div class="header-content">
       <div class="header-left"><div class="logo">📚 Дневник</div><div class="header-date" id="header-date"></div></div>
-      <div class="header-right">
-        <div class="header-week" id="header-week"></div>
-        <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌙</span></button>
-        <div class="user-info"><span id="user-email"></span><span class="admin-badge" id="admin-badge" style="display:none;">Админ</span></div>
-        <button class="btn btn-secondary btn-sm" onclick="doLogout()">Выйти</button>
-      </div>
+      <div class="header-right"><div class="header-week" id="header-week"></div><button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌙</span></button><div class="user-info"><span id="user-email"></span><span class="admin-badge" id="admin-badge" style="display:none;">Админ</span></div><button class="btn btn-secondary btn-sm" onclick="doLogout()">Выйти</button></div>
     </div></header>
     <div class="container">
-      <div class="week-navigator">
-        <button class="btn-icon" onclick="prevWeek()">←</button>
-        <div class="week-dates"><div class="week-dates-range" id="week-range"></div><div class="week-dates-type" id="week-type"></div></div>
-        <button class="btn-icon" onclick="nextWeek()">→</button>
-      </div>
+      <div class="week-navigator"><button class="btn-icon" onclick="prevWeek()">←</button><div class="week-dates"><div class="week-dates-range" id="week-range"></div><div class="week-dates-type" id="week-type"></div></div><button class="btn-icon" onclick="nextWeek()">→</button></div>
       <div class="nav" id="main-nav">
         <button class="nav-btn active" data-section="home">🏠 Расписание</button>
         <button class="nav-btn" data-section="homework-tab" id="homework-nav">📋 ДЗ</button>
@@ -230,105 +208,49 @@
         <button class="nav-btn admin-only" data-section="settings" id="settings-nav">⚙️ Настройки</button>
       </div>
       <div class="section active" id="home"><div class="days-grid" id="days-grid"></div></div>
-      <div class="section" id="homework-tab"><div class="wrap-card">
-        <div class="section-header"><h2 class="section-title">📋 Домашнее задание</h2><button class="btn btn-primary admin-only" onclick="openNewHwModal()">+ Добавить</button></div>
-        <div id="homework-tab-list"></div>
-      </div></div>
-      <div class="section" id="changes"><div class="wrap-card">
-        <div class="section-header"><h2 class="section-title">📝 Изменения расписания</h2><button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button></div>
-        <div id="changes-list"></div>
-      </div></div>
-      <div class="section" id="subjects"><div class="wrap-card">
-        <div class="section-header"><h2 class="section-title">📖 Предметы</h2><button class="btn btn-primary" onclick="openSubjectModal()">+ Добавить</button></div>
-        <div id="subjects-list"></div>
-      </div></div>
-      <div class="section" id="settings"><div class="wrap-card">
-        <h2 class="section-title" style="margin-bottom:20px;">⚙️ Настройки</h2>
-        <div class="setting-row"><div class="setting-info"><h4>Тема</h4><p>Светлая / тёмная</p></div><button class="btn btn-secondary" onclick="toggleTheme()">Сменить</button></div>
+      <div class="section" id="homework-tab"><div class="wrap-card"><div class="section-header"><h2 class="section-title">📋 Домашнее задание</h2><button class="btn btn-primary admin-only" onclick="openNewHwModal()">+ Добавить</button></div><div id="hw-tab-list"></div></div></div>
+      <div class="section" id="changes"><div class="wrap-card"><div class="section-header"><h2 class="section-title">📝 Изменения</h2><button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button></div><div id="changes-list"></div></div></div>
+      <div class="section" id="subjects"><div class="wrap-card"><div class="section-header"><h2 class="section-title">📖 Предметы</h2><button class="btn btn-primary" onclick="openSubjectModal()">+ Добавить</button></div><div id="subjects-list"></div></div></div>
+      <div class="section" id="settings"><div class="wrap-card"><h2 class="section-title" style="margin-bottom:20px;">⚙️ Настройки</h2>
+        <div class="setting-row"><div class="setting-info"><h4>Тема</h4><p>Светлая/тёмная</p></div><button class="btn btn-secondary" onclick="toggleTheme()">Сменить</button></div>
         <div class="setting-row"><div class="setting-info"><h4>Начало недель</h4><p>Понедельник верхней</p></div><input type="date" class="setting-input" id="week-start-date"></div>
         <div class="setting-row"><div class="setting-info"><h4>Время пар</h4><p>Начало и конец</p></div><button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button></div>
-        <div class="setting-row"><div class="setting-info"><h4>Очистить всё</h4><p>Удалить все данные</p></div><button class="btn btn-danger" onclick="clearAllData()">Очистить</button></div>
+        <div class="setting-row"><div class="setting-info"><h4>Очистить всё</h4></div><button class="btn btn-danger" onclick="clearAll()">Очистить</button></div>
       </div></div>
     </div>
   </div>
-  <div class="install-prompt" id="install-prompt">
-    <div class="install-prompt-icon">📲</div><div class="install-prompt-text"><h4>Добавить на экран</h4><p>Установи как приложение</p></div>
-    <button class="btn btn-primary btn-sm" onclick="installApp()">Добавить</button><button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
-  </div>
+  <div class="install-prompt" id="install-prompt"><div class="install-prompt-icon">📲</div><div class="install-prompt-text"><h4>Добавить на экран</h4><p>Установи как приложение</p></div><button class="btn btn-primary btn-sm" onclick="installApp()">Добавить</button><button class="install-prompt-close" onclick="hideInstallPrompt()">×</button></div>
 
-  <div class="modal-overlay" id="lesson-modal"><div class="modal">
-    <h3>✏️ Редактировать пару</h3>
-    <input type="hidden" id="edit-day"><input type="hidden" id="edit-pair"><input type="hidden" id="edit-week">
-    <div class="form-group"><label>Предмет</label><div id="lesson-select-container"></div></div>
-    <div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button><button class="btn btn-danger" onclick="deleteLesson()">Очистить</button><button class="btn btn-primary" onclick="saveLesson()">Сохранить</button></div>
-  </div></div>
-
-  <div class="modal-overlay" id="homework-modal"><div class="modal">
-    <h3>📝 Домашка на эту пару</h3>
-    <input type="hidden" id="hw-date"><input type="hidden" id="hw-pair">
-    <div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.7;"></div>
-    <div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
-    <div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('homework-modal')">Отмена</button><button class="btn btn-primary" onclick="saveHomework()">Сохранить</button></div>
-  </div></div>
-
-  <div class="modal-overlay" id="new-hw-modal"><div class="modal">
-    <h3 style="display:flex;align-items:center;gap:10px;"><span style="width:40px;height:40px;background:rgba(99,102,241,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2em;">📋</span>Новое домашнее задание</h3>
-    <div class="form-group"><label>📖 Предмет</label><div id="new-hw-select-container"></div></div>
-    <div class="form-group"><label>📝 Задание</label><textarea id="new-hw-task" placeholder="Опишите что нужно сделать..." style="min-height:100px;"></textarea></div>
-    <div class="form-group"><label>📅 Следующая пара</label><div id="new-hw-next-info" style="padding:12px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;font-size:.9em;color:var(--text-muted);min-height:44px;display:flex;align-items:center;gap:8px;">Выберите предмет...</div></div>
-    <div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('new-hw-modal')">Отмена</button><button class="btn btn-primary" onclick="saveNewHw()">💾 Сохранить</button></div>
-  </div></div>
-
-  <div class="modal-overlay" id="subject-modal"><div class="modal">
-    <h3 id="subject-modal-title">📖 Добавить предмет</h3>
-    <input type="hidden" id="subject-edit-id">
-    <div class="form-group"><label>Название</label><input type="text" id="subject-name" placeholder="Математика"></div>
-    <div class="form-group"><label>Аудитория</label><input type="text" id="subject-room" placeholder="Каб. 301"></div>
-    <div class="form-group"><label>Преподаватель</label><input type="text" id="subject-teacher" placeholder="Иванов И.И."></div>
-    <div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('subject-modal')">Отмена</button><button class="btn btn-primary" onclick="saveSubject()">Сохранить</button></div>
-  </div></div>
-
-  <div class="modal-overlay" id="change-modal"><div class="modal">
-    <h3>📝 Изменение на дату</h3>
-    <input type="hidden" id="change-edit-id">
-    <div class="form-group"><label>📅 Дата</label><input type="date" id="change-date"></div>
-    <p style="color:var(--text-muted);font-size:.8em;margin-bottom:12px;">Изменение действует <b>только на эту дату</b>. Пустое = нет пары.</p>
-    <div id="change-pairs-container"></div>
-    <div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button><button class="btn btn-danger" id="delete-change-btn" onclick="deleteChange()" style="display:none;">Удалить</button><button class="btn btn-primary" onclick="saveChange()">Сохранить</button></div>
-  </div></div>
-
-  <div class="modal-overlay" id="times-modal"><div class="modal">
-    <h3>🕐 Время пар</h3><div id="times-form"></div>
-    <div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button><button class="btn btn-primary" onclick="savePairTimes()">Сохранить</button></div>
-  </div></div>
+  <div class="modal-overlay" id="lesson-modal"><div class="modal"><h3>✏️ Редактировать пару</h3><input type="hidden" id="edit-day"><input type="hidden" id="edit-pair"><input type="hidden" id="edit-week"><div class="form-group"><label>Предмет</label><div id="lesson-sel-c"></div></div><div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button><button class="btn btn-danger" onclick="delLesson()">Очистить</button><button class="btn btn-primary" onclick="saveLesson()">Сохранить</button></div></div></div>
+  <div class="modal-overlay" id="hw-modal"><div class="modal"><h3>📝 Домашка</h3><input type="hidden" id="hw-date"><input type="hidden" id="hw-pair"><div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.7;"></div><div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div><div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('hw-modal')">Отмена</button><button class="btn btn-primary" onclick="saveOldHw()">Сохранить</button></div></div></div>
+  <div class="modal-overlay" id="new-hw-modal"><div class="modal"><h3 style="display:flex;align-items:center;gap:10px;"><span style="width:40px;height:40px;background:rgba(99,102,241,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2em;">📋</span>Новое ДЗ</h3><div class="form-group"><label>📖 Предмет</label><div id="nhw-sel-c"></div></div><div class="form-group"><label>📝 Задание</label><textarea id="nhw-task" placeholder="Опишите задание..." style="min-height:100px;"></textarea></div><div class="form-group"><label>📅 Следующая пара</label><div id="nhw-next" style="padding:12px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;font-size:.9em;color:var(--text-muted);min-height:44px;display:flex;align-items:center;gap:8px;">Выберите предмет...</div></div><div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('new-hw-modal')">Отмена</button><button class="btn btn-primary" onclick="saveNewHw()">💾 Сохранить</button></div></div></div>
+  <div class="modal-overlay" id="subj-modal"><div class="modal"><h3 id="subj-modal-title">📖 Добавить предмет</h3><input type="hidden" id="subj-edit-id"><div class="form-group"><label>Название</label><input type="text" id="subj-name" placeholder="Математика"></div><div class="form-group"><label>Аудитория</label><input type="text" id="subj-room" placeholder="Каб. 301"></div><div class="form-group"><label>Преподаватель</label><input type="text" id="subj-teacher" placeholder="Иванов И.И."></div><div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('subj-modal')">Отмена</button><button class="btn btn-primary" onclick="saveSubject()">Сохранить</button></div></div></div>
+  <div class="modal-overlay" id="chg-modal"><div class="modal"><h3>📝 Изменение на дату</h3><input type="hidden" id="chg-edit-id"><div class="form-group"><label>📅 Дата</label><input type="date" id="chg-date"></div><p style="color:var(--text-muted);font-size:.8em;margin-bottom:12px;">Действует <b>только на эту дату</b>. Пустое = нет пары.</p><div id="chg-pairs-c"></div><div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('chg-modal')">Отмена</button><button class="btn btn-danger" id="chg-del-btn" onclick="delChange()" style="display:none;">Удалить</button><button class="btn btn-primary" onclick="saveChange()">Сохранить</button></div></div></div>
+  <div class="modal-overlay" id="times-modal"><div class="modal"><h3>🕐 Время пар</h3><div id="times-form"></div><div class="modal-buttons"><button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button><button class="btn btn-primary" onclick="saveTimes()">Сохранить</button></div></div></div>
 
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   <script>
-  // ===== THEME =====
   function initTheme(){setTheme(localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
   function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const i=document.getElementById('theme-icon');if(i)i.textContent=t==='dark'?'☀️':'🌙';const s=document.querySelector('.safe-area-top');if(s)s.style.background=t==='dark'?'#12121a':'#fff'}
   function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')}
   initTheme();
 
-  // ===== FIREBASE =====
   firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
   const auth=firebase.auth(),db=firebase.database();
   auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-  const ADMIN_UIDS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"],DS=['Пн','Вт','Ср','Чт','Пт','Сб'],DF=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+  const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"],DS=['Пн','Вт','Ср','Чт','Пт','Сб'],DF=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 
-  let currentUser=null,isAdmin=false,isGuest=false;
-  let schedule={upper:{},lower:{}},homeworkList=[],changesList=[],newHwList=[],subjectsList=[];
-  let settings={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
-  let viewWeekStart=getMonday(new Date()),deferredPrompt=null,csStates={};
+  let curUser=null,isAdmin=false,isGuest=false;
+  let sched={upper:{},lower:{}},hwList=[],chgList=[],nhwList=[],subjList=[];
+  let cfg={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
+  let vws=getMonday(new Date()),defPrompt=null,css={};
 
-  // ===== PWA =====
-  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(!localStorage.getItem('ipd'))document.getElementById('install-prompt').classList.add('show')},3000)});
-  function installApp(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;hideInstallPrompt()})}}
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();defPrompt=e;setTimeout(()=>{if(!localStorage.getItem('ipd'))document.getElementById('install-prompt').classList.add('show')},3000)});
+  function installApp(){if(defPrompt){defPrompt.prompt();defPrompt.userChoice.then(()=>{defPrompt=null;hideInstallPrompt()})}}
   function hideInstallPrompt(){document.getElementById('install-prompt').classList.remove('show');localStorage.setItem('ipd','1')}
 
-  // ===== UTILS =====
   function getMonday(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
   function fdk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
   function pdk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0)}
@@ -336,36 +258,26 @@
   function fdf(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
   function fdh(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'})}
   function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML}
-  function gwt(mon){
-    if(!settings.weekStartDate){const s=new Date(mon.getFullYear(),0,1);const w=Math.ceil(((mon-s)/86400000+s.getDay()+1)/7);return w%2===1?'upper':'lower'}
-    const sd=getMonday(pdk(settings.weekStartDate));return Math.floor(Math.round((mon-sd)/(24*60*60*1000))/7)%2===0?'upper':'lower'
-  }
+  function gwt(mon){if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);return Math.ceil(((mon-s)/86400000+s.getDay()+1)/7)%2===1?'upper':'lower'}const sd=getMonday(pdk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/(864e5))/7)%2===0?'upper':'lower'}
 
-  // ===== GET LESSONS FOR A DATE (accounting for changes) =====
-  function getLessonsForDate(dateKey){
-    const d=pdk(dateKey);const dow=d.getDay();
+  // Get lessons for any date (with changes overlay)
+  function lessonsFor(dateKey){
+    const d=pdk(dateKey),dow=d.getDay();
     if(dow===0)return{};
     const di=dow-1;if(di>5)return{};
-    const ch=changesList.find(c=>c.date===dateKey);
+    const ch=chgList.find(c=>c.date===dateKey);
     if(ch)return ch.lessons||{};
-    return(schedule[gwt(getMonday(d))]||{})[DS[di]]||{};
+    return(sched[gwt(getMonday(d))]||{})[DS[di]]||{};
   }
 
-  // ===== FIND NEXT LESSON (correctly checks changes) =====
-  function findNextLessonDate(subjectName){
+  // Find next lesson of subject starting from tomorrow
+  function findNext(subjectName){
     const today=new Date();today.setHours(0,0,0,0);
-    const todayKey=fdk(today);
-    for(let off=0;off<=60;off++){
+    for(let off=1;off<=60;off++){
       const cd=new Date(today);cd.setDate(cd.getDate()+off);
-      const dow=cd.getDay();if(dow===0)continue;
-      const di=dow-1;if(di>5)continue;
+      const dow=cd.getDay();if(dow===0||dow>6)continue;
       const dateKey=fdk(cd);
-      // Skip today if we want "next"
-      if(dateKey===todayKey&&off===0){
-        // Check if there's still a future pair today - skip for simplicity, start from tomorrow
-        continue;
-      }
-      const lessons=getLessonsForDate(dateKey);
+      const lessons=lessonsFor(dateKey);
       for(let p=1;p<=5;p++){
         const l=lessons[p];
         if(l&&l.name&&l.name.toLowerCase().trim()===subjectName.toLowerCase().trim())return{date:dateKey,pair:p};
@@ -374,342 +286,205 @@
     return null;
   }
 
-  // ===== CUSTOM SELECT =====
-  function buildCS(containerId,selectedSubjId,onChange){
-    const c=document.getElementById(containerId);
-    const sorted=[...subjectsList].sort((a,b)=>a.name.localeCompare(b.name));
-    const sel=sorted.find(s=>s.id===selectedSubjId);
-    csStates[containerId]={selectedId:selectedSubjId||'',onChange};
-
-    let trigHTML;
-    if(sel){
-      trigHTML=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(sel.name)}</div><div class="cs-meta">${sel.room?'📍 '+esc(sel.room):''}${sel.teacher?' · 👤 '+esc(sel.teacher):''}</div></div>`;
-    } else {
-      trigHTML=`<span class="cs-placeholder">— нет пары —</span>`;
-    }
-
-    const optsHTML=sorted.map(s=>{
-      const isSel=s.id===selectedSubjId;
-      return`<div class="cs-option${isSel?' selected':''}" data-id="${s.id}" data-name="${esc(s.name)}" data-room="${esc(s.room||'')}" data-teacher="${esc(s.teacher||'')}"><span class="cso-icon">📖</span><div class="cso-text"><div class="cso-name">${esc(s.name)}</div><div class="cso-meta">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div></div>`;
-    }).join('');
-
-    c.innerHTML=`<div class="custom-select" data-csid="${containerId}">
-      <div class="cs-trigger" data-csid="${containerId}">${trigHTML}<span class="cs-arrow">▼</span></div>
-      <div class="cs-dropdown" id="${containerId}-dd">
-        <div class="cs-option empty-opt" data-id=""><span class="cso-icon">✕</span><span class="cso-name" style="color:var(--text-muted)">— Нет пары —</span></div>
-        ${optsHTML}
-      </div>
-    </div>`;
-
-    // Trigger click
-    c.querySelector('.cs-trigger').addEventListener('click',e=>{
-      e.stopPropagation();
-      const dd=document.getElementById(containerId+'-dd');
-      const trig=c.querySelector('.cs-trigger');
-      const wasOpen=dd.classList.contains('open');
-      closeAllCS();
-      if(!wasOpen){dd.classList.add('open');trig.classList.add('open')}
-    });
-
-    // Option clicks
-    c.querySelectorAll('.cs-option').forEach(opt=>{
-      opt.addEventListener('click',e=>{
-        e.stopPropagation();
-        const id=opt.dataset.id;
-        const subj=id?subjectsList.find(s=>s.id===id):null;
-        csStates[containerId].selectedId=id;
-        // Update trigger
-        const trig=c.querySelector('.cs-trigger');
-        if(subj){
-          trig.innerHTML=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(subj.name)}</div><div class="cs-meta">${subj.room?'📍 '+esc(subj.room):''}${subj.teacher?' · 👤 '+esc(subj.teacher):''}</div></div><span class="cs-arrow">▼</span>`;
-        } else {
-          trig.innerHTML=`<span class="cs-placeholder">— нет пары —</span><span class="cs-arrow">▼</span>`;
+  // RECALCULATE all future HW targets when changes/schedule update
+  function recalcHw(){
+    if(!isAdmin)return;
+    const tk=fdk(new Date());
+    nhwList.forEach(hw=>{
+      if(hw.done||!hw.subject)return;
+      if(hw.targetDate&&hw.targetDate<tk)return;
+      const nx=findNext(hw.subject);
+      if(nx){
+        if(nx.date!==hw.targetDate||nx.pair!==hw.targetPair){
+          db.ref(`newHomework/${hw.id}`).update({targetDate:nx.date,targetPair:nx.pair});
         }
-        // Highlight
-        c.querySelectorAll('.cs-option').forEach(o=>o.classList.remove('selected'));
-        opt.classList.add('selected');
-        closeAllCS();
-        if(csStates[containerId].onChange)csStates[containerId].onChange(id,subj);
-      });
+      }
     });
   }
 
-  function closeAllCS(){
-    document.querySelectorAll('.cs-dropdown.open').forEach(d=>{d.classList.remove('open')});
-    document.querySelectorAll('.cs-trigger.open').forEach(t=>{t.classList.remove('open')});
+  // Custom select
+  function buildCS(cid,selId,onChange){
+    const c=document.getElementById(cid);
+    const sorted=[...subjList].sort((a,b)=>a.name.localeCompare(b.name));
+    const sel=sorted.find(s=>s.id===selId);
+    css[cid]={selectedId:selId||'',onChange};
+    let trig;
+    if(sel)trig=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(sel.name)}</div><div class="cs-meta">${sel.room?'📍'+esc(sel.room):''}${sel.teacher?' · 👤'+esc(sel.teacher):''}</div></div>`;
+    else trig=`<span class="cs-placeholder">— нет пары —</span>`;
+    const opts=sorted.map(s=>`<div class="cs-option${s.id===selId?' selected':''}" data-sid="${s.id}"><span class="cso-icon">📖</span><div class="cso-text"><div class="cso-name">${esc(s.name)}</div><div class="cso-meta">${s.room?'📍'+esc(s.room):''}${s.teacher?' · 👤'+esc(s.teacher):''}</div></div></div>`).join('');
+    c.innerHTML=`<div class="custom-select"><div class="cs-trigger" data-cid="${cid}">${trig}<span class="cs-arrow">▼</span></div><div class="cs-dropdown" id="${cid}-dd"><div class="cs-option empty-opt" data-sid=""><span class="cso-icon">✕</span><div class="cso-text"><div class="cso-name" style="color:var(--text-muted)">— Нет пары —</div></div></div>${opts}</div></div>`;
+    c.querySelector('.cs-trigger').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.cs-trigger'),wo=dd.classList.contains('open');closeAllCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
+    c.querySelectorAll('.cs-option').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,subj=id?subjList.find(s=>s.id===id):null;css[cid].selectedId=id;const tr=c.querySelector('.cs-trigger');if(subj)tr.innerHTML=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(subj.name)}</div><div class="cs-meta">${subj.room?'📍'+esc(subj.room):''}${subj.teacher?' · 👤'+esc(subj.teacher):''}</div></div><span class="cs-arrow">▼</span>`;else tr.innerHTML=`<span class="cs-placeholder">— нет пары —</span><span class="cs-arrow">▼</span>`;c.querySelectorAll('.cs-option').forEach(x=>x.classList.remove('selected'));o.classList.add('selected');closeAllCS();if(css[cid].onChange)css[cid].onChange(id,subj)})});
   }
-  function getCSVal(id){return csStates[id]?.selectedId||''}
+  function closeAllCS(){document.querySelectorAll('.cs-dropdown.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.cs-trigger.open').forEach(t=>t.classList.remove('open'))}
+  function gcsv(id){return css[id]?.selectedId||''}
   document.addEventListener('click',()=>closeAllCS());
 
-  // ===== AUTH =====
-  auth.onAuthStateChanged(u=>{if(u){currentUser=u;isAdmin=ADMIN_UIDS.includes(u.uid);isGuest=false;showApp()}else if(localStorage.getItem('gs')){isGuest=true;showApp()}});
+  auth.onAuthStateChanged(u=>{if(u){curUser=u;isAdmin=ADMINS.includes(u.uid);isGuest=false;showApp()}else if(localStorage.getItem('gs')){isGuest=true;showApp()}});
   function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-password').value;if(!e||!p){showLE('Введите email и пароль');return}auth.signInWithEmailAndPassword(e,p).catch(()=>showLE('Неверные данные'))}
   function showLE(m){const e=document.getElementById('login-error');e.textContent=m;e.style.display='block'}
-  function enterAsGuest(){isGuest=true;isAdmin=false;currentUser=null;localStorage.setItem('gs','1');showApp()}
-  function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGuest=false;isAdmin=false;currentUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex'})}
+  function enterAsGuest(){isGuest=true;isAdmin=false;curUser=null;localStorage.setItem('gs','1');showApp()}
+  function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGuest=false;isAdmin=false;curUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex'})}
 
   function showApp(){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('app').style.display='block';
+    document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';
     document.getElementById('admin-badge').style.display=isAdmin?'inline':'none';
-    document.getElementById('user-email').textContent=isGuest?'Гость':(currentUser?.email?.split('@')[0]||'');
+    document.getElementById('user-email').textContent=isGuest?'Гость':(curUser?.email?.split('@')[0]||'');
     document.querySelectorAll('.admin-only').forEach(el=>el.style.display=isAdmin?'':'none');
     document.getElementById('main-nav').classList.remove('hidden');
     init();
   }
-  function init(){setupNav();loadData();viewWeekStart=getMonday(new Date());updateHeader()}
+  function init(){setupNav();loadData();vws=getMonday(new Date());updateHeader()}
   function setupNav(){document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.section).classList.add('active')})})}
 
-  // ===== DATA =====
   function loadData(){
-    db.ref('settings').on('value',s=>{if(s.val()){settings={...settings,...s.val()};if(settings.weekStartDate)document.getElementById('week-start-date').value=settings.weekStartDate}updateAll();updateHeader()});
-    db.ref('schedule').on('value',s=>{schedule=s.val()||{upper:{},lower:{}};renderDays()});
-    db.ref('homework').on('value',s=>{const d=s.val();homeworkList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDays()});
-    db.ref('subjects').on('value',s=>{const d=s.val();subjectsList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDays()});
-    db.ref('newHomework').on('value',s=>{const d=s.val();newHwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwTab();renderDays();updateHwBadge()});
-    db.ref('changes').on('value',s=>{const d=s.val();changesList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanPastChanges();renderDays();renderChanges()});
+    db.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('week-start-date').value=cfg.weekStartDate}updateAll();updateHeader()});
+    db.ref('schedule').on('value',s=>{sched=s.val()||{upper:{},lower:{}};renderDays();recalcHw()});
+    db.ref('homework').on('value',s=>{const d=s.val();hwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDays()});
+    db.ref('subjects').on('value',s=>{const d=s.val();subjList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDays()});
+    db.ref('newHomework').on('value',s=>{const d=s.val();nhwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwTab();renderDays();updateHwBadge()});
+    db.ref('changes').on('value',s=>{const d=s.val();chgList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanPast();renderDays();renderChanges();recalcHw()});
     document.getElementById('week-start-date').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
   }
 
-  // Past changes just get removed (don't affect permanent schedule)
-  function cleanPastChanges(){
-    if(!isAdmin)return;
-    const tk=fdk(new Date());
-    changesList.forEach(ch=>{if(ch.date<tk)db.ref(`changes/${ch.id}`).remove()});
-  }
+  function cleanPast(){if(!isAdmin)return;const tk=fdk(new Date());chgList.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
 
-  function updateHeader(){
-    const t=new Date(),wt=gwt(getMonday(t));
-    document.getElementById('header-date').textContent=fdh(t);
-    const w=document.getElementById('header-week');
-    w.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';w.className='header-week '+wt;
-  }
-  function updateWeekNav(){
-    const e=new Date(viewWeekStart);e.setDate(e.getDate()+5);const wt=gwt(viewWeekStart);
-    document.getElementById('week-range').textContent=`${fds(viewWeekStart)} — ${fds(e)}`;
-    const t=document.getElementById('week-type');t.textContent=wt==='upper'?'☀️ Верхняя неделя':'🌙 Нижняя неделя';t.className='week-dates-type '+wt;
-  }
-  function prevWeek(){viewWeekStart.setDate(viewWeekStart.getDate()-7);updateAll()}
-  function nextWeek(){viewWeekStart.setDate(viewWeekStart.getDate()+7);updateAll()}
+  function updateHeader(){const t=new Date(),wt=gwt(getMonday(t));document.getElementById('header-date').textContent=fdh(t);const w=document.getElementById('header-week');w.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';w.className='header-week '+wt}
+  function updateWeekNav(){const e=new Date(vws);e.setDate(e.getDate()+5);const wt=gwt(vws);document.getElementById('week-range').textContent=`${fds(vws)} — ${fds(e)}`;const t=document.getElementById('week-type');t.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';t.className='week-dates-type '+wt}
+  function prevWeek(){vws.setDate(vws.getDate()-7);updateAll()}
+  function nextWeek(){vws.setDate(vws.getDate()+7);updateAll()}
   function updateAll(){updateWeekNav();renderDays()}
 
-  // ===== SUBJECTS =====
+  // Subjects
   function renderSubjects(){
     const c=document.getElementById('subjects-list');
-    if(!subjectsList.length){c.innerHTML='<div class="no-items">📖 Добавьте предметы</div>';return}
-    c.innerHTML=subjectsList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`
-      <div class="subject-card"><div class="subject-icon">📖</div><div class="subject-info"><div class="subject-name">${esc(s.name)}</div><div class="subject-meta">${s.room?`<span>📍 ${esc(s.room)}</span>`:''}${s.teacher?`<span>👤 ${esc(s.teacher)}</span>`:''}</div></div>
-      <div class="subject-actions"><button class="btn btn-xs btn-secondary" onclick="editSubject('${s.id}')">✏️</button><button class="btn btn-xs btn-danger" onclick="deleteSubject('${s.id}')">✕</button></div></div>`).join('');
+    if(!subjList.length){c.innerHTML='<div class="no-items">📖 Добавьте предметы</div>';return}
+    c.innerHTML=subjList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="subject-card"><div class="subject-icon">📖</div><div class="subject-info"><div class="subject-name">${esc(s.name)}</div><div class="subject-meta">${s.room?`<span>📍${esc(s.room)}</span>`:''}${s.teacher?`<span>👤${esc(s.teacher)}</span>`:''}</div></div><div class="subject-actions"><button class="btn btn-xs btn-secondary" onclick="editSubject('${s.id}')">✏️</button><button class="btn btn-xs btn-danger" onclick="delSubject('${s.id}')">✕</button></div></div>`).join('');
   }
-  function openSubjectModal(eid){
-    document.getElementById('subject-edit-id').value=eid||'';
-    document.getElementById('subject-name').value='';document.getElementById('subject-room').value='';document.getElementById('subject-teacher').value='';
-    document.getElementById('subject-modal-title').textContent=eid?'📖 Редактировать':'📖 Добавить предмет';
-    if(eid){const s=subjectsList.find(x=>x.id===eid);if(s){document.getElementById('subject-name').value=s.name||'';document.getElementById('subject-room').value=s.room||'';document.getElementById('subject-teacher').value=s.teacher||''}}
-    openModal('subject-modal');
-  }
+  function openSubjectModal(eid){document.getElementById('subj-edit-id').value=eid||'';document.getElementById('subj-name').value='';document.getElementById('subj-room').value='';document.getElementById('subj-teacher').value='';document.getElementById('subj-modal-title').textContent=eid?'📖 Редактировать':'📖 Добавить';if(eid){const s=subjList.find(x=>x.id===eid);if(s){document.getElementById('subj-name').value=s.name||'';document.getElementById('subj-room').value=s.room||'';document.getElementById('subj-teacher').value=s.teacher||''}}openModal('subj-modal')}
   function editSubject(id){openSubjectModal(id)}
-  function saveSubject(){
-    const id=document.getElementById('subject-edit-id').value,n=document.getElementById('subject-name').value.trim(),r=document.getElementById('subject-room').value.trim(),t=document.getElementById('subject-teacher').value.trim();
-    if(!n){alert('Введите название');return}
-    if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});
-    closeModal('subject-modal');
-  }
-  function deleteSubject(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
+  function saveSubject(){const id=document.getElementById('subj-edit-id').value,n=document.getElementById('subj-name').value.trim(),r=document.getElementById('subj-room').value.trim(),t=document.getElementById('subj-teacher').value.trim();if(!n){alert('Введите название');return}if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});closeModal('subj-modal')}
+  function delSubject(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
 
-  // ===== HW TAB =====
+  // HW Tab
   function renderHwTab(){
-    const c=document.getElementById('homework-tab-list'),tk=fdk(new Date());
-    const p=newHwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
+    const c=document.getElementById('hw-tab-list'),tk=fdk(new Date());
+    const p=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
     if(!p.length){c.innerHTML='<div class="no-items">📚 Нет предстоящих ДЗ</div>';return}
-    c.innerHTML=p.map(h=>`
-      <div class="hw-card"><div class="hw-card-top"><div class="hw-card-subject"><span class="hw-card-subject-icon">📖</span>${esc(h.subject)}</div><div class="hw-card-due">📅 ${fdf(pdk(h.targetDate))}</div></div>
-      <div class="hw-card-task">${esc(h.task)}</div>
-      <div class="hw-card-actions"><button class="btn btn-xs btn-success" onclick="toggleNH('${h.id}')">✓ Выполнено</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="deleteNH('${h.id}')">✕</button>`:''}</div></div>`).join('');
+    c.innerHTML=p.map(h=>`<div class="hw-card"><div class="hw-card-top"><div class="hw-card-subject"><span class="hw-card-subject-icon">📖</span>${esc(h.subject)}</div><div class="hw-card-due">📅 ${fdf(pdk(h.targetDate))}</div></div><div class="hw-card-task">${esc(h.task)}</div><div class="hw-card-actions"><button class="btn btn-xs btn-success" onclick="toggleNH('${h.id}')">✓ Выполнено</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="delNH('${h.id}')">✕</button>`:''}</div></div>`).join('');
   }
-  function updateHwBadge(){
-    const tk=fdk(new Date()),cnt=newHwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;
-    document.getElementById('homework-nav').innerHTML=cnt>0?`📋 ДЗ <span class="hw-badge">${cnt}</span>`:'📋 ДЗ';
-  }
+  function updateHwBadge(){const tk=fdk(new Date()),n=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;document.getElementById('homework-nav').innerHTML=n>0?`📋 ДЗ <span class="hw-badge">${n}</span>`:'📋 ДЗ'}
+
   function openNewHwModal(){
     if(!isAdmin)return;
-    buildCS('new-hw-select-container','',(_,subj)=>{
-      const info=document.getElementById('new-hw-next-info');
-      if(subj&&subj.name){
-        const nx=findNextLessonDate(subj.name);
-        if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:600;">📅 ${fdf(pdk(nx.date))}</span><span style="color:var(--text-muted);margin-left:6px;">(пара ${nx.pair})</span>`;
-        else info.innerHTML='<span style="color:#fb7185">❌ Не найдено</span>';
-      } else info.innerHTML='Выберите предмет...';
+    buildCS('nhw-sel-c','',(_,subj)=>{
+      const info=document.getElementById('nhw-next');
+      if(subj&&subj.name){const nx=findNext(subj.name);if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:600;">📅 ${fdf(pdk(nx.date))}</span><span style="color:var(--text-muted);margin-left:6px;">(пара ${nx.pair})</span>`;else info.innerHTML='<span style="color:#fb7185">❌ Не найдено</span>'}
+      else info.innerHTML='Выберите предмет...';
     });
-    document.getElementById('new-hw-task').value='';
-    document.getElementById('new-hw-next-info').innerHTML='Выберите предмет...';
+    document.getElementById('nhw-task').value='';
+    document.getElementById('nhw-next').innerHTML='Выберите предмет...';
     openModal('new-hw-modal');
   }
   function saveNewHw(){
     if(!isAdmin)return;
-    const sid=getCSVal('new-hw-select-container'),subj=subjectsList.find(s=>s.id===sid);
+    const sid=gcsv('nhw-sel-c'),subj=subjList.find(s=>s.id===sid);
     if(!subj){alert('Выберите предмет');return}
-    const task=document.getElementById('new-hw-task').value.trim();
+    const task=document.getElementById('nhw-task').value.trim();
     if(!task){alert('Введите задание');return}
-    const nx=findNextLessonDate(subj.name);
-    if(!nx){alert('Следующая пара не найдена');return}
+    const nx=findNext(subj.name);
+    if(!nx){alert('Пара не найдена');return}
     db.ref('newHomework').push({subject:subj.name,task,targetDate:nx.date,targetPair:nx.pair,done:false,created:new Date().toISOString()});
     closeModal('new-hw-modal');
   }
-  function toggleNH(id){const h=newHwList.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
-  function deleteNH(id){if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
+  function toggleNH(id){const h=nhwList.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
+  function delNH(id){if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
 
-  // ===== RENDER DAYS =====
+  // Render days
   function renderDays(){
-    const g=document.getElementById('days-grid'),wt=gwt(viewWeekStart),wd=schedule[wt]||{},tk=fdk(new Date());
+    const g=document.getElementById('days-grid'),wt=gwt(vws),wd=sched[wt]||{},tk=fdk(new Date());
     let h='';
     for(let i=0;i<6;i++){
-      const dd=new Date(viewWeekStart);dd.setDate(dd.getDate()+i);
-      const dk=DS[i],dateKey=fdk(dd),isToday=dateKey===tk;
-      const ch=changesList.find(c=>c.date===dateKey);
-      const hasCh=!!ch;
+      const dd=new Date(vws);dd.setDate(dd.getDate()+i);const dk=DS[i],dateKey=fdk(dd),isT=dateKey===tk;
+      const ch=chgList.find(c=>c.date===dateKey),hasCh=!!ch;
       const lessons=hasCh?(ch.lessons||{}):(wd[dk]||{});
-      h+=`<div class="day-block ${isToday?'today':''} ${hasCh?'has-changes':''}">
-        <div class="day-header"><div class="day-title">${DF[i]} <span class="date">${fds(dd)}</span></div><div class="day-badges">${hasCh?'<span class="changes-label">⚡ Замена</span>':''}${isToday?'<span class="today-label">Сегодня</span>':''}</div></div>
-        <div class="day-content"><div class="lessons-list">${renderLessons(dk,lessons,wt,dateKey,hasCh)}</div></div>
-      </div>`;
+      h+=`<div class="day-block ${isT?'today':''} ${hasCh?'has-changes':''}"><div class="day-header"><div class="day-title">${DF[i]} <span class="date">${fds(dd)}</span></div><div class="day-badges">${hasCh?'<span class="changes-label">⚡ Замена</span>':''}${isT?'<span class="today-label">Сегодня</span>':''}</div></div><div class="day-content"><div class="lessons-list">${renderL(dk,lessons,wt,dateKey,hasCh)}</div></div></div>`;
     }
     g.innerHTML=h;
   }
 
-  function renderLessons(dk,lessons,wt,dateKey,hasCh){
+  function renderL(dk,lessons,wt,dateKey,hasCh){
     let h='';
     for(let p=1;p<=5;p++){
-      const l=lessons[p],has=l&&l.name,time=settings.pairTimes[p-1];
-      const hwO=homeworkList.filter(x=>x.date===dateKey&&x.pair===p);
-      const hwN=newHwList.filter(x=>x.targetDate===dateKey&&x.targetPair===p);
-      h+=`<div class="lesson-row ${has?'':'empty'} ${hasCh&&has?'changed':''}" onclick="${isAdmin&&!hasCh?`openLessonModal('${dk}',${p},'${wt}')`:''}">
-        <div class="lesson-number"><div class="lesson-num">${p}</div><div class="lesson-time">${time?.start||''}</div></div>
-        <div class="lesson-info">${has?`
-          <div class="lesson-name-row"><span class="lesson-name">${esc(l.name)}</span>${isAdmin?`<button class="add-hw-btn" onclick="event.stopPropagation();openHwModal('${dateKey}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div>
-          <div class="lesson-details">${l.room?`<span class="lesson-room">📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>
-          ${renderHwB(hwO,'📝 Домашка','hw')}${renderHwB(hwN,'📋 ДЗ','nh')}
-        `:`<span class="lesson-empty-text">${isAdmin&&!hasCh?'Добавить':'—'}</span>`}</div></div>`;
+      const l=lessons[p],has=l&&l.name,time=cfg.pairTimes[p-1];
+      const ho=hwList.filter(x=>x.date===dateKey&&x.pair===p);
+      const hn=nhwList.filter(x=>x.targetDate===dateKey&&x.targetPair===p);
+      h+=`<div class="lesson-row ${has?'':'empty'} ${hasCh&&has?'changed':''}" onclick="${isAdmin&&!hasCh?`openLessonModal('${dk}',${p},'${wt}')`:''}"><div class="lesson-number"><div class="lesson-num">${p}</div><div class="lesson-time">${time?.start||''}</div></div><div class="lesson-info">${has?`<div class="lesson-name-row"><span class="lesson-name">${esc(l.name)}</span>${isAdmin?`<button class="add-hw-btn" onclick="event.stopPropagation();openHwModal('${dateKey}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div><div class="lesson-details">${l.room?`<span class="lesson-room">📍${esc(l.room)}</span>`:''}${l.teacher?`<span>👤${esc(l.teacher)}</span>`:''}</div>${rhb(ho,'📝 Домашка','hw')}${rhb(hn,'📋 ДЗ','nh')}`:`<span class="lesson-empty-text">${isAdmin&&!hasCh?'Добавить':'—'}</span>`}</div></div>`;
     }
     return h;
   }
 
-  function renderHwB(list,title,type){
+  function rhb(list,title,type){
     if(!list||!list.length)return'';
-    return list.map(h=>`
-      <div class="lesson-homework ${h.done?'done':''}" onclick="event.stopPropagation();">
-        <div class="lesson-homework-header"><span class="lesson-homework-title">${title}</span>
-        <div><button class="btn btn-xs ${h.done?'btn-secondary':'btn-success'}" onclick="${type==='hw'?`toggleHW('${h.id}')`:`toggleNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="${type==='hw'?`deleteHW('${h.id}')`:`deleteNH('${h.id}')`}">✕</button>`:''}</div></div>
-        <div class="lesson-homework-text">${esc(h.task)}</div></div>`).join('');
+    return list.map(h=>`<div class="lesson-homework ${h.done?'done':''}" onclick="event.stopPropagation();"><div class="lesson-homework-header"><span class="lesson-homework-title">${title}</span><div><button class="btn btn-xs ${h.done?'btn-secondary':'btn-success'}" onclick="${type==='hw'?`toggleOldHw('${h.id}')`:`toggleNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="${type==='hw'?`delOldHw('${h.id}')`:`delNH('${h.id}')`}">✕</button>`:''}</div></div><div class="lesson-homework-text">${esc(h.task)}</div></div>`).join('');
   }
 
-  // ===== CHANGES =====
+  // Changes
   function renderChanges(){
     const c=document.getElementById('changes-list'),tk=fdk(new Date());
-    const f=changesList.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
+    const f=chgList.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
     if(!f.length){c.innerHTML='<div class="no-items">Нет изменений</div>';return}
-    c.innerHTML=f.map(ch=>`
-      <div class="change-card"><div class="change-header"><span class="change-date">${fdf(pdk(ch.date))}</span>
-      <div><button class="btn btn-sm btn-secondary" onclick="editChange('${ch.id}')">✏️</button><button class="btn btn-sm btn-danger" onclick="deleteChangeById('${ch.id}')">✕</button></div></div>
-      <div>${renderChL(ch.lessons)}</div></div>`).join('');
+    c.innerHTML=f.map(ch=>`<div class="change-card"><div class="change-header"><span class="change-date">${fdf(pdk(ch.date))}</span><div><button class="btn btn-sm btn-secondary" onclick="editChange('${ch.id}')">✏️</button><button class="btn btn-sm btn-danger" onclick="delChangeById('${ch.id}')">✕</button></div></div><div>${renderCL(ch.lessons)}</div></div>`).join('');
   }
-  function renderChL(lessons){
+  function renderCL(lessons){
     if(!lessons)return'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
-    let h='';
-    for(let p=1;p<=5;p++){const l=lessons[p];if(l&&l.name)h+=`<div class="change-lesson-row"><div class="change-pair-num">${p}</div><div class="change-lesson-info"><div class="change-lesson-name">${esc(l.name)}</div><div class="change-lesson-details">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div></div></div>`}
+    let h='';for(let p=1;p<=5;p++){const l=lessons[p];if(l&&l.name)h+=`<div class="change-lesson-row"><div class="change-pair-num">${p}</div><div class="change-lesson-info"><div class="change-lesson-name">${esc(l.name)}</div><div class="change-lesson-details">${l.room?`<span>📍${esc(l.room)}</span>`:''}${l.teacher?`<span>👤${esc(l.teacher)}</span>`:''}</div></div></div>`}
     return h||'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
   }
 
   function openChangeModal(eid){
     if(!isAdmin)return;
-    document.getElementById('change-edit-id').value=eid||'';
-    document.getElementById('delete-change-btn').style.display=eid?'block':'none';
-    document.getElementById('change-date').value='';
-    let ph='';
-    for(let i=1;i<=5;i++){
-      ph+=`<div class="change-pair-row"><div class="change-pair-header"><span class="change-pair-num-badge">${i}</span><span style="font-weight:500;font-size:.9em;color:var(--text-secondary);">пара</span></div><div id="chg-sel-${i}"></div></div>`;
-    }
-    document.getElementById('change-pairs-container').innerHTML=ph;
-    for(let i=1;i<=5;i++)buildCS(`chg-sel-${i}`,'',null);
-
-    if(eid){
-      const ch=changesList.find(c=>c.id===eid);
-      if(ch){
-        document.getElementById('change-date').value=ch.date;
-        if(ch.lessons){
-          for(let i=1;i<=5;i++){
-            const l=ch.lessons[i];
-            if(l&&l.name){const subj=subjectsList.find(s=>s.name===l.name);if(subj)buildCS(`chg-sel-${i}`,subj.id,null)}
-          }
-        }
-      }
-    }
-    openModal('change-modal');
+    document.getElementById('chg-edit-id').value=eid||'';
+    document.getElementById('chg-del-btn').style.display=eid?'block':'none';
+    document.getElementById('chg-date').value='';
+    let ph='';for(let i=1;i<=5;i++)ph+=`<div class="change-pair-row"><div class="change-pair-header"><span class="change-pair-num-badge">${i}</span><span style="font-weight:500;font-size:.9em;color:var(--text-secondary);">пара</span></div><div id="cs-chg-${i}"></div></div>`;
+    document.getElementById('chg-pairs-c').innerHTML=ph;
+    for(let i=1;i<=5;i++)buildCS(`cs-chg-${i}`,'',null);
+    if(eid){const ch=chgList.find(c=>c.id===eid);if(ch){document.getElementById('chg-date').value=ch.date;if(ch.lessons){for(let i=1;i<=5;i++){const l=ch.lessons[i];if(l&&l.name){const s=subjList.find(x=>x.name===l.name);if(s)buildCS(`cs-chg-${i}`,s.id,null)}}}}}
+    openModal('chg-modal');
   }
   function editChange(id){openChangeModal(id)}
   function saveChange(){
     if(!isAdmin)return;
-    const eid=document.getElementById('change-edit-id').value,date=document.getElementById('change-date').value;
+    const eid=document.getElementById('chg-edit-id').value,date=document.getElementById('chg-date').value;
     if(!date){alert('Выберите дату');return}
     const lessons={};let any=false;
-    for(let i=1;i<=5;i++){
-      const sid=getCSVal(`chg-sel-${i}`),subj=subjectsList.find(s=>s.id===sid);
-      if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};any=true}
-    }
+    for(let i=1;i<=5;i++){const sid=gcsv(`cs-chg-${i}`),subj=subjList.find(s=>s.id===sid);if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};any=true}}
     const data={date,lessons:any?lessons:null};
     if(eid)db.ref(`changes/${eid}`).set(data);else db.ref('changes').push(data);
-    closeModal('change-modal');
+    closeModal('chg-modal');
+    // recalcHw will be triggered by the changes listener
   }
-  function deleteChange(){const id=document.getElementById('change-edit-id').value;if(id){deleteChangeById(id);closeModal('change-modal')}}
-  function deleteChangeById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
+  function delChange(){const id=document.getElementById('chg-edit-id').value;if(id){delChangeById(id);closeModal('chg-modal')}}
+  function delChangeById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
 
-  // ===== LESSON MODAL =====
+  // Lesson modal
   function openModal(id){document.getElementById(id).classList.add('active')}
   function closeModal(id){document.getElementById(id).classList.remove('active')}
-
-  function openLessonModal(day,pair,week){
-    if(!isAdmin)return;
-    document.getElementById('edit-day').value=day;document.getElementById('edit-pair').value=pair;document.getElementById('edit-week').value=week;
-    const l=schedule[week]?.[day]?.[pair]||{};
-    let csid='';if(l.name){const s=subjectsList.find(x=>x.name===l.name);if(s)csid=s.id}
-    buildCS('lesson-select-container',csid,null);
-    openModal('lesson-modal');
-  }
-  function saveLesson(){
-    if(!isAdmin)return;
-    const d=document.getElementById('edit-day').value,p=document.getElementById('edit-pair').value,w=document.getElementById('edit-week').value;
-    const sid=getCSVal('lesson-select-container'),subj=subjectsList.find(s=>s.id===sid);
-    if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});
-    else db.ref(`schedule/${w}/${d}/${p}`).remove();
-    closeModal('lesson-modal');
-  }
-  function deleteLesson(){if(!isAdmin)return;db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();closeModal('lesson-modal')}
+  function openLessonModal(day,pair,week){if(!isAdmin)return;document.getElementById('edit-day').value=day;document.getElementById('edit-pair').value=pair;document.getElementById('edit-week').value=week;const l=sched[week]?.[day]?.[pair]||{};let csid='';if(l.name){const s=subjList.find(x=>x.name===l.name);if(s)csid=s.id}buildCS('lesson-sel-c',csid,null);openModal('lesson-modal')}
+  function saveLesson(){if(!isAdmin)return;const d=document.getElementById('edit-day').value,p=document.getElementById('edit-pair').value,w=document.getElementById('edit-week').value,sid=gcsv('lesson-sel-c'),subj=subjList.find(s=>s.id===sid);if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();closeModal('lesson-modal')}
+  function delLesson(){if(!isAdmin)return;db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();closeModal('lesson-modal')}
 
   // Old HW
-  function openHwModal(dateKey,pair,subj){
-    if(!isAdmin)return;document.getElementById('hw-date').value=dateKey;document.getElementById('hw-pair').value=pair;
-    document.getElementById('hw-subject').value=subj;document.getElementById('hw-task').value='';openModal('homework-modal');
-  }
-  function saveHomework(){
-    if(!isAdmin)return;const task=document.getElementById('hw-task').value.trim();
-    if(!task){alert('Введите задание');return}
-    db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task,done:false,created:new Date().toISOString()});
-    closeModal('homework-modal');
-  }
-  function toggleHW(id){const h=homeworkList.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
-  function deleteHW(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
+  function openHwModal(dk,pair,subj){if(!isAdmin)return;document.getElementById('hw-date').value=dk;document.getElementById('hw-pair').value=pair;document.getElementById('hw-subject').value=subj;document.getElementById('hw-task').value='';openModal('hw-modal')}
+  function saveOldHw(){if(!isAdmin)return;const task=document.getElementById('hw-task').value.trim();if(!task){alert('Введите задание');return}db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task,done:false,created:new Date().toISOString()});closeModal('hw-modal')}
+  function toggleOldHw(id){const h=hwList.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
+  function delOldHw(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
 
   // Times
-  function openTimesModal(){
-    if(!isAdmin)return;
-    document.getElementById('times-form').innerHTML=settings.pairTimes.map((t,i)=>`<div class="form-group" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;"><span style="min-width:50px;font-weight:500;">${i+1} пара</span><input type="time" id="ts-${i}" value="${t.start}" class="setting-input" style="flex:1;"><span style="color:var(--text-muted);">—</span><input type="time" id="te-${i}" value="${t.end}" class="setting-input" style="flex:1;"></div>`).join('');
-    openModal('times-modal');
-  }
-  function savePairTimes(){
-    if(!isAdmin)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts-${i}`).value,end:document.getElementById(`te-${i}`).value});
-    db.ref('settings/pairTimes').set(t);closeModal('times-modal');
-  }
-  function clearAllData(){if(!isAdmin)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
+  function openTimesModal(){if(!isAdmin)return;document.getElementById('times-form').innerHTML=cfg.pairTimes.map((t,i)=>`<div class="form-group" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;"><span style="min-width:50px;font-weight:500;">${i+1} пара</span><input type="time" id="ts${i}" value="${t.start}" class="setting-input" style="flex:1;"><span style="color:var(--text-muted);">—</span><input type="time" id="te${i}" value="${t.end}" class="setting-input" style="flex:1;"></div>`).join('');openModal('times-modal')}
+  function saveTimes(){if(!isAdmin)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);closeModal('times-modal')}
+  function clearAll(){if(!isAdmin)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
   document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active')})});
   document.getElementById('login-password').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
