@@ -4,1136 +4,480 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Дневник</title>
-  
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Дневник">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#6366f1">
-  
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
   <style>
-    :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #12121a;
-      --bg-card: rgba(255,255,255,0.02);
-      --bg-card-hover: rgba(255,255,255,0.05);
-      --bg-input: rgba(255,255,255,0.05);
-      --border-color: rgba(255,255,255,0.05);
-      --border-light: rgba(255,255,255,0.1);
-      --text-primary: #ffffff;
-      --text-secondary: rgba(255,255,255,0.7);
-      --text-muted: rgba(255,255,255,0.4);
-      --accent: #6366f1;
-    }
-    [data-theme="light"] {
-      --bg-primary: #f5f5f7; --bg-secondary: #ffffff;
-      --bg-card: rgba(0,0,0,0.03); --bg-card-hover: rgba(0,0,0,0.06);
-      --bg-input: rgba(0,0,0,0.05); --border-color: rgba(0,0,0,0.08);
-      --border-light: rgba(0,0,0,0.12); --text-primary: #1a1a1a;
-      --text-secondary: rgba(0,0,0,0.7); --text-muted: rgba(0,0,0,0.4);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-    html { height:-webkit-fill-available; }
-    body {
-      font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-      background:var(--bg-primary); min-height:100vh; min-height:-webkit-fill-available;
-      color:var(--text-primary); -webkit-font-smoothing:antialiased; transition:background .3s,color .3s;
-    }
-    .safe-area-top {
-      position:fixed; top:0; left:0; right:0;
-      height:env(safe-area-inset-top); background:var(--bg-secondary); z-index:101;
-    }
-    .container {
-      max-width:1000px; margin:0 auto; padding:20px;
-      padding-left:calc(20px + env(safe-area-inset-left));
-      padding-right:calc(20px + env(safe-area-inset-right));
-      padding-bottom:calc(20px + env(safe-area-inset-bottom));
-    }
-    header {
-      background:var(--bg-secondary); border-bottom:1px solid var(--border-color);
-      padding:15px 20px; padding-top:calc(15px + env(safe-area-inset-top));
-      padding-left:calc(20px + env(safe-area-inset-left));
-      padding-right:calc(20px + env(safe-area-inset-right));
-      position:sticky; top:0; z-index:100;
-    }
-    .header-content {
-      max-width:1000px; margin:0 auto; display:flex; justify-content:space-between;
-      align-items:center; flex-wrap:wrap; gap:12px;
-    }
-    .header-left { display:flex; align-items:center; gap:15px; }
-    .logo {
-      font-size:1.5em; font-weight:700;
-      background:linear-gradient(135deg,#6366f1,#8b5cf6);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
-    .header-date { font-size:.9em; color:var(--text-secondary); font-weight:500; }
-    .header-right { display:flex; align-items:center; gap:10px; }
-    .header-week { padding:6px 14px; border-radius:20px; font-size:.8em; font-weight:600; }
-    .header-week.upper { background:linear-gradient(135deg,#10b981,#34d399); color:#000; }
-    .header-week.lower { background:linear-gradient(135deg,#f43f5e,#fb7185); color:#fff; }
-    .theme-toggle {
-      width:40px; height:40px; border-radius:10px; background:var(--bg-card);
-      border:1px solid var(--border-color); color:var(--text-primary); font-size:1.2em;
-      cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s;
-    }
-    .theme-toggle:hover { background:var(--bg-card-hover); }
-    .user-info { display:flex; align-items:center; gap:8px; font-size:.85em; color:var(--text-secondary); }
-    .admin-badge {
-      background:linear-gradient(135deg,#f59e0b,#fbbf24); color:#000;
-      padding:4px 10px; border-radius:15px; font-size:.75em; font-weight:600;
-    }
-    .btn {
-      padding:10px 20px; border:none; border-radius:10px; cursor:pointer;
-      font-weight:600; font-size:.9em; transition:all .2s; font-family:inherit;
-    }
-    .btn-primary { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; }
-    .btn-secondary { background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color); }
-    .btn-danger { background:linear-gradient(135deg,#ef4444,#f87171); color:#fff; }
-    .btn-success { background:linear-gradient(135deg,#10b981,#34d399); color:#000; }
-    .btn-warning { background:linear-gradient(135deg,#f59e0b,#fbbf24); color:#000; }
-    .btn:hover { transform:translateY(-2px); box-shadow:0 5px 20px rgba(0,0,0,.2); }
-    .btn:active { transform:scale(.98); }
-    .btn-sm { padding:6px 12px; font-size:.8em; }
-    .btn-xs { padding:4px 8px; font-size:.75em; }
-    .btn-icon {
-      width:44px; height:44px; padding:0; display:flex; align-items:center; justify-content:center;
-      border-radius:12px; font-size:1.2em; background:var(--bg-card); color:var(--text-primary);
-      border:1px solid var(--border-color); cursor:pointer; transition:all .2s;
-    }
-    .btn-icon:hover { background:var(--bg-card-hover); }
-    .btn-icon:active { transform:scale(.95); }
-    .week-navigator {
-      display:flex; align-items:center; justify-content:center; gap:20px;
-      padding:16px 20px; background:var(--bg-card); border-radius:16px;
-      margin-bottom:20px; border:1px solid var(--border-color);
-    }
-    .week-dates { text-align:center; min-width:180px; }
-    .week-dates-range { font-size:1.2em; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
-    .week-dates-type { font-size:.85em; font-weight:600; }
-    .week-dates-type.upper { color:#34d399; }
-    .week-dates-type.lower { color:#fb7185; }
-    .nav { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-    .nav.hidden { display:none; }
-    .nav-btn {
-      padding:12px 20px; border:none; background:var(--bg-card); color:var(--text-secondary);
-      border-radius:12px; cursor:pointer; font-size:.9em; font-weight:500; transition:all .2s;
-      font-family:inherit; border:1px solid var(--border-color);
-    }
-    .nav-btn:hover { background:var(--bg-card-hover); color:var(--text-primary); }
-    .nav-btn.active { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; border-color:transparent; }
-    .section { display:none; }
-    .section.active { display:block; animation:fadeIn .3s ease; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
-    .days-grid { display:flex; flex-direction:column; gap:16px; }
-    .day-block {
-      background:var(--bg-card); border-radius:16px; overflow:hidden; border:1px solid var(--border-color);
-    }
-    .day-block.today { border-color:rgba(99,102,241,.4); box-shadow:0 0 30px rgba(99,102,241,.1); }
-    .day-block.has-changes { border-color:rgba(245,158,11,.4); }
-    .day-block.archived { border-color:rgba(16,185,129,.3); }
-    .day-header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:14px 16px; background:var(--bg-card-hover); border-bottom:1px solid var(--border-color);
-    }
-    .day-title { font-size:1em; font-weight:600; display:flex; align-items:center; gap:8px; color:var(--text-primary); }
-    .day-title .date { font-weight:400; color:var(--text-muted); font-size:.9em; }
-    .day-badges { display:flex; gap:6px; flex-wrap:wrap; }
-    .today-label { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; padding:4px 10px; border-radius:12px; font-size:.7em; font-weight:600; }
-    .changes-label { background:linear-gradient(135deg,#f59e0b,#fbbf24); color:#000; padding:4px 10px; border-radius:12px; font-size:.7em; font-weight:600; }
-    .archived-label { background:linear-gradient(135deg,#10b981,#34d399); color:#000; padding:4px 10px; border-radius:12px; font-size:.7em; font-weight:600; }
-    .day-content { padding:10px; }
-    .lessons-list { display:flex; flex-direction:column; gap:6px; }
-    .lesson-row {
-      display:flex; align-items:flex-start; gap:10px; padding:10px;
-      background:var(--bg-card); border-radius:10px; transition:all .2s; cursor:pointer;
-    }
-    .lesson-row:hover { background:var(--bg-card-hover); }
-    .lesson-row.empty { opacity:.5; }
-    .lesson-row.changed { background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.3); }
-    .lesson-number {
-      width:44px; display:flex; flex-direction:column; align-items:center; justify-content:center;
-      padding:6px; background:rgba(99,102,241,.15); border-radius:8px; flex-shrink:0;
-    }
-    .lesson-num { font-size:1.2em; font-weight:700; color:var(--accent); }
-    .lesson-time { font-size:.6em; color:var(--text-muted); margin-top:2px; }
-    .lesson-info { flex:1; min-width:0; }
-    .lesson-name-row { display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap; }
-    .lesson-name { font-weight:600; font-size:.95em; color:var(--text-primary); }
-    .lesson-details { display:flex; gap:12px; font-size:.8em; color:var(--text-muted); margin-bottom:6px; flex-wrap:wrap; }
-    .lesson-room { color:var(--accent); }
-    .lesson-empty-text { color:var(--text-muted); font-style:italic; font-size:.9em; }
-    .lesson-homework {
-      margin-top:8px; padding:10px; background:rgba(99,102,241,.1);
-      border-radius:8px; border-left:3px solid var(--accent);
-    }
-    .lesson-homework-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; }
-    .lesson-homework-title { font-size:.7em; color:var(--accent); font-weight:600; text-transform:uppercase; }
-    .lesson-homework-text { font-size:.85em; line-height:1.4; color:var(--text-primary); }
-    .lesson-homework.done { opacity:.5; border-left-color:#10b981; }
-    .lesson-homework.done .lesson-homework-text { text-decoration:line-through; }
-    .add-hw-btn {
-      padding:4px 8px; background:rgba(99,102,241,.2); border:none; color:var(--accent);
-      border-radius:6px; cursor:pointer; font-size:.75em; font-weight:600;
-    }
-    .add-hw-btn:active { background:var(--accent); color:#fff; }
-    .changes-wrapper,.settings-wrapper {
-      background:var(--bg-card); border-radius:16px; padding:20px; border:1px solid var(--border-color);
-    }
-    .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:15px; }
-    .section-title { font-size:1.1em; font-weight:600; color:var(--text-primary); }
-    .changes-list { display:flex; flex-direction:column; gap:12px; }
-    .change-card { background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.2); border-radius:12px; padding:14px; }
-    .change-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
-    .change-date { font-weight:600; font-size:1em; color:#fbbf24; }
-    .change-lessons { display:flex; flex-direction:column; gap:8px; }
-    .change-lesson-row { display:flex; align-items:center; gap:10px; padding:10px; background:rgba(0,0,0,.15); border-radius:8px; }
-    [data-theme="light"] .change-lesson-row { background:rgba(0,0,0,.05); }
-    .change-pair-num { width:28px; height:28px; background:rgba(245,158,11,.3); border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fbbf24; font-size:.9em; }
-    .change-lesson-info { flex:1; }
-    .change-lesson-name { font-weight:600; font-size:.95em; color:var(--text-primary); }
-    .change-lesson-details { font-size:.8em; color:var(--text-muted); display:flex; gap:10px; flex-wrap:wrap; }
-    .setting-row {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:16px; background:var(--bg-card-hover); border-radius:12px;
-      margin-bottom:10px; flex-wrap:wrap; gap:12px;
-    }
-    .setting-info h4 { margin-bottom:4px; font-size:.95em; color:var(--text-primary); }
-    .setting-info p { font-size:.8em; color:var(--text-muted); }
-    .setting-input {
-      padding:10px 14px; border:1px solid var(--border-light); background:var(--bg-input);
-      border-radius:10px; color:var(--text-primary); font-family:inherit;
-    }
-    .modal-overlay {
-      display:none; position:fixed; top:0; left:0; right:0; bottom:0;
-      background:rgba(0,0,0,.85); z-index:1000; align-items:flex-start;
-      justify-content:center; padding:20px; padding-top:calc(40px + env(safe-area-inset-top));
-      overflow-y:auto;
-    }
-    [data-theme="light"] .modal-overlay { background:rgba(0,0,0,.5); }
-    .modal-overlay.active { display:flex; }
-    .modal {
-      background:var(--bg-secondary); border-radius:20px; padding:24px;
-      width:100%; max-width:500px; border:1px solid var(--border-color);
-      animation:modalIn .3s ease; margin:auto;
-    }
-    @keyframes modalIn { from{opacity:0;transform:scale(.95) translateY(-20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-    .modal h3 { margin-bottom:20px; font-size:1.15em; color:var(--text-primary); }
-    .form-group { margin-bottom:16px; }
-    .form-group label { display:block; margin-bottom:6px; color:var(--text-secondary); font-size:.85em; }
-    .form-group input,.form-group textarea {
-      width:100%; padding:12px 14px; border:1px solid var(--border-light);
-      background:var(--bg-input); border-radius:10px; color:var(--text-primary);
-      font-size:1em; font-family:inherit; -webkit-appearance:none;
-    }
-    .form-group textarea { resize:vertical; min-height:80px; }
-    .form-group input:focus,.form-group textarea:focus { outline:none; border-color:var(--accent); }
-    .modal-buttons { display:flex; gap:10px; margin-top:20px; }
-    .modal-buttons .btn { flex:1; }
-    .change-pairs-form { display:flex; flex-direction:column; gap:10px; margin-top:15px; }
-    .change-pair-row { background:var(--bg-card); border-radius:10px; padding:12px; }
-    .change-pair-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-    .change-pair-num-badge { width:26px; height:26px; background:rgba(245,158,11,.3); border-radius:6px; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fbbf24; font-size:.85em; }
-    .change-pair-inputs { display:flex; gap:8px; flex-wrap:wrap; }
-    .change-pair-inputs input {
-      flex:1; min-width:80px; padding:10px; border:1px solid var(--border-light);
-      background:var(--bg-input); border-radius:8px; color:var(--text-primary);
-      font-size:.9em; font-family:inherit; -webkit-appearance:none;
-    }
-    .change-pair-inputs input:focus { outline:none; border-color:#f59e0b; }
-    .change-pair-inputs input::placeholder { color:var(--text-muted); }
-
-    /* LOGIN */
-    .login-screen {
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
-      padding:20px; padding-top:calc(20px + env(safe-area-inset-top)); background:var(--bg-primary);
-    }
-    .login-container {
-      width:100%; max-width:400px; padding:32px;
-      background:var(--bg-card); border-radius:20px; border:1px solid var(--border-color);
-    }
-    .login-logo { text-align:center; font-size:4em; margin-bottom:10px; }
-    .login-container h2 { text-align:center; margin-bottom:8px; font-size:1.6em; color:var(--text-primary); }
-    .login-subtitle { text-align:center; color:var(--text-muted); margin-bottom:24px; font-size:.9em; }
-    .login-container .btn { width:100%; padding:14px; margin-top:10px; }
-    .msg-error {
-      background:rgba(244,63,94,.1); border:1px solid rgba(244,63,94,.3);
-      color:#fb7185; padding:12px; border-radius:10px; text-align:center;
-      margin-bottom:16px; font-size:.9em; display:none;
-    }
-    .msg-success {
-      background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.3);
-      color:#34d399; padding:12px; border-radius:10px; text-align:center;
-      margin-bottom:16px; font-size:.9em; display:none;
-    }
-    .auth-tabs {
-      display:flex; border-radius:12px; overflow:hidden;
-      border:1px solid var(--border-color); margin-bottom:20px;
-    }
-    .auth-tab {
-      flex:1; padding:12px; border:none; background:var(--bg-card);
-      color:var(--text-secondary); font-family:inherit; font-size:.9em;
-      font-weight:600; cursor:pointer; transition:all .2s;
-    }
-    .auth-tab.active { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; }
-    .auth-form { display:none; }
-    .auth-form.active { display:block; animation:fadeIn .3s ease; }
-    .divider {
-      display:flex; align-items:center; gap:15px; margin:20px 0;
-      color:var(--text-muted); font-size:.85em;
-    }
-    .divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--border-color); }
-
-    .phone-input-row {
-      display:flex; gap:8px;
-    }
-    .phone-prefix {
-      width:70px; padding:12px 8px; border:1px solid var(--border-light);
-      background:var(--bg-input); border-radius:10px; color:var(--text-primary);
-      font-size:1em; font-family:inherit; text-align:center; -webkit-appearance:none;
-    }
-    .phone-prefix:focus { outline:none; border-color:var(--accent); }
-
-    .step { display:none; }
-    .step.active { display:block; animation:fadeIn .3s ease; }
-
-    .step-indicator {
-      display:flex; gap:8px; margin-bottom:20px; justify-content:center;
-    }
-    .step-dot {
-      width:10px; height:10px; border-radius:50%; background:var(--border-color); transition:all .3s;
-    }
-    .step-dot.active { background:var(--accent); width:30px; border-radius:5px; }
-    .step-dot.done { background:#10b981; }
-
-    .phone-display {
-      font-size:1.3em; font-weight:700; color:var(--accent); text-align:center;
-      margin:10px 0 20px; letter-spacing:1px;
-    }
-
-    .code-inputs {
-      display:flex; gap:8px; justify-content:center; margin-bottom:20px;
-    }
-    .code-input {
-      width:48px; height:56px; border:2px solid var(--border-light);
-      background:var(--bg-input); border-radius:12px; color:var(--text-primary);
-      font-size:1.5em; font-weight:700; text-align:center; font-family:inherit;
-      -webkit-appearance:none;
-    }
-    .code-input:focus { outline:none; border-color:var(--accent); }
-
-    .resend-timer {
-      text-align:center; color:var(--text-muted); font-size:.85em; margin-top:12px;
-    }
-    .resend-timer a {
-      color:var(--accent); cursor:pointer; text-decoration:none; font-weight:600;
-    }
-
-    .no-items { text-align:center; padding:40px 20px; color:var(--text-muted); }
-
-    .install-prompt {
-      position:fixed; bottom:calc(20px + env(safe-area-inset-bottom));
-      left:20px; right:20px; background:var(--bg-secondary);
-      border:1px solid rgba(99,102,241,.3); border-radius:16px;
-      padding:16px; display:none; align-items:center; gap:12px;
-      z-index:999; box-shadow:0 10px 40px rgba(0,0,0,.3);
-    }
-    .install-prompt.show { display:flex; animation:slideUp .3s ease; }
-    @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    .install-prompt-icon { font-size:2em; }
-    .install-prompt-text { flex:1; }
-    .install-prompt-text h4 { font-size:.95em; margin-bottom:2px; color:var(--text-primary); }
-    .install-prompt-text p { font-size:.8em; color:var(--text-muted); }
-    .install-prompt-close { background:none; border:none; color:var(--text-muted); font-size:1.5em; cursor:pointer; padding:5px; }
-
-    .loading-spinner {
-      display:inline-block; width:20px; height:20px;
-      border:3px solid rgba(255,255,255,.3); border-top-color:#fff;
-      border-radius:50%; animation:spin .6s linear infinite; margin-right:8px; vertical-align:middle;
-    }
-    @keyframes spin { to{transform:rotate(360deg)} }
-
-    @media (max-width:500px) {
-      .header-content { gap:10px; }
-      .header-left { gap:10px; }
-      .logo { font-size:1.2em; }
-      .header-date { font-size:.8em; }
-      .user-info span:not(.admin-badge) { display:none; }
-      .week-navigator { padding:14px; gap:15px; }
-      .week-dates-range { font-size:1em; }
-      .btn-icon { width:40px; height:40px; }
-      .change-pair-inputs { flex-direction:column; }
-      .change-pair-inputs input { width:100%; }
-      .setting-row { flex-direction:column; align-items:flex-start; }
+    :root{--bg:#0a0a0f;--bg2:#12121a;--card:rgba(255,255,255,0.02);--card2:rgba(255,255,255,0.05);--inp:rgba(255,255,255,0.05);--brd:rgba(255,255,255,0.05);--brd2:rgba(255,255,255,0.1);--t1:#fff;--t2:rgba(255,255,255,0.7);--t3:rgba(255,255,255,0.4);--ac:#6366f1}
+    [data-theme="light"]{--bg:#f5f5f7;--bg2:#fff;--card:rgba(0,0,0,0.03);--card2:rgba(0,0,0,0.06);--inp:rgba(0,0,0,0.05);--brd:rgba(0,0,0,0.08);--brd2:rgba(0,0,0,0.12);--t1:#1a1a1a;--t2:rgba(0,0,0,0.7);--t3:rgba(0,0,0,0.4)}
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{height:-webkit-fill-available}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);min-height:100vh;min-height:-webkit-fill-available;color:var(--t1);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+    .safe-top{position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg2);z-index:101}
+    .container{max-width:1000px;margin:0 auto;padding:20px;padding-left:calc(20px + env(safe-area-inset-left));padding-right:calc(20px + env(safe-area-inset-right));padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+    header{background:var(--bg2);border-bottom:1px solid var(--brd);padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top));padding-left:calc(20px + env(safe-area-inset-left));padding-right:calc(20px + env(safe-area-inset-right));position:sticky;top:0;z-index:100}
+    .hdr{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+    .hdr-l{display:flex;align-items:center;gap:12px}
+    .logo{font-size:1.4em;font-weight:700;background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hdr-date{font-size:.85em;color:var(--t2);font-weight:500}
+    .hdr-r{display:flex;align-items:center;gap:8px}
+    .hdr-week{padding:5px 12px;border-radius:20px;font-size:.75em;font-weight:600}
+    .hdr-week.upper{background:linear-gradient(135deg,#10b981,#34d399);color:#000}
+    .hdr-week.lower{background:linear-gradient(135deg,#f43f5e,#fb7185);color:#fff}
+    .theme-btn{width:36px;height:36px;border-radius:8px;background:var(--card);border:1px solid var(--brd);color:var(--t1);font-size:1.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .theme-btn:hover{background:var(--card2)}
+    .user-info{display:flex;align-items:center;gap:6px;font-size:.8em;color:var(--t2)}
+    .admin-badge{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000;padding:3px 8px;border-radius:12px;font-size:.7em;font-weight:600}
+    .btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-weight:600;font-size:.9em;transition:all .2s;font-family:inherit}
+    .btn-p{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff}
+    .btn-s{background:var(--card);color:var(--t1);border:1px solid var(--brd)}
+    .btn-d{background:linear-gradient(135deg,#ef4444,#f87171);color:#fff}
+    .btn-w{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(0,0,0,.2)}
+    .btn:active{transform:scale(.98)}
+    .btn-sm{padding:6px 12px;font-size:.8em}
+    .btn-xs{padding:4px 8px;font-size:.75em}
+    .btn-icon{width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:1.2em;background:var(--card);color:var(--t1);border:1px solid var(--brd);cursor:pointer;transition:all .2s}
+    .btn-icon:hover{background:var(--card2)}
+    .btn-icon:active{transform:scale(.95)}
+    .week-nav{display:flex;align-items:center;justify-content:center;gap:20px;padding:14px 20px;background:var(--card);border-radius:16px;margin-bottom:20px;border:1px solid var(--brd)}
+    .week-info{text-align:center;min-width:180px}
+    .week-range{font-size:1.1em;font-weight:700;color:var(--t1);margin-bottom:3px}
+    .week-type{font-size:.8em;font-weight:600}
+    .week-type.upper{color:#34d399}
+    .week-type.lower{color:#fb7185}
+    .nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    .nav.hidden{display:none}
+    .nav-btn{padding:10px 16px;border:none;background:var(--card);color:var(--t2);border-radius:10px;cursor:pointer;font-size:.85em;font-weight:500;transition:all .2s;font-family:inherit;border:1px solid var(--brd)}
+    .nav-btn:hover{background:var(--card2);color:var(--t1)}
+    .nav-btn.active{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-color:transparent}
+    .sec{display:none}.sec.active{display:block;animation:fi .3s ease}
+    @keyframes fi{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+    .days{display:flex;flex-direction:column;gap:16px}
+    .day{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--brd)}
+    .day.today{border-color:rgba(99,102,241,.4);box-shadow:0 0 30px rgba(99,102,241,.1)}
+    .day.changed{border-color:rgba(245,158,11,.4)}
+    .day.archived{border-color:rgba(16,185,129,.3)}
+    .day-h{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--card2);border-bottom:1px solid var(--brd)}
+    .day-t{font-size:.95em;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--t1)}
+    .day-t .dt{font-weight:400;color:var(--t3);font-size:.85em}
+    .day-b{display:flex;gap:5px;flex-wrap:wrap}
+    .badge{padding:3px 8px;border-radius:10px;font-size:.65em;font-weight:600}
+    .badge-today{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff}
+    .badge-change{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000}
+    .badge-arch{background:linear-gradient(135deg,#10b981,#34d399);color:#000}
+    .day-c{padding:8px}
+    .llist{display:flex;flex-direction:column;gap:5px}
+    .lrow{display:flex;align-items:flex-start;gap:10px;padding:9px;background:var(--card);border-radius:9px;transition:all .2s;cursor:pointer}
+    .lrow:hover{background:var(--card2)}
+    .lrow.empty{opacity:.5}
+    .lrow.chg{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3)}
+    .lnum{width:42px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px;background:rgba(99,102,241,.15);border-radius:7px;flex-shrink:0}
+    .ln{font-size:1.1em;font-weight:700;color:var(--ac)}
+    .lt{font-size:.55em;color:var(--t3);margin-top:1px}
+    .linfo{flex:1;min-width:0}
+    .lnr{display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap}
+    .lname{font-weight:600;font-size:.9em;color:var(--t1)}
+    .ldet{display:flex;gap:10px;font-size:.75em;color:var(--t3);margin-bottom:5px;flex-wrap:wrap}
+    .lroom{color:var(--ac)}
+    .lempty{color:var(--t3);font-style:italic;font-size:.85em}
+    .lhw{margin-top:7px;padding:8px;background:rgba(99,102,241,.1);border-radius:7px;border-left:3px solid var(--ac)}
+    .lhw-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+    .lhw-t{font-size:.65em;color:var(--ac);font-weight:600;text-transform:uppercase}
+    .lhw-txt{font-size:.8em;line-height:1.4;color:var(--t1)}
+    .hw-btn{padding:3px 7px;background:rgba(99,102,241,.2);border:none;color:var(--ac);border-radius:5px;cursor:pointer;font-size:.7em;font-weight:600}
+    .hw-btn:active{background:var(--ac);color:#fff}
+    .wrap{background:var(--card);border-radius:16px;padding:20px;border:1px solid var(--brd)}
+    .sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:15px}
+    .st{font-size:1.05em;font-weight:600;color:var(--t1)}
+    .chlist{display:flex;flex-direction:column;gap:12px}
+    .chcard{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:12px}
+    .chh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+    .chd{font-weight:600;font-size:.95em;color:#fbbf24}
+    .chls{display:flex;flex-direction:column;gap:6px}
+    .chlr{display:flex;align-items:center;gap:10px;padding:8px;background:rgba(0,0,0,.15);border-radius:7px}
+    [data-theme="light"] .chlr{background:rgba(0,0,0,.05)}
+    .chpn{width:26px;height:26px;background:rgba(245,158,11,.3);border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fbbf24;font-size:.85em}
+    .chli{flex:1}.chln{font-weight:600;font-size:.9em;color:var(--t1)}
+    .chld{font-size:.75em;color:var(--t3);display:flex;gap:8px;flex-wrap:wrap}
+    .srow{display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--card2);border-radius:10px;margin-bottom:8px;flex-wrap:wrap;gap:10px}
+    .srow h4{margin-bottom:3px;font-size:.9em;color:var(--t1)}
+    .srow p{font-size:.75em;color:var(--t3)}
+    .sinp{padding:9px 12px;border:1px solid var(--brd2);background:var(--inp);border-radius:9px;color:var(--t1);font-family:inherit;font-size:.9em}
+    .modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:1000;align-items:flex-start;justify-content:center;padding:20px;padding-top:calc(40px + env(safe-area-inset-top));overflow-y:auto}
+    [data-theme="light"] .modal-bg{background:rgba(0,0,0,.5)}
+    .modal-bg.active{display:flex}
+    .modal{background:var(--bg2);border-radius:18px;padding:22px;width:100%;max-width:480px;border:1px solid var(--brd);animation:mi .3s ease;margin:auto}
+    @keyframes mi{from{opacity:0;transform:scale(.95) translateY(-20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .modal h3{margin-bottom:18px;font-size:1.1em;color:var(--t1)}
+    .fg{margin-bottom:14px}
+    .fg label{display:block;margin-bottom:5px;color:var(--t2);font-size:.8em}
+    .fg input,.fg textarea{width:100%;padding:11px 13px;border:1px solid var(--brd2);background:var(--inp);border-radius:9px;color:var(--t1);font-size:.95em;font-family:inherit;-webkit-appearance:none}
+    .fg textarea{resize:vertical;min-height:70px}
+    .fg input:focus,.fg textarea:focus{outline:none;border-color:var(--ac)}
+    .mbtn{display:flex;gap:8px;margin-top:18px}
+    .mbtn .btn{flex:1}
+    .cpf{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+    .cpr{background:var(--card);border-radius:9px;padding:10px}
+    .cprh{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+    .cpnb{width:24px;height:24px;background:rgba(245,158,11,.3);border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fbbf24;font-size:.8em}
+    .cpi{display:flex;gap:6px;flex-wrap:wrap}
+    .cpi input{flex:1;min-width:70px;padding:9px;border:1px solid var(--brd2);background:var(--inp);border-radius:7px;color:var(--t1);font-size:.85em;font-family:inherit;-webkit-appearance:none}
+    .cpi input:focus{outline:none;border-color:#f59e0b}
+    .cpi input::placeholder{color:var(--t3)}
+    .auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;padding-top:calc(20px + env(safe-area-inset-top));background:var(--bg)}
+    .auth-box{width:100%;max-width:360px;padding:28px;background:var(--card);border-radius:20px;border:1px solid var(--brd)}
+    .auth-logo{text-align:center;font-size:3.5em;margin-bottom:8px}
+    .auth-box h2{text-align:center;margin-bottom:6px;font-size:1.5em;color:var(--t1)}
+    .auth-sub{text-align:center;color:var(--t3);margin-bottom:22px;font-size:.85em}
+    .auth-box .btn{width:100%;padding:13px;margin-top:8px}
+    .msg-e{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);color:#fb7185;padding:10px 14px;border-radius:9px;text-align:center;margin-bottom:14px;font-size:.83em;display:none}
+    .divider{display:flex;align-items:center;gap:15px;margin:18px 0;color:var(--t3);font-size:.85em}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--brd)}
+    .no{text-align:center;padding:40px 20px;color:var(--t3)}
+    .install-prompt{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:20px;right:20px;background:var(--bg2);border:1px solid rgba(99,102,241,.3);border-radius:16px;padding:14px;display:none;align-items:center;gap:10px;z-index:999;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+    .install-prompt.show{display:flex;animation:su .3s ease}
+    @keyframes su{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:500px){
+      .hdr{gap:8px}.hdr-l{gap:8px}.logo{font-size:1.1em}.hdr-date{font-size:.75em}
+      .user-info span:not(.admin-badge){display:none}.week-nav{padding:12px;gap:12px}
+      .week-range{font-size:.95em}.btn-icon{width:38px;height:38px}
+      .cpi{flex-direction:column}.cpi input{width:100%}
+      .srow{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
 <body>
-  <div class="safe-area-top"></div>
+  <div class="safe-top"></div>
 
-  <!-- =========== АВТОРИЗАЦИЯ =========== -->
-  <div id="login-screen" class="login-screen">
-    <div class="login-container">
-      <div class="login-logo">📚</div>
+  <!-- AUTH -->
+  <div id="auth-screen" class="auth">
+    <div class="auth-box">
+      <div class="auth-logo">📚</div>
       <h2>Дневник</h2>
-      <p class="login-subtitle">Техникум</p>
-
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchTab('login')">Вход</button>
-        <button class="auth-tab" onclick="switchTab('register')">Регистрация</button>
-      </div>
-
-      <div class="msg-error" id="msg-error"></div>
-      <div class="msg-success" id="msg-success"></div>
-
-      <!-- ВХОД -->
-      <div id="tab-login" class="auth-form active">
-        <div class="form-group">
-          <label>Телефон</label>
-          <div class="phone-input-row">
-            <input type="text" class="phone-prefix" value="+7" id="login-prefix" maxlength="4">
-            <input type="tel" id="login-phone" placeholder="9001234567" style="flex:1;" maxlength="10">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Пароль</label>
-          <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
-        </div>
-        <button class="btn btn-primary" id="login-btn" onclick="doLogin()">Войти</button>
-      </div>
-
-      <!-- РЕГИСТРАЦИЯ — 3 шага -->
-      <div id="tab-register" class="auth-form">
-        <div class="step-indicator">
-          <div class="step-dot active" id="dot-1"></div>
-          <div class="step-dot" id="dot-2"></div>
-          <div class="step-dot" id="dot-3"></div>
-        </div>
-
-        <!-- Шаг 1: Ввод телефона -->
-        <div class="step active" id="reg-step-1">
-          <div class="form-group">
-            <label>📱 Номер телефона</label>
-            <div class="phone-input-row">
-              <input type="text" class="phone-prefix" value="+7" id="reg-prefix" maxlength="4">
-              <input type="tel" id="reg-phone" placeholder="9001234567" style="flex:1;" maxlength="10">
-            </div>
-          </div>
-          <button class="btn btn-primary" id="send-code-btn" onclick="sendVerificationCode()">
-            Получить код по СМС
-          </button>
-          <div id="recaptcha-container" style="margin-top:15px;display:flex;justify-content:center;"></div>
-        </div>
-
-        <!-- Шаг 2: Ввод кода -->
-        <div class="step" id="reg-step-2">
-          <p style="text-align:center;color:var(--text-secondary);margin-bottom:8px;">Код отправлен на</p>
-          <div class="phone-display" id="display-phone">+7 900 123 45 67</div>
-          <div class="code-inputs">
-            <input type="text" class="code-input" maxlength="1" id="code-1" oninput="codeInput(this,1)" onkeydown="codeKeydown(event,1)">
-            <input type="text" class="code-input" maxlength="1" id="code-2" oninput="codeInput(this,2)" onkeydown="codeKeydown(event,2)">
-            <input type="text" class="code-input" maxlength="1" id="code-3" oninput="codeInput(this,3)" onkeydown="codeKeydown(event,3)">
-            <input type="text" class="code-input" maxlength="1" id="code-4" oninput="codeInput(this,4)" onkeydown="codeKeydown(event,4)">
-            <input type="text" class="code-input" maxlength="1" id="code-5" oninput="codeInput(this,5)" onkeydown="codeKeydown(event,5)">
-            <input type="text" class="code-input" maxlength="1" id="code-6" oninput="codeInput(this,6)" onkeydown="codeKeydown(event,6)">
-          </div>
-          <button class="btn btn-primary" id="verify-code-btn" onclick="verifyCode()">Подтвердить</button>
-          <div class="resend-timer" id="resend-timer">
-            Отправить повторно через <span id="timer-count">60</span>с
-          </div>
-        </div>
-
-        <!-- Шаг 3: Имя и пароль -->
-        <div class="step" id="reg-step-3">
-          <div class="form-group">
-            <label>👤 Твоё имя</label>
-            <input type="text" id="reg-name" placeholder="Иван" autocomplete="name">
-          </div>
-          <div class="form-group">
-            <label>🔒 Придумай пароль (мин. 6 символов)</label>
-            <input type="password" id="reg-pass" placeholder="••••••••" autocomplete="new-password">
-          </div>
-          <div class="form-group">
-            <label>🔒 Повтори пароль</label>
-            <input type="password" id="reg-pass2" placeholder="••••••••">
-          </div>
-          <button class="btn btn-primary" onclick="completeRegistration()">Создать аккаунт 🎉</button>
-        </div>
-      </div>
-
+      <p class="auth-sub">Техникум</p>
+      <div class="msg-e" id="msg-e"></div>
+      <div class="fg"><label>📧 Email</label><input type="email" id="l-email" placeholder="admin@example.com" autocomplete="email"></div>
+      <div class="fg"><label>🔒 Пароль</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="btn btn-p" id="l-btn" onclick="doLogin()">Войти</button>
       <div class="divider">или</div>
-      <button class="btn btn-secondary" onclick="enterAsGuest()">👀 Смотреть как гость</button>
+      <button class="btn btn-s" onclick="enterGuest()">👀 Войти как гость</button>
     </div>
   </div>
 
-  <!-- =========== ПРИЛОЖЕНИЕ =========== -->
-  <div id="app" style="display:none;">
+  <!-- APP -->
+  <div id="app" style="display:none">
     <header>
-      <div class="header-content">
-        <div class="header-left">
+      <div class="hdr">
+        <div class="hdr-l">
           <div class="logo">📚 Дневник</div>
-          <div class="header-date" id="header-date"></div>
+          <div class="hdr-date" id="hdr-date"></div>
         </div>
-        <div class="header-right">
-          <div class="header-week" id="header-week"></div>
-          <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌙</span></button>
+        <div class="hdr-r">
+          <div class="hdr-week" id="hdr-week"></div>
+          <button class="theme-btn" onclick="toggleTheme()"><span id="t-icon">🌙</span></button>
           <div class="user-info">
-            <span id="user-name"></span>
-            <span class="admin-badge" id="admin-badge" style="display:none;">Админ</span>
+            <span id="u-name"></span>
+            <span class="admin-badge" id="a-badge" style="display:none">Админ</span>
           </div>
-          <button class="btn btn-secondary btn-sm" onclick="logout()">Выйти</button>
+          <button class="btn btn-s btn-sm" onclick="doLogout()">Выйти</button>
         </div>
       </div>
     </header>
     <div class="container">
-      <div class="week-navigator">
-        <button class="btn-icon" onclick="prevWeek()">←</button>
-        <div class="week-dates">
-          <div class="week-dates-range" id="week-range"></div>
-          <div class="week-dates-type" id="week-type"></div>
+      <div class="week-nav">
+        <button class="btn-icon" onclick="prevW()">←</button>
+        <div class="week-info">
+          <div class="week-range" id="w-range"></div>
+          <div class="week-type" id="w-type"></div>
         </div>
-        <button class="btn-icon" onclick="nextWeek()">→</button>
+        <button class="btn-icon" onclick="nextW()">→</button>
       </div>
       <div class="nav" id="main-nav">
-        <button class="nav-btn active" data-section="home">🏠 Расписание</button>
-        <button class="nav-btn" data-section="changes" id="changes-nav">📝 Изменения</button>
-        <button class="nav-btn" data-section="settings" id="settings-nav">⚙️ Настройки</button>
+        <button class="nav-btn active" data-s="home">🏠 Расписание</button>
+        <button class="nav-btn" data-s="changes" id="ch-nav">📝 Изменения</button>
+        <button class="nav-btn" data-s="settings" id="set-nav">⚙️ Настройки</button>
       </div>
-      <div class="section active" id="home"><div class="days-grid" id="days-grid"></div></div>
-      <div class="section" id="changes">
-        <div class="changes-wrapper">
-          <div class="section-header">
-            <h2 class="section-title">📝 Изменения</h2>
-            <button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button>
-          </div>
-          <div class="changes-list" id="changes-list"></div>
+      <div class="sec active" id="home"><div class="days" id="days-grid"></div></div>
+      <div class="sec" id="changes">
+        <div class="wrap">
+          <div class="sh"><h2 class="st">📝 Изменения</h2><button class="btn btn-w" onclick="openChModal()">+ Добавить</button></div>
+          <div class="chlist" id="ch-list"></div>
         </div>
       </div>
-      <div class="section" id="settings">
-        <div class="settings-wrapper">
-          <h2 class="section-title" style="margin-bottom:20px;">⚙️ Настройки</h2>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Тема</h4><p>Светлая / тёмная</p></div>
-            <button class="btn btn-secondary" onclick="toggleTheme()">Сменить</button>
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Начало недель</h4><p>Понедельник верхней</p></div>
-            <input type="date" class="setting-input" id="week-start-date">
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Время пар</h4></div>
-            <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Пользователи</h4></div>
-            <button class="btn btn-secondary" onclick="showUsers()">Показать</button>
-          </div>
-          <div class="setting-row">
-            <div class="setting-info"><h4>Очистить всё</h4></div>
-            <button class="btn btn-danger" onclick="clearAllData()">Очистить</button>
-          </div>
+      <div class="sec" id="settings">
+        <div class="wrap">
+          <h2 class="st" style="margin-bottom:18px">⚙️ Настройки</h2>
+          <div class="srow"><div><h4>Тема</h4><p>Светлая / тёмная</p></div><button class="btn btn-s" onclick="toggleTheme()">Сменить</button></div>
+          <div class="srow"><div><h4>Начало недель</h4><p>Понедельник верхней</p></div><input type="date" class="sinp" id="ws-date"></div>
+          <div class="srow"><div><h4>Время пар</h4></div><button class="btn btn-s" onclick="openTimesM()">Настроить</button></div>
+          <div class="srow"><div><h4>🗑 Очистить всё</h4></div><button class="btn btn-d" onclick="clearAll()">Очистить</button></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="install-prompt" id="install-prompt">
-    <div class="install-prompt-icon">📲</div>
-    <div class="install-prompt-text"><h4>Добавить на экран</h4><p>Установи как приложение</p></div>
-    <button class="btn btn-primary btn-sm" onclick="installApp()">Добавить</button>
-    <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
+  <div class="install-prompt" id="inst-prompt">
+    <span style="font-size:2em">📲</span>
+    <div style="flex:1"><h4 style="font-size:.9em;color:var(--t1)">Добавить на экран</h4><p style="font-size:.75em;color:var(--t3)">Как приложение</p></div>
+    <button class="btn btn-p btn-sm" onclick="doInstall()">Добавить</button>
+    <button style="background:none;border:none;color:var(--t3);font-size:1.5em;cursor:pointer" onclick="hideInst()">×</button>
   </div>
 
-  <!-- МОДАЛКИ -->
-  <div class="modal-overlay" id="lesson-modal">
-    <div class="modal">
-      <h3>✏️ Редактировать пару</h3>
-      <input type="hidden" id="edit-day"><input type="hidden" id="edit-pair"><input type="hidden" id="edit-week">
-      <div class="form-group"><label>Предмет</label><input type="text" id="lesson-name" placeholder="Математика"></div>
-      <div class="form-group"><label>Аудитория</label><input type="text" id="lesson-room" placeholder="Каб. 301"></div>
-      <div class="form-group"><label>Преподаватель</label><input type="text" id="lesson-teacher" placeholder="Иванов И.И."></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
-        <button class="btn btn-danger" onclick="deleteLesson()">Удалить</button>
-        <button class="btn btn-primary" onclick="saveLesson()">💾</button>
-      </div>
-    </div>
-  </div>
+  <!-- MODALS -->
+  <div class="modal-bg" id="m-lesson"><div class="modal"><h3>✏️ Пара</h3><input type="hidden" id="e-day"><input type="hidden" id="e-pair"><input type="hidden" id="e-week"><div class="fg"><label>Предмет</label><input type="text" id="le-name" placeholder="Математика"></div><div class="fg"><label>Кабинет</label><input type="text" id="le-room" placeholder="301"></div><div class="fg"><label>Преподаватель</label><input type="text" id="le-teacher" placeholder="Иванов И.И."></div><div class="mbtn"><button class="btn btn-s" onclick="closeM('m-lesson')">Отмена</button><button class="btn btn-d" onclick="delLesson()">🗑</button><button class="btn btn-p" onclick="saveLesson()">💾</button></div></div></div>
 
-  <div class="modal-overlay" id="homework-modal">
-    <div class="modal">
-      <h3>📝 Домашка</h3>
-      <input type="hidden" id="hw-date"><input type="hidden" id="hw-pair">
-      <div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.7;"></div>
-      <div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('homework-modal')">Отмена</button>
-        <button class="btn btn-primary" onclick="saveHomework()">💾</button>
-      </div>
-    </div>
-  </div>
+  <div class="modal-bg" id="m-hw"><div class="modal"><h3>📝 Домашка</h3><input type="hidden" id="hw-dt"><input type="hidden" id="hw-pr"><div class="fg"><label>Предмет</label><input type="text" id="hw-subj" readonly style="opacity:.7"></div><div class="fg"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div><div class="mbtn"><button class="btn btn-s" onclick="closeM('m-hw')">Отмена</button><button class="btn btn-p" onclick="saveHW()">💾</button></div></div></div>
 
-  <div class="modal-overlay" id="change-modal">
-    <div class="modal">
-      <h3>📝 Изменение</h3>
-      <input type="hidden" id="change-edit-id">
-      <div class="form-group"><label>Дата</label><input type="date" id="change-date"></div>
-      <p style="color:var(--text-muted);font-size:.8em;margin-bottom:12px;">Заполни только те пары, которые будут.</p>
-      <div class="change-pairs-form" id="change-pairs-container"></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('change-modal')">Отмена</button>
-        <button class="btn btn-danger" id="delete-change-btn" style="display:none;" onclick="deleteChange()">Удалить</button>
-        <button class="btn btn-primary" onclick="saveChange()">💾</button>
-      </div>
-    </div>
-  </div>
+  <div class="modal-bg" id="m-change"><div class="modal"><h3>📝 Изменение</h3><input type="hidden" id="ch-eid"><div class="fg"><label>Дата</label><input type="date" id="ch-date"></div><p style="color:var(--t3);font-size:.75em;margin-bottom:10px">Только пары которые будут</p><div class="cpf" id="ch-pairs"></div><div class="mbtn"><button class="btn btn-s" onclick="closeM('m-change')">Отмена</button><button class="btn btn-d" id="ch-del" style="display:none" onclick="delCh2()">🗑</button><button class="btn btn-p" onclick="saveCh()">💾</button></div></div></div>
 
-  <div class="modal-overlay" id="times-modal">
-    <div class="modal">
-      <h3>🕐 Время пар</h3>
-      <div id="times-form"></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button>
-        <button class="btn btn-primary" onclick="savePairTimes()">💾</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="users-modal">
-    <div class="modal">
-      <h3>👥 Пользователи</h3>
-      <div id="users-list"></div>
-      <div class="modal-buttons">
-        <button class="btn btn-secondary" onclick="closeModal('users-modal')">Закрыть</button>
-      </div>
-    </div>
-  </div>
+  <div class="modal-bg" id="m-times"><div class="modal"><h3>🕐 Время пар</h3><div id="times-f"></div><div class="mbtn"><button class="btn btn-s" onclick="closeM('m-times')">Отмена</button><button class="btn btn-p" onclick="saveTimes()">💾</button></div></div></div>
 
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
   <script>
-    // ===== ТЕМА =====
-    function initTheme(){const s=localStorage.getItem('theme');setTheme(s||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));}
-    function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const i=document.getElementById('theme-icon');if(i)i.textContent=t==='dark'?'☀️':'🌙';document.querySelector('.safe-area-top').style.background=t==='dark'?'#12121a':'#fff';}
-    function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
-    initTheme();
+    // THEME
+    function initT(){setT(localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));}
+    function setT(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const i=document.getElementById('t-icon');if(i)i.textContent=t==='dark'?'☀️':'🌙';document.querySelector('.safe-top').style.background=t==='dark'?'#12121a':'#fff';}
+    function toggleTheme(){setT(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');}
+    initT();
 
-    // ===== FIREBASE =====
-    firebase.initializeApp({
-      apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
-      authDomain:"my-diary-e223c.firebaseapp.com",
-      databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",
-      projectId:"my-diary-e223c",
-      storageBucket:"my-diary-e223c.firebasestorage.app",
-      messagingSenderId:"903986378920",
-      appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"
-    });
-    const auth=firebase.auth();
-    const db=firebase.database();
+    // FIREBASE
+    firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
+    const auth=firebase.auth(),D=firebase.database();
     auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    auth.useDeviceLanguage();
 
-    // ===== КОНСТ =====
-    const ADMIN_UIDS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
+    const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
     const DS=['Пн','Вт','Ср','Чт','Пт','Сб'];
     const DF=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+    let cu=null,isA=false,isG=false;
+    let sched={upper:{},lower:{}},hwL=[],chL=[],arch={};
+    let cfg={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
+    let vw=getM(new Date()),dp=null;
 
-    let currentUser=null,isAdmin=false,isGuest=false;
-    let schedule={upper:{},lower:{}},homeworkList=[],changesList=[];
-    let archivedDays={};
-    let settings={weekStartDate:null,pairTimes:[
-      {start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},
-      {start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}
-    ]};
-    let viewWeekStart=getMonday(new Date());
-    let deferredPrompt=null;
-    let confirmationResult=null;
-    let resendInterval=null;
-    let verifiedPhoneNumber=null;
-    let recaptchaVerifier=null;
-    let recaptchaWidgetId=null;
+    // AUTH
+    function showE(m){const e=document.getElementById('msg-e');e.textContent=m;e.style.display='block';}
+    function hideE(){document.getElementById('msg-e').style.display='none';}
 
-    // ===== AUTH TABS =====
-    function switchTab(t){
-      document.querySelectorAll('.auth-tab').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('.auth-form').forEach(x=>x.classList.remove('active'));
-      hideMsg();
-      if(t==='login'){
-        document.querySelectorAll('.auth-tab')[0].classList.add('active');
-        document.getElementById('tab-login').classList.add('active');
-      } else {
-        document.querySelectorAll('.auth-tab')[1].classList.add('active');
-        document.getElementById('tab-register').classList.add('active');
-        goToStep(1);
-        initRecaptcha();
-      }
-    }
-    function hideMsg(){document.getElementById('msg-error').style.display='none';document.getElementById('msg-success').style.display='none';}
-    function showErr(m){const e=document.getElementById('msg-error');e.textContent=m;e.style.display='block';document.getElementById('msg-success').style.display='none';}
-    function showOk(m){const e=document.getElementById('msg-success');e.textContent=m;e.style.display='block';document.getElementById('msg-error').style.display='none';}
-
-    // ===== RECAPTCHA =====
-    function initRecaptcha(){
-      if(recaptchaVerifier) return;
-      recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{
-        size:'normal',
-        callback:()=>{document.getElementById('send-code-btn').disabled=false;},
-        'expired-callback':()=>{document.getElementById('send-code-btn').disabled=true;}
-      });
-      recaptchaVerifier.render().then(id=>{recaptchaWidgetId=id;});
-    }
-
-    // ===== РЕГИСТРАЦИЯ: ШАГ 1 — Отправка СМС =====
-    function sendVerificationCode(){
-      hideMsg();
-      const prefix=document.getElementById('reg-prefix').value.trim();
-      const phone=document.getElementById('reg-phone').value.trim().replace(/\D/g,'');
-      if(!phone||phone.length<10){showErr('Введите номер телефона');return;}
-
-      const fullPhone=prefix+phone;
-      const btn=document.getElementById('send-code-btn');
-      btn.innerHTML='<span class="loading-spinner"></span>Отправляем...';
-      btn.disabled=true;
-
-      auth.signInWithPhoneNumber(fullPhone,recaptchaVerifier)
-        .then(result=>{
-          confirmationResult=result;
-          verifiedPhoneNumber=fullPhone;
-          // Форматируем для показа
-          const formatted=fullPhone.replace(/(\+\d)(\d{3})(\d{3})(\d{2})(\d{2})/,'$1 $2 $3 $4 $5');
-          document.getElementById('display-phone').textContent=formatted;
-          goToStep(2);
-          startResendTimer();
-          document.getElementById('code-1').focus();
-          btn.innerHTML='Получить код по СМС';
-          btn.disabled=false;
-        })
-        .catch(err=>{
-          btn.innerHTML='Получить код по СМС';
-          btn.disabled=false;
-          if(err.code==='auth/invalid-phone-number') showErr('Неверный номер телефона');
-          else if(err.code==='auth/too-many-requests') showErr('Слишком много попыток. Подождите.');
-          else showErr('Ошибка: '+err.message);
-          // Reset recaptcha
-          if(recaptchaWidgetId!==null) grecaptcha.reset(recaptchaWidgetId);
-        });
-    }
-
-    // ===== РЕГИСТРАЦИЯ: ШАГ 2 — Ввод кода =====
-    function codeInput(el,num){
-      el.value=el.value.replace(/\D/g,'');
-      if(el.value&&num<6) document.getElementById('code-'+(num+1)).focus();
-      // Автоподтверждение при вводе 6 цифр
-      if(num===6&&el.value) verifyCode();
-    }
-    function codeKeydown(e,num){
-      if(e.key==='Backspace'&&!e.target.value&&num>1){
-        document.getElementById('code-'+(num-1)).focus();
-      }
-    }
-
-    function verifyCode(){
-      hideMsg();
-      let code='';
-      for(let i=1;i<=6;i++) code+=document.getElementById('code-'+i).value;
-      if(code.length!==6){showErr('Введите 6-значный код');return;}
-
-      const btn=document.getElementById('verify-code-btn');
-      btn.innerHTML='<span class="loading-spinner"></span>Проверяем...';
-      btn.disabled=true;
-
-      confirmationResult.confirm(code)
-        .then(result=>{
-          // Телефон подтверждён! Проверяем — новый или существующий
-          currentUser=result.user;
-
-          // Проверяем есть ли профиль
-          db.ref('users/'+currentUser.uid).once('value').then(snap=>{
-            if(snap.val()&&snap.val().name){
-              // Уже зарегистрирован — просто входим
-              isAdmin=ADMIN_UIDS.includes(currentUser.uid);
-              isGuest=false;
-              showApp();
-            } else {
-              // Новый — идём на шаг 3
-              goToStep(3);
-              document.getElementById('reg-name').focus();
-            }
-            btn.innerHTML='Подтвердить';
-            btn.disabled=false;
-          });
-        })
-        .catch(err=>{
-          btn.innerHTML='Подтвердить';
-          btn.disabled=false;
-          if(err.code==='auth/invalid-verification-code') showErr('Неверный код');
-          else showErr('Ошибка: '+err.message);
-        });
-    }
-
-    function startResendTimer(){
-      let sec=60;
-      const el=document.getElementById('timer-count');
-      const container=document.getElementById('resend-timer');
-      container.innerHTML=`Отправить повторно через <span id="timer-count">${sec}</span>с`;
-
-      if(resendInterval) clearInterval(resendInterval);
-      resendInterval=setInterval(()=>{
-        sec--;
-        document.getElementById('timer-count').textContent=sec;
-        if(sec<=0){
-          clearInterval(resendInterval);
-          container.innerHTML='<a onclick="resendCode()">Отправить код повторно</a>';
-        }
-      },1000);
-    }
-
-    function resendCode(){
-      // Нужен новый recaptcha
-      recaptchaVerifier=null;
-      recaptchaWidgetId=null;
-      document.getElementById('recaptcha-container').innerHTML='';
-      goToStep(1);
-      initRecaptcha();
-    }
-
-    // ===== РЕГИСТРАЦИЯ: ШАГ 3 — Профиль =====
-    function completeRegistration(){
-      hideMsg();
-      const name=document.getElementById('reg-name').value.trim();
-      const pass=document.getElementById('reg-pass').value;
-      const pass2=document.getElementById('reg-pass2').value;
-
-      if(!name){showErr('Введите имя');return;}
-      if(!pass||pass.length<6){showErr('Пароль минимум 6 символов');return;}
-      if(pass!==pass2){showErr('Пароли не совпадают');return;}
-
-      // Создаём email из номера для входа по паролю
-      const fakeEmail=verifiedPhoneNumber.replace('+','')+'@diary.local';
-
-      // Привязываем email+пароль к аккаунту для входа по паролю
-      const emailCred=firebase.auth.EmailAuthProvider.credential(fakeEmail,pass);
-
-      currentUser.linkWithCredential(emailCred).then(()=>{
-        return currentUser.updateProfile({displayName:name});
-      }).then(()=>{
-        // Сохраняем профиль
-        return db.ref('users/'+currentUser.uid).set({
-          name:name,
-          phone:verifiedPhoneNumber,
-          email:fakeEmail,
-          registeredAt:new Date().toISOString()
-        });
-      }).then(()=>{
-        isAdmin=ADMIN_UIDS.includes(currentUser.uid);
-        isGuest=false;
-        showApp();
-      }).catch(err=>{
-        if(err.code==='auth/email-already-in-use'){
-          // Просто сохраняем профиль
-          currentUser.updateProfile({displayName:name}).then(()=>{
-            db.ref('users/'+currentUser.uid).set({
-              name:name, phone:verifiedPhoneNumber,
-              registeredAt:new Date().toISOString()
-            });
-            isAdmin=ADMIN_UIDS.includes(currentUser.uid);
-            isGuest=false;
-            showApp();
-          });
-        } else {
-          showErr('Ошибка: '+err.message);
-        }
-      });
-    }
-
-    function goToStep(n){
-      document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-      document.getElementById('reg-step-'+n).classList.add('active');
-      for(let i=1;i<=3;i++){
-        const dot=document.getElementById('dot-'+i);
-        dot.className='step-dot';
-        if(i<n) dot.classList.add('done');
-        if(i===n) dot.classList.add('active');
-      }
-    }
-
-    // ===== ВХОД (по телефону + паролю) =====
     function doLogin(){
-      hideMsg();
-      const prefix=document.getElementById('login-prefix').value.trim();
-      const phone=document.getElementById('login-phone').value.trim().replace(/\D/g,'');
-      const pass=document.getElementById('login-pass').value;
-
-      if(!phone||phone.length<10){showErr('Введите номер телефона');return;}
-      if(!pass){showErr('Введите пароль');return;}
-
-      const fakeEmail=(prefix+phone).replace('+','')+'@diary.local';
-
-      const btn=document.getElementById('login-btn');
-      btn.innerHTML='<span class="loading-spinner"></span>Входим...';
-      btn.disabled=true;
-
-      auth.signInWithEmailAndPassword(fakeEmail,pass)
-        .then(()=>{
-          btn.innerHTML='Войти';
-          btn.disabled=false;
-        })
-        .catch(err=>{
-          btn.innerHTML='Войти';
-          btn.disabled=false;
-          if(err.code==='auth/user-not-found') showErr('Аккаунт не найден. Зарегистрируйтесь.');
-          else if(err.code==='auth/wrong-password') showErr('Неверный пароль');
-          else showErr('Ошибка: '+err.message);
-        });
-    }
-
-    function enterAsGuest(){isGuest=true;isAdmin=false;currentUser=null;localStorage.setItem('guestSession','true');showApp();}
-
-    function logout(){
-      localStorage.removeItem('guestSession');
-      auth.signOut().then(()=>{
-        isGuest=false;isAdmin=false;currentUser=null;
-        document.getElementById('app').style.display='none';
-        document.getElementById('login-screen').style.display='flex';
-        // Reset registration
-        goToStep(1);
-        confirmationResult=null;
-        recaptchaVerifier=null;
-        recaptchaWidgetId=null;
-        document.getElementById('recaptcha-container').innerHTML='';
+      hideE();
+      const email=document.getElementById('l-email').value.trim(),pass=document.getElementById('l-pass').value;
+      if(!email||!pass){showE('Заполни все поля');return;}
+      const btn=document.getElementById('l-btn');btn.textContent='Входим...';btn.disabled=true;
+      auth.signInWithEmailAndPassword(email,pass).then(()=>{btn.textContent='Войти';btn.disabled=false;}).catch(err=>{
+        btn.textContent='Войти';btn.disabled=false;
+        if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential')showE('Неверный email или пароль');
+        else if(err.code==='auth/wrong-password')showE('Неверный пароль');
+        else showE(err.message);
       });
     }
 
-    auth.onAuthStateChanged(user=>{
-      if(user){
-        currentUser=user;
-        isAdmin=ADMIN_UIDS.includes(user.uid);
-        isGuest=false;
-        // Проверяем есть ли профиль
-        db.ref('users/'+user.uid).once('value').then(snap=>{
-          if(snap.val()&&snap.val().name) showApp();
-          // Если нет профиля — остаёмся на экране регистрации (шаг 3)
-        });
-      } else if(localStorage.getItem('guestSession')){
-        isGuest=true; showApp();
-      }
+    function enterGuest(){isG=true;isA=false;cu=null;localStorage.setItem('gs','1');showApp();}
+
+    function doLogout(){
+      localStorage.removeItem('gs');
+      auth.signOut().then(()=>{isG=false;isA=false;cu=null;
+        document.getElementById('app').style.display='none';
+        document.getElementById('auth-screen').style.display='flex';
+      });
+    }
+
+    auth.onAuthStateChanged(u=>{
+      if(u){cu=u;isA=ADMINS.includes(u.uid);isG=false;showApp();}
+      else if(localStorage.getItem('gs')){isG=true;showApp();}
     });
 
     function showApp(){
-      document.getElementById('login-screen').style.display='none';
+      document.getElementById('auth-screen').style.display='none';
       document.getElementById('app').style.display='block';
-      document.getElementById('admin-badge').style.display=isAdmin?'inline':'none';
-      document.getElementById('settings-nav').style.display=isAdmin?'inline-block':'none';
-      document.getElementById('changes-nav').style.display=isAdmin?'inline-block':'none';
-      const name=isGuest?'Гость':(currentUser?.displayName||'');
-      document.getElementById('user-name').textContent=name;
-      document.getElementById('main-nav').classList.toggle('hidden',!isAdmin);
+      document.getElementById('a-badge').style.display=isA?'inline':'none';
+      document.getElementById('set-nav').style.display=isA?'inline-block':'none';
+      document.getElementById('ch-nav').style.display=isA?'inline-block':'none';
+      document.getElementById('u-name').textContent=isG?'Гость':(cu?.displayName||cu?.email?.split('@')[0]||'');
+      document.getElementById('main-nav').classList.toggle('hidden',!isA);
       initApp();
     }
 
-    // ===== УТИЛИТЫ =====
-    function getMonday(d){const x=new Date(d);x.setHours(12,0,0,0);const w=x.getDay();x.setDate(x.getDate()-w+(w===0?-6:1));return x;}
-    function fmtKey(d){const x=new Date(d);return`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;}
-    function parseKey(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0);}
-    function fmtShort(d){const x=new Date(d);return String(x.getDate()).padStart(2,'0')+'.'+String(x.getMonth()+1).padStart(2,'0');}
-    function fmtFull(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});}
-    function fmtHeader(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'});}
+    // UTILS
+    function getM(d){const x=new Date(d);x.setHours(12,0,0,0);const w=x.getDay();x.setDate(x.getDate()-w+(w===0?-6:1));return x;}
+    function fk(d){const x=new Date(d);return`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;}
+    function pk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0);}
+    function fs(d){const x=new Date(d);return String(x.getDate()).padStart(2,'0')+'.'+String(x.getMonth()+1).padStart(2,'0');}
+    function ff(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});}
+    function fh(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'});}
     function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML;}
-    function getWT(mon){
-      if(!settings.weekStartDate){const s=new Date(mon.getFullYear(),0,1);const w=Math.ceil(((mon-s)/864e5+s.getDay()+1)/7);return w%2===1?'upper':'lower';}
-      const sd=getMonday(parseKey(settings.weekStartDate));const diff=Math.round((mon-sd)/864e5);
-      return Math.floor(diff/7)%2===0?'upper':'lower';
+    function gwt(mon){
+      if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);const w=Math.ceil(((mon-s)/864e5+s.getDay()+1)/7);return w%2===1?'upper':'lower';}
+      const sd=getM(pk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/864e5)/7)%2===0?'upper':'lower';
     }
 
-    // ===== INIT =====
-    function initApp(){setupNav();loadData();viewWeekStart=getMonday(new Date());updateHeader();}
-    function setupNav(){document.querySelectorAll('.nav-btn').forEach(b=>{b.onclick=()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.section).classList.add('active');};});}
+    // INIT
+    function initApp(){
+      document.querySelectorAll('.nav-btn').forEach(b=>{b.onclick=()=>{
+        document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');document.getElementById(b.dataset.s).classList.add('active');
+      };});
+      loadData();vw=getM(new Date());updateHdr();
+    }
 
     function loadData(){
-      db.ref('settings').on('value',s=>{if(s.val()){settings={...settings,...s.val()};if(settings.weekStartDate)document.getElementById('week-start-date').value=settings.weekStartDate;}updateAll();updateHeader();});
-      db.ref('schedule').on('value',s=>{schedule=s.val()||{upper:{},lower:{}};renderDays();});
-      db.ref('homework').on('value',s=>{const d=s.val();homeworkList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDays();});
-      db.ref('changes').on('value',s=>{const d=s.val();changesList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];autoArchive();renderDays();renderChanges();});
-      db.ref('archivedDays').on('value',s=>{archivedDays=s.val()||{};renderDays();});
-      document.getElementById('week-start-date').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value);});
+      D.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('ws-date').value=cfg.weekStartDate;}updateAll();updateHdr();});
+      D.ref('schedule').on('value',s=>{sched=s.val()||{upper:{},lower:{}};render();});
+      D.ref('homework').on('value',s=>{const d=s.val();hwL=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];render();});
+      D.ref('changes').on('value',s=>{const d=s.val();chL=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];autoArch();render();renderCh();});
+      D.ref('archivedDays').on('value',s=>{arch=s.val()||{};render();});
+      document.getElementById('ws-date').addEventListener('change',e=>{if(isA)D.ref('settings/weekStartDate').set(e.target.value);});
     }
 
-    // ===== АРХИВАЦИЯ =====
-    function autoArchive(){
-      if(!isAdmin)return;
-      const tk=fmtKey(new Date());
-      changesList.forEach(c=>{if(c.date&&c.date<=tk&&!archivedDays[c.date])archiveDay(c);});
+    // ARCHIVE
+    function autoArch(){
+      if(!isA)return;const tk=fk(new Date());
+      chL.forEach(c=>{if(c.date&&c.date<=tk&&!arch[c.date])archDay(c);});
     }
-    function archiveDay(c){
-      const dk=c.date,dd=parseKey(dk),mon=getMonday(dd),wt=getWT(mon);
+    function archDay(c){
+      const dk=c.date,dd=pk(dk),mon=getM(dd),ww=gwt(mon);
       const dow=dd.getDay(),di=dow===0?5:dow-1,dayK=DS[di];
-      const base=schedule[wt]?.[dayK]||{};
-      const final=c.lessons?JSON.parse(JSON.stringify(c.lessons)):JSON.parse(JSON.stringify(base));
-      const hw={};
-      homeworkList.filter(h=>h.date===dk).forEach(h=>{hw[h.id]={pair:h.pair,subject:h.subject,task:h.task,done:h.done||false};});
-      db.ref('archivedDays/'+dk).set({date:dk,dayName:DF[di]||'',weekType:wt,lessons:final,homework:hw,archivedAt:new Date().toISOString()});
-      if(c.id)db.ref('changes/'+c.id).remove();
+      const base=sched[ww]?.[dayK]||{};
+      const fin=c.lessons?JSON.parse(JSON.stringify(c.lessons)):JSON.parse(JSON.stringify(base));
+      const hw={};hwL.filter(h=>h.date===dk).forEach(h=>{hw[h.id]={pair:h.pair,subject:h.subject,task:h.task,done:h.done||false};});
+      D.ref('archivedDays/'+dk).set({date:dk,dayName:DF[di]||'',weekType:ww,lessons:fin,homework:hw,archivedAt:new Date().toISOString()});
+      if(c.id)D.ref('changes/'+c.id).remove();
     }
 
-    // ===== HEADER =====
-    function updateHeader(){
-      const t=new Date(),wt=getWT(getMonday(t));
-      document.getElementById('header-date').textContent=fmtHeader(t);
-      const w=document.getElementById('header-week');
-      w.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';
-      w.className='header-week '+wt;
+    // HEADER
+    function updateHdr(){
+      const t=new Date(),w=gwt(getM(t));
+      document.getElementById('hdr-date').textContent=fh(t);
+      const el=document.getElementById('hdr-week');
+      el.textContent=w==='upper'?'☀️ Верхняя':'🌙 Нижняя';el.className='hdr-week '+w;
     }
-    function updateWeekNav(){
-      const we=new Date(viewWeekStart);we.setDate(we.getDate()+5);const wt=getWT(viewWeekStart);
-      document.getElementById('week-range').textContent=`${fmtShort(viewWeekStart)} — ${fmtShort(we)}`;
-      const te=document.getElementById('week-type');
-      te.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';
-      te.className='week-dates-type '+wt;
+    function updateNav(){
+      const we=new Date(vw);we.setDate(we.getDate()+5);const w=gwt(vw);
+      document.getElementById('w-range').textContent=`${fs(vw)} — ${fs(we)}`;
+      const te=document.getElementById('w-type');te.textContent=w==='upper'?'☀️ Верхняя':'🌙 Нижняя';te.className='week-type '+w;
     }
-    function prevWeek(){viewWeekStart.setDate(viewWeekStart.getDate()-7);updateAll();}
-    function nextWeek(){viewWeekStart.setDate(viewWeekStart.getDate()+7);updateAll();}
-    function updateAll(){updateWeekNav();renderDays();}
+    function prevW(){vw.setDate(vw.getDate()-7);updateAll();}
+    function nextW(){vw.setDate(vw.getDate()+7);updateAll();}
+    function updateAll(){updateNav();render();}
 
-    // ===== РЕНДЕР =====
-    function renderDays(){
-      const g=document.getElementById('days-grid'),wt=getWT(viewWeekStart),wd=schedule[wt]||{},tk=fmtKey(new Date());
+    // RENDER
+    function render(){
+      const g=document.getElementById('days-grid');if(!g)return;
+      const w=gwt(vw),wd=sched[w]||{},tk=fk(new Date());
       let h='';
       for(let i=0;i<6;i++){
-        const dd=new Date(viewWeekStart);dd.setDate(dd.getDate()+i);
-        const dk=DS[i],dateK=fmtKey(dd),isT=dateK===tk;
-        const arch=archivedDays[dateK],ch=changesList.find(c=>c.date===dateK),hasCh=!!ch&&!arch;
-        let les,hw=[],isA=false;
-        if(arch){les=arch.lessons||{};isA=true;if(arch.homework)hw=Object.keys(arch.homework).map(k=>({id:k,...arch.homework[k],date:dateK}));}
-        else if(hasCh){les=ch.lessons||{};hw=homeworkList.filter(x=>x.date===dateK);}
-        else{les=wd[dk]||{};hw=homeworkList.filter(x=>x.date===dateK);}
-        h+=`<div class="day-block ${isT?'today':''} ${hasCh?'has-changes':''} ${isA?'archived':''}">
-          <div class="day-header"><div class="day-title">${DF[i]} <span class="date">${fmtShort(dd)}</span></div>
-          <div class="day-badges">${isA?'<span class="archived-label">🔒 Сохранён</span>':''}${hasCh?'<span class="changes-label">⚡ Замена</span>':''}${isT?'<span class="today-label">Сегодня</span>':''}</div></div>
-          <div class="day-content"><div class="lessons-list">${renderL(dk,les,wt,dateK,hasCh,isA,hw)}</div></div></div>`;
+        const dd=new Date(vw);dd.setDate(dd.getDate()+i);
+        const dk=DS[i],dateK=fk(dd),isT=dateK===tk;
+        const ar=arch[dateK],ch=chL.find(c=>c.date===dateK),hasCh=!!ch&&!ar;
+        let les,hw=[],isAr=false;
+        if(ar){les=ar.lessons||{};isAr=true;if(ar.homework)hw=Object.keys(ar.homework).map(k=>({id:k,...ar.homework[k],date:dateK}));}
+        else if(hasCh){les=ch.lessons||{};hw=hwL.filter(x=>x.date===dateK);}
+        else{les=wd[dk]||{};hw=hwL.filter(x=>x.date===dateK);}
+        h+=`<div class="day ${isT?'today':''} ${hasCh?'changed':''} ${isAr?'archived':''}">
+          <div class="day-h"><div class="day-t">${DF[i]} <span class="dt">${fs(dd)}</span></div>
+          <div class="day-b">${isAr?'<span class="badge badge-arch">🔒</span>':''}${hasCh?'<span class="badge badge-change">⚡</span>':''}${isT?'<span class="badge badge-today">Сегодня</span>':''}</div></div>
+          <div class="day-c"><div class="llist">${rL(dk,les,w,dateK,hasCh,isAr,hw)}</div></div></div>`;
       }
       g.innerHTML=h;
     }
 
-    function renderL(dk,les,wt,dateK,hasCh,isA,hw){
+    function rL(dk,les,w,dateK,hasCh,isAr,hw){
       let h='';
       for(let p=1;p<=5;p++){
-        const l=les[p],has=l&&l.name,t=settings.pairTimes[p-1],hf=hw.filter(x=>x.pair===p);
-        const ce=isAdmin&&!hasCh&&!isA,ch=isAdmin&&!isA;
-        h+=`<div class="lesson-row ${has?'':'empty'} ${hasCh&&has?'changed':''}" onclick="${ce?`openLM('${dk}',${p},'${wt}')`:''}" style="${ce?'':'cursor:default'}">
-          <div class="lesson-number"><div class="lesson-num">${p}</div><div class="lesson-time">${t?.start||''}</div></div>
-          <div class="lesson-info">${has?`<div class="lesson-name-row"><span class="lesson-name">${esc(l.name)}</span>${ch?`<button class="add-hw-btn" onclick="event.stopPropagation();openHM('${dateK}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div>
-          <div class="lesson-details">${l.room?`<span class="lesson-room">📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${renderHW(hf,isA)}`
-          :`<span class="lesson-empty-text">${ce?'Добавить':'—'}</span>`}</div></div>`;
+        const l=les[p],has=l&&l.name,t=cfg.pairTimes[p-1],hf=hw.filter(x=>x.pair===p);
+        const ce=isA&&!hasCh&&!isAr,canHW=isA&&!isAr;
+        h+=`<div class="lrow ${has?'':'empty'} ${hasCh&&has?'chg':''}" onclick="${ce?`openLM('${dk}',${p},'${w}')`:''}" style="${ce?'':'cursor:default'}">
+          <div class="lnum"><div class="ln">${p}</div><div class="lt">${t?.start||''}</div></div>
+          <div class="linfo">${has?`<div class="lnr"><span class="lname">${esc(l.name)}</span>${canHW?`<button class="hw-btn" onclick="event.stopPropagation();openHM('${dateK}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div>
+          <div class="ldet">${l.room?`<span class="lroom">📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${rHW(hf,isAr)}`
+          :`<span class="lempty">${ce?'Добавить':'—'}</span>`}</div></div>`;
       }
       return h;
     }
 
-    function renderHW(list,isA){
+    function rHW(list,isAr){
       if(!list||!list.length)return'';
-      return list.map(hw=>`<div class="lesson-homework ${hw.done?'done':''}" onclick="event.stopPropagation();">
-        <div class="lesson-homework-header"><span class="lesson-homework-title">📝 Домашка</span>
-        ${!isA&&isAdmin?`<div><button class="btn btn-xs ${hw.done?'btn-secondary':'btn-success'}" onclick="toggleHW('${hw.id}')">${hw.done?'↩':'✓'}</button>
-        <button class="btn btn-xs btn-danger" onclick="deleteHW('${hw.id}')">✕</button></div>`:''}</div>
-        <div class="lesson-homework-text">${esc(hw.task)}</div></div>`).join('');
+      return list.map(hw=>`<div class="lhw" onclick="event.stopPropagation()">
+        <div class="lhw-h"><span class="lhw-t">📝 ДЗ</span>
+        ${!isAr&&isA?`<button class="btn btn-xs btn-d" onclick="dHW('${hw.id}')">✕</button>`:''}</div>
+        <div class="lhw-txt">${esc(hw.task)}</div></div>`).join('');
     }
 
-    function renderChanges(){
-      const list=document.getElementById('changes-list');
-      const f=changesList.filter(c=>!archivedDays[c.date]);
-      if(!f.length){list.innerHTML='<div class="no-items">Нет активных изменений</div>';return;}
-      list.innerHTML=[...f].sort((a,b)=>a.date.localeCompare(b.date)).map(c=>`<div class="change-card">
-        <div class="change-header"><span class="change-date">${fmtFull(parseKey(c.date))}</span>
-        <div><button class="btn btn-sm btn-secondary" onclick="editCh('${c.id}')">✏️</button>
-        <button class="btn btn-sm btn-danger" onclick="delChById('${c.id}')">✕</button></div></div>
-        <div class="change-lessons">${renderCL(c.lessons)}</div></div>`).join('');
+    // CHANGES
+    function renderCh(){
+      const list=document.getElementById('ch-list'),f=chL.filter(c=>!arch[c.date]);
+      if(!f.length){list.innerHTML='<div class="no">Нет изменений</div>';return;}
+      list.innerHTML=[...f].sort((a,b)=>a.date.localeCompare(b.date)).map(c=>`<div class="chcard">
+        <div class="chh"><span class="chd">${ff(pk(c.date))}</span>
+        <div><button class="btn btn-sm btn-s" onclick="editCh('${c.id}')">✏️</button>
+        <button class="btn btn-sm btn-d" onclick="delCh('${c.id}')">✕</button></div></div>
+        <div class="chls">${rCL(c.lessons)}</div></div>`).join('');
+    }
+    function rCL(les){
+      if(!les)return'<div style="color:var(--t3);padding:8px">Пар нет</div>';
+      let h='';for(let p=1;p<=5;p++){const l=les[p];if(l&&l.name)h+=`<div class="chlr"><div class="chpn">${p}</div><div class="chli"><div class="chln">${esc(l.name)}</div><div class="chld">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div></div></div>`;}
+      return h||'<div style="color:var(--t3);padding:8px">Пар нет</div>';
     }
 
-    function renderCL(les){
-      if(!les)return'<div style="color:var(--text-muted);padding:10px">Пар нет</div>';
-      let h='';for(let p=1;p<=5;p++){const l=les[p];if(l&&l.name)h+=`<div class="change-lesson-row">
-        <div class="change-pair-num">${p}</div><div class="change-lesson-info">
-        <div class="change-lesson-name">${esc(l.name)}</div><div class="change-lesson-details">
-        ${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div></div></div>`;}
-      return h||'<div style="color:var(--text-muted);padding:10px">Пар нет</div>';
+    // MODALS
+    function openM(id){document.getElementById(id).classList.add('active');}
+    function closeM(id){document.getElementById(id).classList.remove('active');}
+
+    function openLM(d,p,w){if(!isA)return;document.getElementById('e-day').value=d;document.getElementById('e-pair').value=p;document.getElementById('e-week').value=w;const l=sched[w]?.[d]?.[p]||{};document.getElementById('le-name').value=l.name||'';document.getElementById('le-room').value=l.room||'';document.getElementById('le-teacher').value=l.teacher||'';openM('m-lesson');}
+
+    function saveLesson(){if(!isA)return;const d=document.getElementById('e-day').value,p=document.getElementById('e-pair').value,w=document.getElementById('e-week').value,n=document.getElementById('le-name').value.trim(),r=document.getElementById('le-room').value.trim(),t=document.getElementById('le-teacher').value.trim();if(n)D.ref(`schedule/${w}/${d}/${p}`).set({name:n,room:r,teacher:t});else D.ref(`schedule/${w}/${d}/${p}`).remove();closeM('m-lesson');}
+
+    function delLesson(){if(!isA)return;D.ref(`schedule/${document.getElementById('e-week').value}/${document.getElementById('e-day').value}/${document.getElementById('e-pair').value}`).remove();closeM('m-lesson');}
+
+    function openHM(dk,p,subj){if(!isA)return;document.getElementById('hw-dt').value=dk;document.getElementById('hw-pr').value=p;document.getElementById('hw-subj').value=subj;document.getElementById('hw-task').value='';openM('m-hw');}
+
+    function saveHW(){if(!isA)return;const t=document.getElementById('hw-task').value.trim();if(!t){alert('Введи задание');return;}D.ref('homework').push({date:document.getElementById('hw-dt').value,pair:parseInt(document.getElementById('hw-pr').value),subject:document.getElementById('hw-subj').value,task:t,done:false,created:new Date().toISOString()});closeM('m-hw');}
+
+    function dHW(id){if(!isA)return;if(confirm('Удалить ДЗ?'))D.ref(`homework/${id}`).remove();}
+
+    function buildCP(){let h='';for(let i=1;i<=5;i++)h+=`<div class="cpr"><div class="cprh"><span class="cpnb">${i}</span><span style="font-weight:500;font-size:.85em;color:var(--t2)">пара</span></div><div class="cpi"><input type="text" id="cp${i}n" placeholder="Предмет"><input type="text" id="cp${i}r" placeholder="Каб." style="max-width:65px"><input type="text" id="cp${i}t" placeholder="Преподаватель"></div></div>`;return h;}
+
+    function openChModal(eid=null){
+      if(!isA)return;document.getElementById('ch-pairs').innerHTML=buildCP();
+      document.getElementById('ch-eid').value=eid||'';document.getElementById('ch-del').style.display=eid?'block':'none';
+      document.getElementById('ch-date').value='';
+      if(eid){const c=chL.find(x=>x.id===eid);if(c){document.getElementById('ch-date').value=c.date;if(c.lessons)for(let i=1;i<=5;i++){const l=c.lessons[i];if(l){document.getElementById(`cp${i}n`).value=l.name||'';document.getElementById(`cp${i}r`).value=l.room||'';document.getElementById(`cp${i}t`).value=l.teacher||'';}}}}
+      openM('m-change');
     }
-
-    // ===== МОДАЛКИ =====
-    function openModal(id){document.getElementById(id).classList.add('active');}
-    function closeModal(id){document.getElementById(id).classList.remove('active');}
-
-    function openLM(d,p,w){if(!isAdmin)return;document.getElementById('edit-day').value=d;document.getElementById('edit-pair').value=p;document.getElementById('edit-week').value=w;const l=schedule[w]?.[d]?.[p]||{};document.getElementById('lesson-name').value=l.name||'';document.getElementById('lesson-room').value=l.room||'';document.getElementById('lesson-teacher').value=l.teacher||'';openModal('lesson-modal');}
-
-    function saveLesson(){if(!isAdmin)return;const d=document.getElementById('edit-day').value,p=document.getElementById('edit-pair').value,w=document.getElementById('edit-week').value;const n=document.getElementById('lesson-name').value.trim(),r=document.getElementById('lesson-room').value.trim(),t=document.getElementById('lesson-teacher').value.trim();if(n)db.ref(`schedule/${w}/${d}/${p}`).set({name:n,room:r,teacher:t});else db.ref(`schedule/${w}/${d}/${p}`).remove();closeModal('lesson-modal');}
-
-    function deleteLesson(){if(!isAdmin)return;db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();closeModal('lesson-modal');}
-
-    function openHM(dk,p,subj){if(!isAdmin)return;document.getElementById('hw-date').value=dk;document.getElementById('hw-pair').value=p;document.getElementById('hw-subject').value=subj;document.getElementById('hw-task').value='';openModal('homework-modal');}
-
-    function saveHomework(){if(!isAdmin)return;const t=document.getElementById('hw-task').value.trim();if(!t){alert('Введите задание');return;}db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task:t,done:false,created:new Date().toISOString()});closeModal('homework-modal');}
-
-    function toggleHW(id){const hw=homeworkList.find(h=>h.id===id);if(hw)db.ref(`homework/${id}/done`).set(!hw.done);}
-    function deleteHW(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove();}
-
-    function buildCP(){let h='';for(let i=1;i<=5;i++)h+=`<div class="change-pair-row"><div class="change-pair-header"><span class="change-pair-num-badge">${i}</span><span style="font-weight:500;font-size:.9em;color:var(--text-secondary)">пара</span></div><div class="change-pair-inputs"><input type="text" id="cp${i}n" placeholder="Предмет"><input type="text" id="cp${i}r" placeholder="Каб." style="max-width:70px"><input type="text" id="cp${i}t" placeholder="Преподаватель"></div></div>`;return h;}
-
-    function openChangeModal(eid=null){
-      if(!isAdmin)return;
-      document.getElementById('change-pairs-container').innerHTML=buildCP();
-      document.getElementById('change-edit-id').value=eid||'';
-      document.getElementById('delete-change-btn').style.display=eid?'block':'none';
-      document.getElementById('change-date').value='';
-      if(eid){const c=changesList.find(x=>x.id===eid);if(c){document.getElementById('change-date').value=c.date;if(c.lessons)for(let i=1;i<=5;i++){const l=c.lessons[i];if(l){document.getElementById(`cp${i}n`).value=l.name||'';document.getElementById(`cp${i}r`).value=l.room||'';document.getElementById(`cp${i}t`).value=l.teacher||'';}}}}
-      openModal('change-modal');
-    }
-
-    function editCh(id){openChangeModal(id);}
-
-    function saveChange(){
-      if(!isAdmin)return;
-      const eid=document.getElementById('change-edit-id').value,date=document.getElementById('change-date').value;
-      if(!date){alert('Выберите дату');return;}
-      if(archivedDays[date]){alert('Этот день уже сохранён');return;}
+    function editCh(id){openChModal(id);}
+    function saveCh(){
+      if(!isA)return;const eid=document.getElementById('ch-eid').value,date=document.getElementById('ch-date').value;
+      if(!date){alert('Выбери дату');return;}if(arch[date]){alert('День уже сохранён');return;}
       const les={};let any=false;
       for(let i=1;i<=5;i++){const n=document.getElementById(`cp${i}n`).value.trim(),r=document.getElementById(`cp${i}r`).value.trim(),t=document.getElementById(`cp${i}t`).value.trim();if(n){les[i]={name:n,room:r,teacher:t};any=true;}}
       const data={date,lessons:any?les:null};
-      if(eid)db.ref(`changes/${eid}`).set(data);else db.ref('changes').push(data);
-      closeModal('change-modal');
+      if(eid)D.ref(`changes/${eid}`).set(data);else D.ref('changes').push(data);
+      closeM('m-change');
     }
+    function delCh2(){const id=document.getElementById('ch-eid').value;if(id){delCh(id);closeM('m-change');}}
+    function delCh(id){if(!isA)return;if(confirm('Удалить?'))D.ref(`changes/${id}`).remove();}
 
-    function deleteChange(){const id=document.getElementById('change-edit-id').value;if(id){delChById(id);closeModal('change-modal');}}
-    function delChById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove();}
+    // SETTINGS
+    function openTimesM(){if(!isA)return;document.getElementById('times-f').innerHTML=cfg.pairTimes.map((t,i)=>`<div class="fg" style="display:flex;gap:8px;align-items:center;margin-bottom:10px"><span style="min-width:45px;font-weight:500;font-size:.9em">${i+1}</span><input type="time" id="ts${i}" value="${t.start}" class="sinp" style="flex:1"><span style="color:var(--t3)">—</span><input type="time" id="te${i}" value="${t.end}" class="sinp" style="flex:1"></div>`).join('');openM('m-times');}
+    function saveTimes(){if(!isA)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});D.ref('settings/pairTimes').set(t);closeM('m-times');}
+    function clearAll(){if(!isA)return;if(confirm('Удалить ВСЁ?')){D.ref('schedule').remove();D.ref('homework').remove();D.ref('changes').remove();D.ref('archivedDays').remove();}}
 
-    function openTimesModal(){if(!isAdmin)return;document.getElementById('times-form').innerHTML=settings.pairTimes.map((t,i)=>`<div class="form-group" style="display:flex;gap:10px;align-items:center;margin-bottom:12px"><span style="min-width:50px;font-weight:500">${i+1} пара</span><input type="time" id="ts${i}" value="${t.start}" class="setting-input" style="flex:1"><span style="color:var(--text-muted)">—</span><input type="time" id="te${i}" value="${t.end}" class="setting-input" style="flex:1"></div>`).join('');openModal('times-modal');}
+    // PWA
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;setTimeout(()=>{if(!localStorage.getItem('ipd'))document.getElementById('inst-prompt').classList.add('show');},3000);});
+    function doInstall(){if(dp){dp.prompt();dp.userChoice.then(()=>{dp=null;hideInst();});}}
+    function hideInst(){document.getElementById('inst-prompt').classList.remove('show');localStorage.setItem('ipd','1');}
 
-    function savePairTimes(){if(!isAdmin)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);closeModal('times-modal');}
-
-    function showUsers(){
-      if(!isAdmin)return;
-      db.ref('users').once('value').then(s=>{
-        const u=s.val()||{};const k=Object.keys(u);
-        document.getElementById('users-list').innerHTML=k.length?k.map(uid=>{const x=u[uid];
-          return`<div class="setting-row" style="margin-bottom:8px"><div class="setting-info"><h4>${esc(x.name||'?')}</h4><p>${esc(x.phone||x.email||'')} • ${x.registeredAt?new Date(x.registeredAt).toLocaleDateString('ru'):''}</p></div>${ADMIN_UIDS.includes(uid)?'<span class="admin-badge">Админ</span>':''}</div>`;
-        }).join(''):'<div class="no-items">Нет пользователей</div>';
-        openModal('users-modal');
-      });
-    }
-
-    function clearAllData(){if(!isAdmin)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('changes').remove();db.ref('archivedDays').remove();}}
-
-    // ===== PWA =====
-    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>{if(!localStorage.getItem('installPromptDismissed'))document.getElementById('install-prompt').classList.add('show');},3000);});
-    function installApp(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;hideInstallPrompt();});}}
-    function hideInstallPrompt(){document.getElementById('install-prompt').classList.remove('show');localStorage.setItem('installPromptDismissed','true');}
-
-    // ===== LISTENERS =====
-    document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');});});
-    document.getElementById('login-pass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
-    document.getElementById('login-phone').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('login-pass').focus();});
+    // LISTENERS
+    document.querySelectorAll('.modal-bg').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');});});
+    document.getElementById('l-pass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
+    document.getElementById('l-email').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('l-pass').focus();});
   </script>
 </body>
 </html>
