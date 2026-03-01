@@ -6,1300 +6,1250 @@
 <title>Дневник</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Дневник">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#6366f1">
-<link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0a0f">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ============ THEME SYSTEM ============ */
+/* ============ THEME VARIABLES ============ */
 :root {
-  --bg-primary: #06060a;
-  --bg-secondary: #0d0d14;
-  --bg-card: rgba(255,255,255,0.03);
-  --bg-card-hover: rgba(255,255,255,0.06);
-  --bg-input: rgba(255,255,255,0.05);
-  --bg-glass: rgba(255,255,255,0.04);
-  --border-color: rgba(255,255,255,0.06);
-  --border-light: rgba(255,255,255,0.1);
-  --text-primary: #f0f0f5;
-  --text-secondary: rgba(255,255,255,0.65);
-  --text-muted: rgba(255,255,255,0.35);
-  --accent: #6366f1;
-  --accent-rgb: 99,102,241;
-  --accent-glow: rgba(99,102,241,0.3);
+  --bg-main: #06060b;
+  --bg-surface: #0c0c14;
+  --bg-elevated: #12121e;
+  --bg-card: rgba(255,255,255,0.025);
+  --bg-card-hover: rgba(255,255,255,0.05);
+  --bg-input: rgba(255,255,255,0.04);
+  --bg-glass: rgba(12,12,20,0.85);
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --text-1: #f4f4f8;
+  --text-2: rgba(255,255,255,0.6);
+  --text-3: rgba(255,255,255,0.3);
+  --accent: #7c3aed;
+  --accent-2: #a78bfa;
+  --accent-rgb: 124,58,237;
+  --accent-glow: rgba(124,58,237,0.4);
   --success: #10b981;
+  --success-rgb: 16,185,129;
   --danger: #ef4444;
+  --danger-rgb: 239,68,68;
   --warning: #f59e0b;
-  --gradient-accent: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
-  --gradient-success: linear-gradient(135deg, #10b981, #34d399);
-  --gradient-danger: linear-gradient(135deg, #ef4444, #f87171);
-  --gradient-warning: linear-gradient(135deg, #f59e0b, #fbbf24);
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.2);
-  --shadow-glow: 0 0 40px rgba(99,102,241,0.08);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
-  --blur: blur(20px);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --warning-rgb: 245,158,11;
+  --info: #3b82f6;
+  --info-rgb: 59,130,246;
+  --grad-accent: linear-gradient(135deg, #7c3aed, #a78bfa);
+  --grad-accent-h: linear-gradient(135deg, #6d28d9, #8b5cf6, #c4b5fd);
+  --grad-success: linear-gradient(135deg, #059669, #10b981, #34d399);
+  --grad-danger: linear-gradient(135deg, #dc2626, #ef4444, #f87171);
+  --grad-warning: linear-gradient(135deg, #d97706, #f59e0b, #fbbf24);
+  --grad-info: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(124,58,237,0.07) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(59,130,246,0.05) 0%, transparent 70%);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.3);
+  --shadow-lg: 0 16px 64px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 60px rgba(124,58,237,0.15);
+  --shadow-glow-sm: 0 0 30px rgba(124,58,237,0.1);
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --blur: blur(24px);
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Light */
 [data-theme="light"] {
-  --bg-primary: #f2f3f7;
-  --bg-secondary: #ffffff;
-  --bg-card: rgba(0,0,0,0.025);
-  --bg-card-hover: rgba(0,0,0,0.05);
-  --bg-input: rgba(0,0,0,0.04);
-  --bg-glass: rgba(255,255,255,0.7);
-  --border-color: rgba(0,0,0,0.06);
-  --border-light: rgba(0,0,0,0.1);
-  --text-primary: #111118;
-  --text-secondary: rgba(0,0,0,0.6);
-  --text-muted: rgba(0,0,0,0.35);
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.06);
-  --shadow-glow: 0 0 40px rgba(99,102,241,0.06);
+  --bg-main: #f0f2f7;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f8f9fc;
+  --bg-card: rgba(0,0,0,0.02);
+  --bg-card-hover: rgba(0,0,0,0.04);
+  --bg-input: rgba(0,0,0,0.03);
+  --bg-glass: rgba(255,255,255,0.85);
+  --border: rgba(0,0,0,0.06);
+  --border-hover: rgba(0,0,0,0.12);
+  --text-1: #0f0f18;
+  --text-2: rgba(0,0,0,0.55);
+  --text-3: rgba(0,0,0,0.3);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-lg: 0 16px 64px rgba(0,0,0,0.1);
+  --shadow-glow: 0 0 60px rgba(124,58,237,0.08);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(124,58,237,0.04) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(59,130,246,0.03) 0%, transparent 70%);
 }
 
-/* Midnight Blue */
 [data-theme="midnight"] {
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #111827;
-  --bg-card: rgba(30,41,82,0.4);
-  --bg-card-hover: rgba(30,41,82,0.6);
-  --bg-input: rgba(30,41,82,0.5);
-  --bg-glass: rgba(17,24,39,0.8);
-  --border-color: rgba(59,130,246,0.1);
-  --border-light: rgba(59,130,246,0.2);
-  --accent: #3b82f6;
-  --accent-rgb: 59,130,246;
-  --accent-glow: rgba(59,130,246,0.3);
-  --gradient-accent: linear-gradient(135deg, #3b82f6, #6366f1, #818cf8);
+  --bg-main: #070b18;
+  --bg-surface: #0e1428;
+  --bg-elevated: #151d38;
+  --bg-card: rgba(30,50,100,0.2);
+  --bg-card-hover: rgba(30,50,100,0.35);
+  --bg-glass: rgba(14,20,40,0.9);
+  --border: rgba(59,130,246,0.08);
+  --border-hover: rgba(59,130,246,0.2);
+  --accent: #3b82f6; --accent-2: #60a5fa; --accent-rgb: 59,130,246;
+  --accent-glow: rgba(59,130,246,0.4);
+  --grad-accent: linear-gradient(135deg, #2563eb, #3b82f6);
+  --grad-accent-h: linear-gradient(135deg, #1d4ed8, #3b82f6, #93c5fd);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(59,130,246,0.08) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(99,102,241,0.05) 0%, transparent 70%);
 }
 
-/* Emerald */
 [data-theme="emerald"] {
-  --bg-primary: #052e16;
-  --bg-secondary: #0a3d1f;
-  --bg-card: rgba(16,185,129,0.08);
-  --bg-card-hover: rgba(16,185,129,0.14);
-  --bg-input: rgba(16,185,129,0.1);
-  --bg-glass: rgba(10,61,31,0.8);
-  --border-color: rgba(16,185,129,0.12);
-  --border-light: rgba(16,185,129,0.2);
-  --accent: #10b981;
-  --accent-rgb: 16,185,129;
-  --accent-glow: rgba(16,185,129,0.3);
-  --gradient-accent: linear-gradient(135deg, #10b981, #34d399, #6ee7b7);
+  --bg-main: #030f0a;
+  --bg-surface: #071a12;
+  --bg-elevated: #0c2a1c;
+  --bg-card: rgba(16,185,129,0.06);
+  --bg-card-hover: rgba(16,185,129,0.12);
+  --bg-glass: rgba(7,26,18,0.9);
+  --border: rgba(16,185,129,0.08);
+  --border-hover: rgba(16,185,129,0.2);
+  --accent: #10b981; --accent-2: #34d399; --accent-rgb: 16,185,129;
+  --accent-glow: rgba(16,185,129,0.4);
+  --grad-accent: linear-gradient(135deg, #059669, #10b981);
+  --grad-accent-h: linear-gradient(135deg, #047857, #10b981, #6ee7b7);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(16,185,129,0.08) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(52,211,153,0.04) 0%, transparent 70%);
 }
 
-/* Rose */
 [data-theme="rose"] {
-  --bg-primary: #1a0a10;
-  --bg-secondary: #2a1018;
-  --bg-card: rgba(244,63,94,0.08);
-  --bg-card-hover: rgba(244,63,94,0.14);
-  --bg-input: rgba(244,63,94,0.1);
-  --bg-glass: rgba(42,16,24,0.8);
-  --border-color: rgba(244,63,94,0.12);
-  --border-light: rgba(244,63,94,0.2);
-  --accent: #f43f5e;
-  --accent-rgb: 244,63,94;
-  --accent-glow: rgba(244,63,94,0.3);
-  --gradient-accent: linear-gradient(135deg, #f43f5e, #fb7185, #fda4af);
+  --bg-main: #0f0508;
+  --bg-surface: #1a0a10;
+  --bg-elevated: #2a101a;
+  --bg-card: rgba(244,63,94,0.06);
+  --bg-card-hover: rgba(244,63,94,0.12);
+  --bg-glass: rgba(26,10,16,0.9);
+  --border: rgba(244,63,94,0.08);
+  --border-hover: rgba(244,63,94,0.2);
+  --accent: #f43f5e; --accent-2: #fb7185; --accent-rgb: 244,63,94;
+  --accent-glow: rgba(244,63,94,0.4);
+  --grad-accent: linear-gradient(135deg, #e11d48, #f43f5e);
+  --grad-accent-h: linear-gradient(135deg, #be123c, #f43f5e, #fda4af);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(244,63,94,0.07) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(251,113,133,0.04) 0%, transparent 70%);
 }
 
-/* Sunset */
 [data-theme="sunset"] {
-  --bg-primary: #1a0f05;
-  --bg-secondary: #2a1a0a;
-  --bg-card: rgba(249,115,22,0.08);
-  --bg-card-hover: rgba(249,115,22,0.14);
-  --bg-input: rgba(249,115,22,0.1);
-  --bg-glass: rgba(42,26,10,0.8);
-  --border-color: rgba(249,115,22,0.12);
-  --border-light: rgba(249,115,22,0.2);
-  --accent: #f97316;
-  --accent-rgb: 249,115,22;
-  --accent-glow: rgba(249,115,22,0.3);
-  --gradient-accent: linear-gradient(135deg, #f97316, #fb923c, #fdba74);
+  --bg-main: #0f0802;
+  --bg-surface: #1a0f05;
+  --bg-elevated: #2a1a0a;
+  --bg-card: rgba(249,115,22,0.06);
+  --bg-card-hover: rgba(249,115,22,0.12);
+  --bg-glass: rgba(26,15,5,0.9);
+  --border: rgba(249,115,22,0.08);
+  --border-hover: rgba(249,115,22,0.2);
+  --accent: #f97316; --accent-2: #fb923c; --accent-rgb: 249,115,22;
+  --accent-glow: rgba(249,115,22,0.4);
+  --grad-accent: linear-gradient(135deg, #ea580c, #f97316);
+  --grad-accent-h: linear-gradient(135deg, #c2410c, #f97316, #fdba74);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(249,115,22,0.07) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(251,146,60,0.04) 0%, transparent 70%);
 }
 
-/* Cyberpunk */
 [data-theme="cyber"] {
-  --bg-primary: #0a0a12;
-  --bg-secondary: #12101e;
-  --bg-card: rgba(168,85,247,0.06);
-  --bg-card-hover: rgba(168,85,247,0.12);
-  --bg-input: rgba(168,85,247,0.08);
-  --bg-glass: rgba(18,16,30,0.85);
-  --border-color: rgba(168,85,247,0.12);
-  --border-light: rgba(168,85,247,0.2);
-  --accent: #a855f7;
-  --accent-rgb: 168,85,247;
-  --accent-glow: rgba(168,85,247,0.3);
-  --gradient-accent: linear-gradient(135deg, #a855f7, #c084fc, #e879f9);
+  --bg-main: #08060f;
+  --bg-surface: #100d1a;
+  --bg-elevated: #1a1428;
+  --bg-card: rgba(168,85,247,0.05);
+  --bg-card-hover: rgba(168,85,247,0.1);
+  --bg-glass: rgba(16,13,26,0.9);
+  --border: rgba(168,85,247,0.08);
+  --border-hover: rgba(168,85,247,0.2);
+  --accent: #a855f7; --accent-2: #c084fc; --accent-rgb: 168,85,247;
+  --accent-glow: rgba(168,85,247,0.4);
+  --grad-accent: linear-gradient(135deg, #9333ea, #a855f7);
+  --grad-accent-h: linear-gradient(135deg, #7e22ce, #a855f7, #e879f9);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(168,85,247,0.07) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(232,121,249,0.04) 0%, transparent 70%);
 }
 
-/* Nord */
 [data-theme="nord"] {
-  --bg-primary: #2e3440;
-  --bg-secondary: #3b4252;
-  --bg-card: rgba(76,86,106,0.3);
-  --bg-card-hover: rgba(76,86,106,0.5);
-  --bg-input: rgba(76,86,106,0.4);
-  --bg-glass: rgba(59,66,82,0.8);
-  --border-color: rgba(136,192,208,0.12);
-  --border-light: rgba(136,192,208,0.2);
-  --text-primary: #eceff4;
-  --text-secondary: rgba(236,239,244,0.65);
-  --text-muted: rgba(236,239,244,0.35);
-  --accent: #88c0d0;
-  --accent-rgb: 136,192,208;
+  --bg-main: #242933;
+  --bg-surface: #2e3440;
+  --bg-elevated: #3b4252;
+  --bg-card: rgba(76,86,106,0.25);
+  --bg-card-hover: rgba(76,86,106,0.4);
+  --bg-glass: rgba(46,52,64,0.9);
+  --border: rgba(136,192,208,0.08);
+  --border-hover: rgba(136,192,208,0.2);
+  --text-1: #eceff4; --text-2: rgba(236,239,244,0.6); --text-3: rgba(236,239,244,0.3);
+  --accent: #88c0d0; --accent-2: #8fbcbb; --accent-rgb: 136,192,208;
   --accent-glow: rgba(136,192,208,0.3);
-  --gradient-accent: linear-gradient(135deg, #88c0d0, #81a1c1, #5e81ac);
+  --grad-accent: linear-gradient(135deg, #5e81ac, #88c0d0);
+  --grad-accent-h: linear-gradient(135deg, #4c566a, #88c0d0, #a3be8c);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(136,192,208,0.06) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(163,190,140,0.04) 0%, transparent 70%);
 }
 
-/* Cream */
 [data-theme="cream"] {
-  --bg-primary: #faf7f2;
-  --bg-secondary: #ffffff;
+  --bg-main: #f7f3ec;
+  --bg-surface: #fffdf8;
+  --bg-elevated: #f0ebe2;
   --bg-card: rgba(120,80,40,0.04);
-  --bg-card-hover: rgba(120,80,40,0.08);
-  --bg-input: rgba(120,80,40,0.05);
-  --bg-glass: rgba(255,255,255,0.8);
-  --border-color: rgba(120,80,40,0.08);
-  --border-light: rgba(120,80,40,0.12);
-  --text-primary: #2d1f0e;
-  --text-secondary: rgba(45,31,14,0.6);
-  --text-muted: rgba(45,31,14,0.35);
-  --accent: #b45309;
-  --accent-rgb: 180,83,9;
-  --accent-glow: rgba(180,83,9,0.15);
-  --gradient-accent: linear-gradient(135deg, #b45309, #d97706, #f59e0b);
+  --bg-card-hover: rgba(120,80,40,0.07);
+  --bg-input: rgba(120,80,40,0.04);
+  --bg-glass: rgba(255,253,248,0.9);
+  --border: rgba(120,80,40,0.08);
+  --border-hover: rgba(120,80,40,0.15);
+  --text-1: #2d1f0e;
+  --text-2: rgba(45,31,14,0.55);
+  --text-3: rgba(45,31,14,0.3);
+  --accent: #b45309; --accent-2: #d97706; --accent-rgb: 180,83,9;
+  --accent-glow: rgba(180,83,9,0.2);
+  --grad-accent: linear-gradient(135deg, #92400e, #b45309);
+  --grad-accent-h: linear-gradient(135deg, #78350f, #b45309, #f59e0b);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.06);
+  --shadow-lg: 0 16px 64px rgba(0,0,0,0.08);
+  --shadow-glow: 0 0 60px rgba(180,83,9,0.06);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(180,83,9,0.04) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(217,119,6,0.03) 0%, transparent 70%);
 }
 
-/* ============ BASE RESET ============ */
-*, *::before, *::after {
-  margin: 0; padding: 0; box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-html { height: -webkit-fill-available; scroll-behavior: smooth; }
-
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-primary);
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  color: var(--text-primary);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background 0.4s, color 0.4s;
-  overflow-x: hidden;
-}
-
-/* Animated background particles */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: 
-    radial-gradient(ellipse 600px 600px at 20% 20%, rgba(var(--accent-rgb), 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 500px at 80% 80%, rgba(var(--accent-rgb), 0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 400px 400px at 50% 50%, rgba(var(--accent-rgb), 0.02) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-  animation: bgShift 20s ease-in-out infinite;
+[data-theme="neon"] {
+  --bg-main: #050508;
+  --bg-surface: #0a0a10;
+  --bg-elevated: #101018;
+  --bg-card: rgba(0,255,136,0.03);
+  --bg-card-hover: rgba(0,255,136,0.06);
+  --bg-glass: rgba(10,10,16,0.9);
+  --border: rgba(0,255,136,0.08);
+  --border-hover: rgba(0,255,136,0.2);
+  --accent: #00ff88; --accent-2: #66ffaa; --accent-rgb: 0,255,136;
+  --accent-glow: rgba(0,255,136,0.35);
+  --text-1: #e0ffe8;
+  --text-2: rgba(224,255,232,0.5);
+  --text-3: rgba(224,255,232,0.25);
+  --grad-accent: linear-gradient(135deg, #00cc6a, #00ff88);
+  --grad-accent-h: linear-gradient(135deg, #009950, #00ff88, #88ffcc);
+  --grad-bg: radial-gradient(ellipse 800px 600px at 25% 25%, rgba(0,255,136,0.06) 0%, transparent 70%),
+             radial-gradient(ellipse 600px 500px at 75% 75%, rgba(0,200,255,0.03) 0%, transparent 70%);
 }
 
-@keyframes bgShift {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+/* ============ RESET ============ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:-webkit-fill-available;scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,sans-serif;background:var(--bg-main);
+  min-height:100vh;min-height:-webkit-fill-available;color:var(--text-1);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .5s,color .5s;
+}
+body::before{
+  content:'';position:fixed;inset:0;background:var(--grad-bg);
+  pointer-events:none;z-index:0;
+  animation:ambientShift 25s ease-in-out infinite alternate;
+}
+@keyframes ambientShift{
+  0%{opacity:1;filter:hue-rotate(0deg)}
+  50%{opacity:.7;filter:hue-rotate(10deg)}
+  100%{opacity:1;filter:hue-rotate(-5deg)}
 }
 
-.safe-area-top {
-  position: fixed; top: 0; left: 0; right: 0;
-  height: env(safe-area-inset-top);
-  background: var(--bg-secondary);
-  z-index: 101;
-  backdrop-filter: var(--blur);
+/* Floating particles */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{
+  position:absolute;width:3px;height:3px;
+  background:rgba(var(--accent-rgb),0.3);border-radius:50%;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{transform:translateY(-10vh) scale(1);opacity:0}
 }
 
 /* ============ HEADER ============ */
-header {
-  background: var(--bg-glass);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  border-bottom: 1px solid var(--border-color);
-  padding: 14px 20px;
-  padding-top: calc(14px + env(safe-area-inset-top));
-  padding-left: calc(20px + env(safe-area-inset-left));
-  padding-right: calc(20px + env(safe-area-inset-right));
-  position: sticky; top: 0; z-index: 100;
-  transition: var(--transition);
+header{
+  background:var(--bg-glass);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;padding-top:calc(12px + env(safe-area-inset-top));
+  position:sticky;top:0;z-index:100;transition:var(--transition);
+}
+header::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),0.3),transparent);
+}
+.header-c{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.h-left{display:flex;align-items:center;gap:16px}
+
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-cube{
+  width:40px;height:40px;perspective:200px;
+}
+.logo-cube-inner{
+  width:100%;height:100%;position:relative;
+  transform-style:preserve-3d;
+  animation:cubeRotate 8s ease-in-out infinite;
+}
+@keyframes cubeRotate{
+  0%,100%{transform:rotateX(0) rotateY(0)}
+  25%{transform:rotateX(15deg) rotateY(15deg)}
+  50%{transform:rotateX(0) rotateY(0)}
+  75%{transform:rotateX(-15deg) rotateY(-15deg)}
+}
+.logo-face{
+  position:absolute;inset:0;
+  background:var(--grad-accent);border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2em;color:#fff;font-weight:900;
+  box-shadow:0 0 20px var(--accent-glow);
 }
 
-.header-content {
-  max-width: 1000px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 12px;
+.logo-text{font-size:1.3em;font-weight:900;letter-spacing:-.5px}
+.logo-text span{
+  background:var(--grad-accent-h);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+}
+.logo-sub{font-size:.6em;color:var(--text-3);font-weight:500;letter-spacing:1px;text-transform:uppercase;display:block;-webkit-text-fill-color:var(--text-3)}
+
+.h-date{
+  font-size:.82em;color:var(--text-2);font-weight:500;
+  padding:6px 14px;background:var(--bg-card);border-radius:20px;
+  border:1px solid var(--border);font-family:'JetBrains Mono',monospace;
 }
 
-.header-left { display: flex; align-items: center; gap: 14px; }
+.h-right{display:flex;align-items:center;gap:8px}
 
-.logo {
-  font-size: 1.4em; font-weight: 800;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-  display: flex; align-items: center; gap: 8px;
+.week-pill{
+  padding:5px 16px;border-radius:20px;font-size:.72em;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;
+  box-shadow:0 2px 12px rgba(0,0,0,0.2);
 }
+.week-pill.upper{background:var(--grad-success);color:#000}
+.week-pill.lower{background:var(--grad-danger);color:#fff}
 
-.logo-icon {
-  width: 36px; height: 36px;
-  background: var(--gradient-accent);
-  border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1em;
-  -webkit-text-fill-color: white;
-  box-shadow: 0 4px 15px var(--accent-glow);
+.h-btn{
+  width:40px;height:40px;border-radius:var(--radius-md);
+  background:var(--bg-card);border:1px solid var(--border);
+  color:var(--text-1);font-size:1.1em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);position:relative;overflow:hidden;
 }
+.h-btn::before{
+  content:'';position:absolute;inset:0;
+  background:var(--grad-accent);opacity:0;transition:opacity .3s;
+}
+.h-btn:hover{border-color:rgba(var(--accent-rgb),.4);transform:scale(1.08)}
+.h-btn:hover::before{opacity:.12}
+.h-btn:active{transform:scale(.95)}
+.h-btn span{position:relative;z-index:1}
 
-.header-date {
-  font-size: .85em; color: var(--text-secondary); font-weight: 500;
-  padding: 4px 12px;
-  background: var(--bg-card);
-  border-radius: 20px;
-  border: 1px solid var(--border-color);
+.user-chip{
+  display:flex;align-items:center;gap:6px;
+  font-size:.8em;color:var(--text-2);
+  padding:4px 12px 4px 6px;background:var(--bg-card);
+  border-radius:20px;border:1px solid var(--border);
 }
-
-.header-right { display: flex; align-items: center; gap: 8px; }
-
-.header-week {
-  padding: 5px 14px; border-radius: 20px;
-  font-size: .78em; font-weight: 700; letter-spacing: 0.3px;
-  text-transform: uppercase;
+.user-avatar{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--grad-accent);display:flex;align-items:center;
+  justify-content:center;font-size:.65em;color:#fff;font-weight:800;
 }
-.header-week.upper { background: var(--gradient-success); color: #000; }
-.header-week.lower { background: var(--gradient-danger); color: #fff; }
-
-.theme-toggle, .theme-picker-btn {
-  width: 38px; height: 38px; border-radius: var(--radius-md);
-  background: var(--bg-card); border: 1px solid var(--border-color);
-  color: var(--text-primary); font-size: 1.1em;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: var(--transition);
-  position: relative;
+.admin-tag{
+  background:var(--grad-warning);color:#000;
+  padding:2px 8px;border-radius:10px;
+  font-size:.65em;font-weight:800;text-transform:uppercase;letter-spacing:.5px;
 }
-.theme-toggle:hover, .theme-picker-btn:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(var(--accent-rgb), 0.3);
-  transform: scale(1.05);
+.logout-btn{
+  padding:6px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:transparent;color:var(--text-2);font-size:.78em;font-weight:600;
+  cursor:pointer;transition:var(--transition);font-family:inherit;
 }
-
-.user-info {
-  display: flex; align-items: center; gap: 8px;
-  font-size: .82em; color: var(--text-secondary);
-}
-
-.admin-badge {
-  background: var(--gradient-warning); color: #000;
-  padding: 3px 10px; border-radius: 15px;
-  font-size: .72em; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+.logout-btn:hover{border-color:rgba(var(--danger-rgb),.4);color:var(--danger);background:rgba(var(--danger-rgb),.06)}
 
 /* ============ CONTAINER ============ */
-.container {
-  max-width: 1000px; margin: 0 auto;
-  padding: 20px;
-  padding-left: calc(20px + env(safe-area-inset-left));
-  padding-right: calc(20px + env(safe-area-inset-right));
-  padding-bottom: calc(20px + env(safe-area-inset-bottom));
-  position: relative; z-index: 1;
+.container{
+  max-width:1100px;margin:0 auto;padding:24px;position:relative;z-index:1;
+  padding-bottom:calc(24px + env(safe-area-inset-bottom));
 }
 
-/* ============ BUTTONS ============ */
-.btn {
-  padding: 10px 20px; border: none; border-radius: var(--radius-md);
-  cursor: pointer; font-weight: 600; font-size: .88em;
-  transition: var(--transition); font-family: inherit;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  position: relative; overflow: hidden;
+/* ============ WEEK NAV ============ */
+.week-nav{
+  display:flex;align-items:center;justify-content:center;gap:24px;
+  padding:20px 28px;margin-bottom:24px;
+  background:var(--bg-glass);backdrop-filter:var(--blur);
+  border-radius:var(--radius-xl);border:1px solid var(--border);
+  box-shadow:var(--shadow-md);position:relative;overflow:hidden;
 }
-.btn::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(rgba(255,255,255,0.1), transparent);
-  opacity: 0; transition: opacity 0.2s;
+.week-nav::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.2),transparent);
 }
-.btn:hover::after { opacity: 1; }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
-.btn:active { transform: scale(0.97); }
+.wn-arrow{
+  width:44px;height:44px;border-radius:var(--radius-md);
+  background:var(--bg-card);border:1px solid var(--border);
+  color:var(--text-1);font-size:1.2em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);
+}
+.wn-arrow:hover{background:rgba(var(--accent-rgb),.1);border-color:rgba(var(--accent-rgb),.3);transform:scale(1.08)}
+.wn-arrow:active{transform:scale(.93)}
+.wn-center{text-align:center;min-width:200px}
+.wn-range{font-size:1.3em;font-weight:900;letter-spacing:-.3px;margin-bottom:4px;
+  font-family:'JetBrains Mono',monospace;
+}
+.wn-type{font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  padding:3px 12px;border-radius:10px;display:inline-block;
+}
+.wn-type.upper{background:rgba(var(--success-rgb),.1);color:var(--success)}
+.wn-type.lower{background:rgba(var(--danger-rgb),.1);color:var(--danger)}
 
-.btn-primary { background: var(--gradient-accent); color: #fff; box-shadow: 0 4px 15px var(--accent-glow); }
-.btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
-.btn-danger { background: var(--gradient-danger); color: #fff; }
-.btn-success { background: var(--gradient-success); color: #000; }
-.btn-warning { background: var(--gradient-warning); color: #000; }
-.btn-sm { padding: 6px 14px; font-size: .8em; }
-.btn-xs { padding: 4px 10px; font-size: .75em; border-radius: var(--radius-sm); }
-.btn-icon {
-  width: 42px; height: 42px; padding: 0;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: var(--radius-md); font-size: 1.1em;
-  background: var(--bg-card); color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  cursor: pointer; transition: var(--transition);
+/* ============ TAB NAV ============ */
+.tab-nav{
+  display:flex;gap:4px;margin-bottom:24px;padding:5px;
+  background:var(--bg-card);border-radius:var(--radius-lg);
+  border:1px solid var(--border);position:relative;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
-.btn-icon:hover { background: var(--bg-card-hover); border-color: rgba(var(--accent-rgb),0.3); }
+.tab-nav::-webkit-scrollbar{display:none}
 
-/* ============ WEEK NAVIGATOR ============ */
-.week-navigator {
-  display: flex; align-items: center; justify-content: center; gap: 20px;
-  padding: 16px 24px;
-  background: var(--bg-glass);
-  backdrop-filter: var(--blur);
-  border-radius: var(--radius-xl);
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-card);
+.tab{
+  padding:12px 20px;border:none;background:transparent;
+  color:var(--text-3);border-radius:var(--radius-md);
+  cursor:pointer;font-size:.84em;font-weight:700;
+  transition:var(--transition);font-family:inherit;
+  display:flex;align-items:center;gap:7px;white-space:nowrap;
+  position:relative;
 }
-
-.week-dates { text-align: center; min-width: 180px; }
-.week-dates-range {
-  font-size: 1.2em; font-weight: 800; color: var(--text-primary);
-  margin-bottom: 4px; letter-spacing: -0.3px;
+.tab:hover{color:var(--text-2);background:var(--bg-card-hover)}
+.tab.active{
+  background:var(--grad-accent);color:#fff;
+  box-shadow:0 4px 20px var(--accent-glow),inset 0 1px 0 rgba(255,255,255,.15);
 }
-.week-dates-type { font-size: .82em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-.week-dates-type.upper { color: var(--success); }
-.week-dates-type.lower { color: #fb7185; }
-
-/* ============ NAVIGATION ============ */
-.nav {
-  display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
-  padding: 6px;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
+.tab .badge{
+  background:var(--danger);color:#fff;border-radius:50%;
+  min-width:18px;height:18px;display:inline-flex;align-items:center;
+  justify-content:center;font-size:.6em;font-weight:900;padding:0 4px;
+  animation:badgePop 2s ease-in-out infinite;
 }
-
-.nav-btn {
-  padding: 10px 18px; border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  border-radius: var(--radius-md);
-  cursor: pointer; font-size: .85em; font-weight: 600;
-  transition: var(--transition); font-family: inherit;
-  position: relative;
-  display: flex; align-items: center; gap: 6px;
-}
-.nav-btn:hover { color: var(--text-primary); background: var(--bg-card-hover); }
-.nav-btn.active {
-  background: var(--gradient-accent); color: #fff;
-  box-shadow: 0 4px 15px var(--accent-glow);
-}
+@keyframes badgePop{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 
 /* ============ SECTIONS ============ */
-.section { display: none; }
-.section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.sec{display:none}
+.sec.on{display:block;animation:secIn .5s cubic-bezier(.4,0,.2,1)}
+@keyframes secIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ============ BUTTONS ============ */
+.btn{
+  padding:11px 22px;border:none;border-radius:var(--radius-md);
+  cursor:pointer;font-weight:700;font-size:.86em;
+  transition:var(--transition);font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(rgba(255,255,255,.12),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.btn:active{transform:scale(.96)}
+
+.btn-p{background:var(--grad-accent);color:#fff;box-shadow:0 4px 20px var(--accent-glow)}
+.btn-s{background:var(--bg-card);color:var(--text-1);border:1px solid var(--border)}
+.btn-d{background:var(--grad-danger);color:#fff}
+.btn-ok{background:var(--grad-success);color:#000}
+.btn-w{background:var(--grad-warning);color:#000}
+.btn-ghost{background:transparent;color:var(--accent);border:1px solid rgba(var(--accent-rgb),.2)}
+.btn-ghost:hover{background:rgba(var(--accent-rgb),.06);border-color:rgba(var(--accent-rgb),.4)}
+
+.btn-sm{padding:7px 16px;font-size:.78em}
+.btn-xs{padding:4px 10px;font-size:.72em;border-radius:var(--radius-xs)}
+
+.btn-icon{
+  width:44px;height:44px;padding:0;border-radius:var(--radius-md);
+  font-size:1.1em;background:var(--bg-card);color:var(--text-1);
+  border:1px solid var(--border);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);
+}
+.btn-icon:hover{background:var(--bg-card-hover);border-color:rgba(var(--accent-rgb),.3)}
+
+/* ============ DAY CARDS ============ */
+.days{display:flex;flex-direction:column;gap:18px}
+
+.day{
+  background:var(--bg-surface);border-radius:var(--radius-xl);
+  border:1px solid var(--border);overflow:hidden;
+  transition:var(--transition);box-shadow:var(--shadow-sm);
+  position:relative;
+}
+.day:hover{border-color:var(--border-hover);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.day.today{
+  border-color:rgba(var(--accent-rgb),.35);
+  box-shadow:var(--shadow-md),var(--shadow-glow-sm);
+}
+.day.today::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad-accent);
+}
+.day.today .day-head{background:rgba(var(--accent-rgb),.06)}
+.day.changed{border-color:rgba(var(--warning-rgb),.3)}
+.day.changed::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad-warning);
 }
 
-/* ============ DAY BLOCKS ============ */
-.days-grid { display: flex; flex-direction: column; gap: 16px; }
-
-.day-block {
-  background: var(--bg-card);
-  backdrop-filter: var(--blur);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  transition: var(--transition);
-  box-shadow: var(--shadow-card);
+.day-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 20px;background:var(--bg-card);
+  border-bottom:1px solid var(--border);transition:var(--transition);
 }
-.day-block:hover { border-color: rgba(var(--accent-rgb), 0.15); }
-.day-block.today {
-  border-color: rgba(var(--accent-rgb), 0.4);
-  box-shadow: var(--shadow-card), 0 0 30px rgba(var(--accent-rgb), 0.1);
+.day-title{
+  display:flex;align-items:center;gap:10px;
+  font-size:1.05em;font-weight:800;color:var(--text-1);
 }
-.day-block.today .day-header {
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.05));
+.day-title .dt-icon{
+  width:38px;height:38px;border-radius:var(--radius-sm);
+  background:var(--bg-card-hover);display:flex;align-items:center;
+  justify-content:center;font-size:1.1em;
+  border:1px solid var(--border);
 }
-.day-block.has-changes { border-color: rgba(245,158,11,0.4); }
-
-.day-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 18px;
-  background: var(--bg-card-hover);
-  border-bottom: 1px solid var(--border-color);
+.day.today .day-title .dt-icon{
+  background:rgba(var(--accent-rgb),.12);border-color:rgba(var(--accent-rgb),.2);
 }
-
-.day-title {
-  font-size: 1em; font-weight: 700;
-  display: flex; align-items: center; gap: 8px;
-  color: var(--text-primary);
+.day-title .dt-date{font-size:.82em;color:var(--text-3);font-weight:500;
+  font-family:'JetBrains Mono',monospace;
 }
-.day-title .date { font-weight: 500; color: var(--text-muted); font-size: .88em; }
-
-.day-badges { display: flex; gap: 6px; }
-
-.today-label {
-  background: var(--gradient-accent); color: #fff;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: .7em; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 10px var(--accent-glow);
-  animation: pulse 2s ease-in-out infinite;
+.day-badges{display:flex;gap:6px}
+.badge-today{
+  background:var(--grad-accent);color:#fff;
+  padding:5px 14px;border-radius:20px;font-size:.68em;font-weight:800;
+  text-transform:uppercase;letter-spacing:.5px;
+  box-shadow:0 2px 15px var(--accent-glow);
+  animation:glowPulse 2.5s ease-in-out infinite;
 }
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 2px 10px var(--accent-glow); }
-  50% { box-shadow: 0 2px 20px var(--accent-glow); }
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 2px 15px var(--accent-glow)}
+  50%{box-shadow:0 2px 30px var(--accent-glow)}
+}
+.badge-change{
+  background:var(--grad-warning);color:#000;
+  padding:5px 14px;border-radius:20px;font-size:.68em;font-weight:800;
+  text-transform:uppercase;letter-spacing:.5px;
 }
 
-.changes-label {
-  background: var(--gradient-warning); color: #000;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: .7em; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.day-content { padding: 10px; }
+.day-body{padding:8px 12px}
 
 /* ============ LESSONS ============ */
-.lessons-list { display: flex; flex-direction: column; gap: 6px; }
+.lessons{display:flex;flex-direction:column;gap:4px}
 
-.lesson-row {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 12px; background: var(--bg-card);
-  border-radius: var(--radius-md);
-  transition: var(--transition); cursor: pointer;
-  border: 1px solid transparent;
+.les{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px;background:transparent;border-radius:var(--radius-md);
+  transition:var(--transition);cursor:pointer;
+  border:1px solid transparent;position:relative;
 }
-.lesson-row:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(var(--accent-rgb), 0.1);
-  transform: translateX(4px);
-}
-.lesson-row.empty { opacity: .4; }
-.lesson-row.empty:hover { opacity: .6; }
-.lesson-row.changed {
-  background: rgba(245,158,11,0.08);
-  border: 1px solid rgba(245,158,11,0.2);
-}
+.les:hover{background:var(--bg-card);border-color:var(--border)}
+.les.empty{opacity:.35}
+.les.empty:hover{opacity:.55}
+.les.ch{background:rgba(var(--warning-rgb),.04);border:1px solid rgba(var(--warning-rgb),.12)}
 
-.lesson-number {
-  width: 48px; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 8px 6px;
-  background: rgba(var(--accent-rgb), 0.1);
-  border-radius: var(--radius-md); flex-shrink: 0;
-  border: 1px solid rgba(var(--accent-rgb), 0.15);
+.les-num{
+  width:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 6px;
+  background:rgba(var(--accent-rgb),.08);border-radius:var(--radius-md);
+  flex-shrink:0;border:1px solid rgba(var(--accent-rgb),.1);
+  transition:var(--transition);
 }
+.les:hover .les-num{background:rgba(var(--accent-rgb),.14);border-color:rgba(var(--accent-rgb),.2)}
 
-.lesson-num { font-size: 1.3em; font-weight: 800; color: var(--accent); }
-.lesson-time { font-size: .58em; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
+.ln-n{font-size:1.5em;font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace;line-height:1}
+.ln-t{font-size:.55em;color:var(--text-3);margin-top:3px;font-weight:600;font-family:'JetBrains Mono',monospace}
 
-.lesson-info { flex: 1; min-width: 0; }
-
-.lesson-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
-.lesson-name { font-weight: 700; font-size: .95em; color: var(--text-primary); }
-
-.lesson-details {
-  display: flex; gap: 12px; font-size: .78em; color: var(--text-muted);
-  margin-bottom: 6px; flex-wrap: wrap;
+.les-info{flex:1;min-width:0}
+.les-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+.les-name{font-weight:800;font-size:.95em;color:var(--text-1)}
+.les-det{display:flex;gap:10px;font-size:.76em;color:var(--text-3);flex-wrap:wrap}
+.les-room{
+  color:var(--accent);font-weight:700;
+  background:rgba(var(--accent-rgb),.08);padding:2px 9px;border-radius:6px;
+  font-family:'JetBrains Mono',monospace;font-size:.9em;
 }
-.lesson-room {
-  color: var(--accent); font-weight: 600;
-  background: rgba(var(--accent-rgb), 0.1);
-  padding: 2px 8px; border-radius: 6px;
-}
+.les-empty{color:var(--text-3);font-style:italic;font-size:.88em}
 
-.lesson-empty-text { color: var(--text-muted); font-style: italic; font-size: .88em; }
+.hw-btn{
+  padding:3px 10px;background:rgba(var(--accent-rgb),.1);
+  border:1px solid rgba(var(--accent-rgb),.15);color:var(--accent);
+  border-radius:6px;cursor:pointer;font-size:.68em;font-weight:800;
+  transition:var(--transition);text-transform:uppercase;letter-spacing:.3px;
+}
+.hw-btn:hover{background:rgba(var(--accent-rgb),.2);transform:scale(1.05)}
 
-.lesson-homework {
-  margin-top: 8px; padding: 10px 12px;
-  background: rgba(var(--accent-rgb), 0.08);
-  border-radius: var(--radius-sm);
-  border-left: 3px solid var(--accent);
-  transition: var(--transition);
+/* ============ HOMEWORK INLINE ============ */
+.les-hw{
+  margin-top:10px;padding:12px 14px;
+  background:rgba(var(--accent-rgb),.05);border-radius:var(--radius-sm);
+  border-left:3px solid var(--accent);transition:var(--transition);
+  position:relative;overflow:hidden;
 }
-.lesson-homework:hover { background: rgba(var(--accent-rgb), 0.12); }
+.les-hw::before{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:40%;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.03));
+  pointer-events:none;
+}
+.les-hw:hover{background:rgba(var(--accent-rgb),.08)}
+.les-hw.done{opacity:.4;border-left-color:var(--success)}
+.les-hw.done .hw-text{text-decoration:line-through}
 
-.lesson-homework-header {
-  display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;
-}
-.lesson-homework-title {
-  font-size: .7em; color: var(--accent); font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-.lesson-homework-text { font-size: .85em; line-height: 1.5; color: var(--text-primary); }
-
-.lesson-homework.done { opacity: .45; border-left-color: var(--success); }
-.lesson-homework.done .lesson-homework-text { text-decoration: line-through; }
-
-.add-hw-btn {
-  padding: 3px 10px;
-  background: rgba(var(--accent-rgb), 0.15);
-  border: 1px solid rgba(var(--accent-rgb), 0.2);
-  color: var(--accent); border-radius: 6px;
-  cursor: pointer; font-size: .72em; font-weight: 700;
-  transition: var(--transition);
-}
-.add-hw-btn:hover {
-  background: rgba(var(--accent-rgb), 0.25);
-  transform: scale(1.05);
-}
+.hw-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.hw-label{font-size:.65em;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+.hw-text{font-size:.84em;line-height:1.6;color:var(--text-1);position:relative;z-index:1}
 
 /* ============ CARDS ============ */
-.wrap-card {
-  background: var(--bg-card);
-  backdrop-filter: var(--blur);
-  border-radius: var(--radius-xl);
-  padding: 24px; border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-card);
+.card{
+  background:var(--bg-surface);border-radius:var(--radius-xl);
+  padding:28px;border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.15),transparent);
 }
 
-.section-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 24px; flex-wrap: wrap; gap: 15px;
+.sec-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:28px;flex-wrap:wrap;gap:15px;
 }
-.section-title {
-  font-size: 1.2em; font-weight: 800; color: var(--text-primary);
-  display: flex; align-items: center; gap: 10px;
-  letter-spacing: -0.3px;
+.sec-title{
+  font-size:1.3em;font-weight:900;letter-spacing:-.3px;
+  display:flex;align-items:center;gap:12px;
 }
-
-.no-items {
-  text-align: center; padding: 50px 20px; color: var(--text-muted);
-  font-size: 1em;
-}
-
-/* ============ CHANGES ============ */
-.change-card {
-  background: rgba(245,158,11,0.06);
-  border: 1px solid rgba(245,158,11,0.15);
-  border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px;
-  transition: var(--transition);
-}
-.change-card:hover { border-color: rgba(245,158,11,0.3); }
-
-.change-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 12px; flex-wrap: wrap; gap: 10px;
-}
-.change-date { font-weight: 700; font-size: 1em; color: #fbbf24; }
-
-.change-lesson-row {
-  display: flex; align-items: center; gap: 10px; padding: 10px;
-  background: rgba(0,0,0,0.1); border-radius: var(--radius-sm);
-  margin-bottom: 6px; transition: var(--transition);
-}
-[data-theme="light"] .change-lesson-row,
-[data-theme="cream"] .change-lesson-row { background: rgba(0,0,0,0.04); }
-.change-lesson-row:hover { background: rgba(0,0,0,0.15); }
-
-.change-pair-num {
-  width: 30px; height: 30px;
-  background: rgba(245,158,11,0.2); border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800; color: #fbbf24; font-size: .9em; flex-shrink: 0;
-}
-.change-lesson-info { flex: 1; }
-.change-lesson-name { font-weight: 700; font-size: .95em; color: var(--text-primary); }
-.change-lesson-details { font-size: .78em; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
-
-/* ============ SETTINGS ============ */
-.setting-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 18px; background: var(--bg-card-hover);
-  border-radius: var(--radius-lg); margin-bottom: 10px;
-  flex-wrap: wrap; gap: 12px;
-  border: 1px solid var(--border-color);
-  transition: var(--transition);
-}
-.setting-row:hover { border-color: rgba(var(--accent-rgb), 0.15); }
-
-.setting-info h4 { margin-bottom: 4px; font-size: .95em; color: var(--text-primary); font-weight: 700; }
-.setting-info p { font-size: .8em; color: var(--text-muted); }
-
-.setting-input {
-  padding: 10px 14px; border: 1px solid var(--border-light);
-  background: var(--bg-input); border-radius: var(--radius-md);
-  color: var(--text-primary); font-family: inherit;
-  transition: var(--transition);
-}
-.setting-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-
-/* ============ THEME PICKER ============ */
-.theme-picker-overlay {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7); z-index: 1001;
-  align-items: center; justify-content: center; padding: 20px;
-  backdrop-filter: blur(10px);
-}
-.theme-picker-overlay.active { display: flex; }
-
-.theme-picker {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-2xl); padding: 28px;
-  width: 100%; max-width: 420px;
-  border: 1px solid var(--border-color);
-  animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 25px 80px rgba(0,0,0,0.4);
-}
-.theme-picker h3 {
-  margin-bottom: 20px; font-size: 1.2em; font-weight: 800;
-  display: flex; align-items: center; gap: 10px;
+.sec-title .st-icon{
+  width:44px;height:44px;border-radius:var(--radius-md);
+  background:rgba(var(--accent-rgb),.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2em;border:1px solid rgba(var(--accent-rgb),.12);
 }
 
-.themes-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--text-3);
 }
-
-.theme-option {
-  padding: 14px 10px; border-radius: var(--radius-md);
-  border: 2px solid var(--border-color);
-  cursor: pointer; transition: var(--transition);
-  text-align: center; font-size: .8em; font-weight: 600;
-  color: var(--text-secondary);
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-}
-.theme-option:hover { border-color: rgba(var(--accent-rgb), 0.4); transform: scale(1.03); }
-.theme-option.active-theme {
-  border-color: var(--accent);
-  background: rgba(var(--accent-rgb), 0.1);
-  color: var(--text-primary);
-}
-.theme-swatch {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.1);
-}
-
-/* ============ MODALS ============ */
-.modal-overlay {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(8px);
-  z-index: 1000; align-items: flex-start; justify-content: center;
-  padding: 20px; padding-top: calc(40px + env(safe-area-inset-top));
-  overflow-y: auto;
-}
-[data-theme="light"] .modal-overlay,
-[data-theme="cream"] .modal-overlay { background: rgba(0,0,0,0.4); }
-
-.modal-overlay.active { display: flex; }
-
-.modal {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-2xl);
-  padding: 28px; width: 100%; max-width: 500px;
-  border: 1px solid var(--border-color);
-  animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: auto;
-  box-shadow: 0 25px 80px rgba(0,0,0,0.4);
-}
-@keyframes modalIn {
-  from { opacity: 0; transform: scale(0.93) translateY(-20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal h3 {
-  margin-bottom: 22px; font-size: 1.15em; font-weight: 800;
-  color: var(--text-primary); display: flex; align-items: center; gap: 10px;
-}
-
-.form-group { margin-bottom: 16px; }
-.form-group label {
-  display: block; margin-bottom: 6px; color: var(--text-secondary);
-  font-size: .82em; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.form-group input, .form-group textarea {
-  width: 100%; padding: 12px 16px;
-  border: 1px solid var(--border-light);
-  background: var(--bg-input); border-radius: var(--radius-md);
-  color: var(--text-primary); font-size: 1em; font-family: inherit;
-  -webkit-appearance: none; transition: var(--transition);
-}
-.form-group textarea { resize: vertical; min-height: 80px; }
-.form-group input:focus, .form-group textarea:focus {
-  outline: none; border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-}
-
-.modal-buttons { display: flex; gap: 10px; margin-top: 22px; }
-.modal-buttons .btn { flex: 1; }
-
-/* ============ LOGIN ============ */
-.login-screen {
-  min-height: 100vh; display: flex; align-items: center; justify-content: center;
-  padding: 20px; padding-top: calc(20px + env(safe-area-inset-top));
-  background: var(--bg-primary);
-  position: relative; overflow: hidden;
-}
-.login-screen::before {
-  content: '';
-  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: 
-    radial-gradient(ellipse 400px 400px at 30% 30%, rgba(var(--accent-rgb), 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 350px 350px at 70% 70%, rgba(var(--accent-rgb), 0.08) 0%, transparent 70%);
-  animation: loginBg 15s ease-in-out infinite;
-}
-@keyframes loginBg {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(30px, -30px) rotate(5deg); }
-  66% { transform: translate(-20px, 20px) rotate(-3deg); }
-}
-
-.login-container {
-  width: 100%; max-width: 400px; padding: 36px;
-  background: var(--bg-glass);
-  backdrop-filter: var(--blur);
-  border-radius: var(--radius-2xl);
-  border: 1px solid var(--border-color);
-  position: relative; z-index: 1;
-  box-shadow: 0 25px 80px rgba(0,0,0,0.3);
-}
-
-.login-logo {
-  text-align: center; margin-bottom: 8px;
-  font-size: 3em;
-}
-.login-container h2 {
-  text-align: center; margin-bottom: 4px;
-  font-size: 1.8em; font-weight: 900;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
-}
-.login-subtitle {
-  text-align: center; color: var(--text-muted);
-  margin-bottom: 28px; font-size: .9em; font-weight: 500;
-}
-
-.login-error {
-  background: rgba(244,63,94,0.1); border: 1px solid rgba(244,63,94,0.25);
-  color: #fb7185; padding: 12px; border-radius: var(--radius-md);
-  text-align: center; margin-bottom: 20px; font-size: .9em; font-weight: 500;
-}
-
-.login-container .btn { width: 100%; padding: 14px; margin-top: 10px; font-size: 1em; }
-
-.divider {
-  display: flex; align-items: center; gap: 15px; margin: 24px 0;
-  color: var(--text-muted); font-size: .82em; font-weight: 500;
-}
-.divider::before, .divider::after {
-  content: ''; flex: 1; height: 1px; background: var(--border-color);
-}
-
-/* ============ INSTALL PROMPT ============ */
-.install-prompt {
-  position: fixed; bottom: calc(20px + env(safe-area-inset-bottom));
-  left: 20px; right: 20px;
-  background: var(--bg-glass);
-  backdrop-filter: var(--blur);
-  border: 1px solid rgba(var(--accent-rgb), 0.3);
-  border-radius: var(--radius-xl); padding: 16px;
-  display: none; align-items: center; gap: 12px;
-  z-index: 999;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-.install-prompt.show { display: flex; animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.install-prompt-icon { font-size: 2em; }
-.install-prompt-text { flex: 1; }
-.install-prompt-text h4 { font-size: .92em; margin-bottom: 2px; color: var(--text-primary); font-weight: 700; }
-.install-prompt-text p { font-size: .78em; color: var(--text-muted); }
-.install-prompt-close {
-  background: none; border: none; color: var(--text-muted);
-  font-size: 1.5em; cursor: pointer; padding: 5px;
-  transition: var(--transition);
-}
-.install-prompt-close:hover { color: var(--text-primary); }
-
-/* ============ CUSTOM SELECT ============ */
-.cs-trigger {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 14px; background: var(--bg-input);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md); cursor: pointer;
-  transition: var(--transition); min-height: 48px; user-select: none;
-}
-.cs-trigger:hover { border-color: rgba(var(--accent-rgb), 0.4); }
-.cs-trigger.open { border-color: var(--accent); border-radius: var(--radius-md) var(--radius-md) 0 0; }
-
-.cs-trigger .cs-icon {
-  width: 34px; height: 34px;
-  background: rgba(var(--accent-rgb), 0.12);
-  border-radius: 8px; display: flex; align-items: center;
-  justify-content: center; font-size: .9em; flex-shrink: 0;
-}
-.cs-trigger .cs-text { flex: 1; min-width: 0; }
-.cs-trigger .cs-name {
-  font-weight: 700; font-size: .88em; color: var(--text-primary);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.cs-trigger .cs-meta {
-  font-size: .72em; color: var(--text-muted);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.cs-trigger .cs-placeholder { color: var(--text-muted); font-size: .88em; }
-.cs-trigger .cs-arrow {
-  color: var(--text-muted); font-size: .65em;
-  flex-shrink: 0; transition: transform 0.3s;
-}
-.cs-trigger.open .cs-arrow { transform: rotate(180deg); }
-
-.cs-dropdown {
-  position: absolute; top: 100%; left: 0; right: 0;
-  background: var(--bg-secondary);
-  border: 1px solid var(--accent); border-top: 1px solid var(--border-light);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
-  max-height: 220px; overflow-y: auto; z-index: 50;
-  display: none;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-.cs-dropdown.open { display: block; }
-.cs-dropdown::-webkit-scrollbar { width: 4px; }
-.cs-dropdown::-webkit-scrollbar-track { background: transparent; }
-.cs-dropdown::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
-
-.cs-option {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px; cursor: pointer;
-  transition: background 0.15s;
-  border-bottom: 1px solid var(--border-color);
-}
-.cs-option:last-child { border-bottom: none; }
-.cs-option:hover { background: rgba(var(--accent-rgb), 0.08); }
-.cs-option.selected { background: rgba(var(--accent-rgb), 0.12); }
-
-.cs-option .cso-icon {
-  width: 30px; height: 30px;
-  background: rgba(var(--accent-rgb), 0.1);
-  border-radius: 7px; display: flex; align-items: center;
-  justify-content: center; font-size: .85em; flex-shrink: 0;
-}
-.cs-option .cso-text { flex: 1; min-width: 0; }
-.cs-option .cso-name { font-weight: 700; font-size: .86em; color: var(--text-primary); }
-.cs-option .cso-meta { font-size: .72em; color: var(--text-muted); }
-
-.cs-option.empty-opt .cso-icon { background: rgba(239,68,68,0.1); color: #f87171; }
-.cs-option.empty-opt:hover { background: rgba(239,68,68,0.06); }
-
-.custom-select { position: relative; width: 100%; }
+.empty-state .es-icon{font-size:3em;margin-bottom:12px;opacity:.5}
+.empty-state .es-text{font-size:1em;font-weight:600}
+.empty-state .es-sub{font-size:.82em;margin-top:4px;color:var(--text-3)}
 
 /* ============ SUBJECT CARDS ============ */
-.subject-card {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px; background: var(--bg-card-hover);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg); margin-bottom: 8px;
-  transition: var(--transition);
+.subj-card{
+  display:flex;align-items:center;gap:16px;
+  padding:18px;background:var(--bg-card);
+  border:1px solid var(--border);border-radius:var(--radius-lg);
+  margin-bottom:10px;transition:var(--transition);
 }
-.subject-card:hover {
-  border-color: rgba(var(--accent-rgb), 0.2);
-  transform: translateX(4px);
+.subj-card:hover{border-color:rgba(var(--accent-rgb),.2);transform:translateX(6px);background:var(--bg-card-hover)}
+.subj-icon{
+  width:48px;height:48px;border-radius:var(--radius-md);
+  background:rgba(var(--accent-rgb),.1);display:flex;
+  align-items:center;justify-content:center;font-size:1.4em;
+  flex-shrink:0;border:1px solid rgba(var(--accent-rgb),.1);
 }
-
-.subject-icon {
-  width: 44px; height: 44px;
-  background: rgba(var(--accent-rgb), 0.12);
-  border-radius: var(--radius-md); display: flex;
-  align-items: center; justify-content: center;
-  font-size: 1.3em; flex-shrink: 0;
-}
-.subject-info { flex: 1; min-width: 0; }
-.subject-name { font-weight: 700; font-size: .95em; color: var(--text-primary); }
-.subject-meta {
-  font-size: .78em; color: var(--text-muted);
-  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 3px;
-}
-.subject-actions { display: flex; gap: 6px; }
+.subj-info{flex:1;min-width:0}
+.subj-name{font-weight:800;font-size:1em;margin-bottom:3px}
+.subj-meta{font-size:.78em;color:var(--text-3);display:flex;gap:12px;flex-wrap:wrap}
+.subj-acts{display:flex;gap:6px}
 
 /* ============ HW CARDS ============ */
-.hw-card {
-  background: var(--bg-card-hover);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg); padding: 18px;
-  margin-bottom: 12px; position: relative; overflow: hidden;
-  transition: var(--transition);
+.hw-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;
+  position:relative;overflow:hidden;transition:var(--transition);
 }
-.hw-card:hover {
-  border-color: rgba(var(--accent-rgb), 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+.hw-card:hover{border-color:rgba(var(--accent-rgb),.2);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.hw-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad-accent)}
+.hw-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.hw-card-subj{
+  font-weight:900;font-size:1.1em;color:var(--accent);
+  display:flex;align-items:center;gap:10px;
 }
-.hw-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 4px; background: var(--gradient-accent);
+.hw-card-subj-icon{
+  width:38px;height:38px;background:rgba(var(--accent-rgb),.1);
+  border-radius:var(--radius-sm);display:flex;align-items:center;
+  justify-content:center;font-size:1em;
+}
+.hw-card-due{
+  display:flex;align-items:center;gap:6px;
+  font-size:.74em;color:var(--text-3);
+  background:var(--bg-elevated);padding:5px 14px;
+  border-radius:20px;border:1px solid var(--border);
+  font-weight:600;font-family:'JetBrains Mono',monospace;
+}
+.hw-card-task{
+  font-size:.9em;line-height:1.7;padding:16px;
+  background:var(--bg-elevated);border-radius:var(--radius-md);
+  margin-bottom:16px;border:1px solid var(--border);
+}
+.hw-card-acts{display:flex;gap:8px}
+
+/* ============ CHANGES ============ */
+.chg-card{
+  background:rgba(var(--warning-rgb),.04);border:1px solid rgba(var(--warning-rgb),.12);
+  border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;
+  position:relative;overflow:hidden;transition:var(--transition);
+}
+.chg-card:hover{border-color:rgba(var(--warning-rgb),.25)}
+.chg-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad-warning)}
+.chg-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.chg-date{font-weight:900;font-size:1.05em;color:var(--warning)}
+.chg-les-row{
+  display:flex;align-items:center;gap:12px;padding:12px;
+  background:rgba(var(--warning-rgb),.04);border-radius:var(--radius-sm);
+  margin-bottom:6px;border:1px solid rgba(var(--warning-rgb),.06);
+  transition:var(--transition);
+}
+.chg-les-row:hover{background:rgba(var(--warning-rgb),.08)}
+.chg-pn{
+  width:32px;height:32px;background:rgba(var(--warning-rgb),.15);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;color:var(--warning);font-size:.9em;flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;
+}
+.chg-ln{font-weight:800;font-size:.92em}
+.chg-ld{font-size:.76em;color:var(--text-3);display:flex;gap:10px;flex-wrap:wrap}
+
+/* ============ SETTINGS ============ */
+.set-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);margin-bottom:10px;flex-wrap:wrap;gap:14px;
+  transition:var(--transition);
+}
+.set-row:hover{border-color:rgba(var(--accent-rgb),.15);background:var(--bg-card-hover)}
+.set-info h4{font-size:.95em;font-weight:800;margin-bottom:3px}
+.set-info p{font-size:.78em;color:var(--text-3)}
+.set-input{
+  padding:10px 16px;border:1px solid var(--border-hover);
+  background:var(--bg-input);border-radius:var(--radius-md);
+  color:var(--text-1);font-family:'JetBrains Mono',monospace;
+  transition:var(--transition);
+}
+.set-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.15)}
+
+/* ============ THEME PICKER ============ */
+.tp-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);
+  z-index:1001;align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(12px);
+}
+.tp-overlay.on{display:flex}
+.tp{
+  background:var(--bg-surface);border-radius:var(--radius-2xl);padding:32px;
+  width:100%;max-width:480px;border:1px solid var(--border);
+  animation:modalIn .35s var(--bounce);box-shadow:var(--shadow-lg);
+  position:relative;overflow:hidden;
+}
+.tp::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad-accent-h);
+}
+.tp h3{margin-bottom:24px;font-size:1.3em;font-weight:900;display:flex;align-items:center;gap:12px}
+.tp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tp-opt{
+  padding:16px 10px;border-radius:var(--radius-md);
+  border:2px solid var(--border);cursor:pointer;transition:var(--transition);
+  text-align:center;font-size:.78em;font-weight:700;color:var(--text-2);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  position:relative;overflow:hidden;
+}
+.tp-opt::before{
+  content:'';position:absolute;inset:0;background:var(--grad-accent);
+  opacity:0;transition:opacity .2s;
+}
+.tp-opt:hover{border-color:rgba(var(--accent-rgb),.4);transform:scale(1.04)}
+.tp-opt:hover::before{opacity:.04}
+.tp-opt.cur{border-color:var(--accent);background:rgba(var(--accent-rgb),.08)}
+.tp-swatch{
+  width:36px;height:36px;border-radius:50%;position:relative;z-index:1;
+  border:2px solid rgba(255,255,255,.1);
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+.tp-opt span{position:relative;z-index:1}
+
+/* ============ MODALS ============ */
+.mo{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);
+  backdrop-filter:blur(10px);z-index:1000;align-items:flex-start;
+  justify-content:center;padding:20px;
+  padding-top:calc(50px + env(safe-area-inset-top));overflow-y:auto;
+}
+.mo.on{display:flex}
+.md{
+  background:var(--bg-surface);border-radius:var(--radius-2xl);
+  padding:32px;width:100%;max-width:500px;
+  border:1px solid var(--border);animation:modalIn .35s var(--bounce);
+  margin:auto;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
+}
+.md::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-accent-h)}
+@keyframes modalIn{
+  from{opacity:0;transform:scale(.9) translateY(-30px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.md h3{
+  margin-bottom:24px;font-size:1.15em;font-weight:900;
+  display:flex;align-items:center;gap:12px;
+}
+.md h3 .mi{
+  width:42px;height:42px;border-radius:var(--radius-md);
+  background:rgba(var(--accent-rgb),.1);display:flex;
+  align-items:center;justify-content:center;font-size:1.2em;
 }
 
-.hw-card-top {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 12px; gap: 10px; flex-wrap: wrap;
+.fg{margin-bottom:18px}
+.fg label{
+  display:block;margin-bottom:7px;color:var(--text-2);
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
 }
-.hw-card-subject {
-  font-weight: 800; font-size: 1.05em; color: var(--accent);
-  display: flex; align-items: center; gap: 8px;
+.fg input,.fg textarea{
+  width:100%;padding:13px 18px;border:1px solid var(--border-hover);
+  background:var(--bg-input);border-radius:var(--radius-md);
+  color:var(--text-1);font-size:1em;font-family:inherit;
+  -webkit-appearance:none;transition:var(--transition);
 }
-.hw-card-subject-icon {
-  width: 34px; height: 34px;
-  background: rgba(var(--accent-rgb), 0.12);
-  border-radius: 8px; display: flex; align-items: center;
-  justify-content: center; font-size: .9em;
+.fg textarea{resize:vertical;min-height:90px}
+.fg input:focus,.fg textarea:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(var(--accent-rgb),.12);
+}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--text-3)}
+
+.md-btns{display:flex;gap:10px;margin-top:24px}
+.md-btns .btn{flex:1}
+
+/* ============ CUSTOM SELECT ============ */
+.cs{position:relative;width:100%}
+.cs-trig{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;background:var(--bg-input);
+  border:1px solid var(--border-hover);border-radius:var(--radius-md);
+  cursor:pointer;transition:var(--transition);min-height:52px;user-select:none;
+}
+.cs-trig:hover{border-color:rgba(var(--accent-rgb),.3)}
+.cs-trig.op{border-color:var(--accent);border-radius:var(--radius-md) var(--radius-md) 0 0;
+  box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12);
+}
+.cs-trig .cst-icon{
+  width:36px;height:36px;background:rgba(var(--accent-rgb),.1);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:.95em;flex-shrink:0;
+}
+.cs-trig .cst-text{flex:1;min-width:0}
+.cs-trig .cst-name{font-weight:800;font-size:.88em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-trig .cst-meta{font-size:.7em;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-trig .cst-ph{color:var(--text-3);font-size:.88em}
+.cs-trig .cst-arr{color:var(--text-3);font-size:.6em;flex-shrink:0;transition:transform .3s}
+.cs-trig.op .cst-arr{transform:rotate(180deg)}
+
+.cs-dd{
+  position:absolute;top:100%;left:0;right:0;
+  background:var(--bg-surface);border:1px solid var(--accent);border-top:1px solid var(--border);
+  border-radius:0 0 var(--radius-md) var(--radius-md);
+  max-height:240px;overflow-y:auto;z-index:50;display:none;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+.cs-dd.op{display:block}
+.cs-dd::-webkit-scrollbar{width:4px}
+.cs-dd::-webkit-scrollbar-track{background:transparent}
+.cs-dd::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:2px}
+
+.cs-opt{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;cursor:pointer;transition:background .15s;
+  border-bottom:1px solid var(--border);
+}
+.cs-opt:last-child{border-bottom:none}
+.cs-opt:hover{background:rgba(var(--accent-rgb),.06)}
+.cs-opt.sel{background:rgba(var(--accent-rgb),.1)}
+.cs-opt .cso-icon{
+  width:32px;height:32px;background:rgba(var(--accent-rgb),.08);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:.85em;flex-shrink:0;
+}
+.cs-opt .cso-name{font-weight:800;font-size:.86em}
+.cs-opt .cso-meta{font-size:.7em;color:var(--text-3)}
+.cs-opt.emp .cso-icon{background:rgba(var(--danger-rgb),.08);color:var(--danger)}
+.cs-opt.emp:hover{background:rgba(var(--danger-rgb),.04)}
+
+/* ============ LOGIN ============ */
+.login{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:20px;background:var(--bg-main);position:relative;overflow:hidden;
+}
+.login::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:
+    radial-gradient(circle 300px at 30% 30%,rgba(var(--accent-rgb),.15),transparent),
+    radial-gradient(circle 250px at 70% 60%,rgba(var(--info-rgb),.1),transparent),
+    radial-gradient(circle 200px at 50% 80%,rgba(var(--success-rgb),.08),transparent);
+  animation:loginFloat 20s ease-in-out infinite;
+}
+@keyframes loginFloat{
+  0%,100%{transform:translate(0,0) rotate(0deg) scale(1)}
+  25%{transform:translate(40px,-40px) rotate(5deg) scale(1.05)}
+  50%{transform:translate(-20px,30px) rotate(-3deg) scale(.97)}
+  75%{transform:translate(30px,20px) rotate(3deg) scale(1.02)}
 }
 
-.hw-card-due {
-  display: flex; align-items: center; gap: 6px;
-  font-size: .76em; color: var(--text-muted);
-  background: var(--bg-card); padding: 4px 12px;
-  border-radius: 20px; border: 1px solid var(--border-color);
-  white-space: nowrap; font-weight: 600;
+.login-box{
+  width:100%;max-width:420px;padding:40px;
+  background:var(--bg-glass);backdrop-filter:var(--blur);
+  border-radius:var(--radius-2xl);border:1px solid var(--border);
+  position:relative;z-index:1;box-shadow:var(--shadow-lg);
+  overflow:hidden;
 }
-.hw-card-task {
-  font-size: .92em; line-height: 1.6; color: var(--text-primary);
-  padding: 14px; background: var(--bg-card);
-  border-radius: var(--radius-md); margin-bottom: 14px;
-  border: 1px solid var(--border-color);
+.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-accent-h)}
+.login-box::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(var(--accent-rgb),.08),transparent 70%);
+  pointer-events:none;
 }
-.hw-card-actions { display: flex; gap: 8px; }
 
-.hw-badge {
-  background: var(--danger); color: #fff;
-  border-radius: 50%; min-width: 20px; height: 20px;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: .68em; font-weight: 800; margin-left: 6px; padding: 0 5px;
-  animation: badgePulse 2s ease-in-out infinite;
+.lb-logo{
+  text-align:center;margin-bottom:8px;font-size:3.5em;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 0 20px var(--accent-glow));
 }
-@keyframes badgePulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+.login-box h2{
+  text-align:center;font-size:2em;font-weight:900;letter-spacing:-1px;
+  margin-bottom:4px;position:relative;z-index:1;
+  background:var(--grad-accent-h);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
+.lb-sub{
+  text-align:center;color:var(--text-3);margin-bottom:32px;
+  font-size:.88em;font-weight:500;position:relative;z-index:1;
+}
+.lb-err{
+  background:rgba(var(--danger-rgb),.08);border:1px solid rgba(var(--danger-rgb),.2);
+  color:var(--danger);padding:12px;border-radius:var(--radius-md);
+  text-align:center;margin-bottom:20px;font-size:.88em;font-weight:600;
+  position:relative;z-index:1;
+}
+.login-box .fg{position:relative;z-index:1}
+.login-box .btn{width:100%;padding:15px;margin-top:10px;font-size:1em;position:relative;z-index:1}
+
+.divider{
+  display:flex;align-items:center;gap:15px;margin:26px 0;
+  color:var(--text-3);font-size:.8em;font-weight:600;position:relative;z-index:1;
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* ============ CHANGE PAIR ROW ============ */
-.change-pair-row {
-  background: var(--bg-card);
-  border-radius: var(--radius-md); padding: 12px; margin-bottom: 8px;
-  border: 1px solid var(--border-color);
+.cp-row{
+  background:var(--bg-card);border-radius:var(--radius-md);
+  padding:14px;margin-bottom:10px;border:1px solid var(--border);
 }
-.change-pair-header {
-  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+.cp-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.cp-num{
+  width:30px;height:30px;background:rgba(var(--warning-rgb),.15);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;color:var(--warning);font-size:.88em;
+  font-family:'JetBrains Mono',monospace;
 }
-.change-pair-num-badge {
-  width: 28px; height: 28px;
-  background: rgba(245,158,11,0.2);
-  border-radius: 7px; display: flex; align-items: center;
-  justify-content: center; font-weight: 800; color: #fbbf24;
-  font-size: .85em;
+
+/* ============ STATUS BAR ============ */
+.status-bar{
+  display:flex;align-items:center;gap:12px;padding:14px 20px;
+  background:var(--bg-card);border-radius:var(--radius-lg);
+  border:1px solid var(--border);margin-bottom:20px;
+  font-size:.82em;color:var(--text-2);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
 }
+.status-bar::-webkit-scrollbar{display:none}
+.stat{
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+  padding:6px 14px;background:var(--bg-card-hover);
+  border-radius:var(--radius-sm);border:1px solid var(--border);
+  font-weight:600;
+}
+.stat-val{font-weight:900;color:var(--accent);font-family:'JetBrains Mono',monospace}
 
 /* ============ SCROLLBAR ============ */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-hover);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-3)}
 
 /* ============ RESPONSIVE ============ */
-@media(max-width:500px) {
-  .header-content { gap: 8px; }
-  .header-left { gap: 8px; }
-  .logo { font-size: 1.1em; }
-  .logo-icon { width: 30px; height: 30px; font-size: .9em; }
-  .header-date { font-size: .75em; padding: 3px 10px; }
-  .user-info span:not(.admin-badge) { display: none; }
-  .week-navigator { padding: 14px; gap: 14px; }
-  .week-dates-range { font-size: 1em; }
-  .btn-icon { width: 38px; height: 38px; }
-  .setting-row { flex-direction: column; align-items: flex-start; }
-  .themes-grid { grid-template-columns: repeat(2, 1fr); }
-  .nav { gap: 4px; padding: 4px; }
-  .nav-btn { padding: 8px 14px; font-size: .8em; }
-  .container { padding: 14px; }
+@media(max-width:600px){
+  .header-c{gap:8px}
+  .h-left{gap:10px}
+  .logo-cube{width:34px;height:34px}
+  .logo-text{font-size:1.1em}
+  .logo-sub{display:none}
+  .h-date{display:none}
+  .user-chip span:not(.admin-tag){display:none}
+  .week-nav{padding:16px;gap:16px}
+  .wn-range{font-size:1.1em}
+  .tab-nav{gap:2px;padding:4px}
+  .tab{padding:10px 14px;font-size:.8em}
+  .container{padding:16px}
+  .card{padding:20px}
+  .tp-grid{grid-template-columns:repeat(2,1fr)}
+  .set-row{flex-direction:column;align-items:flex-start}
+  .md{padding:24px}
+  .day-head{padding:12px 16px}
+  .les{padding:10px}
+  .status-bar{flex-wrap:nowrap}
 }
 </style>
 </head>
 <body>
-<div class="safe-area-top"></div>
+
+<div class="particles" id="particles"></div>
 
 <!-- LOGIN -->
-<div id="login-screen" class="login-screen">
-<div class="login-container">
-  <div class="login-logo">📚</div>
+<div id="login-screen" class="login">
+<div class="login-box">
+  <div class="lb-logo">📚</div>
   <h2>Дневник</h2>
-  <p class="login-subtitle">Техникум · Умное расписание</p>
-  <div class="login-error" id="login-error" style="display:none;"></div>
-  <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email"></div>
-  <div class="form-group"><label>Пароль</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
-  <button class="btn btn-primary" onclick="doLogin()">🔓 Войти</button>
+  <p class="lb-sub">Техникум · Умное расписание</p>
+  <div class="lb-err" id="login-error" style="display:none"></div>
+  <div class="fg"><label>📧 Email</label><input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email"></div>
+  <div class="fg"><label>🔑 Пароль</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
+  <button class="btn btn-p" onclick="doLogin()">🔓 Войти</button>
   <div class="divider">или</div>
-  <button class="btn btn-secondary" onclick="enterAsGuest()">👁 Войти как гость</button>
+  <button class="btn btn-ghost" onclick="enterAsGuest()">👁 Войти как гость</button>
 </div>
 </div>
 
 <!-- APP -->
-<div id="app" style="display:none;">
-<header><div class="header-content">
-  <div class="header-left">
-    <div class="logo"><span class="logo-icon">📚</span> Дневник</div>
-    <div class="header-date" id="header-date"></div>
-  </div>
-  <div class="header-right">
-    <div class="header-week" id="header-week"></div>
-    <button class="theme-picker-btn" onclick="openThemePicker()" title="Темы">🎨</button>
-    <button class="theme-toggle" onclick="quickToggle()" title="Быстрое переключение"><span id="theme-icon">🌙</span></button>
-    <div class="user-info">
-      <span id="user-email"></span>
-      <span class="admin-badge" id="admin-badge" style="display:none;">Админ</span>
+<div id="app" style="display:none">
+<header><div class="header-c">
+  <div class="h-left">
+    <div class="logo">
+      <div class="logo-cube"><div class="logo-cube-inner"><div class="logo-face">📚</div></div></div>
+      <div class="logo-text"><span>Дневник</span><span class="logo-sub">техникум</span></div>
     </div>
-    <button class="btn btn-secondary btn-sm" onclick="doLogout()">Выйти</button>
+    <div class="h-date" id="h-date"></div>
+  </div>
+  <div class="h-right">
+    <div class="week-pill" id="h-week"></div>
+    <button class="h-btn" onclick="openTP()" title="Темы"><span>🎨</span></button>
+    <button class="h-btn" onclick="quickToggle()" title="Тема"><span id="theme-ico">🌙</span></button>
+    <div class="user-chip">
+      <div class="user-avatar" id="user-ava">G</div>
+      <span id="user-name"></span>
+      <span class="admin-tag" id="admin-tag" style="display:none">Админ</span>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">Выйти</button>
   </div>
 </div></header>
 
 <div class="container">
-  <div class="week-navigator">
-    <button class="btn-icon" onclick="prevWeek()">←</button>
-    <div class="week-dates">
-      <div class="week-dates-range" id="week-range"></div>
-      <div class="week-dates-type" id="week-type"></div>
+  <!-- Status bar -->
+  <div class="status-bar" id="status-bar">
+    <div class="stat">📖 Предметов: <span class="stat-val" id="st-subj">0</span></div>
+    <div class="stat">📋 ДЗ: <span class="stat-val" id="st-hw">0</span></div>
+    <div class="stat">⚡ Замен: <span class="stat-val" id="st-chg">0</span></div>
+    <div class="stat">📅 Неделя: <span class="stat-val" id="st-week">—</span></div>
+  </div>
+
+  <div class="week-nav">
+    <button class="wn-arrow" onclick="prevWeek()">←</button>
+    <div class="wn-center">
+      <div class="wn-range" id="wn-range"></div>
+      <span class="wn-type" id="wn-type"></span>
     </div>
-    <button class="btn-icon" onclick="nextWeek()">→</button>
+    <button class="wn-arrow" onclick="nextWeek()">→</button>
   </div>
 
-  <div class="nav" id="main-nav">
-    <button class="nav-btn active" data-section="home">🏠 Расписание</button>
-    <button class="nav-btn" data-section="homework-tab" id="homework-nav">📋 ДЗ</button>
-    <button class="nav-btn admin-only" data-section="changes" id="changes-nav">⚡ Замены</button>
-    <button class="nav-btn admin-only" data-section="subjects" id="subjects-nav">📖 Предметы</button>
-    <button class="nav-btn admin-only" data-section="settings" id="settings-nav">⚙️ Настройки</button>
+  <div class="tab-nav" id="tab-nav">
+    <button class="tab active" data-s="home">🏠 Расписание</button>
+    <button class="tab" data-s="hw-tab" id="hw-nav">📋 ДЗ</button>
+    <button class="tab adm" data-s="changes" id="chg-nav">⚡ Замены</button>
+    <button class="tab adm" data-s="subjects">📖 Предметы</button>
+    <button class="tab adm" data-s="settings">⚙️ Настройки</button>
   </div>
 
-  <div class="section active" id="home"><div class="days-grid" id="days-grid"></div></div>
+  <div class="sec on" id="home"><div class="days" id="days-grid"></div></div>
 
-  <div class="section" id="homework-tab"><div class="wrap-card">
-    <div class="section-header">
-      <h2 class="section-title">📋 Домашнее задание</h2>
-      <button class="btn btn-primary admin-only" onclick="openNewHwModal()">+ Добавить</button>
+  <div class="sec" id="hw-tab"><div class="card">
+    <div class="sec-head">
+      <h2 class="sec-title"><span class="st-icon">📋</span>Домашнее задание</h2>
+      <button class="btn btn-p adm" onclick="openNewHwModal()">+ Добавить</button>
     </div>
     <div id="hw-tab-list"></div>
   </div></div>
 
-  <div class="section" id="changes"><div class="wrap-card">
-    <div class="section-header">
-      <h2 class="section-title">⚡ Изменения в расписании</h2>
-      <button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button>
+  <div class="sec" id="changes"><div class="card">
+    <div class="sec-head">
+      <h2 class="sec-title"><span class="st-icon">⚡</span>Замены в расписании</h2>
+      <button class="btn btn-w" onclick="openChgModal()">+ Добавить</button>
     </div>
-    <div id="changes-list"></div>
+    <div id="chg-list"></div>
   </div></div>
 
-  <div class="section" id="subjects"><div class="wrap-card">
-    <div class="section-header">
-      <h2 class="section-title">📖 Предметы</h2>
-      <button class="btn btn-primary" onclick="openSubjectModal()">+ Добавить</button>
+  <div class="sec" id="subjects"><div class="card">
+    <div class="sec-head">
+      <h2 class="sec-title"><span class="st-icon">📖</span>Предметы</h2>
+      <button class="btn btn-p" onclick="openSubjModal()">+ Добавить</button>
     </div>
-    <div id="subjects-list"></div>
+    <div id="subj-list"></div>
   </div></div>
 
-  <div class="section" id="settings"><div class="wrap-card">
-    <h2 class="section-title" style="margin-bottom:24px;">⚙️ Настройки</h2>
-    <div class="setting-row">
-      <div class="setting-info"><h4>🎨 Тема оформления</h4><p>Выберите из 9 тем</p></div>
-      <button class="btn btn-primary" onclick="openThemePicker()">Выбрать тему</button>
+  <div class="sec" id="settings"><div class="card">
+    <h2 class="sec-title" style="margin-bottom:28px"><span class="st-icon">⚙️</span>Настройки</h2>
+    <div class="set-row">
+      <div class="set-info"><h4>🎨 Тема оформления</h4><p>Выберите из 10 уникальных тем</p></div>
+      <button class="btn btn-p" onclick="openTP()">Выбрать тему</button>
     </div>
-    <div class="setting-row">
-      <div class="setting-info"><h4>📅 Начало недель</h4><p>Понедельник верхней недели</p></div>
-      <input type="date" class="setting-input" id="week-start-date">
+    <div class="set-row">
+      <div class="set-info"><h4>📅 Начало недель</h4><p>Понедельник верхней недели</p></div>
+      <input type="date" class="set-input" id="ws-date">
     </div>
-    <div class="setting-row">
-      <div class="setting-info"><h4>🕐 Время пар</h4><p>Начало и конец каждой пары</p></div>
-      <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
+    <div class="set-row">
+      <div class="set-info"><h4>🕐 Время пар</h4><p>Начало и конец каждой пары</p></div>
+      <button class="btn btn-s" onclick="openTimesModal()">Настроить</button>
     </div>
-    <div class="setting-row">
-      <div class="setting-info"><h4>🗑 Очистить всё</h4><p>Удалить все данные</p></div>
-      <button class="btn btn-danger" onclick="clearAll()">Очистить</button>
+    <div class="set-row">
+      <div class="set-info"><h4>🗑 Сброс данных</h4><p>Удалить все данные безвозвратно</p></div>
+      <button class="btn btn-d" onclick="clearAll()">Очистить всё</button>
     </div>
   </div></div>
 </div>
 </div>
 
-<!-- INSTALL PROMPT -->
-<div class="install-prompt" id="install-prompt">
-  <div class="install-prompt-icon">📲</div>
-  <div class="install-prompt-text"><h4>Добавить на экран</h4><p>Установи как приложение</p></div>
-  <button class="btn btn-primary btn-sm" onclick="installApp()">Добавить</button>
-  <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
-</div>
-
-<!-- THEME PICKER -->
-<div class="theme-picker-overlay" id="theme-picker-overlay">
-<div class="theme-picker">
-  <h3>🎨 Тема оформления</h3>
-  <div class="themes-grid" id="themes-grid"></div>
-  <div style="margin-top:16px;text-align:center;">
-    <button class="btn btn-secondary" onclick="closeThemePicker()">Закрыть</button>
-  </div>
+<!-- Theme Picker -->
+<div class="tp-overlay" id="tp-overlay">
+<div class="tp">
+  <h3><span class="mi">🎨</span>Тема оформления</h3>
+  <div class="tp-grid" id="tp-grid"></div>
+  <div style="margin-top:18px;text-align:center"><button class="btn btn-s" onclick="closeTP()">Закрыть</button></div>
 </div>
 </div>
 
-<!-- MODALS -->
-<div class="modal-overlay" id="lesson-modal"><div class="modal">
-  <h3>✏️ Редактировать пару</h3>
-  <input type="hidden" id="edit-day"><input type="hidden" id="edit-pair"><input type="hidden" id="edit-week">
-  <div class="form-group"><label>Предмет</label><div id="lesson-sel-c"></div></div>
-  <div class="modal-buttons">
-    <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
-    <button class="btn btn-danger" onclick="delLesson()">Очистить</button>
-    <button class="btn btn-primary" onclick="saveLesson()">Сохранить</button>
+<!-- Modals -->
+<div class="mo" id="les-mo"><div class="md">
+  <h3><span class="mi">✏️</span>Редактировать пару</h3>
+  <input type="hidden" id="ed-day"><input type="hidden" id="ed-pair"><input type="hidden" id="ed-week">
+  <div class="fg"><label>Предмет</label><div id="les-sel-c"></div></div>
+  <div class="md-btns">
+    <button class="btn btn-s" onclick="closeMo('les-mo')">Отмена</button>
+    <button class="btn btn-d" onclick="delLes()">Очистить</button>
+    <button class="btn btn-p" onclick="saveLes()">Сохранить</button>
   </div>
 </div></div>
 
-<div class="modal-overlay" id="hw-modal"><div class="modal">
-  <h3>📝 Домашка</h3>
+<div class="mo" id="hw-mo"><div class="md">
+  <h3><span class="mi">📝</span>Домашка</h3>
   <input type="hidden" id="hw-date"><input type="hidden" id="hw-pair">
-  <div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.7;"></div>
-  <div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
-  <div class="modal-buttons">
-    <button class="btn btn-secondary" onclick="closeModal('hw-modal')">Отмена</button>
-    <button class="btn btn-primary" onclick="saveOldHw()">Сохранить</button>
+  <div class="fg"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.6"></div>
+  <div class="fg"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
+  <div class="md-btns">
+    <button class="btn btn-s" onclick="closeMo('hw-mo')">Отмена</button>
+    <button class="btn btn-p" onclick="saveOldHw()">Сохранить</button>
   </div>
 </div></div>
 
-<div class="modal-overlay" id="new-hw-modal"><div class="modal">
-  <h3><span style="width:40px;height:40px;background:rgba(var(--accent-rgb),.12);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2em;">📋</span>Новое ДЗ</h3>
-  <div class="form-group"><label>📖 Предмет</label><div id="nhw-sel-c"></div></div>
-  <div class="form-group"><label>📝 Задание</label><textarea id="nhw-task" placeholder="Опишите задание..." style="min-height:100px;"></textarea></div>
-  <div class="form-group"><label>📅 Следующая пара</label><div id="nhw-next" style="padding:12px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);font-size:.9em;color:var(--text-muted);min-height:44px;display:flex;align-items:center;gap:8px;">Выберите предмет...</div></div>
-  <div class="modal-buttons">
-    <button class="btn btn-secondary" onclick="closeModal('new-hw-modal')">Отмена</button>
-    <button class="btn btn-primary" onclick="saveNewHw()">💾 Сохранить</button>
+<div class="mo" id="nhw-mo"><div class="md">
+  <h3><span class="mi">📋</span>Новое ДЗ</h3>
+  <div class="fg"><label>📖 Предмет</label><div id="nhw-sel-c"></div></div>
+  <div class="fg"><label>📝 Задание</label><textarea id="nhw-task" placeholder="Опишите задание подробно..." style="min-height:110px"></textarea></div>
+  <div class="fg"><label>📅 Следующая пара</label><div id="nhw-next" style="padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);font-size:.88em;color:var(--text-3);min-height:48px;display:flex;align-items:center;gap:8px">Выберите предмет...</div></div>
+  <div class="md-btns">
+    <button class="btn btn-s" onclick="closeMo('nhw-mo')">Отмена</button>
+    <button class="btn btn-p" onclick="saveNewHw()">💾 Сохранить</button>
   </div>
 </div></div>
 
-<div class="modal-overlay" id="subj-modal"><div class="modal">
-  <h3 id="subj-modal-title">📖 Добавить предмет</h3>
-  <input type="hidden" id="subj-edit-id">
-  <div class="form-group"><label>Название</label><input type="text" id="subj-name" placeholder="Математика"></div>
-  <div class="form-group"><label>Аудитория</label><input type="text" id="subj-room" placeholder="Каб. 301"></div>
-  <div class="form-group"><label>Преподаватель</label><input type="text" id="subj-teacher" placeholder="Иванов И.И."></div>
-  <div class="modal-buttons">
-    <button class="btn btn-secondary" onclick="closeModal('subj-modal')">Отмена</button>
-    <button class="btn btn-primary" onclick="saveSubject()">Сохранить</button>
+<div class="mo" id="subj-mo"><div class="md">
+  <h3 id="subj-mo-title"><span class="mi">📖</span>Добавить предмет</h3>
+  <input type="hidden" id="subj-eid">
+  <div class="fg"><label>Название</label><input type="text" id="subj-name" placeholder="Математика"></div>
+  <div class="fg"><label>Аудитория</label><input type="text" id="subj-room" placeholder="Каб. 301"></div>
+  <div class="fg"><label>Преподаватель</label><input type="text" id="subj-teacher" placeholder="Иванов И.И."></div>
+  <div class="md-btns">
+    <button class="btn btn-s" onclick="closeMo('subj-mo')">Отмена</button>
+    <button class="btn btn-p" onclick="saveSubj()">Сохранить</button>
   </div>
 </div></div>
 
-<div class="modal-overlay" id="chg-modal"><div class="modal">
-  <h3>⚡ Изменение на дату</h3>
-  <input type="hidden" id="chg-edit-id">
-  <div class="form-group"><label>📅 Дата</label><input type="date" id="chg-date"></div>
-  <p style="color:var(--text-muted);font-size:.8em;margin-bottom:12px;">Действует <b>только на эту дату</b>. Пустое = нет пары.</p>
+<div class="mo" id="chg-mo"><div class="md">
+  <h3><span class="mi">⚡</span>Замена на дату</h3>
+  <input type="hidden" id="chg-eid">
+  <div class="fg"><label>📅 Дата</label><input type="date" id="chg-date"></div>
+  <p style="color:var(--text-3);font-size:.78em;margin-bottom:14px">Действует <b>только на эту дату</b>. Пустое поле = нет пары.</p>
   <div id="chg-pairs-c"></div>
-  <div class="modal-buttons">
-    <button class="btn btn-secondary" onclick="closeModal('chg-modal')">Отмена</button>
-    <button class="btn btn-danger" id="chg-del-btn" onclick="delChange()" style="display:none;">Удалить</button>
-    <button class="btn btn-primary" onclick="saveChange()">Сохранить</button>
+  <div class="md-btns">
+    <button class="btn btn-s" onclick="closeMo('chg-mo')">Отмена</button>
+    <button class="btn btn-d" id="chg-del-btn" onclick="delChg()" style="display:none">Удалить</button>
+    <button class="btn btn-p" onclick="saveChg()">Сохранить</button>
   </div>
 </div></div>
 
-<div class="modal-overlay" id="times-modal"><div class="modal">
-  <h3>🕐 Время пар</h3>
+<div class="mo" id="times-mo"><div class="md">
+  <h3><span class="mi">🕐</span>Время пар</h3>
   <div id="times-form"></div>
-  <div class="modal-buttons">
-    <button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button>
-    <button class="btn btn-primary" onclick="saveTimes()">Сохранить</button>
+  <div class="md-btns">
+    <button class="btn btn-s" onclick="closeMo('times-mo')">Отмена</button>
+    <button class="btn btn-p" onclick="saveTimes()">Сохранить</button>
   </div>
 </div></div>
 
-<!-- FIREBASE -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
 <script>
-// ============ THEME SYSTEM ============
-const THEMES = [
-  { id: 'dark', name: 'Тёмная', icon: '🌙', color: '#0a0a0f' },
-  { id: 'light', name: 'Светлая', icon: '☀️', color: '#f2f3f7' },
-  { id: 'midnight', name: 'Полночь', icon: '🌊', color: '#0a0e1a' },
-  { id: 'emerald', name: 'Изумруд', icon: '💎', color: '#052e16' },
-  { id: 'rose', name: 'Роза', icon: '🌹', color: '#1a0a10' },
-  { id: 'sunset', name: 'Закат', icon: '🌅', color: '#1a0f05' },
-  { id: 'cyber', name: 'Кибер', icon: '🔮', color: '#0a0a12' },
-  { id: 'nord', name: 'Норд', icon: '❄️', color: '#2e3440' },
-  { id: 'cream', name: 'Крем', icon: '🍦', color: '#faf7f2' },
+// ============ PARTICLES ============
+function initParticles(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<30;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'%';
+    p.style.width=p.style.height=(1+Math.random()*3)+'px';
+    p.style.animationDuration=(8+Math.random()*20)+'s';
+    p.style.animationDelay=(-Math.random()*20)+'s';
+    p.style.opacity=.1+Math.random()*.3;
+    c.appendChild(p);
+  }
+}
+initParticles();
+
+// ============ THEMES ============
+const THEMES=[
+  {id:'dark',name:'Тёмная',icon:'🌙',color:'#06060b'},
+  {id:'light',name:'Светлая',icon:'☀️',color:'#f0f2f7'},
+  {id:'midnight',name:'Полночь',icon:'🌊',color:'#070b18'},
+  {id:'emerald',name:'Изумруд',icon:'💎',color:'#030f0a'},
+  {id:'rose',name:'Роза',icon:'🌹',color:'#0f0508'},
+  {id:'sunset',name:'Закат',icon:'🌅',color:'#0f0802'},
+  {id:'cyber',name:'Кибер',icon:'🔮',color:'#08060f'},
+  {id:'nord',name:'Норд',icon:'❄️',color:'#242933'},
+  {id:'cream',name:'Крем',icon:'🍦',color:'#f7f3ec'},
+  {id:'neon',name:'Неон',icon:'💚',color:'#050508'},
 ];
 
-function initTheme() {
-  const saved = localStorage.getItem('theme');
-  if (saved) setTheme(saved);
-  else setTheme(matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+function initTheme(){const s=localStorage.getItem('theme');setTheme(s||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('theme',t);
+  const th=THEMES.find(x=>x.id===t);
+  const i=document.getElementById('theme-ico');
+  if(i)i.textContent=th?th.icon:'🎨';
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',th?.color||'#0a0a0f');
+  renderTPGrid();
 }
-
-function setTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  localStorage.setItem('theme', t);
-  const i = document.getElementById('theme-icon');
-  const theme = THEMES.find(x => x.id === t);
-  if (i) i.textContent = theme ? theme.icon : '🎨';
-  const s = document.querySelector('.safe-area-top');
-  const isLight = ['light', 'cream'].includes(t);
-  if (s) s.style.background = isLight ? '#fff' : '';
-  // Update meta theme-color
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta && theme) meta.setAttribute('content', theme.color);
-  renderThemeGrid();
+function quickToggle(){
+  const cur=document.documentElement.getAttribute('data-theme');
+  const idx=THEMES.findIndex(t=>t.id===cur);
+  setTheme(THEMES[(idx+1)%THEMES.length].id);
 }
-
-function quickToggle() {
-  const cur = document.documentElement.getAttribute('data-theme');
-  const idx = THEMES.findIndex(t => t.id === cur);
-  const next = THEMES[(idx + 1) % THEMES.length];
-  setTheme(next.id);
+function openTP(){renderTPGrid();document.getElementById('tp-overlay').classList.add('on')}
+function closeTP(){document.getElementById('tp-overlay').classList.remove('on')}
+function renderTPGrid(){
+  const c=document.getElementById('tp-grid');if(!c)return;
+  const cur=document.documentElement.getAttribute('data-theme')||'dark';
+  c.innerHTML=THEMES.map(t=>`<div class="tp-opt ${t.id===cur?'cur':''}" onclick="setTheme('${t.id}');closeTP()"><div class="tp-swatch" style="background:${t.color}"></div><span>${t.icon} ${t.name}</span></div>`).join('');
 }
-
-function openThemePicker() {
-  renderThemeGrid();
-  document.getElementById('theme-picker-overlay').classList.add('active');
-}
-function closeThemePicker() {
-  document.getElementById('theme-picker-overlay').classList.remove('active');
-}
-
-function renderThemeGrid() {
-  const c = document.getElementById('themes-grid');
-  if (!c) return;
-  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-  c.innerHTML = THEMES.map(t => `
-    <div class="theme-option ${t.id === cur ? 'active-theme' : ''}" onclick="setTheme('${t.id}');closeThemePicker();">
-      <div class="theme-swatch" style="background:${t.color};"></div>
-      <span>${t.icon} ${t.name}</span>
-    </div>
-  `).join('');
-}
-
-// Handle clicks outside theme picker
-document.addEventListener('click', e => {
-  const overlay = document.getElementById('theme-picker-overlay');
-  if (overlay && overlay.classList.contains('active') && e.target === overlay) {
-    closeThemePicker();
-  }
-});
-
+document.addEventListener('click',e=>{const o=document.getElementById('tp-overlay');if(o?.classList.contains('on')&&e.target===o)closeTP()});
 initTheme();
 
 // ============ FIREBASE ============
@@ -1316,47 +1266,43 @@ firebase.initializeApp({
 const auth=firebase.auth(),db=firebase.database();
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"],DS=['Пн','Вт','Ср','Чт','Пт','Сб'],DF=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
+const DS=['Пн','Вт','Ср','Чт','Пт','Сб'];
+const DF=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+const DI=['📅','📆','📋','📌','🗓','🎯'];
 let curUser=null,isAdmin=false,isGuest=false;
 let sched={upper:{},lower:{}},hwList=[],chgList=[],nhwList=[],subjList=[];
 let cfg={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
-let vws=getMonday(new Date()),defPrompt=null,css={};
-
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();defPrompt=e;setTimeout(()=>{if(!localStorage.getItem('ipd'))document.getElementById('install-prompt').classList.add('show')},3000)});
-
-function installApp(){if(defPrompt){defPrompt.prompt();defPrompt.userChoice.then(()=>{defPrompt=null;hideInstallPrompt()})}}
-function hideInstallPrompt(){document.getElementById('install-prompt').classList.remove('show');localStorage.setItem('ipd','1')}
+let vws=getMonday(new Date()),css={};
 
 function getMonday(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
 function fdk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
 function pdk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0)}
-function fds(d){const r=new Date(d);return String(r.getDate()).padStart(2,'0')+'.'+String(r.getMonth()+1).padStart(2,'0')}
+function fds(d){return String(new Date(d).getDate()).padStart(2,'0')+'.'+String(new Date(d).getMonth()+1).padStart(2,'0')}
 function fdf(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
-function fdh(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'})}
+function fdh(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'short'})}
 function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML}
 
-function gwt(mon){if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);return Math.ceil(((mon-s)/86400000+s.getDay()+1)/7)%2===1?'upper':'lower'}const sd=getMonday(pdk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/(864e5))/7)%2===0?'upper':'lower'}
+function gwt(mon){
+  if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);return Math.ceil(((mon-s)/86400000+s.getDay()+1)/7)%2===1?'upper':'lower'}
+  const sd=getMonday(pdk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/864e5)/7)%2===0?'upper':'lower';
+}
 
-function lessonsFor(dateKey){
-  const d=pdk(dateKey),dow=d.getDay();
-  if(dow===0)return{};
+function lessonsFor(dk){
+  const d=pdk(dk),dow=d.getDay();if(dow===0)return{};
   const di=dow-1;if(di>5)return{};
-  const ch=chgList.find(c=>c.date===dateKey);
+  const ch=chgList.find(c=>c.date===dk);
   if(ch)return ch.lessons||{};
   return(sched[gwt(getMonday(d))]||{})[DS[di]]||{};
 }
 
-function findNext(subjectName){
+function findNext(subj){
   const today=new Date();today.setHours(0,0,0,0);
   for(let off=1;off<=60;off++){
     const cd=new Date(today);cd.setDate(cd.getDate()+off);
     const dow=cd.getDay();if(dow===0||dow>6)continue;
-    const dateKey=fdk(cd);
-    const lessons=lessonsFor(dateKey);
-    for(let p=1;p<=5;p++){
-      const l=lessons[p];
-      if(l&&l.name&&l.name.toLowerCase().trim()===subjectName.toLowerCase().trim())return{date:dateKey,pair:p};
-    }
+    const dk=fdk(cd),lessons=lessonsFor(dk);
+    for(let p=1;p<=5;p++){const l=lessons[p];if(l?.name?.toLowerCase().trim()===subj.toLowerCase().trim())return{date:dk,pair:p}}
   }
   return null;
 }
@@ -1368,11 +1314,8 @@ function recalcHw(){
     if(hw.done||!hw.subject)return;
     if(hw.targetDate&&hw.targetDate<tk)return;
     const nx=findNext(hw.subject);
-    if(nx){
-      if(nx.date!==hw.targetDate||nx.pair!==hw.targetPair){
-        db.ref(`newHomework/${hw.id}`).update({targetDate:nx.date,targetPair:nx.pair});
-      }
-    }
+    if(nx&&(nx.date!==hw.targetDate||nx.pair!==hw.targetPair))
+      db.ref(`newHomework/${hw.id}`).update({targetDate:nx.date,targetPair:nx.pair});
   });
 }
 
@@ -1383,20 +1326,25 @@ function buildCS(cid,selId,onChange){
   const sel=sorted.find(s=>s.id===selId);
   css[cid]={selectedId:selId||'',onChange};
   let trig;
-  if(sel)trig=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(sel.name)}</div><div class="cs-meta">${sel.room?'📍'+esc(sel.room):''}${sel.teacher?' · 👤'+esc(sel.teacher):''}</div></div>`;
-  else trig=`<span class="cs-placeholder">— нет пары —</span>`;
-  const opts=sorted.map(s=>`<div class="cs-option${s.id===selId?' selected':''}" data-sid="${s.id}"><span class="cso-icon">📖</span><div class="cso-text"><div class="cso-name">${esc(s.name)}</div><div class="cso-meta">${s.room?'📍'+esc(s.room):''}${s.teacher?' · 👤'+esc(s.teacher):''}</div></div></div>`).join('');
-  c.innerHTML=`<div class="custom-select"><div class="cs-trigger" data-cid="${cid}">${trig}<span class="cs-arrow">▼</span></div><div class="cs-dropdown" id="${cid}-dd"><div class="cs-option empty-opt" data-sid=""><span class="cso-icon">✕</span><div class="cso-text"><div class="cso-name" style="color:var(--text-muted)">— Нет пары —</div></div></div>${opts}</div></div>`;
-  c.querySelector('.cs-trigger').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.cs-trigger'),wo=dd.classList.contains('open');closeAllCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
-  c.querySelectorAll('.cs-option').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,subj=id?subjList.find(s=>s.id===id):null;css[cid].selectedId=id;const tr=c.querySelector('.cs-trigger');if(subj)tr.innerHTML=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(subj.name)}</div><div class="cs-meta">${subj.room?'📍'+esc(subj.room):''}${subj.teacher?' · 👤'+esc(subj.teacher):''}</div></div><span class="cs-arrow">▼</span>`;else tr.innerHTML=`<span class="cs-placeholder">— нет пары —</span><span class="cs-arrow">▼</span>`;c.querySelectorAll('.cs-option').forEach(x=>x.classList.remove('selected'));o.classList.add('selected');closeAllCS();if(css[cid].onChange)css[cid].onChange(id,subj)})});
+  if(sel)trig=`<span class="cst-icon">📖</span><div class="cst-text"><div class="cst-name">${esc(sel.name)}</div><div class="cst-meta">${sel.room?'📍'+esc(sel.room):''}${sel.teacher?' · 👤'+esc(sel.teacher):''}</div></div>`;
+  else trig=`<span class="cst-ph">— нет пары —</span>`;
+  const opts=sorted.map(s=>`<div class="cs-opt${s.id===selId?' sel':''}" data-sid="${s.id}"><span class="cso-icon">📖</span><div><div class="cso-name">${esc(s.name)}</div><div class="cso-meta">${s.room?'📍'+esc(s.room):''}${s.teacher?' · 👤'+esc(s.teacher):''}</div></div></div>`).join('');
+  c.innerHTML=`<div class="cs"><div class="cs-trig" data-cid="${cid}">${trig}<span class="cst-arr">▼</span></div><div class="cs-dd" id="${cid}-dd"><div class="cs-opt emp" data-sid=""><span class="cso-icon">✕</span><div><div class="cso-name" style="color:var(--text-3)">— Нет пары —</div></div></div>${opts}</div></div>`;
+  c.querySelector('.cs-trig').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.cs-trig'),wo=dd.classList.contains('op');closeAllCS();if(!wo){dd.classList.add('op');tr.classList.add('op')}});
+  c.querySelectorAll('.cs-opt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,subj=id?subjList.find(s=>s.id===id):null;css[cid].selectedId=id;const tr=c.querySelector('.cs-trig');if(subj)tr.innerHTML=`<span class="cst-icon">📖</span><div class="cst-text"><div class="cst-name">${esc(subj.name)}</div><div class="cst-meta">${subj.room?'📍'+esc(subj.room):''}${subj.teacher?' · 👤'+esc(subj.teacher):''}</div></div><span class="cst-arr">▼</span>`;else tr.innerHTML=`<span class="cst-ph">— нет пары —</span><span class="cst-arr">▼</span>`;c.querySelectorAll('.cs-opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');closeAllCS();if(css[cid].onChange)css[cid].onChange(id,subj)})});
 }
-function closeAllCS(){document.querySelectorAll('.cs-dropdown.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.cs-trigger.open').forEach(t=>t.classList.remove('open'))}
+function closeAllCS(){document.querySelectorAll('.cs-dd.op').forEach(d=>d.classList.remove('op'));document.querySelectorAll('.cs-trig.op').forEach(t=>t.classList.remove('op'))}
 function gcsv(id){return css[id]?.selectedId||''}
 document.addEventListener('click',()=>closeAllCS());
 
+// AUTH
 auth.onAuthStateChanged(u=>{if(u){curUser=u;isAdmin=ADMINS.includes(u.uid);isGuest=false;showApp()}else if(localStorage.getItem('gs')){isGuest=true;showApp()}});
 
-function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-password').value;if(!e||!p){showLE('Введите email и пароль');return}auth.signInWithEmailAndPassword(e,p).catch(()=>showLE('Неверные данные'))}
+function doLogin(){
+  const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-password').value;
+  if(!e||!p){showLE('Введите email и пароль');return}
+  auth.signInWithEmailAndPassword(e,p).catch(()=>showLE('Неверные данные'));
+}
 function showLE(m){const e=document.getElementById('login-error');e.textContent=m;e.style.display='block'}
 function enterAsGuest(){isGuest=true;isAdmin=false;curUser=null;localStorage.setItem('gs','1');showApp()}
 function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGuest=false;isAdmin=false;curUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex'})}
@@ -1404,80 +1352,111 @@ function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGue
 function showApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('admin-badge').style.display=isAdmin?'inline':'none';
-  document.getElementById('user-email').textContent=isGuest?'Гость':(curUser?.email?.split('@')[0]||'');
-  document.querySelectorAll('.admin-only').forEach(el=>el.style.display=isAdmin?'':'none');
-  document.getElementById('main-nav').classList.remove('hidden');
+  document.getElementById('admin-tag').style.display=isAdmin?'inline':'none';
+  const name=isGuest?'Гость':(curUser?.email?.split('@')[0]||'');
+  document.getElementById('user-name').textContent=name;
+  document.getElementById('user-ava').textContent=(name[0]||'G').toUpperCase();
+  document.querySelectorAll('.adm').forEach(el=>el.style.display=isAdmin?'':'none');
   init();
 }
 
-function init(){setupNav();loadData();vws=getMonday(new Date());updateHeader()}
+function init(){setupTabs();loadData();vws=getMonday(new Date());updateHeader()}
 
-function setupNav(){document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.section).classList.add('active')})})}
+function setupTabs(){document.querySelectorAll('.tab').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.sec').forEach(x=>x.classList.remove('on'));b.classList.add('active');document.getElementById(b.dataset.s).classList.add('on')})})}
 
 function loadData(){
-  db.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('week-start-date').value=cfg.weekStartDate}updateAll();updateHeader()});
+  db.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('ws-date').value=cfg.weekStartDate}updateAll();updateHeader()});
   db.ref('schedule').on('value',s=>{sched=s.val()||{upper:{},lower:{}};renderDays();recalcHw()});
   db.ref('homework').on('value',s=>{const d=s.val();hwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDays()});
-  db.ref('subjects').on('value',s=>{const d=s.val();subjList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDays()});
-  db.ref('newHomework').on('value',s=>{const d=s.val();nhwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwTab();renderDays();updateHwBadge()});
-  db.ref('changes').on('value',s=>{const d=s.val();chgList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanPast();renderDays();renderChanges();recalcHw()});
-  document.getElementById('week-start-date').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
+  db.ref('subjects').on('value',s=>{const d=s.val();subjList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjs();renderDays();updateStats()});
+  db.ref('newHomework').on('value',s=>{const d=s.val();nhwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwTab();renderDays();updateHwBadge();updateStats()});
+  db.ref('changes').on('value',s=>{const d=s.val();chgList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanPast();renderDays();renderChgs();recalcHw();updateStats()});
+  document.getElementById('ws-date').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
 }
 
 function cleanPast(){if(!isAdmin)return;const tk=fdk(new Date());chgList.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
-function updateHeader(){const t=new Date(),wt=gwt(getMonday(t));document.getElementById('header-date').textContent=fdh(t);const w=document.getElementById('header-week');w.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';w.className='header-week '+wt}
-function updateWeekNav(){const e=new Date(vws);e.setDate(e.getDate()+5);const wt=gwt(vws);document.getElementById('week-range').textContent=`${fds(vws)} — ${fds(e)}`;const t=document.getElementById('week-type');t.textContent=wt==='upper'?'☀️ Верхняя неделя':'🌙 Нижняя неделя';t.className='week-dates-type '+wt}
-function prevWeek(){vws.setDate(vws.getDate()-7);updateAll()}
-function nextWeek(){vws.setDate(vws.getDate()+7);updateAll()}
-function updateAll(){updateWeekNav();renderDays()}
 
-// Subjects
-function renderSubjects(){
-  const c=document.getElementById('subjects-list');
-  if(!subjList.length){c.innerHTML='<div class="no-items">📖 Добавьте предметы для начала работы</div>';return}
-  c.innerHTML=subjList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="subject-card"><div class="subject-icon">📖</div><div class="subject-info"><div class="subject-name">${esc(s.name)}</div><div class="subject-meta">${s.room?`<span>📍 ${esc(s.room)}</span>`:''}${s.teacher?`<span>👤 ${esc(s.teacher)}</span>`:''}</div></div><div class="subject-actions"><button class="btn btn-xs btn-secondary" onclick="editSubject('${s.id}')">✏️</button><button class="btn btn-xs btn-danger" onclick="delSubject('${s.id}')">✕</button></div></div>`).join('');
+function updateStats(){
+  const tk=fdk(new Date());
+  document.getElementById('st-subj').textContent=subjList.length;
+  document.getElementById('st-hw').textContent=nhwList.filter(h=>h.targetDate>=tk&&!h.done).length;
+  document.getElementById('st-chg').textContent=chgList.filter(c=>c.date>=tk).length;
+  const wt=gwt(getMonday(new Date()));
+  document.getElementById('st-week').textContent=wt==='upper'?'верх':'нижн';
 }
 
-function openSubjectModal(eid){document.getElementById('subj-edit-id').value=eid||'';document.getElementById('subj-name').value='';document.getElementById('subj-room').value='';document.getElementById('subj-teacher').value='';document.getElementById('subj-modal-title').textContent=eid?'📖 Редактировать':'📖 Добавить';if(eid){const s=subjList.find(x=>x.id===eid);if(s){document.getElementById('subj-name').value=s.name||'';document.getElementById('subj-room').value=s.room||'';document.getElementById('subj-teacher').value=s.teacher||''}}openModal('subj-modal')}
-function editSubject(id){openSubjectModal(id)}
-function saveSubject(){const id=document.getElementById('subj-edit-id').value,n=document.getElementById('subj-name').value.trim(),r=document.getElementById('subj-room').value.trim(),t=document.getElementById('subj-teacher').value.trim();if(!n){alert('Введите название');return}if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});closeModal('subj-modal')}
-function delSubject(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
+function updateHeader(){
+  const t=new Date(),wt=gwt(getMonday(t));
+  document.getElementById('h-date').textContent=fdh(t);
+  const w=document.getElementById('h-week');
+  w.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';
+  w.className='week-pill '+wt;
+}
+function updateWeekNav(){
+  const e=new Date(vws);e.setDate(e.getDate()+5);const wt=gwt(vws);
+  document.getElementById('wn-range').textContent=`${fds(vws)} — ${fds(e)}`;
+  const t=document.getElementById('wn-type');
+  t.textContent=wt==='upper'?'☀️ Верхняя неделя':'🌙 Нижняя неделя';
+  t.className='wn-type '+wt;
+}
+function prevWeek(){vws.setDate(vws.getDate()-7);updateAll()}
+function nextWeek(){vws.setDate(vws.getDate()+7);updateAll()}
+function updateAll(){updateWeekNav();renderDays();updateStats()}
+
+// Subjects
+function renderSubjs(){
+  const c=document.getElementById('subj-list');
+  if(!subjList.length){c.innerHTML='<div class="empty-state"><div class="es-icon">📖</div><div class="es-text">Нет предметов</div><div class="es-sub">Добавьте предметы для начала работы</div></div>';return}
+  c.innerHTML=subjList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="subj-card"><div class="subj-icon">📖</div><div class="subj-info"><div class="subj-name">${esc(s.name)}</div><div class="subj-meta">${s.room?`<span>📍 ${esc(s.room)}</span>`:''}${s.teacher?`<span>👤 ${esc(s.teacher)}</span>`:''}</div></div><div class="subj-acts"><button class="btn btn-xs btn-s" onclick="editSubj('${s.id}')">✏️</button><button class="btn btn-xs btn-d" onclick="delSubj('${s.id}')">✕</button></div></div>`).join('');
+}
+function openSubjModal(eid){
+  document.getElementById('subj-eid').value=eid||'';
+  document.getElementById('subj-name').value='';document.getElementById('subj-room').value='';document.getElementById('subj-teacher').value='';
+  document.getElementById('subj-mo-title').innerHTML=eid?'<span class="mi">📖</span>Редактировать':'<span class="mi">📖</span>Добавить';
+  if(eid){const s=subjList.find(x=>x.id===eid);if(s){document.getElementById('subj-name').value=s.name||'';document.getElementById('subj-room').value=s.room||'';document.getElementById('subj-teacher').value=s.teacher||''}}
+  openMo('subj-mo');
+}
+function editSubj(id){openSubjModal(id)}
+function saveSubj(){
+  const id=document.getElementById('subj-eid').value,n=document.getElementById('subj-name').value.trim(),r=document.getElementById('subj-room').value.trim(),t=document.getElementById('subj-teacher').value.trim();
+  if(!n){alert('Введите название');return}
+  if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});
+  closeMo('subj-mo');
+}
+function delSubj(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
 
 // HW Tab
 function renderHwTab(){
   const c=document.getElementById('hw-tab-list'),tk=fdk(new Date());
   const p=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
-  if(!p.length){c.innerHTML='<div class="no-items">📚 Нет предстоящих ДЗ</div>';return}
-  c.innerHTML=p.map(h=>`<div class="hw-card"><div class="hw-card-top"><div class="hw-card-subject"><span class="hw-card-subject-icon">📖</span>${esc(h.subject)}</div><div class="hw-card-due">📅 ${fdf(pdk(h.targetDate))}</div></div><div class="hw-card-task">${esc(h.task)}</div><div class="hw-card-actions"><button class="btn btn-xs btn-success" onclick="toggleNH('${h.id}')">✓ Выполнено</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="delNH('${h.id}')">✕</button>`:''}</div></div>`).join('');
+  if(!p.length){c.innerHTML='<div class="empty-state"><div class="es-icon">✅</div><div class="es-text">Всё выполнено!</div><div class="es-sub">Нет предстоящих домашних заданий</div></div>';return}
+  c.innerHTML=p.map(h=>`<div class="hw-card"><div class="hw-card-top"><div class="hw-card-subj"><span class="hw-card-subj-icon">📖</span>${esc(h.subject)}</div><div class="hw-card-due">📅 ${fdf(pdk(h.targetDate))}</div></div><div class="hw-card-task">${esc(h.task)}</div><div class="hw-card-acts"><button class="btn btn-xs btn-ok" onclick="toggleNH('${h.id}')">✓ Выполнено</button>${isAdmin?`<button class="btn btn-xs btn-d" onclick="delNH('${h.id}')">✕</button>`:''}</div></div>`).join('');
 }
-
-function updateHwBadge(){const tk=fdk(new Date()),n=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;document.getElementById('homework-nav').innerHTML=n>0?`📋 ДЗ <span class="hw-badge">${n}</span>`:'📋 ДЗ'}
-
+function updateHwBadge(){
+  const tk=fdk(new Date()),n=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;
+  document.getElementById('hw-nav').innerHTML=n>0?`📋 ДЗ <span class="badge">${n}</span>`:'📋 ДЗ';
+}
 function openNewHwModal(){
   if(!isAdmin)return;
   buildCS('nhw-sel-c','',(_,subj)=>{
     const info=document.getElementById('nhw-next');
-    if(subj&&subj.name){const nx=findNext(subj.name);if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:700;">📅 ${fdf(pdk(nx.date))}</span><span style="color:var(--text-muted);margin-left:6px;">(пара ${nx.pair})</span>`;else info.innerHTML='<span style="color:#fb7185">❌ Не найдено в расписании</span>'}
+    if(subj?.name){const nx=findNext(subj.name);if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:800">📅 ${fdf(pdk(nx.date))}</span><span style="color:var(--text-3);margin-left:8px">(пара ${nx.pair})</span>`;else info.innerHTML='<span style="color:var(--danger)">❌ Не найдено</span>'}
     else info.innerHTML='Выберите предмет...';
   });
   document.getElementById('nhw-task').value='';
   document.getElementById('nhw-next').innerHTML='Выберите предмет...';
-  openModal('new-hw-modal');
+  openMo('nhw-mo');
 }
-
 function saveNewHw(){
   if(!isAdmin)return;
   const sid=gcsv('nhw-sel-c'),subj=subjList.find(s=>s.id===sid);
   if(!subj){alert('Выберите предмет');return}
   const task=document.getElementById('nhw-task').value.trim();
   if(!task){alert('Введите задание');return}
-  const nx=findNext(subj.name);
-  if(!nx){alert('Пара не найдена');return}
+  const nx=findNext(subj.name);if(!nx){alert('Пара не найдена');return}
   db.ref('newHomework').push({subject:subj.name,task,targetDate:nx.date,targetPair:nx.pair,done:false,created:new Date().toISOString()});
-  closeModal('new-hw-modal');
+  closeMo('nhw-mo');
 }
-
 function toggleNH(id){const h=nhwList.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
 function delNH(id){if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
 
@@ -1489,7 +1468,13 @@ function renderDays(){
     const dd=new Date(vws);dd.setDate(dd.getDate()+i);const dk=DS[i],dateKey=fdk(dd),isT=dateKey===tk;
     const ch=chgList.find(c=>c.date===dateKey),hasCh=!!ch;
     const lessons=hasCh?(ch.lessons||{}):(wd[dk]||{});
-    h+=`<div class="day-block ${isT?'today':''} ${hasCh?'has-changes':''}"><div class="day-header"><div class="day-title">${DF[i]} <span class="date">${fds(dd)}</span></div><div class="day-badges">${hasCh?'<span class="changes-label">⚡ Замена</span>':''}${isT?'<span class="today-label">Сегодня</span>':''}</div></div><div class="day-content"><div class="lessons-list">${renderL(dk,lessons,wt,dateKey,hasCh)}</div></div></div>`;
+    h+=`<div class="day ${isT?'today':''} ${hasCh?'changed':''}">
+      <div class="day-head">
+        <div class="day-title"><span class="dt-icon">${DI[i]}</span><div>${DF[i]}<div class="dt-date">${fds(dd)}</div></div></div>
+        <div class="day-badges">${hasCh?'<span class="badge-change">⚡ Замена</span>':''}${isT?'<span class="badge-today">● Сегодня</span>':''}</div>
+      </div>
+      <div class="day-body"><div class="lessons">${renderL(dk,lessons,wt,dateKey,hasCh)}</div></div>
+    </div>`;
   }
   g.innerHTML=h;
 }
@@ -1500,82 +1485,117 @@ function renderL(dk,lessons,wt,dateKey,hasCh){
     const l=lessons[p],has=l&&l.name,time=cfg.pairTimes[p-1];
     const ho=hwList.filter(x=>x.date===dateKey&&x.pair===p);
     const hn=nhwList.filter(x=>x.targetDate===dateKey&&x.targetPair===p);
-    h+=`<div class="lesson-row ${has?'':'empty'} ${hasCh&&has?'changed':''}" onclick="${isAdmin&&!hasCh?`openLessonModal('${dk}',${p},'${wt}')`:''}"><div class="lesson-number"><div class="lesson-num">${p}</div><div class="lesson-time">${time?.start||''}</div></div><div class="lesson-info">${has?`<div class="lesson-name-row"><span class="lesson-name">${esc(l.name)}</span>${isAdmin?`<button class="add-hw-btn" onclick="event.stopPropagation();openHwModal('${dateKey}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div><div class="lesson-details">${l.room?`<span class="lesson-room">📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${rhb(ho,'📝 Домашка','hw')}${rhb(hn,'📋 ДЗ','nh')}`:`<span class="lesson-empty-text">${isAdmin&&!hasCh?'+ Добавить пару':'—'}</span>`}</div></div>`;
+    h+=`<div class="les ${has?'':'empty'} ${hasCh&&has?'ch':''}" onclick="${isAdmin&&!hasCh?`openLesMo('${dk}',${p},'${wt}')`:''}">
+      <div class="les-num"><div class="ln-n">${p}</div><div class="ln-t">${time?.start||''}</div></div>
+      <div class="les-info">${has?`
+        <div class="les-top"><span class="les-name">${esc(l.name)}</span>${isAdmin?`<button class="hw-btn" onclick="event.stopPropagation();openHwMo('${dateKey}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div>
+        <div class="les-det">${l.room?`<span class="les-room">📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>
+        ${rhb(ho,'📝 Домашка','hw')}${rhb(hn,'📋 ДЗ','nh')}`
+        :`<span class="les-empty">${isAdmin&&!hasCh?'＋ Добавить пару':'—'}</span>`}
+      </div>
+    </div>`;
   }
   return h;
 }
 
 function rhb(list,title,type){
-  if(!list||!list.length)return'';
-  return list.map(h=>`<div class="lesson-homework ${h.done?'done':''}" onclick="event.stopPropagation();"><div class="lesson-homework-header"><span class="lesson-homework-title">${title}</span><div><button class="btn btn-xs ${h.done?'btn-secondary':'btn-success'}" onclick="${type==='hw'?`toggleOldHw('${h.id}')`:`toggleNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="${type==='hw'?`delOldHw('${h.id}')`:`delNH('${h.id}')`}">✕</button>`:''}</div></div><div class="lesson-homework-text">${esc(h.task)}</div></div>`).join('');
+  if(!list?.length)return'';
+  return list.map(h=>`<div class="les-hw ${h.done?'done':''}" onclick="event.stopPropagation()">
+    <div class="hw-head"><span class="hw-label">${title}</span><div>
+      <button class="btn btn-xs ${h.done?'btn-s':'btn-ok'}" onclick="${type==='hw'?`toggleOldHw('${h.id}')`:`toggleNH('${h.id}')`}">${h.done?'↩':'✓'}</button>
+      ${isAdmin?`<button class="btn btn-xs btn-d" onclick="${type==='hw'?`delOldHw('${h.id}')`:`delNH('${h.id}')`}">✕</button>`:''}
+    </div></div><div class="hw-text">${esc(h.task)}</div></div>`).join('');
 }
 
 // Changes
-function renderChanges(){
-  const c=document.getElementById('changes-list'),tk=fdk(new Date());
+function renderChgs(){
+  const c=document.getElementById('chg-list'),tk=fdk(new Date());
   const f=chgList.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
-  if(!f.length){c.innerHTML='<div class="no-items">⚡ Нет активных изменений</div>';return}
-  c.innerHTML=f.map(ch=>`<div class="change-card"><div class="change-header"><span class="change-date">${fdf(pdk(ch.date))}</span><div><button class="btn btn-sm btn-secondary" onclick="editChange('${ch.id}')">✏️</button><button class="btn btn-sm btn-danger" onclick="delChangeById('${ch.id}')">✕</button></div></div><div>${renderCL(ch.lessons)}</div></div>`).join('');
+  if(!f.length){c.innerHTML='<div class="empty-state"><div class="es-icon">⚡</div><div class="es-text">Нет замен</div><div class="es-sub">Расписание без изменений</div></div>';return}
+  c.innerHTML=f.map(ch=>`<div class="chg-card"><div class="chg-head"><span class="chg-date">📅 ${fdf(pdk(ch.date))}</span><div><button class="btn btn-xs btn-s" onclick="editChg('${ch.id}')">✏️</button><button class="btn btn-xs btn-d" onclick="delChgById('${ch.id}')">✕</button></div></div>${renderCL(ch.lessons)}</div>`).join('');
 }
-
 function renderCL(lessons){
-  if(!lessons)return'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
-  let h='';for(let p=1;p<=5;p++){const l=lessons[p];if(l&&l.name)h+=`<div class="change-lesson-row"><div class="change-pair-num">${p}</div><div class="change-lesson-info"><div class="change-lesson-name">${esc(l.name)}</div><div class="change-lesson-details">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div></div></div>`}
-  return h||'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
+  if(!lessons)return'<div style="color:var(--text-3);padding:12px;font-style:italic">Пар нет</div>';
+  let h='';for(let p=1;p<=5;p++){const l=lessons[p];if(l?.name)h+=`<div class="chg-les-row"><div class="chg-pn">${p}</div><div><div class="chg-ln">${esc(l.name)}</div><div class="chg-ld">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div></div></div>`}
+  return h||'<div style="color:var(--text-3);padding:12px;font-style:italic">Пар нет</div>';
 }
 
-function openChangeModal(eid){
+function openChgModal(eid){
   if(!isAdmin)return;
-  document.getElementById('chg-edit-id').value=eid||'';
+  document.getElementById('chg-eid').value=eid||'';
   document.getElementById('chg-del-btn').style.display=eid?'block':'none';
   document.getElementById('chg-date').value='';
-  let ph='';for(let i=1;i<=5;i++)ph+=`<div class="change-pair-row"><div class="change-pair-header"><span class="change-pair-num-badge">${i}</span><span style="font-weight:600;font-size:.88em;color:var(--text-secondary);">пара</span></div><div id="cs-chg-${i}"></div></div>`;
+  let ph='';for(let i=1;i<=5;i++)ph+=`<div class="cp-row"><div class="cp-head"><span class="cp-num">${i}</span><span style="font-weight:700;font-size:.88em;color:var(--text-2)">пара</span></div><div id="cs-chg-${i}"></div></div>`;
   document.getElementById('chg-pairs-c').innerHTML=ph;
   for(let i=1;i<=5;i++)buildCS(`cs-chg-${i}`,'',null);
-  if(eid){const ch=chgList.find(c=>c.id===eid);if(ch){document.getElementById('chg-date').value=ch.date;if(ch.lessons){for(let i=1;i<=5;i++){const l=ch.lessons[i];if(l&&l.name){const s=subjList.find(x=>x.name===l.name);if(s)buildCS(`cs-chg-${i}`,s.id,null)}}}}}
-  openModal('chg-modal');
+  if(eid){const ch=chgList.find(c=>c.id===eid);if(ch){document.getElementById('chg-date').value=ch.date;if(ch.lessons)for(let i=1;i<=5;i++){const l=ch.lessons[i];if(l?.name){const s=subjList.find(x=>x.name===l.name);if(s)buildCS(`cs-chg-${i}`,s.id,null)}}}}
+  openMo('chg-mo');
 }
-
-function editChange(id){openChangeModal(id)}
-function saveChange(){
+function editChg(id){openChgModal(id)}
+function saveChg(){
   if(!isAdmin)return;
-  const eid=document.getElementById('chg-edit-id').value,date=document.getElementById('chg-date').value;
+  const eid=document.getElementById('chg-eid').value,date=document.getElementById('chg-date').value;
   if(!date){alert('Выберите дату');return}
   const lessons={};let any=false;
   for(let i=1;i<=5;i++){const sid=gcsv(`cs-chg-${i}`),subj=subjList.find(s=>s.id===sid);if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};any=true}}
   const data={date,lessons:any?lessons:null};
   if(eid)db.ref(`changes/${eid}`).set(data);else db.ref('changes').push(data);
-  closeModal('chg-modal');
+  closeMo('chg-mo');
 }
-function delChange(){const id=document.getElementById('chg-edit-id').value;if(id){delChangeById(id);closeModal('chg-modal')}}
-function delChangeById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
+function delChg(){const id=document.getElementById('chg-eid').value;if(id){delChgById(id);closeMo('chg-mo')}}
+function delChgById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
 
 // Lesson modal
-function openModal(id){document.getElementById(id).classList.add('active')}
-function closeModal(id){document.getElementById(id).classList.remove('active')}
+function openMo(id){document.getElementById(id).classList.add('on')}
+function closeMo(id){document.getElementById(id).classList.remove('on')}
 
-function openLessonModal(day,pair,week){if(!isAdmin)return;document.getElementById('edit-day').value=day;document.getElementById('edit-pair').value=pair;document.getElementById('edit-week').value=week;const l=sched[week]?.[day]?.[pair]||{};let csid='';if(l.name){const s=subjList.find(x=>x.name===l.name);if(s)csid=s.id}buildCS('lesson-sel-c',csid,null);openModal('lesson-modal')}
+function openLesMo(day,pair,week){
+  if(!isAdmin)return;
+  document.getElementById('ed-day').value=day;document.getElementById('ed-pair').value=pair;document.getElementById('ed-week').value=week;
+  const l=sched[week]?.[day]?.[pair]||{};let csid='';
+  if(l.name){const s=subjList.find(x=>x.name===l.name);if(s)csid=s.id}
+  buildCS('les-sel-c',csid,null);openMo('les-mo');
+}
+function saveLes(){
+  if(!isAdmin)return;
+  const d=document.getElementById('ed-day').value,p=document.getElementById('ed-pair').value,w=document.getElementById('ed-week').value;
+  const sid=gcsv('les-sel-c'),subj=subjList.find(s=>s.id===sid);
+  if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});
+  else db.ref(`schedule/${w}/${d}/${p}`).remove();
+  closeMo('les-mo');
+}
+function delLes(){if(!isAdmin)return;db.ref(`schedule/${document.getElementById('ed-week').value}/${document.getElementById('ed-day').value}/${document.getElementById('ed-pair').value}`).remove();closeMo('les-mo')}
 
-function saveLesson(){if(!isAdmin)return;const d=document.getElementById('edit-day').value,p=document.getElementById('edit-pair').value,w=document.getElementById('edit-week').value,sid=gcsv('lesson-sel-c'),subj=subjList.find(s=>s.id===sid);if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();closeModal('lesson-modal')}
-
-function delLesson(){if(!isAdmin)return;db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();closeModal('lesson-modal')}
-
-// Old HW
-function openHwModal(dk,pair,subj){if(!isAdmin)return;document.getElementById('hw-date').value=dk;document.getElementById('hw-pair').value=pair;document.getElementById('hw-subject').value=subj;document.getElementById('hw-task').value='';openModal('hw-modal')}
-
-function saveOldHw(){if(!isAdmin)return;const task=document.getElementById('hw-task').value.trim();if(!task){alert('Введите задание');return}db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task,done:false,created:new Date().toISOString()});closeModal('hw-modal')}
-
+function openHwMo(dk,pair,subj){
+  if(!isAdmin)return;
+  document.getElementById('hw-date').value=dk;document.getElementById('hw-pair').value=pair;
+  document.getElementById('hw-subject').value=subj;document.getElementById('hw-task').value='';
+  openMo('hw-mo');
+}
+function saveOldHw(){
+  if(!isAdmin)return;
+  const task=document.getElementById('hw-task').value.trim();if(!task){alert('Введите задание');return}
+  db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task,done:false,created:new Date().toISOString()});
+  closeMo('hw-mo');
+}
 function toggleOldHw(id){const h=hwList.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
 function delOldHw(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
 
 // Times
-function openTimesModal(){if(!isAdmin)return;document.getElementById('times-form').innerHTML=cfg.pairTimes.map((t,i)=>`<div class="form-group" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;"><span style="min-width:50px;font-weight:700;color:var(--accent);">${i+1} пара</span><input type="time" id="ts${i}" value="${t.start}" class="setting-input" style="flex:1;"><span style="color:var(--text-muted);">—</span><input type="time" id="te${i}" value="${t.end}" class="setting-input" style="flex:1;"></div>`).join('');openModal('times-modal')}
+function openTimesModal(){
+  if(!isAdmin)return;
+  document.getElementById('times-form').innerHTML=cfg.pairTimes.map((t,i)=>`<div style="display:flex;gap:10px;align-items:center;margin-bottom:14px"><span style="min-width:55px;font-weight:800;color:var(--accent);font-family:'JetBrains Mono',monospace">${i+1} пара</span><input type="time" id="ts${i}" value="${t.start}" class="set-input" style="flex:1"><span style="color:var(--text-3)">—</span><input type="time" id="te${i}" value="${t.end}" class="set-input" style="flex:1"></div>`).join('');
+  openMo('times-mo');
+}
+function saveTimes(){
+  if(!isAdmin)return;const t=[];
+  for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});
+  db.ref('settings/pairTimes').set(t);closeMo('times-mo');
+}
 
-function saveTimes(){if(!isAdmin)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);closeModal('times-modal')}
+function clearAll(){if(!isAdmin)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
-function clearAll(){if(!isAdmin)return;if(confirm('Удалить ВСЁ? Это действие необратимо!')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
-
-document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active')})});
+document.querySelectorAll('.mo').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on')})});
 document.getElementById('login-password').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
 document.getElementById('login-email').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('login-password').focus()});
 </script>
