@@ -10,29 +10,24 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icon.png" id="favicon">
   <link rel="apple-touch-icon" sizes="180x180" href="icon.png" id="touchicon">
   <style>
-/* Apple emoji на всех устройствах */
-@font-face {
-  font-family: 'Apple Color Emoji';
-  src: local('Apple Color Emoji'),local('AppleColorEmoji');
-  src: url('fonts/AppleColorEmoji.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root{--bg:#000;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;height:-webkit-fill-available}
-body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif,'Apple Color Emoji';background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::-webkit-scrollbar{width:0;height:0}
+
+/* Apple emoji images */
+.aem{width:1.2em;height:1.2em;vertical-align:-0.2em;display:inline-block;object-fit:contain}
+.aem-lg{width:1.4em;height:1.4em;vertical-align:-0.25em}
+.aem-xl{width:40px;height:40px;vertical-align:middle}
+.aem-icon{width:16px;height:16px;vertical-align:-0.15em}
 
 #loader{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s}
 #loader.hide{opacity:0;pointer-events:none}
 #loader img{width:64px;height:64px;border-radius:14px;margin-bottom:14px;animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.92);opacity:.6}}
 #loader .lt{font-size:14px;color:var(--t3);font-weight:600}
-
 #loginPage{display:none;min-height:100vh;align-items:center;justify-content:center;padding:24px}
 .lc0{width:100%;max-width:340px;text-align:center}
 .lc0 .lico{width:56px;height:56px;border-radius:12px;margin-bottom:14px}
@@ -49,9 +44,7 @@ textarea.inp{resize:vertical;min-height:80px}
 .btnD{display:block;width:100%;padding:14px;border:none;border-radius:var(--r);background:var(--red);color:#fff;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer}
 .sep{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--t3);font-size:13px}
 .sep::before,.sep::after{content:'';flex:1;height:1px;background:var(--t4)}
-
 #app{display:none}
-
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg);padding:6px 16px 6px;padding-top:calc(6px + env(safe-area-inset-top))}
 .topbar-in{display:flex;justify-content:space-between;align-items:center}
 .tb-l{display:flex;align-items:center;gap:6px}
@@ -64,7 +57,6 @@ textarea.inp{resize:vertical;min-height:80px}
 .pill.lo{background:rgba(255,69,58,.15);color:var(--red)}
 .ham{width:32px;height:32px;border-radius:50%;background:var(--bg2);border:none;color:var(--text);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .ham:active{transform:scale(.9)}
-
 .pm-bg{position:fixed;inset:0;z-index:9000;display:none}
 .pm-bg.open{display:block}
 .pm{position:fixed;z-index:9001;background:var(--bg2);border:1px solid var(--t4);border-radius:14px;padding:4px;min-width:190px;box-shadow:0 10px 36px rgba(0,0,0,.5);transform:scale(.15);opacity:0;transform-origin:top right;transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .15s;pointer-events:none}
@@ -72,11 +64,10 @@ textarea.inp{resize:vertical;min-height:80px}
 [data-theme="light"] .pm{box-shadow:0 10px 36px rgba(0,0,0,.1)}
 .pm-i{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:inherit;border-radius:10px}
 .pm-i:active{background:var(--bg3)}
-.pm-i .pi{font-size:16px;width:22px;text-align:center}
+.pm-i .pi{font-size:16px;width:22px;text-align:center;display:inline-flex;align-items:center;justify-content:center}
 .pm-i.red{color:var(--red)}
 .pm-s{height:1px;background:var(--t4);margin:3px 6px}
 .pm-inf{padding:8px 12px;font-size:11px;color:var(--t3)}
-
 .wbar{padding:4px 16px 8px}
 .wrow{display:flex;align-items:center;gap:2px}
 .warr{width:26px;height:42px;flex-shrink:0;background:var(--bg2);border:none;border-radius:8px;color:var(--t2);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer}
@@ -91,22 +82,18 @@ textarea.inp{resize:vertical;min-height:80px}
 .dchip .dot{position:absolute;top:1px;right:1px;width:4px;height:4px;border-radius:50%;background:var(--orange)}
 .wlbl{text-align:center;padding:2px 0 0;font-size:10px;color:var(--t3);font-weight:600}
 .wlbl .up{color:var(--green)}.wlbl .lo{color:var(--red)}
-
 .bnav{position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--bg2);border-top:1px solid var(--t4);display:flex;padding-top:4px;padding-bottom:env(safe-area-inset-bottom,0px)}
 [data-theme="light"] .bnav{background:rgba(255,255,255,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .bb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:none;background:none;color:var(--t3);font-size:10px;font-weight:600;font-family:inherit;cursor:pointer;padding:6px 0 2px}
-.bb .bi{font-size:20px}
+.bb .bi{font-size:20px;display:inline-flex;align-items:center;justify-content:center}
 .bb:active .bi{transform:scale(.85)}
 .bb.on{color:var(--blue)}
-
 .themeFloat{display:none;position:fixed;bottom:20px;right:20px;z-index:150;width:44px;height:44px;border-radius:50%;background:var(--bg2);border:1px solid var(--t4);box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;font-size:20px;align-items:center;justify-content:center}
 .themeFloat:active{transform:scale(.9)}
-
 .mob-content{padding:0 16px;padding-bottom:calc(56px + env(safe-area-inset-bottom,0px))}
 .pg{display:none}
 .pg.on{display:block;animation:fu .2s ease}
 @keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
 .ll{display:flex;flex-direction:column;gap:5px}
 .lc2{background:var(--card);border-radius:var(--r);padding:10px 12px;display:flex;gap:8px;border:1px solid var(--t4);cursor:pointer;position:relative}
 .lc2:active{transform:scale(.98)}
@@ -127,7 +114,6 @@ textarea.inp{resize:vertical;min-height:80px}
 .mb.gr{background:rgba(48,209,88,.15);color:var(--green)}
 .mb.rd{background:rgba(255,69,58,.15);color:var(--red)}
 .mb.og{background:rgba(255,159,10,.15);color:var(--orange)}
-
 .hwi{margin-top:5px;padding:6px 8px;background:rgba(10,132,255,.06);border-radius:var(--rs);border-left:3px solid var(--blue)}
 [data-theme="light"] .hwi{background:rgba(0,122,255,.04)}
 .hwi.done{opacity:.4}
@@ -138,17 +124,14 @@ textarea.inp{resize:vertical;min-height:80px}
 .hwi .hb{display:flex;gap:2px}
 .hwi .hp{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
 .hwi .hp img{width:40px;height:40px;object-fit:cover;border-radius:5px;cursor:pointer;border:1px solid var(--t4)}
-
 .pgh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:6px;flex-wrap:wrap}
 .pgh h2{font-size:18px;font-weight:700}
 .empty{text-align:center;padding:40px 20px;color:var(--t3)}
 .empty .ei{font-size:40px;margin-bottom:6px;opacity:.5}
 .empty .et{font-size:13px}
-
 .evC{background:var(--card);border-radius:var(--r);padding:12px;border:1px solid var(--t4);border-left:3px solid var(--orange);margin-bottom:6px}
 .evC .evt{font-size:13px;font-weight:700;margin-bottom:2px}
 .evC .evd{font-size:11px;color:var(--t3)}
-
 .gradeTabs{display:flex;gap:2px;margin-bottom:12px;background:var(--bg2);border-radius:var(--rs);padding:2px}
 .gTab{flex:1;padding:8px;border:none;border-radius:7px;background:transparent;color:var(--t3);font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;text-align:center;transition:all .2s}
 .gTab.on{background:var(--blue);color:#fff}
@@ -157,7 +140,6 @@ textarea.inp{resize:vertical;min-height:80px}
 .fp .fi{font-size:44px;margin-bottom:8px}
 .fp h3{font-size:16px;font-weight:700;margin-bottom:4px}
 .fp p{font-size:12px;color:var(--t3);line-height:1.4;max-width:240px;margin:0 auto}
-
 .hwC{background:var(--card);border-radius:var(--r);padding:12px;border:1px solid var(--t4);border-left:3px solid var(--blue);margin-bottom:6px}
 .hwC .hs{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:2px}
 .hwC .hd{font-size:10px;color:var(--t3);margin-bottom:6px}
@@ -165,7 +147,6 @@ textarea.inp{resize:vertical;min-height:80px}
 .hwC .ha{display:flex;gap:4px}
 .hwC .hp{display:flex;gap:3px;margin-bottom:6px;flex-wrap:wrap}
 .hwC .hp img{width:56px;height:56px;object-fit:cover;border-radius:5px;cursor:pointer;border:1px solid var(--t4)}
-
 .sjR{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--card);border-radius:var(--r);border:1px solid var(--t4);margin-bottom:5px}
 .sjR .si{width:32px;height:32px;border-radius:var(--rs);background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 .sjR .sn{font-weight:700;font-size:13px}
@@ -178,18 +159,15 @@ textarea.inp{resize:vertical;min-height:80px}
 .stR{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--card);border-radius:var(--r);border:1px solid var(--t4);margin-bottom:5px;gap:8px;flex-wrap:wrap}
 .stR h4{font-size:13px;font-weight:700}
 .stR p{font-size:11px;color:var(--t3)}
-
 .photoArea{margin-top:4px}
 .photoBtn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:var(--bg3);border:1px dashed var(--t4);border-radius:var(--rs);color:var(--t2);font-size:12px;font-weight:600;cursor:pointer}
 .photoPrev{display:flex;gap:3px;margin-top:4px;flex-wrap:wrap}
 .photoPrev .pp{position:relative;width:52px;height:52px}
 .photoPrev .pp img{width:100%;height:100%;object-fit:cover;border-radius:5px;border:1px solid var(--t4)}
 .photoPrev .pp .pr{position:absolute;top:-3px;right:-3px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer}
-
 .imgV{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:10000;display:none;align-items:center;justify-content:center;cursor:pointer}
 .imgV.open{display:flex}
 .imgV img{max-width:95%;max-height:90vh;border-radius:8px;object-fit:contain}
-
 .sheet{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:8000;display:none;align-items:flex-end;justify-content:center}
 [data-theme="light"] .sheet{background:rgba(0,0,0,.3)}
 .sheet.open{display:flex}
@@ -199,7 +177,6 @@ textarea.inp{resize:vertical;min-height:80px}
 .shBox h3{font-size:16px;font-weight:700;margin-bottom:12px}
 .shBtns{display:flex;gap:5px;margin-top:14px;padding-bottom:4px}
 .shBtns .btnP,.shBtns .btnS,.shBtns .btnD{flex:1;padding:12px;font-size:14px}
-
 .csTrig{display:flex;align-items:center;gap:6px;padding:10px 12px;background:var(--bg3);border:1px solid var(--t4);border-radius:var(--r);cursor:pointer;min-height:44px}
 .csTrig.open{border-color:var(--blue);border-radius:var(--r) var(--r) 0 0}
 .csTrig .csI{width:24px;height:24px;border-radius:6px;background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
@@ -222,9 +199,7 @@ textarea.inp{resize:vertical;min-height:80px}
 .cpB{background:var(--bg3);border-radius:var(--rs);padding:8px;margin-bottom:5px}
 .cpB .cpH{display:flex;align-items:center;gap:5px;margin-bottom:5px}
 .cpB .cpN{width:20px;height:20px;border-radius:4px;background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:var(--blue)}
-
 .admH{display:none!important}
-
 @media(min-width:900px){
   .bnav{display:none!important}
   .wbar{display:none!important}
@@ -238,7 +213,7 @@ textarea.inp{resize:vertical;min-height:80px}
   .dNB{display:flex;align-items:center;gap:6px;padding:9px 10px;border:none;background:none;border-radius:var(--rs);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;width:100%;text-align:left;transition:all .2s}
   .dNB:hover{background:var(--bg3)}
   .dNB.on{background:var(--blue);color:#fff}
-  .dNB .di{font-size:16px;width:22px;text-align:center}
+  .dNB .di{font-size:16px;width:22px;text-align:center;display:inline-flex;align-items:center;justify-content:center}
   .mCal{background:var(--card);border-radius:var(--r);padding:12px;border:1px solid var(--t4);margin-bottom:12px}
   .mCal .mch{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .mCal .mct{font-size:14px;font-weight:700}
@@ -283,71 +258,192 @@ textarea.inp{resize:vertical;min-height:80px}
   </style>
 </head>
 <body>
+
 <div id="loader"><img src="icon.png" class="loaderIcon themeIcon"><div class="lt">Загрузка...</div></div>
+
 <div id="loginPage"><div class="lc0"><img src="icon.png" class="lico themeIcon"><h1>Дневник</h1><p class="sub">Войдите чтобы продолжить</p><div class="errMsg" id="errMsg"></div><input class="inp" type="email" id="iE" placeholder="Email" autocomplete="email"><input class="inp" type="password" id="iP" placeholder="Пароль" autocomplete="current-password"><button class="btnP" onclick="doLogin()">Войти</button><div class="sep">или</div><button class="btnS" onclick="guestIn()">Гостевой вход</button></div></div>
 
 <div id="app">
   <div class="topbar"><div class="topbar-in"><div class="tb-l"><img src="icon.png" class="ticon themeIcon"><div class="tb-t">Дневник</div></div><div class="tb-r"><span class="tb-datetext" id="tDateText"></span><span class="pill" id="tBdg"></span><button class="ham" onclick="togPM()">☰</button></div></div></div>
+
   <div class="pm-bg" id="pmBg" onclick="closePM()"></div>
-  <div class="pm" id="pmM"><div class="pm-inf" id="pmInf"></div><button class="pm-i" onclick="go('pgGrades');closePM()"><span class="pi">📊</span>Оценки</button><button class="pm-i" onclick="go('pgChat');closePM()"><span class="pi">💬</span>Чат</button><div class="pm-s"></div><button class="pm-i admH" onclick="go('pgChg');closePM()"><span class="pi">🔄</span>Замены</button><button class="pm-i admH" onclick="go('pgSubj');closePM()"><span class="pi">📖</span>Предметы</button><button class="pm-i admH" onclick="go('pgHw');closePM()"><span class="pi">📝</span>ДЗ</button><button class="pm-i" onclick="go('pgSet');closePM()"><span class="pi">⚙️</span>Настройки</button><div class="pm-s"></div><button class="pm-i red" onclick="doLogout()"><span class="pi">🚪</span>Выйти</button></div>
+  <div class="pm" id="pmM"><div class="pm-inf" id="pmInf"></div><button class="pm-i" onclick="go('pgGrades');closePM()"><span class="pi"></span>Оценки</button><button class="pm-i" onclick="go('pgChat');closePM()"><span class="pi"></span>Чат</button><div class="pm-s"></div><button class="pm-i admH" onclick="go('pgChg');closePM()"><span class="pi"></span>Замены</button><button class="pm-i admH" onclick="go('pgSubj');closePM()"><span class="pi"></span>Предметы</button><button class="pm-i admH" onclick="go('pgHw');closePM()"><span class="pi"></span>ДЗ</button><button class="pm-i" onclick="go('pgSet');closePM()"><span class="pi"></span>Настройки</button><div class="pm-s"></div><button class="pm-i red" onclick="doLogout()"><span class="pi"></span>Выйти</button></div>
+
   <div class="wbar" id="wbar"><div class="wrow" id="wrow"></div><div class="wlbl" id="wlbl"></div></div>
+
   <div class="mob-content">
     <div class="pg on" id="pgSched"><div class="ll" id="lList"></div></div>
-    <div class="pg" id="pgEvents"><div class="pgh"><h2>📌 События</h2></div><div id="evList"></div></div>
-    <div class="pg" id="pgGrades"><div class="pgh"><h2>📊 Оценки</h2></div><div class="gradeTabs"><button class="gTab on" onclick="sGT(0)">Журнал</button><button class="gTab" onclick="sGT(1)">Зачётка</button></div><div class="gCon on" id="grJ"><div class="fp"><div class="fi">📊</div><h3>Журнал оценок</h3><p>Появится в обновлении</p></div></div><div class="gCon" id="grR"><div class="fp"><div class="fi">📋</div><h3>Электронная зачётка</h3><p>Скоро</p></div></div></div>
-    <div class="pg admH" id="pgHw"><div class="pgh"><h2>📝 ДЗ</h2><button class="btnP" onclick="openNH()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="hwList"></div></div>
-    <div class="pg" id="pgChat"><div class="fp"><div class="fi">💬</div><h3>Чат</h3><p>Скоро!</p></div></div>
-    <div class="pg admH" id="pgChg"><div class="pgh"><h2>🔄 Замены</h2><button class="btnP" onclick="openChgM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="chgList"></div></div>
-    <div class="pg admH" id="pgSubj"><div class="pgh"><h2>📖 Предметы</h2><button class="btnP" onclick="openSjM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="sjList"></div></div>
-    <div class="pg" id="pgSet"><h2 style="margin-bottom:12px">⚙️ Настройки</h2><div class="stR"><div><h4>🎨 Тема</h4></div><button class="btnS" onclick="togTh()" style="width:auto;padding:7px 12px;font-size:12px">Сменить</button></div><div class="stR admH"><div><h4>📅 Начало недель</h4></div><input type="date" class="inp" id="cfgWS" style="width:auto;margin:0;padding:7px"></div><div class="stR admH"><div><h4>🕐 Время пар</h4></div><button class="btnS" onclick="openTM()" style="width:auto;padding:7px 12px;font-size:12px">Изменить</button></div><div class="stR admH"><div><h4>🗑 Очистить</h4></div><button class="btnD" onclick="clrAll()" style="width:auto;padding:7px 12px;font-size:12px">Очистить</button></div></div>
+    <div class="pg" id="pgEvents"><div class="pgh"><h2>События</h2></div><div id="evList"></div></div>
+    <div class="pg" id="pgGrades"><div class="pgh"><h2>Оценки</h2></div><div class="gradeTabs"><button class="gTab on" onclick="sGT(0)">Журнал</button><button class="gTab" onclick="sGT(1)">Зачётка</button></div><div class="gCon on" id="grJ"><div class="fp"><div class="fi"></div><h3>Журнал оценок</h3><p>Появится в обновлении</p></div></div><div class="gCon" id="grR"><div class="fp"><div class="fi"></div><h3>Электронная зачётка</h3><p>Скоро</p></div></div></div>
+    <div class="pg admH" id="pgHw"><div class="pgh"><h2>ДЗ</h2><button class="btnP" onclick="openNH()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="hwList"></div></div>
+    <div class="pg" id="pgChat"><div class="fp"><div class="fi"></div><h3>Чат</h3><p>Скоро!</p></div></div>
+    <div class="pg admH" id="pgChg"><div class="pgh"><h2>Замены</h2><button class="btnP" onclick="openChgM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="chgList"></div></div>
+    <div class="pg admH" id="pgSubj"><div class="pgh"><h2>Предметы</h2><button class="btnP" onclick="openSjM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="sjList"></div></div>
+    <div class="pg" id="pgSet"><h2 style="margin-bottom:12px">Настройки</h2><div class="stR"><div><h4>Тема</h4></div><button class="btnS" onclick="togTh()" style="width:auto;padding:7px 12px;font-size:12px">Сменить</button></div><div class="stR admH"><div><h4>Начало недель</h4></div><input type="date" class="inp" id="cfgWS" style="width:auto;margin:0;padding:7px"></div><div class="stR admH"><div><h4>Время пар</h4></div><button class="btnS" onclick="openTM()" style="width:auto;padding:7px 12px;font-size:12px">Изменить</button></div><div class="stR admH"><div><h4>Очистить</h4></div><button class="btnD" onclick="clrAll()" style="width:auto;padding:7px 12px;font-size:12px">Очистить</button></div></div>
   </div>
-  <nav class="bnav"><button class="bb on" data-pg="pgSched"><span class="bi">📅</span>Расписание</button><button class="bb" data-pg="pgEvents"><span class="bi">📌</span>События</button><button class="bb" data-pg="pgGrades"><span class="bi">📊</span>Оценки</button></nav>
+
+  <nav class="bnav"><button class="bb on" data-pg="pgSched"><span class="bi"></span>Расписание</button><button class="bb" data-pg="pgEvents"><span class="bi"></span>События</button><button class="bb" data-pg="pgGrades"><span class="bi"></span>Оценки</button></nav>
+
   <div id="deskWrap">
     <div id="dkMain">
       <div class="dWH" id="dwH"></div><div id="dwB"></div>
       <div id="dPgArea">
         <div class="dPg on" id="dpSched"></div>
-        <div class="dPg" id="dpEvents"><div class="pgh"><h2>📌 События</h2></div><div id="dEvList"></div></div>
-        <div class="dPg" id="dpGrades"><div class="pgh"><h2>📊 Оценки</h2></div><div class="gradeTabs"><button class="gTab on" onclick="sGT2(0)">Журнал</button><button class="gTab" onclick="sGT2(1)">Зачётка</button></div><div class="gCon on" id="dGrJ"><div class="fp"><div class="fi">📊</div><h3>Журнал оценок</h3><p>Появится в обновлении</p></div></div><div class="gCon" id="dGrR"><div class="fp"><div class="fi">📋</div><h3>Электронная зачётка</h3><p>Скоро</p></div></div></div>
-        <div class="dPg admH" id="dpHw"><div class="pgh"><h2>📝 ДЗ</h2><button class="btnP" onclick="openNH()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="dHwList"></div></div>
-        <div class="dPg" id="dpChat"><div class="fp"><div class="fi">💬</div><h3>Чат</h3><p>Скоро!</p></div></div>
-        <div class="dPg admH" id="dpChg"><div class="pgh"><h2>🔄 Замены</h2><button class="btnP" onclick="openChgM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="dChgList"></div></div>
-        <div class="dPg admH" id="dpSubj"><div class="pgh"><h2>📖 Предметы</h2><button class="btnP" onclick="openSjM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="dSjList"></div></div>
-        <div class="dPg" id="dpSet"><h2 style="margin-bottom:12px">⚙️ Настройки</h2><div class="stR"><div><h4>🎨 Тема</h4></div><button class="btnS" onclick="togTh()" style="width:auto;padding:7px 12px;font-size:12px">Сменить</button></div><div class="stR admH"><div><h4>📅 Начало недель</h4></div><input type="date" class="inp" id="cfgWS2" style="width:auto;margin:0;padding:7px"></div><div class="stR admH"><div><h4>🕐 Время пар</h4></div><button class="btnS" onclick="openTM()" style="width:auto;padding:7px 12px;font-size:12px">Изменить</button></div><div class="stR admH"><div><h4>🗑 Очистить</h4></div><button class="btnD" onclick="clrAll()" style="width:auto;padding:7px 12px;font-size:12px">Очистить</button></div></div>
+        <div class="dPg" id="dpEvents"><div class="pgh"><h2>События</h2></div><div id="dEvList"></div></div>
+        <div class="dPg" id="dpGrades"><div class="pgh"><h2>Оценки</h2></div><div class="gradeTabs"><button class="gTab on" onclick="sGT2(0)">Журнал</button><button class="gTab" onclick="sGT2(1)">Зачётка</button></div><div class="gCon on" id="dGrJ"><div class="fp"><div class="fi"></div><h3>Журнал оценок</h3><p>Появится в обновлении</p></div></div><div class="gCon" id="dGrR"><div class="fp"><div class="fi"></div><h3>Электронная зачётка</h3><p>Скоро</p></div></div></div>
+        <div class="dPg admH" id="dpHw"><div class="pgh"><h2>ДЗ</h2><button class="btnP" onclick="openNH()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="dHwList"></div></div>
+        <div class="dPg" id="dpChat"><div class="fp"><div class="fi"></div><h3>Чат</h3><p>Скоро!</p></div></div>
+        <div class="dPg admH" id="dpChg"><div class="pgh"><h2>Замены</h2><button class="btnP" onclick="openChgM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="dChgList"></div></div>
+        <div class="dPg admH" id="dpSubj"><div class="pgh"><h2>Предметы</h2><button class="btnP" onclick="openSjM()" style="padding:7px 12px;font-size:12px;width:auto">+ Добавить</button></div><div id="dSjList"></div></div>
+        <div class="dPg" id="dpSet"><h2 style="margin-bottom:12px">Настройки</h2><div class="stR"><div><h4>Тема</h4></div><button class="btnS" onclick="togTh()" style="width:auto;padding:7px 12px;font-size:12px">Сменить</button></div><div class="stR admH"><div><h4>Начало недель</h4></div><input type="date" class="inp" id="cfgWS2" style="width:auto;margin:0;padding:7px"></div><div class="stR admH"><div><h4>Время пар</h4></div><button class="btnS" onclick="openTM()" style="width:auto;padding:7px 12px;font-size:12px">Изменить</button></div><div class="stR admH"><div><h4>Очистить</h4></div><button class="btnD" onclick="clrAll()" style="width:auto;padding:7px 12px;font-size:12px">Очистить</button></div></div>
       </div>
     </div>
     <div id="dkSide">
-      <div class="dNav" id="dNav"><button class="dNB on" data-dp="sched"><span class="di">📅</span>Расписание</button><button class="dNB" data-dp="dpEvents"><span class="di">📌</span>События</button><button class="dNB" data-dp="dpGrades"><span class="di">📊</span>Оценки</button><button class="dNB" data-dp="dpChat"><span class="di">💬</span>Чат</button><button class="dNB admH" data-dp="dpHw"><span class="di">📝</span>ДЗ</button><button class="dNB admH" data-dp="dpChg"><span class="di">🔄</span>Замены</button><button class="dNB admH" data-dp="dpSubj"><span class="di">📖</span>Предметы</button><button class="dNB" data-dp="dpSet"><span class="di">⚙️</span>Настройки</button></div>
+      <div class="dNav" id="dNav"><button class="dNB on" data-dp="sched"><span class="di"></span>Расписание</button><button class="dNB" data-dp="dpEvents"><span class="di"></span>События</button><button class="dNB" data-dp="dpGrades"><span class="di"></span>Оценки</button><button class="dNB" data-dp="dpChat"><span class="di"></span>Чат</button><button class="dNB admH" data-dp="dpHw"><span class="di"></span>ДЗ</button><button class="dNB admH" data-dp="dpChg"><span class="di"></span>Замены</button><button class="dNB admH" data-dp="dpSubj"><span class="di"></span>Предметы</button><button class="dNB" data-dp="dpSet"><span class="di"></span>Настройки</button></div>
       <div class="mCal" id="mCal"></div>
     </div>
   </div>
-  <button class="themeFloat" onclick="togTh()" id="thFloat">🌙</button>
+
+  <button class="themeFloat" onclick="togTh()" id="thFloat"></button>
 </div>
+
 <div class="imgV" id="imgV" onclick="this.classList.remove('open')"><img id="imgVS"></div>
-<div class="sheet" id="shL"><div class="shBox"><div class="shH"></div><h3>✏️ Редактировать</h3><input type="hidden" id="elD"><input type="hidden" id="elP"><input type="hidden" id="elW"><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Предмет</label><div id="elS"></div></div><div class="shBtns"><button class="btnS" onclick="clS('shL')">Отмена</button><button class="btnD" onclick="rmL()">Убрать</button><button class="btnP" onclick="svL()">Ок</button></div></div></div>
-<div class="sheet" id="shHI"><div class="shBox"><div class="shH"></div><h3>📝 Домашка</h3><input type="hidden" id="hiD"><input type="hidden" id="hiP"><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Предмет</label><input class="inp" id="hiS" readonly style="opacity:.5;margin:0"></div><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Задание</label><textarea class="inp" id="hiT" placeholder="Что задали..." style="margin:0"></textarea></div><div><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">📷 Фото</label><div class="photoArea"><label class="photoBtn"><input type="file" accept="image/*" multiple hidden onchange="aPh(this,'hiPh')">📷 Фото</label><div class="photoPrev" id="hiPh"></div></div></div><div class="shBtns"><button class="btnS" onclick="clS('shHI')">Отмена</button><button class="btnP" onclick="svHI()">Ок</button></div></div></div>
-<div class="sheet" id="shNH"><div class="shBox"><div class="shH"></div><h3>📝 Новое ДЗ</h3><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Предмет</label><div id="nhS"></div></div><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Задание</label><textarea class="inp" id="nhT" placeholder="Описание..." style="margin:0"></textarea></div><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">📷 Фото</label><div class="photoArea"><label class="photoBtn"><input type="file" accept="image/*" multiple hidden onchange="aPh(this,'nhPh')">📷 Фото</label><div class="photoPrev" id="nhPh"></div></div></div><div><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">📅 Пара</label><div id="nhNx" style="padding:10px;background:var(--bg3);border-radius:var(--rs);font-size:12px;color:var(--t3)">Выберите предмет</div></div><div class="shBtns"><button class="btnS" onclick="clS('shNH')">Отмена</button><button class="btnP" onclick="svNH()">Ок</button></div></div></div>
-<div class="sheet" id="shSj"><div class="shBox"><div class="shH"></div><h3 id="sjTi">📖 Добавить</h3><input type="hidden" id="sjId"><input class="inp" id="sjN" placeholder="Название"><input class="inp" id="sjR" placeholder="Аудитория"><input class="inp" id="sjTc" placeholder="Преподаватель"><div class="shBtns"><button class="btnS" onclick="clS('shSj')">Отмена</button><button class="btnP" onclick="svSj()">Ок</button></div></div></div>
-<div class="sheet" id="shCh"><div class="shBox"><div class="shH"></div><h3>🔄 Замена</h3><input type="hidden" id="ceId"><input class="inp" type="date" id="ceD" style="margin-bottom:4px"><div id="ceP"></div><div class="shBtns"><button class="btnS" onclick="clS('shCh')">Отмена</button><button class="btnD" id="ceDl" onclick="rmCh()" style="display:none">Удалить</button><button class="btnP" onclick="svCh()">Ок</button></div></div></div>
-<div class="sheet" id="shTm"><div class="shBox"><div class="shH"></div><h3>🕐 Время пар</h3><div id="tmF"></div><div class="shBtns"><button class="btnS" onclick="clS('shTm')">Отмена</button><button class="btnP" onclick="svTm()">Ок</button></div></div></div>
+
+<div class="sheet" id="shL"><div class="shBox"><div class="shH"></div><h3>Редактировать</h3><input type="hidden" id="elD"><input type="hidden" id="elP"><input type="hidden" id="elW"><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Предмет</label><div id="elS"></div></div><div class="shBtns"><button class="btnS" onclick="clS('shL')">Отмена</button><button class="btnD" onclick="rmL()">Убрать</button><button class="btnP" onclick="svL()">Ок</button></div></div></div>
+
+<div class="sheet" id="shHI"><div class="shBox"><div class="shH"></div><h3>Домашка</h3><input type="hidden" id="hiD"><input type="hidden" id="hiP"><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Предмет</label><input class="inp" id="hiS" readonly style="opacity:.5;margin:0"></div><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Задание</label><textarea class="inp" id="hiT" placeholder="Что задали..." style="margin:0"></textarea></div><div><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Фото</label><div class="photoArea"><label class="photoBtn"><input type="file" accept="image/*" multiple hidden onchange="aPh(this,'hiPh')">Фото</label><div class="photoPrev" id="hiPh"></div></div></div><div class="shBtns"><button class="btnS" onclick="clS('shHI')">Отмена</button><button class="btnP" onclick="svHI()">Ок</button></div></div></div>
+
+<div class="sheet" id="shNH"><div class="shBox"><div class="shH"></div><h3>Новое ДЗ</h3><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Предмет</label><div id="nhS"></div></div><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Задание</label><textarea class="inp" id="nhT" placeholder="Описание..." style="margin:0"></textarea></div><div style="margin-bottom:8px"><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Фото</label><div class="photoArea"><label class="photoBtn"><input type="file" accept="image/*" multiple hidden onchange="aPh(this,'nhPh')">Фото</label><div class="photoPrev" id="nhPh"></div></div></div><div><label style="display:block;font-size:11px;font-weight:600;color:var(--t2);margin-bottom:3px">Пара</label><div id="nhNx" style="padding:10px;background:var(--bg3);border-radius:var(--rs);font-size:12px;color:var(--t3)">Выберите предмет</div></div><div class="shBtns"><button class="btnS" onclick="clS('shNH')">Отмена</button><button class="btnP" onclick="svNH()">Ок</button></div></div></div>
+
+<div class="sheet" id="shSj"><div class="shBox"><div class="shH"></div><h3 id="sjTi">Добавить</h3><input type="hidden" id="sjId"><input class="inp" id="sjN" placeholder="Название"><input class="inp" id="sjR" placeholder="Аудитория"><input class="inp" id="sjTc" placeholder="Преподаватель"><div class="shBtns"><button class="btnS" onclick="clS('shSj')">Отмена</button><button class="btnP" onclick="svSj()">Ок</button></div></div></div>
+
+<div class="sheet" id="shCh"><div class="shBox"><div class="shH"></div><h3>Замена</h3><input type="hidden" id="ceId"><input class="inp" type="date" id="ceD" style="margin-bottom:4px"><div id="ceP"></div><div class="shBtns"><button class="btnS" onclick="clS('shCh')">Отмена</button><button class="btnD" id="ceDl" onclick="rmCh()" style="display:none">Удалить</button><button class="btnP" onclick="svCh()">Ок</button></div></div></div>
+
+<div class="sheet" id="shTm"><div class="shBox"><div class="shH"></div><h3>Время пар</h3><div id="tmF"></div><div class="shBtns"><button class="btnS" onclick="clS('shTm')">Отмена</button><button class="btnP" onclick="svTm()">Ок</button></div></div></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
+/* ========== APPLE EMOJI CDN SYSTEM ========== */
+const EMOJI_CDN = 'https://cdn.jsdelivr.net/npm/emoji-datasource-apple@16.0.0/img/apple/64/';
+
+// Map of emoji characters to their Unicode codepoints (lowercase, hyphen-separated for multi-codepoint)
+const EMOJI_MAP = {
+  '📊': '1f4ca', '💬': '1f4ac', '🔄': '1f504', '📖': '1f4d6', '📝': '1f4dd',
+  '⚙️': '2699-fe0f', '🚪': '1f6aa', '📅': '1f4c5', '📌': '1f4cc', '📋': '1f4cb',
+  '📚': '1f4da', '🎨': '1f3a8', '🕐': '1f550', '🗑': '1f5d1', '✏️': '270f-fe0f',
+  '📷': '1f4f7', '✅': '2705', '🗑️': '1f5d1-fe0f', '❌': '274c', '➕': '2795',
+  '👤': '1f464', '📍': '1f4cd', '☀️': '2600-fe0f', '🌙': '1f319', '⚡️': '26a1',
+  '↩️': '21a9-fe0f', '✕': '2715', '▲': '25b2', '▼': '25bc', '☰': '2630',
+  '🔀': '1f500',
+  '⚙': '2699', '⚡': '26a1', '☀': '2600',
+};
+
+function emojiUrl(code) {
+  return EMOJI_CDN + code + '.png';
+}
+
+function E(emoji, cls) {
+  const code = EMOJI_MAP[emoji];
+  if (!code) return emoji;
+  const c = cls ? 'aem ' + cls : 'aem';
+  return `<img src="${emojiUrl(code)}" class="${c}" alt="${emoji}" draggable="false">`;
+}
+
+// Convert emoji char to code dynamically
+function emojiToCode(emoji) {
+  const pts = [];
+  for (const ch of emoji) {
+    const cp = ch.codePointAt(0);
+    if (cp !== 0xfe0f && cp !== 0x200d) { // skip variation selectors for lookup, but include in full
+      pts.push(cp.toString(16));
+    }
+  }
+  return pts.join('-');
+}
+
+function EAuto(emoji, cls) {
+  // First check our map
+  let code = EMOJI_MAP[emoji];
+  if (!code) {
+    // Try dynamic conversion
+    const pts = [];
+    for (const ch of emoji) {
+      pts.push(ch.codePointAt(0).toString(16));
+    }
+    code = pts.join('-');
+  }
+  const c = cls ? 'aem ' + cls : 'aem';
+  return `<img src="${emojiUrl(code)}" class="${c}" alt="${emoji}" draggable="false" onerror="this.style.display='none';this.insertAdjacentText('afterend','${emoji}')">`;
+}
+
+// Batch replace all emoji in a string with Apple images
+function appleEmoji(str, cls) {
+  if (!str) return '';
+  // Match emoji sequences
+  return str.replace(/(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/gu, (match) => {
+    return EAuto(match, cls || '');
+  });
+}
+
+/* ========== Apply emoji to static HTML after DOM load ========== */
+function applyStaticEmoji() {
+  // Menu items, nav buttons, headings etc
+  const selectors = '.pm-i .pi, .bb .bi, .dNB .di, .fp .fi, .pgh h2, .shBox h3, .stR h4, .evC .evt, .evC .evd';
+  
+  // Process specific elements that contain emoji
+  document.querySelectorAll('.pm-i .pi, .bb .bi, .dNB .di').forEach(el => {
+    const txt = el.textContent.trim();
+    if (txt) el.innerHTML = EAuto(txt, 'aem-icon');
+  });
+  
+  document.querySelectorAll('.fp .fi').forEach(el => {
+    const txt = el.textContent.trim();
+    if (txt) el.innerHTML = EAuto(txt, 'aem-xl');
+  });
+
+  // Theme float button
+  const tf = document.getElementById('thFloat');
+  if (tf) {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    tf.innerHTML = EAuto(dark ? '☀️' : '🌙');
+  }
+  
+  // Page headings with emoji
+  document.querySelectorAll('.pgh h2, .shBox h3, .stR h4').forEach(el => {
+    el.innerHTML = appleEmoji(el.innerHTML);
+  });
+}
+
+/* ========== END EMOJI SYSTEM ========== */
+
 const isD=()=>innerWidth>=900;
+
 function initTh(){setTh(localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
 function setTh(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);updIcons()}
 function togTh(){setTh(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')}
-function updIcons(){const dark=document.documentElement.getAttribute('data-theme')==='dark';const src=dark?'icon-dark.png':'icon.png';document.querySelectorAll('.themeIcon').forEach(i=>i.src=src);const fi=document.getElementById('favicon');if(fi)fi.href=src;const ti=document.getElementById('touchicon');if(ti)ti.href=src;const tf=document.getElementById('thFloat');if(tf)tf.textContent=dark?'☀️':'🌙'}
+
+function updIcons(){
+  const dark=document.documentElement.getAttribute('data-theme')==='dark';
+  const src=dark?'icondark.png':'icon.png';
+  document.querySelectorAll('.themeIcon').forEach(i=>i.src=src);
+  const fi=document.getElementById('favicon');if(fi)fi.href=src;
+  const ti=document.getElementById('touchicon');if(ti)ti.href=src;
+  const tf=document.getElementById('thFloat');
+  if(tf) tf.innerHTML = EAuto(dark?'☀️':'🌙');
+}
+
 initTh();
 
 firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
+
 const au=firebase.auth(),db=firebase.database();au.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 const ADM=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"],DK=['Пн','Вт','Ср','Чт','Пт','Сб'],DL=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 let cU=null,isA=false,isG=false,sc={upper:{},lower:{}},hw=[],ch=[],nh=[],sj=[];
 let cf={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
 let vM=gM(new Date()),sD=tI(),csS={},uP={hiPh:[],nhPh:[]},cMo=new Date();
+
 function gM(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
 function fk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
 function pk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
@@ -356,14 +452,19 @@ function fF(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day
 function fSh(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'short',day:'numeric',month:'short'})}
 function tI(){const w=new Date().getDay();return w===0?5:(w-1)}
 function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML}
+
 function gwt(m){if(!cf.weekStartDate){const s=new Date(m.getFullYear(),0,1);return Math.ceil(((m-s)/864e5+s.getDay()+1)/7)%2===1?'upper':'lower'}const sd=gM(pk(cf.weekStartDate));return Math.floor(Math.round((m-sd)/864e5)/7)%2===0?'upper':'lower'}
+
 function lsF(dk){const d=pk(dk),dow=d.getDay();if(dow===0)return{};const di=dow-1;if(di>5)return{};const c=ch.find(x=>x.date===dk);if(c)return c.lessons||{};return(sc[gwt(gM(d))]||{})[DK[di]]||{}}
+
 function fNx(subj){const td=new Date();td.setHours(0,0,0,0);for(let o=1;o<=60;o++){const d=new Date(td);d.setDate(d.getDate()+o);const dow=d.getDay();if(dow===0||dow>6)continue;const dk=fk(d),ls=lsF(dk);for(let p=1;p<=5;p++){const l=ls[p];if(l&&l.name&&l.name.toLowerCase().trim()===subj.toLowerCase().trim())return{date:dk,pair:p}}}return null}
+
 function recalc(){if(!isA)return;nh.forEach(h=>{if(h.done||!h.subject)return;const n=fNx(h.subject);if(n&&(n.date!==h.targetDate||n.pair!==h.targetPair))db.ref(`newHomework/${h.id}`).update({targetDate:n.date,targetPair:n.pair})})}
 
 let aR=false;
 au.onAuthStateChanged(u=>{aR=true;if(u){cU=u;isA=ADM.includes(u.uid);isG=false;boot()}else if(localStorage.getItem('gs')){isG=true;boot()}else{hL();document.getElementById('loginPage').style.display='flex'}});
 setTimeout(()=>{if(!aR){hL();document.getElementById('loginPage').style.display='flex'}},4000);
+
 function hL(){const l=document.getElementById('loader');l.classList.add('hide');setTimeout(()=>l.style.display='none',500)}
 function doLogin(){const e=document.getElementById('iE').value.trim(),p=document.getElementById('iP').value;if(!e||!p){sE('Введите email и пароль');return}au.signInWithEmailAndPassword(e,p).catch(()=>sE('Неверные данные'))}
 function sE(m){const e=document.getElementById('errMsg');e.textContent=m;e.style.display='block'}
@@ -373,9 +474,11 @@ function doLogout(){localStorage.removeItem('gs');closePM();au.signOut().then(()
 function boot(){
   document.getElementById('loginPage').style.display='none';
   document.getElementById('app').style.display='block';
-  document.getElementById('pmInf').innerHTML=(isG?'👤 Гость':('👤 '+esc(cU?.email||'')))+(isA?' <span style="background:var(--blue);color:#fff;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:800;margin-left:3px">Admin</span>':'');
+  document.getElementById('pmInf').innerHTML=(isG?EAuto('👤')+' Гость':(EAuto('👤')+' '+esc(cU?.email||'')))+(isA?' <span style="background:var(--blue);color:#fff;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:800;margin-left:3px">Admin</span>':'');
   if(isA)document.querySelectorAll('.admH').forEach(e=>e.classList.remove('admH'));
   setupNav();loadData();sD=tI();vM=gM(new Date());updAll();setTimeout(hL,300);updIcons();
+  // Apply emoji to static elements
+  setTimeout(applyStaticEmoji, 50);
 }
 
 function togPM(){const bg=document.getElementById('pmBg'),pm=document.getElementById('pmM'),a=document.querySelector('.ham');if(pm.classList.contains('open')){closePM();return}const r=a.getBoundingClientRect();pm.style.top=(r.bottom+6)+'px';pm.style.right=Math.max(10,innerWidth-r.right)+'px';bg.classList.add('open');pm.classList.add('open')}
@@ -385,10 +488,13 @@ function setupNav(){
   document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{go(b.dataset.pg);document.querySelectorAll('.bb').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
   document.querySelectorAll('.dNB').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.dNB').forEach(x=>x.classList.remove('on'));b.classList.add('on');const p=b.dataset.dp;if(p==='sched'){showDW()}else{hideDW();showDP(p)}}));
 }
+
 function go(id){document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.getElementById('wbar').style.display=id==='pgSched'?'':'none';document.querySelectorAll('.bb').forEach(b=>b.classList.toggle('on',b.dataset.pg===id));if(isD()){const map={pgEvents:'dpEvents',pgGrades:'dpGrades',pgHw:'dpHw',pgChat:'dpChat',pgChg:'dpChg',pgSubj:'dpSubj',pgSet:'dpSet',pgSched:'sched'};const dp=map[id];if(dp==='sched'){showDW();document.querySelectorAll('.dNB').forEach(x=>x.classList.toggle('on',x.dataset.dp==='sched'))}else if(dp){hideDW();showDP(dp);document.querySelectorAll('.dNB').forEach(x=>x.classList.toggle('on',x.dataset.dp===dp))}}}
+
 function showDW(){document.getElementById('dwH').style.display='';document.getElementById('dwB').style.display='';document.querySelectorAll('.dPg').forEach(x=>x.classList.remove('on'));document.getElementById('dpSched').classList.add('on');rDW()}
 function hideDW(){document.getElementById('dwH').style.display='none';document.getElementById('dwB').style.display='none'}
 function showDP(id){document.querySelectorAll('.dPg').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on')}
+
 function sGT(i){document.querySelectorAll('#pgGrades .gTab').forEach((t,x)=>t.classList.toggle('on',x===i));document.querySelectorAll('#pgGrades .gCon').forEach((c,x)=>c.classList.toggle('on',x===i))}
 function sGT2(i){document.querySelectorAll('#dpGrades .gTab').forEach((t,x)=>t.classList.toggle('on',x===i));document.querySelectorAll('#dpGrades .gCon').forEach((c,x)=>c.classList.toggle('on',x===i))}
 
@@ -401,6 +507,7 @@ function loadData(){
   db.ref('changes').on('value',s=>{const d=s.val();ch=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];clnO();render();rWS();rChg();rEv();rDW();recalc()});
   ['cfgWS','cfgWS2'].forEach(id=>{const w=document.getElementById(id);if(w)w.addEventListener('change',e=>{if(isA)db.ref('settings/weekStartDate').set(e.target.value)})});
 }
+
 function clnO(){if(!isA)return;const tk=fk(new Date());ch.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
 function updAll(){updTop();rWS();render();rEv();if(isD()){rDW();rMC()}}
 
@@ -423,13 +530,14 @@ function rWS(){
   h+=`<button class="warr" onclick="nextW()">›</button>`;wr.innerHTML=h;
   wl.innerHTML=`${fS(vM)} — ${fS(e)} · <span class="${wt==='upper'?'up':'lo'}">${wt==='upper'?'▲ Верхняя':'▼ Нижняя'}</span>`;
 }
+
 function pickD(i){sD=i;rWS();render()}
 
 function rEv(){
   const tk=fk(new Date());let it=[];
-  ch.filter(x=>x.date>=tk).forEach(x=>it.push({date:x.date,icon:'🔄',title:'Замена расписания',desc:fF(pk(x.date))}));
+  ch.filter(x=>x.date>=tk).forEach(x=>it.push({date:x.date,icon:EAuto('🔄'),title:'Замена расписания',desc:fF(pk(x.date))}));
   it.sort((a,b)=>a.date.localeCompare(b.date));
-  const html=it.length?it.map(e=>`<div class="evC"><div class="evt">${e.icon} ${esc(e.title)}</div><div class="evd">📅 ${esc(e.desc)}</div></div>`).join(''):'<div class="empty"><div class="ei">📌</div><div class="et">Нет событий</div></div>';
+  const html=it.length?it.map(e=>`<div class="evC"><div class="evt">${e.icon} ${esc(e.title)}</div><div class="evd">${EAuto('📅')} ${esc(e.desc)}</div></div>`).join(''):`<div class="empty"><div class="ei">${EAuto('📌','aem-xl')}</div><div class="et">Нет событий</div></div>`;
   document.getElementById('evList').innerHTML=html;
   const dEl=document.getElementById('dEvList');if(dEl)dEl.innerHTML=html;
 }
@@ -443,8 +551,8 @@ function render(){
     const iho=hw.filter(x=>x.date===dk&&x.pair===p),ihn=nh.filter(x=>x.targetDate===dk&&x.targetPair===p);
     h+=`<div class="lc2${has?'':' empty'}${hasCh&&has?' changed':''}" ${isA?`onclick="openLM('${dayK}',${p},'${wt}')"`:''}>
 <div class="pn2"><span class="n">${p}</span><span class="t">${tm?.start||''}</span></div>
-<div class="lb">${has?`<div class="ln">${esc(l.name)}</div><div class="lm">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${rIH(iho,'📋','hw')}${rIH(ihn,'📝','nh')}`:`<div class="le">${isA?'➕ Добавить':'—'}</div>`}</div>
-${has&&isA?`<div class="la"><button class="mb bl" onclick="event.stopPropagation();openHI('${dk}',${p},'${esc(l.name)}')">+📝</button></div>`:''}</div>`}
+<div class="lb">${has?`<div class="ln">${esc(l.name)}</div><div class="lm">${l.room?`<span>${EAuto('📍')} ${esc(l.room)}</span>`:''}${l.teacher?`<span>${EAuto('👤')} ${esc(l.teacher)}</span>`:''}</div>${rIH(iho,EAuto('📋'),'hw')}${rIH(ihn,EAuto('📝'),'nh')}`:`<div class="le">${isA?EAuto('➕')+' Добавить':'—'}</div>`}</div>
+${has&&isA?`<div class="la"><button class="mb bl" onclick="event.stopPropagation();openHI('${dk}',${p},'${esc(l.name)}')">${EAuto('➕')}${EAuto('📝')}</button></div>`:''}</div>`}
   w.innerHTML=h;
 }
 
@@ -452,7 +560,7 @@ function rIH(list,ic,tp){
   if(!list.length)return'';
   return list.map(h=>{
     let ph='';if(h.photos&&h.photos.length)ph='<div class="hp">'+h.photos.map(p=>`<img src="${p}" onclick="event.stopPropagation();vI('${p}')">`).join('')+'</div>';
-    const btns=isA?`<div class="hb"><button class="mb ${h.done?'og':'gr'}" onclick="event.stopPropagation();${tp==='hw'?`tHw('${h.id}')`:`tNH('${h.id}')`}">${h.done?'↩️':'✅'}</button><button class="mb rd" onclick="event.stopPropagation();${tp==='hw'?`dHw('${h.id}')`:`dNH('${h.id}')`}">🗑</button></div>`:'';
+    const btns=isA?`<div class="hb"><button class="mb ${h.done?'og':'gr'}" onclick="event.stopPropagation();${tp==='hw'?`tHw('${h.id}')`:`tNH('${h.id}')`}">${h.done?EAuto('↩️'):EAuto('✅')}</button><button class="mb rd" onclick="event.stopPropagation();${tp==='hw'?`dHw('${h.id}')`:`dNH('${h.id}')`}">${EAuto('🗑️')}</button></div>`:'';
     return`<div class="hwi${h.done?' done':''}"><div class="hh"><span class="ht">${ic} ДЗ</span>${btns}</div><div class="htx">${esc(h.task)}</div>${ph}</div>`;
   }).join('');
 }
@@ -463,11 +571,11 @@ function rDW(){
   let h='';
   for(let i=0;i<6;i++){
     const d=new Date(vM);d.setDate(d.getDate()+i);const dk=fk(d),dayK=DK[i],isT=dk===tk,cx=ch.find(x=>x.date===dk),hasCh=!!cx,les=hasCh?(cx.lessons||{}):(sc[wt]?.[dayK]||{});
-    h+=`<div class="dDB${isT?' today':''}${hasCh?' hasch':''}"><div class="dDH"><span class="dhn">${DL[i]}</span><span class="dhd">${d.getDate()}.${String(d.getMonth()+1).padStart(2,'0')}</span>${hasCh?'<span class="dhb">⚡️ Замена</span>':''}</div><div class="dDBody">`;
+    h+=`<div class="dDB${isT?' today':''}${hasCh?' hasch':''}"><div class="dDH"><span class="dhn">${DL[i]}</span><span class="dhd">${d.getDate()}.${String(d.getMonth()+1).padStart(2,'0')}</span>${hasCh?`<span class="dhb">${EAuto('⚡')}Замена</span>`:''}</div><div class="dDBody">`;
     for(let p=1;p<=5;p++){const l=les[p],has=l&&l.name;
       h+=`<div class="dLes${has?'':' empty'}${hasCh&&has?' changed':''}" ${isA?`onclick="openLM('${dayK}',${p},'${wt}')"`:''}>
 <div class="dlp">${p} пара · ${cf.pairTimes[p-1]?.start||''}</div>
-<div>${has?`<div class="dln">${esc(l.name)}</div><div class="dlm">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div>`:`<div class="dle">—</div>`}</div></div>`}
+<div>${has?`<div class="dln">${esc(l.name)}</div><div class="dlm">${l.room?EAuto('📍')+' '+esc(l.room):''}${l.teacher?' · '+EAuto('👤')+' '+esc(l.teacher):''}</div>`:`<div class="dle">—</div>`}</div></div>`}
     h+=`</div></div>`}
   document.getElementById('dwB').innerHTML=h;rMC();
 }
@@ -481,31 +589,33 @@ function rMC(){
   const rm=(sd+dim)%7;if(rm>0)for(let i=1;i<=7-rm;i++)h+=`<div class="mcd other">${i}</div>`;
   h+=`</div>`;c.innerHTML=h;
 }
+
 function cdC(dk){const d=pk(dk);vM=gM(d);sD=(d.getDay()+6)%7;if(sD>5)sD=0;updAll()}
 function vI(src){document.getElementById('imgVS').src=src;document.getElementById('imgV').classList.add('open')}
 
 function rHP(){const html=rHPh();document.getElementById('hwList').innerHTML=html;const dh=document.getElementById('dHwList');if(dh)dh.innerHTML=html}
 function rHPh(){
   const tk=fk(new Date()),p=nh.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
-  if(!p.length)return'<div class="empty"><div class="ei">📚</div><div class="et">Нет заданий</div></div>';
+  if(!p.length)return`<div class="empty"><div class="ei">${EAuto('📚','aem-xl')}</div><div class="et">Нет заданий</div></div>`;
   return p.map(h=>{
     let ph='';if(h.photos&&h.photos.length)ph='<div class="hp">'+h.photos.map(p=>`<img src="${p}" onclick="vI('${p}')">`).join('')+'</div>';
-    const btns=isA?`<div class="ha"><button class="btnP" style="padding:5px 10px;font-size:11px;width:auto" onclick="tNH('${h.id}')">✅</button><button class="btnD" style="padding:5px 10px;font-size:11px;width:auto" onclick="dNH('${h.id}')">🗑</button></div>`:'';
-    return`<div class="hwC"><div class="hs">📖 ${esc(h.subject)}</div><div class="hd">📅 ${fF(pk(h.targetDate))}</div><div class="htk">${esc(h.task)}</div>${ph}${btns}</div>`;
+    const btns=isA?`<div class="ha"><button class="btnP" style="padding:5px 10px;font-size:11px;width:auto" onclick="tNH('${h.id}')">${EAuto('✅')}</button><button class="btnD" style="padding:5px 10px;font-size:11px;width:auto" onclick="dNH('${h.id}')">${EAuto('🗑️')}</button></div>`:'';
+    return`<div class="hwC"><div class="hs">${EAuto('📖')} ${esc(h.subject)}</div><div class="hd">${EAuto('📅')} ${fF(pk(h.targetDate))}</div><div class="htk">${esc(h.task)}</div>${ph}${btns}</div>`;
   }).join('');
 }
 
 function rSj(){const html=rSjH();document.getElementById('sjList').innerHTML=html;const ds=document.getElementById('dSjList');if(ds)ds.innerHTML=html}
-function rSjH(){if(!sj.length)return'<div class="empty"><div class="ei">📖</div><div class="et">Добавьте предметы</div></div>';return sj.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="sjR"><div class="si">📖</div><div style="flex:1;min-width:0"><div class="sn">${esc(s.name)}</div><div class="sm">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div><div style="display:flex;gap:2px"><button class="mb bl" onclick="editSj('${s.id}')">✏️</button><button class="mb rd" onclick="rmSj('${s.id}')">🗑</button></div></div>`).join('')}
+function rSjH(){if(!sj.length)return`<div class="empty"><div class="ei">${EAuto('📖','aem-xl')}</div><div class="et">Добавьте предметы</div></div>`;return sj.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="sjR"><div class="si">${EAuto('📖')}</div><div style="flex:1;min-width:0"><div class="sn">${esc(s.name)}</div><div class="sm">${s.room?EAuto('📍')+' '+esc(s.room):''}${s.teacher?' · '+EAuto('👤')+' '+esc(s.teacher):''}</div></div><div style="display:flex;gap:2px"><button class="mb bl" onclick="editSj('${s.id}')">${EAuto('✏️')}</button><button class="mb rd" onclick="rmSj('${s.id}')">${EAuto('🗑️')}</button></div></div>`).join('')}
 
 function rChg(){const html=rChgH();document.getElementById('chgList').innerHTML=html;const dc=document.getElementById('dChgList');if(dc)dc.innerHTML=html}
-function rChgH(){const tk=fk(new Date()),f=ch.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));if(!f.length)return'<div class="empty"><div class="ei">🔄</div><div class="et">Нет замен</div></div>';return f.map(x=>{let ls='';if(x.lessons)for(let p=1;p<=5;p++){const l=x.lessons[p];if(l&&l.name)ls+=`<div class="chL"><span class="cn">${p}</span><div><div style="font-weight:700;font-size:12px">${esc(l.name)}</div><div style="font-size:10px;color:var(--t3)">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div></div></div>`}if(!ls)ls='<div style="padding:4px;color:var(--t3);font-size:11px">Все пары сняты</div>';return`<div class="chC"><div class="chead"><span class="cdt">📅 ${fF(pk(x.date))}</span><div style="display:flex;gap:2px"><button class="mb bl" onclick="editCh('${x.id}')">✏️</button><button class="mb rd" onclick="rmChId('${x.id}')">🗑</button></div></div>${ls}</div>`}).join('')}
+function rChgH(){const tk=fk(new Date()),f=ch.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));if(!f.length)return`<div class="empty"><div class="ei">${EAuto('🔄','aem-xl')}</div><div class="et">Нет замен</div></div>`;return f.map(x=>{let ls='';if(x.lessons)for(let p=1;p<=5;p++){const l=x.lessons[p];if(l&&l.name)ls+=`<div class="chL"><span class="cn">${p}</span><div><div style="font-weight:700;font-size:12px">${esc(l.name)}</div><div style="font-size:10px;color:var(--t3)">${l.room?EAuto('📍')+' '+esc(l.room):''}${l.teacher?' · '+EAuto('👤')+' '+esc(l.teacher):''}</div></div></div>`}if(!ls)ls='<div style="padding:4px;color:var(--t3);font-size:11px">Все пары сняты</div>';return`<div class="chC"><div class="chead"><span class="cdt">${EAuto('📅')} ${fF(pk(x.date))}</span><div style="display:flex;gap:2px"><button class="mb bl" onclick="editCh('${x.id}')">${EAuto('✏️')}</button><button class="mb rd" onclick="rmChId('${x.id}')">${EAuto('🗑️')}</button></div></div>${ls}</div>`}).join('')}
 
 function aPh(inp,cid){Array.from(inp.files).forEach(f=>{if(f.size>5e6){alert('Макс 5MB');return}const r=new FileReader();r.onload=e=>{if(!uP[cid])uP[cid]=[];uP[cid].push(e.target.result);rPP(cid)};r.readAsDataURL(f)});inp.value=''}
 function rPP(cid){const c=document.getElementById(cid);if(!uP[cid])uP[cid]=[];c.innerHTML=uP[cid].map((p,i)=>`<div class="pp"><img src="${p}"><button class="pr" onclick="rP('${cid}',${i})">✕</button></div>`).join('')}
 function rP(cid,i){uP[cid].splice(i,1);rPP(cid)}
 
-function bCS(cid,sid,cb){const c=document.getElementById(cid),sr=[...sj].sort((a,b)=>a.name.localeCompare(b.name)),sel=sr.find(s=>s.id===sid);csS[cid]={selectedId:sid||'',onChange:cb};let trig;if(sel)trig=`<span class="csI">📖</span><div style="flex:1"><div class="csN">${esc(sel.name)}</div><div class="csM">${sel.room?'📍 '+esc(sel.room):''}${sel.teacher?' · 👤 '+esc(sel.teacher):''}</div></div>`;else trig=`<span class="csPh">— Нет —</span>`;const opts=sr.map(s=>`<div class="csOpt${s.id===sid?' on':''}" data-sid="${s.id}"><span class="coI">📖</span><div><div class="coN">${esc(s.name)}</div><div class="coM">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div></div>`).join('');c.innerHTML=`<div class="csW"><div class="csTrig" data-cid="${cid}">${trig}<span class="csArr">▼</span></div><div class="csDd" id="${cid}-dd"><div class="csOpt emp" data-sid=""><span class="coI">✕</span><div><div class="coN" style="color:var(--t3)">— Нет —</div></div></div>${opts}</div></div>`;c.querySelector('.csTrig').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.csTrig'),wo=dd.classList.contains('open');clCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});c.querySelectorAll('.csOpt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,sub=id?sj.find(s=>s.id===id):null;csS[cid].selectedId=id;const tr=c.querySelector('.csTrig');if(sub)tr.innerHTML=`<span class="csI">📖</span><div style="flex:1"><div class="csN">${esc(sub.name)}</div><div class="csM">${sub.room?'📍 '+esc(sub.room):''}${sub.teacher?' · 👤 '+esc(sub.teacher):''}</div></div><span class="csArr">▼</span>`;else tr.innerHTML=`<span class="csPh">— Нет —</span><span class="csArr">▼</span>`;c.querySelectorAll('.csOpt').forEach(x=>x.classList.remove('on'));o.classList.add('on');clCS();if(csS[cid].onChange)csS[cid].onChange(id,sub)})})}
+function bCS(cid,sid,cb){const c=document.getElementById(cid),sr=[...sj].sort((a,b)=>a.name.localeCompare(b.name)),sel=sr.find(s=>s.id===sid);csS[cid]={selectedId:sid||'',onChange:cb};let trig;if(sel)trig=`<span class="csI">${EAuto('📖')}</span><div style="flex:1"><div class="csN">${esc(sel.name)}</div><div class="csM">${sel.room?EAuto('📍')+' '+esc(sel.room):''}${sel.teacher?' · '+EAuto('👤')+' '+esc(sel.teacher):''}</div></div>`;else trig=`<span class="csPh">— Нет —</span>`;const opts=sr.map(s=>`<div class="csOpt${s.id===sid?' on':''}" data-sid="${s.id}"><span class="coI">${EAuto('📖')}</span><div><div class="coN">${esc(s.name)}</div><div class="coM">${s.room?EAuto('📍')+' '+esc(s.room):''}${s.teacher?' · '+EAuto('👤')+' '+esc(s.teacher):''}</div></div></div>`).join('');c.innerHTML=`<div class="csW"><div class="csTrig" data-cid="${cid}">${trig}<span class="csArr">▼</span></div><div class="csDd" id="${cid}-dd"><div class="csOpt emp" data-sid=""><span class="coI">✕</span><div><div class="coN" style="color:var(--t3)">— Нет —</div></div></div>${opts}</div></div>`;c.querySelector('.csTrig').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.csTrig'),wo=dd.classList.contains('open');clCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});c.querySelectorAll('.csOpt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,sub=id?sj.find(s=>s.id===id):null;csS[cid].selectedId=id;const tr=c.querySelector('.csTrig');if(sub)tr.innerHTML=`<span class="csI">${EAuto('📖')}</span><div style="flex:1"><div class="csN">${esc(sub.name)}</div><div class="csM">${sub.room?EAuto('📍')+' '+esc(sub.room):''}${sub.teacher?' · '+EAuto('👤')+' '+esc(sub.teacher):''}</div></div><span class="csArr">▼</span>`;else tr.innerHTML=`<span class="csPh">— Нет —</span><span class="csArr">▼</span>`;c.querySelectorAll('.csOpt').forEach(x=>x.classList.remove('on'));o.classList.add('on');clCS();if(csS[cid].onChange)csS[cid].onChange(id,sub)})})}
+
 function clCS(){document.querySelectorAll('.csDd.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.csTrig.open').forEach(t=>t.classList.remove('open'))}
 function gcs(id){return csS[id]?.selectedId||''}
 document.addEventListener('click',()=>clCS());
@@ -513,25 +623,31 @@ document.addEventListener('click',()=>clCS());
 function openLM(d,p,w){if(!isA)return;document.getElementById('elD').value=d;document.getElementById('elP').value=p;document.getElementById('elW').value=w;const l=sc[w]?.[d]?.[p]||{};let sid='';if(l.name){const s=sj.find(x=>x.name===l.name);if(s)sid=s.id}bCS('elS',sid,null);opS('shL')}
 function svL(){if(!isA)return;const d=document.getElementById('elD').value,p=document.getElementById('elP').value,w=document.getElementById('elW').value,sid=gcs('elS'),sub=sj.find(s=>s.id===sid);if(sub)db.ref(`schedule/${w}/${d}/${p}`).set({name:sub.name,room:sub.room||'',teacher:sub.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();clS('shL')}
 function rmL(){if(!isA)return;db.ref(`schedule/${document.getElementById('elW').value}/${document.getElementById('elD').value}/${document.getElementById('elP').value}`).remove();clS('shL')}
+
 function openHI(dk,p,s){if(!isA)return;document.getElementById('hiD').value=dk;document.getElementById('hiP').value=p;document.getElementById('hiS').value=s;document.getElementById('hiT').value='';uP.hiPh=[];rPP('hiPh');opS('shHI')}
 function svHI(){if(!isA)return;const t=document.getElementById('hiT').value.trim();if(!t){alert('Задание');return}const data={date:document.getElementById('hiD').value,pair:parseInt(document.getElementById('hiP').value),subject:document.getElementById('hiS').value,task:t,done:false,created:new Date().toISOString()};if(uP.hiPh.length)data.photos=uP.hiPh;db.ref('homework').push(data);clS('shHI')}
 function tHw(id){const h=hw.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
 function dHw(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
-function openNH(){if(!isA)return;bCS('nhS','',(_,sub)=>{const info=document.getElementById('nhNx');if(sub&&sub.name){const n=fNx(sub.name);if(n)info.innerHTML=`<span style="color:var(--blue);font-weight:700">📅 ${fF(pk(n.date))}</span>, пара ${n.pair}`;else info.innerHTML='<span style="color:var(--red)">❌ Не найдено</span>'}else info.textContent='Выберите предмет'});document.getElementById('nhT').value='';document.getElementById('nhNx').textContent='Выберите предмет';uP.nhPh=[];rPP('nhPh');opS('shNH')}
+
+function openNH(){if(!isA)return;bCS('nhS','',(_,sub)=>{const info=document.getElementById('nhNx');if(sub&&sub.name){const n=fNx(sub.name);if(n)info.innerHTML=`<span style="color:var(--blue);font-weight:700">${EAuto('📅')} ${fF(pk(n.date))}</span>, пара ${n.pair}`;else info.innerHTML=`<span style="color:var(--red)">${EAuto('❌')} Не найдено</span>`}else info.textContent='Выберите предмет'});document.getElementById('nhT').value='';document.getElementById('nhNx').textContent='Выберите предмет';uP.nhPh=[];rPP('nhPh');opS('shNH')}
 function svNH(){if(!isA)return;const sid=gcs('nhS'),sub=sj.find(s=>s.id===sid);if(!sub){alert('Предмет');return}const t=document.getElementById('nhT').value.trim();if(!t){alert('Задание');return}const n=fNx(sub.name);if(!n){alert('Не найдено');return}const data={subject:sub.name,task:t,targetDate:n.date,targetPair:n.pair,done:false,created:new Date().toISOString()};if(uP.nhPh.length)data.photos=uP.nhPh;db.ref('newHomework').push(data);clS('shNH')}
 function tNH(id){const h=nh.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
 function dNH(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
-function openSjM(eid){document.getElementById('sjId').value=eid||'';document.getElementById('sjN').value='';document.getElementById('sjR').value='';document.getElementById('sjTc').value='';document.getElementById('sjTi').textContent=eid?'✏️ Редактировать':'📖 Добавить';if(eid){const s=sj.find(x=>x.id===eid);if(s){document.getElementById('sjN').value=s.name||'';document.getElementById('sjR').value=s.room||'';document.getElementById('sjTc').value=s.teacher||''}}opS('shSj')}
+
+function openSjM(eid){document.getElementById('sjId').value=eid||'';document.getElementById('sjN').value='';document.getElementById('sjR').value='';document.getElementById('sjTc').value='';document.getElementById('sjTi').textContent=eid?EAuto('✏️')+' Редактировать':EAuto('📖')+' Добавить';if(eid){const s=sj.find(x=>x.id===eid);if(s){document.getElementById('sjN').value=s.name||'';document.getElementById('sjR').value=s.room||'';document.getElementById('sjTc').value=s.teacher||''}}opS('shSj')}
 function editSj(id){openSjM(id)}
 function svSj(){const id=document.getElementById('sjId').value,n=document.getElementById('sjN').value.trim(),r=document.getElementById('sjR').value.trim(),t=document.getElementById('sjTc').value.trim();if(!n){alert('Название');return}if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});clS('shSj')}
 function rmSj(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
+
 function openChgM(eid){if(!isA)return;document.getElementById('ceId').value=eid||'';document.getElementById('ceDl').style.display=eid?'':'none';document.getElementById('ceD').value='';let h='';for(let i=1;i<=5;i++)h+=`<div class="cpB"><div class="cpH"><span class="cpN">${i}</span><span style="font-size:12px;font-weight:600;color:var(--t2)">пара</span></div><div id="cs-c${i}"></div></div>`;document.getElementById('ceP').innerHTML=h;for(let i=1;i<=5;i++)bCS(`cs-c${i}`,'',null);if(eid){const c=ch.find(x=>x.id===eid);if(c){document.getElementById('ceD').value=c.date;if(c.lessons)for(let i=1;i<=5;i++){const l=c.lessons[i];if(l&&l.name){const s=sj.find(x=>x.name===l.name);if(s)bCS(`cs-c${i}`,s.id,null)}}}}opS('shCh')}
 function editCh(id){openChgM(id)}
 function svCh(){if(!isA)return;const eid=document.getElementById('ceId').value,date=document.getElementById('ceD').value;if(!date){alert('Дата');return}const les={};let any=false;for(let i=1;i<=5;i++){const sid=gcs(`cs-c${i}`),sub=sj.find(s=>s.id===sid);if(sub){les[i]={name:sub.name,room:sub.room||'',teacher:sub.teacher||''};any=true}}if(eid)db.ref(`changes/${eid}`).set({date,lessons:any?les:null});else db.ref('changes').push({date,lessons:any?les:null});clS('shCh')}
 function rmCh(){const id=document.getElementById('ceId').value;if(id){rmChId(id);clS('shCh')}}
 function rmChId(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
+
 function openTM(){if(!isA)return;document.getElementById('tmF').innerHTML=cf.pairTimes.map((t,i)=>`<div style="display:flex;gap:5px;align-items:center;margin-bottom:6px"><span style="min-width:42px;font-weight:700;font-size:12px">${i+1} пара</span><input type="time" class="inp" id="ts${i}" value="${t.start}" style="flex:1;margin:0;padding:8px"><span style="color:var(--t3)">—</span><input type="time" class="inp" id="te${i}" value="${t.end}" style="flex:1;margin:0;padding:8px"></div>`).join('');opS('shTm')}
 function svTm(){if(!isA)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);clS('shTm')}
+
 function clrAll(){if(!isA)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
 function opS(id){document.getElementById(id).classList.add('open')}
@@ -542,6 +658,9 @@ document.getElementById('iE').addEventListener('keypress',e=>{if(e.key==='Enter'
 let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{if(!document.getElementById('pgSched').classList.contains('on'))return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>70){if(dx<0&&sD<5){sD++;rWS();render()}else if(dx>0&&sD>0){sD--;rWS();render()}}});
 window.addEventListener('resize',()=>{if(isD()){rDW();rMC()}});
+
+// Apply emoji to static content on load
+document.addEventListener('DOMContentLoaded', applyStaticEmoji);
 </script>
 </body>
 </html>
