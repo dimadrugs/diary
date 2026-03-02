@@ -7,464 +7,240 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#000000">
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📓</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23007aff' width='100' height='100' rx='22'/><text x='50' y='68' text-anchor='middle' font-size='55'>📓</text></svg>">
   <style>
-    :root {
-      --bg: #000000;
-      --bg2: #1c1c1e;
-      --bg3: #2c2c2e;
-      --bg4: #3a3a3c;
-      --card: #1c1c1e;
-      --text: #ffffff;
-      --t2: rgba(255,255,255,.7);
-      --t3: rgba(255,255,255,.4);
-      --t4: rgba(255,255,255,.15);
-      --blue: #0a84ff;
-      --green: #30d158;
-      --orange: #ff9f0a;
-      --red: #ff453a;
-      --purple: #bf5af2;
-      --teal: #64d2ff;
-      --r: 14px;
-      --rs: 10px;
-      --navH: 82px;
-    }
-
-    [data-theme="light"] {
-      --bg: #f2f2f7;
-      --bg2: #ffffff;
-      --bg3: #e5e5ea;
-      --bg4: #d1d1d6;
-      --card: #ffffff;
-      --text: #000000;
-      --t2: rgba(0,0,0,.6);
-      --t3: rgba(0,0,0,.35);
-      --t4: rgba(0,0,0,.08);
-      --blue: #007aff;
-      --green: #34c759;
-      --orange: #ff9500;
-      --red: #ff3b30;
-      --purple: #af52de;
-      --teal: #5ac8fa;
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-    html { height: -webkit-fill-available; }
-
-    body {
-      font-family: -apple-system, 'SF Pro Display', 'Inter', BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      transition: background .3s, color .3s;
-    }
-
-    ::-webkit-scrollbar { width:0; height:0; }
+    :root{--bg:#000;--bg2:#1c1c1e;--bg3:#2c2c2e;--bg4:#3a3a3c;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px;--navH:82px}
+    [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--bg4:#d1d1d6;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{height:-webkit-fill-available}
+    body{font-family:-apple-system,'SF Pro Display','Inter',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:-webkit-fill-available;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
+    ::-webkit-scrollbar{width:0;height:0}
 
     /* LOGIN */
-    #loginPage {
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
-      padding:24px; background:var(--bg);
-    }
-    .loginCard {
-      width:100%; max-width:360px;
-      text-align:center;
-    }
-    .loginCard .logo { font-size:64px; margin-bottom:16px; }
-    .loginCard h1 { font-size:28px; font-weight:700; margin-bottom:4px; }
-    .loginCard .sub { color:var(--t3); font-size:15px; margin-bottom:32px; }
-    .loginCard .errMsg {
-      background:rgba(255,69,58,.15); color:var(--red);
-      padding:12px; border-radius:var(--rs); margin-bottom:16px;
-      font-size:14px; font-weight:600; display:none;
-    }
-
-    .inp {
-      width:100%; padding:16px; font-size:16px;
-      background:var(--bg2); color:var(--text);
-      border:1px solid var(--t4); border-radius:var(--r);
-      font-family:inherit; outline:none; margin-bottom:12px;
-      -webkit-appearance:none; transition:border-color .2s;
-    }
-    .inp:focus { border-color:var(--blue); }
-    textarea.inp { resize:vertical; min-height:80px; }
-
-    .btnP {
-      width:100%; padding:16px; border:none; border-radius:var(--r);
-      background:var(--blue); color:#fff;
-      font-size:17px; font-weight:600; font-family:inherit;
-      cursor:pointer; transition:opacity .15s;
-    }
-    .btnP:active { opacity:.7; }
-
-    .btnS {
-      width:100%; padding:16px; border:none; border-radius:var(--r);
-      background:var(--bg2); color:var(--text);
-      font-size:17px; font-weight:600; font-family:inherit;
-      cursor:pointer; border:1px solid var(--t4); transition:opacity .15s;
-    }
-    .btnS:active { opacity:.7; }
-
-    .divLine {
-      display:flex; align-items:center; gap:12px;
-      margin:20px 0; color:var(--t3); font-size:13px;
-    }
-    .divLine::before,.divLine::after { content:''; flex:1; height:1px; background:var(--t4); }
+    #loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--bg)}
+    .loginCard{width:100%;max-width:360px;text-align:center}
+    .loginCard .logo{font-size:64px;margin-bottom:16px}
+    .loginCard h1{font-size:28px;font-weight:700;margin-bottom:4px}
+    .loginCard .sub{color:var(--t3);font-size:15px;margin-bottom:32px}
+    .errMsg{background:rgba(255,69,58,.15);color:var(--red);padding:12px;border-radius:var(--rs);margin-bottom:16px;font-size:14px;font-weight:600;display:none}
+    .inp{width:100%;padding:16px;font-size:16px;background:var(--bg2);color:var(--text);border:1px solid var(--t4);border-radius:var(--r);font-family:inherit;outline:none;margin-bottom:12px;-webkit-appearance:none;transition:border-color .2s}
+    .inp:focus{border-color:var(--blue)}
+    textarea.inp{resize:vertical;min-height:80px}
+    .btnP{width:100%;padding:16px;border:none;border-radius:var(--r);background:var(--blue);color:#fff;font-size:17px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .15s}
+    .btnP:active{opacity:.7}
+    .btnS{width:100%;padding:16px;border:none;border-radius:var(--r);background:var(--bg2);color:var(--text);font-size:17px;font-weight:600;font-family:inherit;cursor:pointer;border:1px solid var(--t4);transition:opacity .15s}
+    .btnS:active{opacity:.7}
+    .btnD{width:100%;padding:16px;border:none;border-radius:var(--r);background:var(--red);color:#fff;font-size:17px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .15s}
+    .btnD:active{opacity:.7}
+    .divLine{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--t3);font-size:13px}
+    .divLine::before,.divLine::after{content:'';flex:1;height:1px;background:var(--t4)}
 
     /* APP */
-    #appPage { display:none; }
+    #appPage{display:none}
 
-    /* iOS-style top */
-    .top {
-      padding:8px 20px 12px;
-      padding-top:calc(8px + env(safe-area-inset-top));
-      position:sticky; top:0; z-index:50;
-      background:var(--bg); transition:background .3s;
-    }
-    .topRow { display:flex; justify-content:space-between; align-items:center; }
-    .topTitle { font-size:34px; font-weight:700; letter-spacing:-.5px; }
-    .topRight { display:flex; gap:8px; align-items:center; }
+    /* TOP */
+    .top{padding:8px 20px 10px;padding-top:calc(8px + env(safe-area-inset-top));position:sticky;top:0;z-index:50;background:var(--bg);transition:background .3s}
+    .topRow{display:flex;justify-content:space-between;align-items:center;max-width:600px;margin:0 auto}
+    .topLeft{display:flex;align-items:center;gap:10px}
+    .topTitle{font-size:28px;font-weight:700;letter-spacing:-.5px}
+    .topRight{display:flex;gap:8px;align-items:center}
+    .pillBadge{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+    .pillBadge.up{background:rgba(48,209,88,.15);color:var(--green)}
+    .pillBadge.lo{background:rgba(255,69,58,.15);color:var(--red)}
+    .circBtn{width:36px;height:36px;border-radius:50%;background:var(--bg2);border:none;color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s}
+    .circBtn:active{transform:scale(.9)}
+    .topDate{font-size:13px;color:var(--t3);margin-top:2px;font-weight:500}
 
-    .pillBadge {
-      padding:4px 10px; border-radius:20px;
-      font-size:12px; font-weight:700;
-    }
-    .pillBadge.up { background:rgba(48,209,88,.15); color:var(--green); }
-    .pillBadge.lo { background:rgba(255,69,58,.15); color:var(--red); }
+    /* WEEK STRIP — fixed, no scroll */
+    .weekBar{padding:8px 20px 14px;max-width:600px;margin:0 auto}
+    .weekRow{display:flex;align-items:center;gap:4px}
+    .wArrow{width:32px;height:52px;flex-shrink:0;background:var(--bg2);border:none;border-radius:var(--rs);color:var(--t2);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s}
+    .wArrow:active{transform:scale(.9)}
+    .dayChip{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 0 10px;border-radius:var(--r);cursor:pointer;transition:all .2s;position:relative;background:transparent;border:none;color:var(--text);font-family:inherit;min-width:0}
+    .dayChip .dcD{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase}
+    .dayChip .dcN{font-size:18px;font-weight:700}
+    .dayChip:active{transform:scale(.94)}
+    .dayChip.sel{background:var(--blue);color:#fff}
+    .dayChip.sel .dcD{color:rgba(255,255,255,.7)}
+    .dayChip.sel .dcN{color:#fff}
+    .dayChip.today:not(.sel)::after{content:'';position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+    .dayChip .dcDot{position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+    .weekLabel{text-align:center;padding:4px 0 0;font-size:12px;color:var(--t3);font-weight:600}
+    .weekLabel span.up{color:var(--green)}
+    .weekLabel span.lo{color:var(--red)}
 
-    .circBtn {
-      width:34px; height:34px; border-radius:50%;
-      background:var(--bg2); border:none;
-      color:var(--text); font-size:16px;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:transform .1s;
-    }
-    .circBtn:active { transform:scale(.9); }
+    /* CONTENT */
+    .content{padding:0 20px calc(var(--navH) + env(safe-area-inset-bottom) + 16px);max-width:600px;margin:0 auto}
+    .pg{display:none}
+    .pg.on{display:block;animation:fadeUp .25s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    .topDate { font-size:13px; color:var(--t3); margin-top:2px; font-weight:500; }
+    /* LESSONS */
+    .lList{display:flex;flex-direction:column;gap:8px}
+    .lCard{background:var(--card);border-radius:var(--r);padding:14px 16px;display:flex;gap:12px;border:1px solid var(--t4);cursor:pointer;transition:transform .12s;position:relative}
+    .lCard:active{transform:scale(.98)}
+    .lCard.empty{opacity:.35;cursor:default}
+    .lCard.empty:active{transform:none}
+    .lCard.changed{border-left:3px solid var(--orange)}
+    .pairN{width:44px;height:52px;background:rgba(10,132,255,.1);border-radius:var(--rs);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+    [data-theme="light"] .pairN{background:rgba(0,122,255,.08)}
+    .pairN .pn{font-size:20px;font-weight:800;color:var(--blue)}
+    .pairN .pt{font-size:9px;color:var(--t3);font-weight:600;margin-top:1px}
+    .lBody{flex:1;min-width:0}
+    .lName{font-size:16px;font-weight:700;margin-bottom:3px}
+    .lMeta{display:flex;gap:10px;font-size:13px;color:var(--t2);flex-wrap:wrap}
+    .lEmpty{color:var(--t3);font-size:14px}
+    .lActions{position:absolute;top:10px;right:10px;display:flex;gap:4px}
+    .miniBtn{padding:4px 8px;border-radius:6px;border:none;font-size:11px;font-weight:700;font-family:inherit;cursor:pointer;transition:opacity .15s}
+    .miniBtn:active{opacity:.6}
+    .miniBtn.bl{background:rgba(10,132,255,.15);color:var(--blue)}
+    .miniBtn.gr{background:rgba(48,209,88,.15);color:var(--green)}
+    .miniBtn.rd{background:rgba(255,69,58,.15);color:var(--red)}
+    .miniBtn.og{background:rgba(255,159,10,.15);color:var(--orange)}
 
-    /* dropdown */
-    .dropdown {
-      position:absolute; top:calc(100% + 4px); right:20px;
-      background:var(--bg2); border-radius:var(--r);
-      min-width:180px; overflow:hidden;
-      box-shadow:0 8px 40px rgba(0,0,0,.4);
-      border:1px solid var(--t4);
-      display:none; z-index:200;
-    }
-    .dropdown.open { display:block; }
-    .ddItem {
-      display:block; width:100%; padding:14px 16px;
-      font-size:15px; font-weight:500; color:var(--text);
-      border:none; background:none; text-align:left;
-      font-family:inherit; cursor:pointer;
-      border-bottom:1px solid var(--t4);
-    }
-    .ddItem:last-child { border:none; }
-    .ddItem:active { background:var(--bg3); }
-    .ddItem.red { color:var(--red); }
-    .ddInfo { padding:12px 16px; font-size:13px; color:var(--t3); border-bottom:1px solid var(--t4); }
+    /* HW INLINE */
+    .hwInline{margin-top:8px;padding:10px 12px;background:rgba(10,132,255,.06);border-radius:var(--rs);border-left:3px solid var(--blue)}
+    [data-theme="light"] .hwInline{background:rgba(0,122,255,.04)}
+    .hwInline.done{opacity:.4}
+    .hwInline .hwHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+    .hwInline .hwTag{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--blue);letter-spacing:.3px}
+    .hwInline .hwTxt{font-size:14px;line-height:1.5}
+    .hwInline.done .hwTxt{text-decoration:line-through}
+    .hwInline .hwBtns{display:flex;gap:3px}
+    .hwInline .hwPhotos{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+    .hwInline .hwPhotos img{width:60px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid var(--t4)}
 
-    /* Week strip */
-    .weekStrip {
-      display:flex; align-items:center; gap:4px;
-      padding:8px 20px 16px; overflow-x:auto;
-      -webkit-overflow-scrolling:touch; scrollbar-width:none;
-    }
-    .weekStrip::-webkit-scrollbar { display:none; }
+    /* PAGE HEADS */
+    .pgHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:8px;flex-wrap:wrap}
+    .pgHead h2{font-size:22px;font-weight:700}
+    .emptyBox{text-align:center;padding:60px 20px;color:var(--t3)}
+    .emptyBox .eIcon{font-size:48px;margin-bottom:8px;opacity:.5}
+    .emptyBox .eTxt{font-size:15px}
 
-    .wsArrow {
-      width:32px; height:56px; flex-shrink:0;
-      background:var(--bg2); border:none; border-radius:var(--rs);
-      color:var(--t2); font-size:18px;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:transform .1s;
-    }
-    .wsArrow:active { transform:scale(.9); }
+    /* HW CARDS */
+    .hwCard{background:var(--card);border-radius:var(--r);padding:16px;border:1px solid var(--t4);border-left:3px solid var(--blue);margin-bottom:10px}
+    .hwCard .hwSubj{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:4px}
+    .hwCard .hwDue{font-size:12px;color:var(--t3);margin-bottom:10px}
+    .hwCard .hwTask{font-size:14px;line-height:1.6;padding:10px;background:var(--bg2);border-radius:var(--rs);margin-bottom:10px}
+    .hwCard .hwActs{display:flex;gap:6px}
+    .hwCard .hwPhotos{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+    .hwCard .hwPhotos img{width:80px;height:80px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid var(--t4)}
 
-    .dayChip {
-      flex:1; min-width:44px; max-width:56px;
-      display:flex; flex-direction:column;
-      align-items:center; gap:6px;
-      padding:10px 0 12px;
-      border-radius:var(--r);
-      cursor:pointer; transition:all .2s;
-      position:relative;
-      background:transparent;
-      border:none; color:var(--text); font-family:inherit;
-    }
-    .dayChip .dcDay { font-size:11px; font-weight:600; color:var(--t3); text-transform:uppercase; }
-    .dayChip .dcNum { font-size:20px; font-weight:700; }
-    .dayChip:active { transform:scale(.94); }
+    /* EVENTS CARDS */
+    .evCard{background:var(--card);border-radius:var(--r);padding:16px;border:1px solid var(--t4);border-left:3px solid var(--purple);margin-bottom:10px}
+    .evCard .evTitle{font-size:15px;font-weight:700;color:var(--purple);margin-bottom:4px}
+    .evCard .evDate{font-size:12px;color:var(--t3);margin-bottom:6px}
+    .evCard .evDesc{font-size:14px;line-height:1.5;color:var(--t2)}
 
-    .dayChip.sel {
-      background:var(--blue); color:#fff;
-    }
-    .dayChip.sel .dcDay { color:rgba(255,255,255,.7); }
-    .dayChip.sel .dcNum { color:#fff; }
+    /* GRADES */
+    .gradeTabs{display:flex;gap:4px;margin-bottom:16px;background:var(--bg2);border-radius:var(--rs);padding:3px}
+    .gradeTab{flex:1;padding:10px;border:none;border-radius:8px;background:transparent;color:var(--t3);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;text-align:center}
+    .gradeTab.on{background:var(--blue);color:#fff}
+    .gradeTab:active{opacity:.7}
+    .gradeContent{display:none}
+    .gradeContent.on{display:block;animation:fadeUp .2s ease}
 
-    .dayChip.today:not(.sel)::after {
-      content:''; position:absolute; bottom:5px;
-      width:5px; height:5px; border-radius:50%;
-      background:var(--blue);
-    }
+    /* SUBJECTS/CHANGES/SETTINGS */
+    .sjRow{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border-radius:var(--r);border:1px solid var(--t4);margin-bottom:8px}
+    .sjRow .sjIcon{width:40px;height:40px;border-radius:var(--rs);background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .sjRow .sjInfo{flex:1;min-width:0}
+    .sjRow .sjN{font-weight:700;font-size:15px}
+    .sjRow .sjM{font-size:13px;color:var(--t2)}
+    .chgCard{background:var(--card);border-radius:var(--r);padding:16px;border:1px solid var(--t4);border-left:3px solid var(--orange);margin-bottom:10px}
+    .chgCard .chHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+    .chgCard .chDate{font-weight:700;color:var(--orange)}
+    .chgLesson{display:flex;gap:8px;align-items:center;padding:8px;background:var(--bg2);border-radius:var(--rs);margin-bottom:4px}
+    .chgLesson .clN{width:24px;height:24px;border-radius:6px;background:rgba(255,159,10,.15);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:var(--orange);flex-shrink:0}
+    .setRow{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--card);border-radius:var(--r);border:1px solid var(--t4);margin-bottom:8px;gap:12px;flex-wrap:wrap}
+    .setRow h4{font-size:15px;font-weight:700}
+    .setRow p{font-size:13px;color:var(--t3)}
 
-    .dayChip .dcDot {
-      position:absolute; top:4px; right:4px;
-      width:6px; height:6px; border-radius:50%;
-      background:var(--orange);
-    }
+    /* BOTTOM NAV */
+    .bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--navH) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:var(--bg2);border-top:1px solid var(--t4);display:flex;z-index:100}
+    [data-theme="light"] .bnav{background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .bnavBtn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:none;color:var(--t3);font-size:10px;font-weight:600;font-family:inherit;cursor:pointer;transition:color .15s;padding:0;position:relative}
+    .bnavBtn .bi{font-size:24px;transition:transform .12s}
+    .bnavBtn:active .bi{transform:scale(.85)}
+    .bnavBtn.on{color:var(--blue)}
+    .bnavBtn .badge{position:absolute;top:6px;left:calc(50% + 6px);min-width:16px;height:16px;border-radius:8px;background:var(--red);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
 
-    .wsLabel {
-      flex-shrink:0; text-align:center; min-width:80px;
-      padding:0 4px;
-    }
-    .wsLabel .wslRange { font-size:13px; font-weight:700; color:var(--text); }
-    .wsLabel .wslType { font-size:11px; font-weight:600; margin-top:1px; }
-    .wslType.up { color:var(--green); }
-    .wslType.lo { color:var(--red); }
+    /* SIDEBAR (slide-in menu) */
+    .sideOverlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;opacity:0;transition:opacity .3s}
+    .sideOverlay.open{display:block;opacity:1}
+    [data-theme="light"] .sideOverlay{background:rgba(0,0,0,.3)}
+    .sidebar{position:fixed;top:0;right:-300px;bottom:0;width:280px;max-width:85vw;background:var(--bg2);z-index:201;transition:right .35s cubic-bezier(.32,.72,0,1);padding:0;display:flex;flex-direction:column;box-shadow:-4px 0 30px rgba(0,0,0,.3)}
+    .sidebar.open{right:0}
+    .sideHead{padding:20px;padding-top:calc(20px + env(safe-area-inset-top));border-bottom:1px solid var(--t4)}
+    .sideHead .shName{font-size:18px;font-weight:700;margin-bottom:2px}
+    .sideHead .shEmail{font-size:13px;color:var(--t3)}
+    .sideHead .shBadge{display:inline-block;background:var(--blue);color:#fff;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800;margin-top:4px}
+    .sideItems{flex:1;overflow-y:auto;padding:8px 0}
+    .sideItem{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:16px;font-weight:600;color:var(--text);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+    .sideItem:active{background:var(--bg3)}
+    .sideItem .siIcon{font-size:20px;width:28px;text-align:center}
+    .sideItem.red{color:var(--red)}
+    .sideFoot{padding:16px 20px;padding-bottom:calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--t4);font-size:12px;color:var(--t3);text-align:center}
 
-    /* content */
-    .content {
-      padding:0 20px calc(var(--navH) + env(safe-area-inset-bottom) + 16px);
-      max-width:600px; margin:0 auto;
-    }
+    /* SHEETS */
+    .sheet{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:flex-end;justify-content:center}
+    [data-theme="light"] .sheet{background:rgba(0,0,0,.3)}
+    .sheet.open{display:flex}
+    .sheetBox{background:var(--bg2);width:100%;max-width:500px;border-radius:20px 20px 0 0;padding:0 20px calc(20px + env(safe-area-inset-bottom));max-height:90vh;overflow-y:auto;animation:shUp .3s cubic-bezier(.32,.72,0,1)}
+    @keyframes shUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+    .shHandle{width:36px;height:4px;background:var(--t4);border-radius:2px;margin:10px auto 16px}
+    .sheetBox h3{font-size:20px;font-weight:700;margin-bottom:16px}
+    .shBtns{display:flex;gap:8px;margin-top:20px;padding-bottom:8px}
+    .shBtns .btnP,.shBtns .btnS,.shBtns .btnD{flex:1;padding:14px;font-size:15px}
 
-    .pg { display:none; }
-    .pg.on { display:block; animation:fadeUp .25s ease; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    /* Custom select */
+    .csTrig{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--bg3);border:1px solid var(--t4);border-radius:var(--r);cursor:pointer;min-height:52px;transition:border-color .2s}
+    .csTrig:active{opacity:.8}
+    .csTrig.open{border-color:var(--blue);border-radius:var(--r) var(--r) 0 0}
+    .csTrig .csI{width:32px;height:32px;border-radius:8px;background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+    .csTrig .csTxt{flex:1}
+    .csTrig .csN{font-weight:700;font-size:14px}
+    .csTrig .csM{font-size:12px;color:var(--t3)}
+    .csTrig .csPh{color:var(--t3);font-size:14px}
+    .csTrig .csArr{color:var(--t3);font-size:10px;transition:transform .2s}
+    .csTrig.open .csArr{transform:rotate(180deg)}
+    .csDd{position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:1px solid var(--blue);border-top:1px solid var(--t4);border-radius:0 0 var(--r) var(--r);max-height:200px;overflow-y:auto;z-index:50;display:none;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+    .csDd.open{display:block}
+    .csOpt{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--t4);transition:background .1s}
+    .csOpt:last-child{border:none}
+    .csOpt:active{background:var(--bg3)}
+    .csOpt.on{background:rgba(10,132,255,.08)}
+    .csOpt .coI{width:28px;height:28px;border-radius:7px;background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+    .csOpt .coN{font-weight:700;font-size:14px}
+    .csOpt .coM{font-size:11px;color:var(--t3)}
+    .csOpt.emp .coI{background:rgba(255,69,58,.1)}
+    .csWrap{position:relative;width:100%}
+    .cpBlk{background:var(--bg3);border-radius:var(--rs);padding:12px;margin-bottom:8px}
+    .cpBlk .cpHead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+    .cpBlk .cpN{width:24px;height:24px;border-radius:6px;background:rgba(10,132,255,.1);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:var(--blue)}
 
-    /* lesson cards */
-    .lList { display:flex; flex-direction:column; gap:8px; }
+    /* Photo upload */
+    .photoUploadArea{margin-top:8px}
+    .photoUploadBtn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;background:var(--bg3);border:1px dashed var(--t4);border-radius:var(--rs);color:var(--t2);font-size:14px;font-weight:600;cursor:pointer;transition:border-color .2s}
+    .photoUploadBtn:active{opacity:.7}
+    .photoPreview{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+    .photoPreview .ppItem{position:relative;width:72px;height:72px}
+    .photoPreview .ppItem img{width:100%;height:100%;object-fit:cover;border-radius:8px;border:1px solid var(--t4)}
+    .photoPreview .ppRm{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer}
 
-    .lCard {
-      background:var(--card);
-      border-radius:var(--r);
-      padding:14px 16px;
-      display:flex; gap:12px;
-      border:1px solid var(--t4);
-      cursor:pointer;
-      transition:transform .12s;
-      position:relative;
-    }
-    .lCard:active { transform:scale(.98); }
-    .lCard.empty { opacity:.35; cursor:default; }
-    .lCard.empty:active { transform:none; }
-    .lCard.changed { border-left:3px solid var(--orange); }
+    /* Image viewer */
+    .imgViewer{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;display:none;align-items:center;justify-content:center;cursor:pointer}
+    .imgViewer.open{display:flex}
+    .imgViewer img{max-width:95%;max-height:90vh;border-radius:8px;object-fit:contain}
 
-    .pairN {
-      width:44px; height:52px;
-      background:rgba(10,132,255,.1);
-      border-radius:var(--rs);
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      flex-shrink:0;
-    }
-    [data-theme="light"] .pairN { background:rgba(0,122,255,.08); }
-    .pairN .pn { font-size:20px; font-weight:800; color:var(--blue); }
-    .pairN .pt { font-size:9px; color:var(--t3); font-weight:600; margin-top:1px; }
+    /* FUTURE placeholder */
+    .futurePlaceholder{text-align:center;padding:60px 20px}
+    .futurePlaceholder .fpIcon{font-size:56px;margin-bottom:12px}
+    .futurePlaceholder h3{font-size:20px;font-weight:700;margin-bottom:8px}
+    .futurePlaceholder p{font-size:14px;color:var(--t3);line-height:1.6;max-width:280px;margin:0 auto}
 
-    .lBody { flex:1; min-width:0; }
-    .lName { font-size:16px; font-weight:700; margin-bottom:3px; }
-    .lMeta { display:flex; gap:10px; font-size:13px; color:var(--t2); flex-wrap:wrap; }
-    .lEmpty { color:var(--t3); font-size:14px; }
-    .lActions { position:absolute; top:10px; right:10px; display:flex; gap:4px; }
-
-    .miniBtn {
-      padding:4px 8px; border-radius:6px; border:none;
-      font-size:11px; font-weight:700; font-family:inherit;
-      cursor:pointer; transition:opacity .15s;
-    }
-    .miniBtn:active { opacity:.6; }
-    .miniBtn.bl { background:rgba(10,132,255,.15); color:var(--blue); }
-    .miniBtn.gr { background:rgba(48,209,88,.15); color:var(--green); }
-    .miniBtn.rd { background:rgba(255,69,58,.15); color:var(--red); }
-    .miniBtn.og { background:rgba(255,159,10,.15); color:var(--orange); }
-
-    /* inline hw */
-    .hwInline {
-      margin-top:8px; padding:10px 12px;
-      background:rgba(10,132,255,.06);
-      border-radius:var(--rs);
-      border-left:3px solid var(--blue);
-    }
-    [data-theme="light"] .hwInline { background:rgba(0,122,255,.04); }
-    .hwInline.done { opacity:.4; }
-    .hwInline .hwHead { display:flex; justify-content:space-between; align-items:center; margin-bottom:3px; }
-    .hwInline .hwTag { font-size:10px; font-weight:700; text-transform:uppercase; color:var(--blue); letter-spacing:.3px; }
-    .hwInline .hwTxt { font-size:14px; line-height:1.5; }
-    .hwInline.done .hwTxt { text-decoration:line-through; }
-    .hwInline .hwBtns { display:flex; gap:3px; }
-
-    /* page heads */
-    .pgHead { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:8px; flex-wrap:wrap; }
-    .pgHead h2 { font-size:22px; font-weight:700; }
-
-    .emptyBox { text-align:center; padding:60px 20px; color:var(--t3); }
-    .emptyBox .eIcon { font-size:48px; margin-bottom:8px; opacity:.5; }
-    .emptyBox .eTxt { font-size:15px; }
-
-    /* hw items */
-    .hwCard {
-      background:var(--card); border-radius:var(--r);
-      padding:16px; border:1px solid var(--t4);
-      border-left:3px solid var(--blue);
-      margin-bottom:10px;
-    }
-    .hwCard .hwSubj { font-size:15px; font-weight:700; color:var(--blue); margin-bottom:4px; }
-    .hwCard .hwDue { font-size:12px; color:var(--t3); margin-bottom:10px; }
-    .hwCard .hwTask { font-size:14px; line-height:1.6; padding:10px; background:var(--bg2); border-radius:var(--rs); margin-bottom:10px; }
-    .hwCard .hwActs { display:flex; gap:6px; }
-
-    /* subj items */
-    .sjRow {
-      display:flex; align-items:center; gap:12px;
-      padding:14px 16px; background:var(--card);
-      border-radius:var(--r); border:1px solid var(--t4);
-      margin-bottom:8px;
-    }
-    .sjRow .sjIcon { width:40px; height:40px; border-radius:var(--rs); background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-    .sjRow .sjInfo { flex:1; min-width:0; }
-    .sjRow .sjN { font-weight:700; font-size:15px; }
-    .sjRow .sjM { font-size:13px; color:var(--t2); }
-
-    /* chg items */
-    .chgCard {
-      background:var(--card); border-radius:var(--r);
-      padding:16px; border:1px solid var(--t4);
-      border-left:3px solid var(--orange);
-      margin-bottom:10px;
-    }
-    .chgCard .chHead { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
-    .chgCard .chDate { font-weight:700; color:var(--orange); }
-    .chgLesson {
-      display:flex; gap:8px; align-items:center;
-      padding:8px; background:var(--bg2);
-      border-radius:var(--rs); margin-bottom:4px;
-    }
-    .chgLesson .clN { width:24px; height:24px; border-radius:6px; background:rgba(255,159,10,.15); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:var(--orange); flex-shrink:0; }
-
-    /* settings */
-    .setRow {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:16px; background:var(--card);
-      border-radius:var(--r); border:1px solid var(--t4);
-      margin-bottom:8px; gap:12px; flex-wrap:wrap;
-    }
-    .setRow h4 { font-size:15px; font-weight:700; }
-    .setRow p { font-size:13px; color:var(--t3); }
-
-    /* bottom nav */
-    .bnav {
-      position:fixed; bottom:0; left:0; right:0;
-      height:calc(var(--navH) + env(safe-area-inset-bottom));
-      padding-bottom:env(safe-area-inset-bottom);
-      background:var(--bg2);
-      border-top:1px solid var(--t4);
-      display:flex; z-index:100;
-    }
-    [data-theme="light"] .bnav { background:rgba(255,255,255,.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
-
-    .bnavBtn {
-      flex:1; display:flex; flex-direction:column;
-      align-items:center; justify-content:center; gap:2px;
-      border:none; background:none;
-      color:var(--t3); font-size:10px; font-weight:600;
-      font-family:inherit; cursor:pointer;
-      transition:color .15s; padding:0;
-      position:relative;
-    }
-    .bnavBtn .bi { font-size:24px; transition:transform .12s; }
-    .bnavBtn:active .bi { transform:scale(.85); }
-    .bnavBtn.on { color:var(--blue); }
-
-    .bnavBtn .badge {
-      position:absolute; top:6px; left:calc(50% + 6px);
-      min-width:16px; height:16px; border-radius:8px;
-      background:var(--red); color:#fff;
-      font-size:10px; font-weight:800;
-      display:flex; align-items:center; justify-content:center;
-      padding:0 4px;
-    }
-
-    /* sheet modal */
-    .sheet { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:500; display:none; align-items:flex-end; justify-content:center; }
-    [data-theme="light"] .sheet { background:rgba(0,0,0,.3); }
-    .sheet.open { display:flex; }
-    .sheetBox {
-      background:var(--bg2); width:100%; max-width:500px;
-      border-radius:20px 20px 0 0;
-      padding:0 20px calc(20px + env(safe-area-inset-bottom));
-      max-height:90vh; overflow-y:auto;
-      animation:shUp .3s cubic-bezier(.32,.72,0,1);
-    }
-    @keyframes shUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-    .shHandle { width:36px; height:4px; background:var(--t4); border-radius:2px; margin:10px auto 16px; }
-    .sheetBox h3 { font-size:20px; font-weight:700; margin-bottom:16px; }
-    .shBtns { display:flex; gap:8px; margin-top:20px; padding-bottom:8px; }
-    .shBtns .btnP, .shBtns .btnS { flex:1; padding:14px; font-size:15px; }
-    .btnD { background:var(--red); color:#fff; flex:1; padding:14px; border:none; border-radius:var(--r); font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; }
-
-    /* custom select */
-    .csTrig {
-      display:flex; align-items:center; gap:10px;
-      padding:14px 16px; background:var(--bg3);
-      border:1px solid var(--t4); border-radius:var(--r);
-      cursor:pointer; min-height:52px; transition:border-color .2s;
-    }
-    .csTrig:active { opacity:.8; }
-    .csTrig.open { border-color:var(--blue); border-radius:var(--r) var(--r) 0 0; }
-    .csTrig .csI { width:32px; height:32px; border-radius:8px; background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
-    .csTrig .csTxt { flex:1; }
-    .csTrig .csN { font-weight:700; font-size:14px; }
-    .csTrig .csM { font-size:12px; color:var(--t3); }
-    .csTrig .csPh { color:var(--t3); font-size:14px; }
-    .csTrig .csArr { color:var(--t3); font-size:10px; transition:transform .2s; }
-    .csTrig.open .csArr { transform:rotate(180deg); }
-
-    .csDd {
-      position:absolute; top:100%; left:0; right:0;
-      background:var(--bg2); border:1px solid var(--blue);
-      border-top:1px solid var(--t4);
-      border-radius:0 0 var(--r) var(--r);
-      max-height:200px; overflow-y:auto;
-      z-index:50; display:none;
-      box-shadow:0 12px 40px rgba(0,0,0,.3);
-    }
-    .csDd.open { display:block; }
-    .csOpt {
-      display:flex; align-items:center; gap:10px;
-      padding:12px 16px; cursor:pointer;
-      border-bottom:1px solid var(--t4);
-      transition:background .1s;
-    }
-    .csOpt:last-child { border:none; }
-    .csOpt:active { background:var(--bg3); }
-    .csOpt.on { background:rgba(10,132,255,.08); }
-    .csOpt .coI { width:28px; height:28px; border-radius:7px; background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
-    .csOpt .coN { font-weight:700; font-size:14px; }
-    .csOpt .coM { font-size:11px; color:var(--t3); }
-    .csOpt.emp .coI { background:rgba(255,69,58,.1); }
-    .csWrap { position:relative; width:100%; }
-
-    /* change pair block */
-    .cpBlk {
-      background:var(--bg3); border-radius:var(--rs);
-      padding:12px; margin-bottom:8px;
-    }
-    .cpBlk .cpHead { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-    .cpBlk .cpN { width:24px; height:24px; border-radius:6px; background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:var(--blue); }
-
-    .admH { display:none !important; }
-
-    @media(max-width:380px) {
-      .topTitle { font-size:28px; }
-      .dayChip .dcNum { font-size:17px; }
-      .dayChip { min-width:38px; }
-    }
+    .admH{display:none !important}
+    @media(max-width:380px){.topTitle{font-size:24px}.dayChip .dcN{font-size:16px}}
   </style>
 </head>
 <body>
@@ -484,82 +260,130 @@
 </div>
 
 <div id="appPage">
-  <div class="top" id="topBar">
+  <div class="top">
     <div class="topRow">
-      <div>
-        <div class="topTitle">Дневник</div>
-        <div class="topDate" id="topDate"></div>
+      <div class="topLeft">
+        <div class="topTitle">📓 Дневник</div>
       </div>
       <div class="topRight">
         <span class="pillBadge" id="topBadge"></span>
-        <button class="circBtn" id="menuBtn" onclick="togMenu()">☰</button>
+        <button class="circBtn" onclick="openSidebar()">☰</button>
       </div>
     </div>
-    <div class="dropdown" id="menuDrop">
-      <div class="ddInfo" id="ddEmail"></div>
-      <button class="ddItem" onclick="togTheme()">🎨 Тема</button>
-      <button class="ddItem red" onclick="doLogout()">Выйти</button>
-    </div>
+    <div class="topDate" id="topDate"></div>
   </div>
 
-  <div class="weekStrip" id="weekStrip"></div>
+  <div class="weekBar" id="weekBar">
+    <div class="weekRow" id="weekRow"></div>
+    <div class="weekLabel" id="weekLabel"></div>
+  </div>
 
   <div class="content">
-    <div class="pg on" id="pgSched">
-      <div class="lList" id="lList"></div>
+    <div class="pg on" id="pgSched"><div class="lList" id="lList"></div></div>
+
+    <div class="pg" id="pgEvents">
+      <div class="pgHead"><h2>События</h2></div>
+      <div id="eventsList"></div>
+    </div>
+
+    <div class="pg" id="pgGrades">
+      <div class="pgHead"><h2>Оценки</h2></div>
+      <div class="gradeTabs">
+        <button class="gradeTab on" onclick="switchGradeTab(0)">Журнал</button>
+        <button class="gradeTab" onclick="switchGradeTab(1)">Зачётка</button>
+      </div>
+      <div class="gradeContent on" id="gradeJournal">
+        <div class="futurePlaceholder">
+          <div class="fpIcon">📊</div>
+          <h3>Журнал оценок</h3>
+          <p>Здесь будут отображаться ваши оценки по предметам. Функция появится в ближайшем обновлении.</p>
+        </div>
+      </div>
+      <div class="gradeContent" id="gradeRecord">
+        <div class="futurePlaceholder">
+          <div class="fpIcon">📋</div>
+          <h3>Электронная зачётка</h3>
+          <p>Зачёты, экзамены, курсовые — вся информация о вашей успеваемости будет здесь. Скоро!</p>
+        </div>
+      </div>
     </div>
 
     <div class="pg" id="pgHw">
       <div class="pgHead">
         <h2>Домашнее задание</h2>
-        <button class="btnP admH" id="addHwBtn" onclick="openNewHw()" style="padding:10px 16px;font-size:14px;">+ Добавить</button>
+        <button class="btnP admH" id="addHwBtn" onclick="openNewHw()" style="padding:10px 16px;font-size:14px;width:auto">+ Добавить</button>
       </div>
       <div id="hwList"></div>
     </div>
 
-    <div class="pg admH" id="pgChg">
-      <div class="pgHead">
-        <h2>Замены</h2>
-        <button class="btnP" onclick="openChgM()" style="padding:10px 16px;font-size:14px;">+ Добавить</button>
+    <div class="pg" id="pgChat">
+      <div class="futurePlaceholder">
+        <div class="fpIcon">💬</div>
+        <h3>Чат группы</h3>
+        <p>Общайтесь с одногруппниками и преподавателями прямо в дневнике. Функция в разработке.</p>
       </div>
+    </div>
+
+    <div class="pg admH" id="pgChg">
+      <div class="pgHead"><h2>Замены</h2><button class="btnP" onclick="openChgM()" style="padding:10px 16px;font-size:14px;width:auto">+ Добавить</button></div>
       <div id="chgList"></div>
     </div>
 
     <div class="pg admH" id="pgSubj">
-      <div class="pgHead">
-        <h2>Предметы</h2>
-        <button class="btnP" onclick="openSjM()" style="padding:10px 16px;font-size:14px;">+ Добавить</button>
-      </div>
+      <div class="pgHead"><h2>Предметы</h2><button class="btnP" onclick="openSjM()" style="padding:10px 16px;font-size:14px;width:auto">+ Добавить</button></div>
       <div id="sjList"></div>
     </div>
 
-    <div class="pg admH" id="pgSet">
-      <h2 style="margin-bottom:16px;">Настройки</h2>
-      <div class="setRow"><div><h4>Начало недель</h4><p>Понедельник верхней</p></div><input type="date" class="inp" id="cfgWS" style="width:auto;margin:0;padding:10px;"></div>
-      <div class="setRow"><div><h4>Время пар</h4><p>Начало и конец</p></div><button class="btnS" onclick="openTimesM()" style="padding:10px 14px;font-size:14px;width:auto;">Изменить</button></div>
-      <div class="setRow"><div><h4>Очистить</h4><p>Удалить все данные</p></div><button class="btnD" onclick="clearAll()" style="padding:10px 14px;font-size:14px;width:auto;">Очистить</button></div>
+    <div class="pg" id="pgSet">
+      <h2 style="margin-bottom:16px">Настройки</h2>
+      <div class="setRow"><div><h4>Тема</h4><p>Светлая / тёмная</p></div><button class="btnS" onclick="togTheme()" style="width:auto;padding:10px 16px;font-size:14px">Сменить</button></div>
+      <div class="setRow admH"><div><h4>Начало недель</h4><p>Понедельник верхней</p></div><input type="date" class="inp" id="cfgWS" style="width:auto;margin:0;padding:10px"></div>
+      <div class="setRow admH"><div><h4>Время пар</h4></div><button class="btnS" onclick="openTimesM()" style="width:auto;padding:10px 16px;font-size:14px">Изменить</button></div>
+      <div class="setRow admH"><div><h4>Очистить данные</h4></div><button class="btnD" onclick="clearAll()" style="width:auto;padding:10px 16px;font-size:14px">Очистить</button></div>
     </div>
   </div>
 
-  <nav class="bnav" id="bnav">
+  <!-- Bottom nav: Расписание, События, Оценки -->
+  <nav class="bnav">
     <button class="bnavBtn on" data-pg="pgSched"><span class="bi">📅</span>Расписание</button>
-    <button class="bnavBtn" data-pg="pgHw" id="bnHw"><span class="bi">📝</span>ДЗ</button>
-    <button class="bnavBtn admH" data-pg="pgChg"><span class="bi">🔄</span>Замены</button>
-    <button class="bnavBtn admH" data-pg="pgSubj"><span class="bi">📖</span>Предметы</button>
-    <button class="bnavBtn admH" data-pg="pgSet"><span class="bi">⚙️</span>Ещё</button>
+    <button class="bnavBtn" data-pg="pgEvents"><span class="bi">📌</span>События</button>
+    <button class="bnavBtn" data-pg="pgGrades"><span class="bi">📊</span>Оценки</button>
   </nav>
 </div>
 
+<!-- SIDEBAR -->
+<div class="sideOverlay" id="sideOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sideHead">
+    <div class="shName" id="shName">Гость</div>
+    <div class="shEmail" id="shEmail"></div>
+    <div class="shBadge admH" id="shBadge">Админ</div>
+  </div>
+  <div class="sideItems">
+    <button class="sideItem" onclick="goPage('pgHw');closeSidebar()"><span class="siIcon">📝</span>Домашнее задание</button>
+    <button class="sideItem" onclick="goPage('pgGrades');closeSidebar()"><span class="siIcon">📊</span>Оценки</button>
+    <button class="sideItem" onclick="goPage('pgChat');closeSidebar()"><span class="siIcon">💬</span>Чат</button>
+    <button class="sideItem admH" onclick="goPage('pgChg');closeSidebar()"><span class="siIcon">🔄</span>Замены</button>
+    <button class="sideItem admH" onclick="goPage('pgSubj');closeSidebar()"><span class="siIcon">📖</span>Предметы</button>
+    <button class="sideItem" onclick="goPage('pgSet');closeSidebar()"><span class="siIcon">⚙️</span>Настройки</button>
+    <button class="sideItem red" onclick="doLogout()"><span class="siIcon">🚪</span>Выйти</button>
+  </div>
+  <div class="sideFoot">Версия 2.0</div>
+</div>
+
+<!-- IMAGE VIEWER -->
+<div class="imgViewer" id="imgViewer" onclick="this.classList.remove('open')"><img id="imgViewerSrc"></div>
+
 <!-- SHEETS -->
-<div class="sheet" id="shLesson"><div class="sheetBox"><div class="shHandle"></div><h3>Редактировать</h3><input type="hidden" id="elD"><input type="hidden" id="elP"><input type="hidden" id="elW"><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Предмет</label><div id="elSel"></div></div><div class="shBtns"><button class="btnS" onclick="closeS('shLesson')">Отмена</button><button class="btnD" onclick="rmLesson()">Убрать</button><button class="btnP" onclick="svLesson()">Ок</button></div></div></div>
+<div class="sheet" id="shLesson"><div class="sheetBox"><div class="shHandle"></div><h3>Редактировать пару</h3><input type="hidden" id="elD"><input type="hidden" id="elP"><input type="hidden" id="elW"><div style="margin-bottom:12px"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Предмет</label><div id="elSel"></div></div><div class="shBtns"><button class="btnS" onclick="closeS('shLesson')">Отмена</button><button class="btnD" onclick="rmLesson()">Убрать</button><button class="btnP" onclick="svLesson()">Ок</button></div></div></div>
 
-<div class="sheet" id="shHwI"><div class="sheetBox"><div class="shHandle"></div><h3>Домашка</h3><input type="hidden" id="hiD"><input type="hidden" id="hiP"><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Предмет</label><input class="inp" id="hiS" readonly style="opacity:.5;margin:0;"></div><div class="field" style="margin-bottom:0;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Задание</label><textarea class="inp" id="hiT" placeholder="Что задали..." style="margin:0;"></textarea></div><div class="shBtns"><button class="btnS" onclick="closeS('shHwI')">Отмена</button><button class="btnP" onclick="svHwI()">Ок</button></div></div></div>
+<div class="sheet" id="shHwI"><div class="sheetBox"><div class="shHandle"></div><h3>Домашка</h3><input type="hidden" id="hiD"><input type="hidden" id="hiP"><div style="margin-bottom:12px"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Предмет</label><input class="inp" id="hiS" readonly style="opacity:.5;margin:0"></div><div style="margin-bottom:12px"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Задание</label><textarea class="inp" id="hiT" placeholder="Что задали..." style="margin:0"></textarea></div><div style="margin-bottom:0"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Фото</label><div class="photoUploadArea"><label class="photoUploadBtn"><input type="file" accept="image/*" multiple hidden onchange="addPhotos(this,'hiPhotos')">📷 Добавить фото</label><div class="photoPreview" id="hiPhotos"></div></div></div><div class="shBtns"><button class="btnS" onclick="closeS('shHwI')">Отмена</button><button class="btnP" onclick="svHwI()">Ок</button></div></div></div>
 
-<div class="sheet" id="shNewHw"><div class="sheetBox"><div class="shHandle"></div><h3>Новое ДЗ</h3><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Предмет</label><div id="nhSel"></div></div><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Задание</label><textarea class="inp" id="nhT" placeholder="Описание..." style="margin:0;"></textarea></div><div class="field" style="margin-bottom:0;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Ближайшая пара</label><div id="nhNext" style="padding:14px;background:var(--bg3);border-radius:var(--rs);font-size:14px;color:var(--t3);">Выберите предмет</div></div><div class="shBtns"><button class="btnS" onclick="closeS('shNewHw')">Отмена</button><button class="btnP" onclick="svNewHw()">Ок</button></div></div></div>
+<div class="sheet" id="shNewHw"><div class="sheetBox"><div class="shHandle"></div><h3>Новое ДЗ</h3><div style="margin-bottom:12px"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Предмет</label><div id="nhSel"></div></div><div style="margin-bottom:12px"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Задание</label><textarea class="inp" id="nhT" placeholder="Описание..." style="margin:0"></textarea></div><div style="margin-bottom:12px"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Фото</label><div class="photoUploadArea"><label class="photoUploadBtn"><input type="file" accept="image/*" multiple hidden onchange="addPhotos(this,'nhPhotos')">📷 Добавить фото</label><div class="photoPreview" id="nhPhotos"></div></div></div><div style="margin-bottom:0"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px">Ближайшая пара</label><div id="nhNext" style="padding:14px;background:var(--bg3);border-radius:var(--rs);font-size:14px;color:var(--t3)">Выберите предмет</div></div><div class="shBtns"><button class="btnS" onclick="closeS('shNewHw')">Отмена</button><button class="btnP" onclick="svNewHw()">Ок</button></div></div></div>
 
-<div class="sheet" id="shSubj"><div class="sheetBox"><div class="shHandle"></div><h3 id="sjTitle">Добавить</h3><input type="hidden" id="sjId"><input class="inp" id="sjN" placeholder="Название"><input class="inp" id="sjR" placeholder="Аудитория"><input class="inp" id="sjTch" placeholder="Преподаватель"><div class="shBtns"><button class="btnS" onclick="closeS('shSubj')">Отмена</button><button class="btnP" onclick="svSubj()">Ок</button></div></div></div>
+<div class="sheet" id="shSubj"><div class="sheetBox"><div class="shHandle"></div><h3 id="sjTitle">Добавить предмет</h3><input type="hidden" id="sjId"><input class="inp" id="sjN" placeholder="Название"><input class="inp" id="sjR" placeholder="Аудитория"><input class="inp" id="sjTch" placeholder="Преподаватель"><div class="shBtns"><button class="btnS" onclick="closeS('shSubj')">Отмена</button><button class="btnP" onclick="svSubj()">Ок</button></div></div></div>
 
-<div class="sheet" id="shChg"><div class="sheetBox"><div class="shHandle"></div><h3>Замена</h3><input type="hidden" id="ceId"><input class="inp" type="date" id="ceDate" style="margin-bottom:8px;"><p style="font-size:13px;color:var(--t3);margin-bottom:12px;">Замена действует только на эту дату</p><div id="cePairs"></div><div class="shBtns"><button class="btnS" onclick="closeS('shChg')">Отмена</button><button class="btnD" id="ceDel" onclick="rmChg()" style="display:none;">Удалить</button><button class="btnP" onclick="svChg()">Ок</button></div></div></div>
+<div class="sheet" id="shChg"><div class="sheetBox"><div class="shHandle"></div><h3>Замена</h3><input type="hidden" id="ceId"><input class="inp" type="date" id="ceDate" style="margin-bottom:8px"><p style="font-size:13px;color:var(--t3);margin-bottom:12px">Замена на конкретную дату</p><div id="cePairs"></div><div class="shBtns"><button class="btnS" onclick="closeS('shChg')">Отмена</button><button class="btnD" id="ceDel" onclick="rmChg()" style="display:none">Удалить</button><button class="btnP" onclick="svChg()">Ок</button></div></div></div>
 
 <div class="sheet" id="shTimes"><div class="sheetBox"><div class="shHandle"></div><h3>Время пар</h3><div id="timesF"></div><div class="shBtns"><button class="btnS" onclick="closeS('shTimes')">Отмена</button><button class="btnP" onclick="svTimes()">Ок</button></div></div></div>
 
@@ -567,10 +391,9 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
-const TH=()=>document.documentElement.getAttribute('data-theme');
 function initTh(){setTh(localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
 function setTh(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#000':'#f2f2f7'}
-function togTheme(){setTh(TH()==='dark'?'light':'dark');closeDd()}
+function togTheme(){setTh(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')}
 initTh();
 
 firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
@@ -582,7 +405,7 @@ const DK=['Пн','Вт','Ср','Чт','Пт','Сб'],DL=['Понедельник
 let cU=null,isA=false,isG=false;
 let sc={upper:{},lower:{}},hw=[],ch=[],nh=[],sj=[];
 let cf={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
-let vM=gMon(new Date()),sD=tIdx(),cs={};
+let vM=gMon(new Date()),sD=tIdx(),csS={},uploadedPhotos={hiPhotos:[],nhPhotos:[]};
 
 function gMon(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
 function fk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
@@ -600,8 +423,7 @@ function gwt(m){
 function lesFor(dk){
   const d=pk(dk),dow=d.getDay();if(dow===0)return{};
   const di=dow-1;if(di>5)return{};
-  const c=ch.find(x=>x.date===dk);
-  if(c)return c.lessons||{};
+  const c=ch.find(x=>x.date===dk);if(c)return c.lessons||{};
   return(sc[gwt(gMon(d))]||{})[DK[di]]||{};
 }
 
@@ -613,47 +435,59 @@ function findNx(subj){
 
 function recalc(){if(!isA)return;nh.forEach(h=>{if(h.done||!h.subject)return;const n=findNx(h.subject);if(n&&(n.date!==h.targetDate||n.pair!==h.targetPair))db.ref(`newHomework/${h.id}`).update({targetDate:n.date,targetPair:n.pair})})}
 
+/* AUTH */
 au.onAuthStateChanged(u=>{if(u){cU=u;isA=ADM.includes(u.uid);isG=false;boot()}else if(localStorage.getItem('gs')){isG=true;boot()}});
 function doLogin(){const e=document.getElementById('iEmail').value.trim(),p=document.getElementById('iPass').value;if(!e||!p){shErr('Введите email и пароль');return}au.signInWithEmailAndPassword(e,p).catch(()=>shErr('Неверные данные'))}
 function shErr(m){const e=document.getElementById('errMsg');e.textContent=m;e.style.display='block'}
 function guestIn(){isG=true;isA=false;cU=null;localStorage.setItem('gs','1');boot()}
-function doLogout(){localStorage.removeItem('gs');au.signOut().then(()=>{isG=false;isA=false;cU=null;document.getElementById('appPage').style.display='none';document.getElementById('loginPage').style.display='flex';closeDd()})}
+function doLogout(){localStorage.removeItem('gs');closeSidebar();au.signOut().then(()=>{isG=false;isA=false;cU=null;document.getElementById('appPage').style.display='none';document.getElementById('loginPage').style.display='flex'})}
 
 function boot(){
   document.getElementById('loginPage').style.display='none';
   document.getElementById('appPage').style.display='block';
-  document.getElementById('ddEmail').innerHTML=(isG?'Гость':esc(cU?.email||''))+(isA?' <span style="background:var(--blue);color:#fff;padding:2px 6px;border-radius:4px;font-size:11px;font-weight:800;margin-left:4px;">Админ</span>':'');
+  document.getElementById('shName').textContent=isG?'Гость':(cU?.email?.split('@')[0]||'Пользователь');
+  document.getElementById('shEmail').textContent=isG?'Гостевой доступ':(cU?.email||'');
   if(isA)document.querySelectorAll('.admH').forEach(e=>e.classList.remove('admH'));
   setupNav();loadData();sD=tIdx();vM=gMon(new Date());updAll();
 }
 
-function togMenu(){document.getElementById('menuDrop').classList.toggle('open')}
-function closeDd(){document.getElementById('menuDrop').classList.remove('open')}
-document.addEventListener('click',e=>{if(!e.target.closest('#menuBtn')&&!e.target.closest('#menuDrop'))closeDd()});
+/* SIDEBAR */
+function openSidebar(){document.getElementById('sideOverlay').classList.add('open');document.getElementById('sidebar').classList.add('open')}
+function closeSidebar(){document.getElementById('sideOverlay').classList.remove('open');document.getElementById('sidebar').classList.remove('open')}
 
+/* NAV */
 function setupNav(){
-  document.querySelectorAll('.bnavBtn').forEach(b=>{b.addEventListener('click',()=>{
-    document.querySelectorAll('.bnavBtn').forEach(x=>x.classList.remove('on'));
-    document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');document.getElementById(b.dataset.pg).classList.add('on');
-    const isSch=b.dataset.pg==='pgSched';
-    document.getElementById('weekStrip').style.display=isSch?'':'none';
-  })});
+  document.querySelectorAll('.bnavBtn').forEach(b=>{b.addEventListener('click',()=>{goPage(b.dataset.pg);document.querySelectorAll('.bnavBtn').forEach(x=>x.classList.remove('on'));b.classList.add('on')})});
 }
 
+function goPage(id){
+  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  const isSch=id==='pgSched';
+  document.getElementById('weekBar').style.display=isSch?'':'none';
+  // update bottom nav highlight
+  document.querySelectorAll('.bnavBtn').forEach(b=>{b.classList.toggle('on',b.dataset.pg===id)});
+}
+
+/* GRADES TABS */
+function switchGradeTab(i){
+  document.querySelectorAll('.gradeTab').forEach((t,idx)=>t.classList.toggle('on',idx===i));
+  document.querySelectorAll('.gradeContent').forEach((c,idx)=>c.classList.toggle('on',idx===i));
+}
+
+/* DATA */
 function loadData(){
-  db.ref('settings').on('value',s=>{if(s.val()){cf={...cf,...s.val()};if(cf.weekStartDate)document.getElementById('cfgWS').value=cf.weekStartDate}updAll()});
+  db.ref('settings').on('value',s=>{if(s.val()){cf={...cf,...s.val()};const wsi=document.getElementById('cfgWS');if(cf.weekStartDate&&wsi)wsi.value=cf.weekStartDate}updAll()});
   db.ref('schedule').on('value',s=>{sc=s.val()||{upper:{},lower:{}};render();recalc()});
   db.ref('homework').on('value',s=>{const d=s.val();hw=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];render()});
   db.ref('subjects').on('value',s=>{const d=s.val();sj=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];rSubj();render()});
-  db.ref('newHomework').on('value',s=>{const d=s.val();nh=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];rHwPg();render();updBdg()});
-  db.ref('changes').on('value',s=>{const d=s.val();ch=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanOld();render();rStrip();rChg();recalc()});
-  document.getElementById('cfgWS').addEventListener('change',e=>{if(isA)db.ref('settings/weekStartDate').set(e.target.value)});
+  db.ref('newHomework').on('value',s=>{const d=s.val();nh=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];rHwPg();render();rEvents()});
+  db.ref('changes').on('value',s=>{const d=s.val();ch=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanOld();render();rStrip();rChg();rEvents();recalc()});
+  const wsi=document.getElementById('cfgWS');if(wsi)wsi.addEventListener('change',e=>{if(isA)db.ref('settings/weekStartDate').set(e.target.value)});
 }
 
 function cleanOld(){if(!isA)return;const tk=fk(new Date());ch.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
-
-function updAll(){updTop();rStrip();render()}
+function updAll(){updTop();rStrip();render();rEvents()}
 
 function updTop(){
   const t=new Date(),wt=gwt(gMon(t));
@@ -667,27 +501,48 @@ function prevW(){vM.setDate(vM.getDate()-7);sD=0;updAll()}
 function nextW(){vM.setDate(vM.getDate()+7);sD=0;updAll()}
 
 function rStrip(){
-  const c=document.getElementById('weekStrip'),tk=fk(new Date());
+  const wr=document.getElementById('weekRow'),wl=document.getElementById('weekLabel'),tk=fk(new Date());
   const e=new Date(vM);e.setDate(e.getDate()+5);
   const wt=gwt(vM);
-  let h=`<button class="wsArrow" onclick="prevW()">‹</button>`;
+  let h=`<button class="wArrow" onclick="prevW()">‹</button>`;
   for(let i=0;i<6;i++){
     const d=new Date(vM);d.setDate(d.getDate()+i);
     const dk=fk(d),isT=dk===tk,hasCh=ch.some(x=>x.date===dk);
     h+=`<button class="dayChip${i===sD?' sel':''}${isT?' today':''}" onclick="pickD(${i})">
       ${hasCh?'<span class="dcDot"></span>':''}
-      <span class="dcDay">${DK[i]}</span>
-      <span class="dcNum">${d.getDate()}</span>
+      <span class="dcD">${DK[i]}</span>
+      <span class="dcN">${d.getDate()}</span>
     </button>`;
   }
-  h+=`<div class="wsLabel"><div class="wslRange">${fShort(vM)} — ${fShort(e)}</div><div class="wslType ${wt==='upper'?'up':'lo'}">${wt==='upper'?'▲ Верхняя':'▼ Нижняя'}</div></div>`;
-  h+=`<button class="wsArrow" onclick="nextW()">›</button>`;
-  c.innerHTML=h;
-  setTimeout(()=>{const a=c.querySelector('.dayChip.sel');if(a)a.scrollIntoView({inline:'center',behavior:'smooth'})},30);
+  h+=`<button class="wArrow" onclick="nextW()">›</button>`;
+  wr.innerHTML=h;
+  wl.innerHTML=`${fShort(vM)} — ${fShort(e)} · <span class="${wt==='upper'?'up':'lo'}">${wt==='upper'?'▲ Верхняя':'▼ Нижняя'}</span>`;
 }
 
 function pickD(i){sD=i;rStrip();render()}
 
+/* EVENTS */
+function rEvents(){
+  const c=document.getElementById('eventsList'),tk=fk(new Date());
+  let items=[];
+  // upcoming HW
+  nh.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).forEach(h=>{
+    items.push({date:h.targetDate,type:'hw',icon:'📝',title:h.subject,desc:h.task,color:'var(--blue)'});
+  });
+  // changes
+  ch.filter(x=>x.date>=tk).forEach(x=>{
+    items.push({date:x.date,type:'chg',icon:'🔄',title:'Замена расписания',desc:fFull(pk(x.date)),color:'var(--orange)'});
+  });
+  items.sort((a,b)=>a.date.localeCompare(b.date));
+  if(!items.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">📌</div><div class="eTxt">Нет предстоящих событий</div></div>';return}
+  c.innerHTML=items.slice(0,20).map(ev=>`<div class="evCard" style="border-left-color:${ev.color}">
+    <div class="evTitle">${ev.icon} ${esc(ev.title)}</div>
+    <div class="evDate">📅 ${fFull(pk(ev.date))}</div>
+    <div class="evDesc">${esc(ev.desc)}</div>
+  </div>`).join('');
+}
+
+/* RENDER LESSONS */
 function render(){
   const w=document.getElementById('lList');
   const d=new Date(vM);d.setDate(d.getDate()+sD);
@@ -699,7 +554,7 @@ function render(){
     const l=les[p],has=l&&l.name,tm=cf.pairTimes[p-1];
     const iho=hw.filter(x=>x.date===dk&&x.pair===p);
     const ihn=nh.filter(x=>x.targetDate===dk&&x.targetPair===p);
-    h+=`<div class="lCard${has?'':' empty'}${hasCh&&has?' changed':''}" ${isA&&!hasCh&&has?`onclick="openLM('${dayK}',${p},'${wt}')"`:''} ${isA&&!hasCh&&!has?`onclick="openLM('${dayK}',${p},'${wt}')"`:''}>
+    h+=`<div class="lCard${has?'':' empty'}${hasCh&&has?' changed':''}" ${isA?`onclick="openLM('${dayK}',${p},'${wt}')"`:''}>
       <div class="pairN"><span class="pn">${p}</span><span class="pt">${tm?.start||''}</span></div>
       <div class="lBody">
         ${has?`<div class="lName">${esc(l.name)}</div><div class="lMeta">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${rIHw(iho,'Домашка','hw')}${rIHw(ihn,'ДЗ','nh')}`:`<div class="lEmpty">${isA?'Нажмите чтобы добавить':'—'}</div>`}
@@ -712,29 +567,41 @@ function render(){
 
 function rIHw(list,lbl,tp){
   if(!list.length)return'';
-  return list.map(h=>`<div class="hwInline${h.done?' done':''}">
-    <div class="hwHead"><span class="hwTag">${lbl}</span><div class="hwBtns"><button class="miniBtn ${h.done?'og':'gr'}" onclick="event.stopPropagation();${tp==='hw'?`tHw('${h.id}')`:`tNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isA?`<button class="miniBtn rd" onclick="event.stopPropagation();${tp==='hw'?`dHw('${h.id}')`:`dNH('${h.id}')`}">✕</button>`:''}</div></div>
-    <div class="hwTxt">${esc(h.task)}</div>
-  </div>`).join('');
+  return list.map(h=>{
+    let photos='';
+    if(h.photos&&h.photos.length){
+      photos='<div class="hwPhotos">'+h.photos.map(p=>`<img src="${p}" onclick="event.stopPropagation();viewImg('${p}')">`).join('')+'</div>';
+    }
+    return`<div class="hwInline${h.done?' done':''}">
+      <div class="hwHead"><span class="hwTag">${lbl}</span><div class="hwBtns"><button class="miniBtn ${h.done?'og':'gr'}" onclick="event.stopPropagation();${tp==='hw'?`tHw('${h.id}')`:`tNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isA?`<button class="miniBtn rd" onclick="event.stopPropagation();${tp==='hw'?`dHw('${h.id}')`:`dNH('${h.id}')`}">✕</button>`:''}</div></div>
+      <div class="hwTxt">${esc(h.task)}</div>
+      ${photos}
+    </div>`;
+  }).join('');
 }
 
+/* VIEW IMAGE */
+function viewImg(src){document.getElementById('imgViewerSrc').src=src;document.getElementById('imgViewer').classList.add('open')}
+
+/* HW PAGE */
 function rHwPg(){
   const c=document.getElementById('hwList'),tk=fk(new Date());
   const p=nh.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
   if(!p.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">📚</div><div class="eTxt">Нет заданий</div></div>';return}
-  c.innerHTML=p.map(h=>`<div class="hwCard"><div class="hwSubj">📖 ${esc(h.subject)}</div><div class="hwDue">📅 ${fFull(pk(h.targetDate))}, пара ${h.targetPair||'?'}</div><div class="hwTask">${esc(h.task)}</div><div class="hwActs"><button class="btnP" style="padding:8px 14px;font-size:13px;" onclick="tNH('${h.id}')">✓ Выполнено</button>${isA?`<button class="btnD" style="padding:8px 14px;font-size:13px;" onclick="dNH('${h.id}')">Удалить</button>`:''}</div></div>`).join('');
+  c.innerHTML=p.map(h=>{
+    let photos='';
+    if(h.photos&&h.photos.length){
+      photos='<div class="hwPhotos">'+h.photos.map(p=>`<img src="${p}" onclick="viewImg('${p}')">`).join('')+'</div>';
+    }
+    return`<div class="hwCard"><div class="hwSubj">📖 ${esc(h.subject)}</div><div class="hwDue">📅 ${fFull(pk(h.targetDate))}, пара ${h.targetPair||'?'}</div><div class="hwTask">${esc(h.task)}</div>${photos}<div class="hwActs"><button class="btnP" style="padding:8px 14px;font-size:13px;width:auto" onclick="tNH('${h.id}')">✓ Выполнено</button>${isA?`<button class="btnD" style="padding:8px 14px;font-size:13px;width:auto" onclick="dNH('${h.id}')">Удалить</button>`:''}</div></div>`;
+  }).join('');
 }
 
-function updBdg(){
-  const tk=fk(new Date()),n=nh.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;
-  const bn=document.getElementById('bnHw'),old=bn.querySelector('.badge');if(old)old.remove();
-  if(n>0){const b=document.createElement('span');b.className='badge';b.textContent=n;bn.appendChild(b)}
-}
-
+/* SUBJECTS */
 function rSubj(){
   const c=document.getElementById('sjList');
   if(!sj.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">📖</div><div class="eTxt">Добавьте предметы</div></div>';return}
-  c.innerHTML=sj.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="sjRow"><div class="sjIcon">📖</div><div class="sjInfo"><div class="sjN">${esc(s.name)}</div><div class="sjM">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div><div style="display:flex;gap:4px;"><button class="miniBtn bl" onclick="editSj('${s.id}')">✏️</button><button class="miniBtn rd" onclick="rmSj('${s.id}')">✕</button></div></div>`).join('');
+  c.innerHTML=sj.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="sjRow"><div class="sjIcon">📖</div><div class="sjInfo"><div class="sjN">${esc(s.name)}</div><div class="sjM">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div><div style="display:flex;gap:4px"><button class="miniBtn bl" onclick="editSj('${s.id}')">✏️</button><button class="miniBtn rd" onclick="rmSj('${s.id}')">✕</button></div></div>`).join('');
 }
 
 function rChg(){
@@ -742,72 +609,100 @@ function rChg(){
   const f=ch.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
   if(!f.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">🔄</div><div class="eTxt">Нет замен</div></div>';return}
   c.innerHTML=f.map(x=>{
-    let ls='';if(x.lessons){for(let p=1;p<=5;p++){const l=x.lessons[p];if(l&&l.name)ls+=`<div class="chgLesson"><span class="clN">${p}</span><div><div style="font-weight:700;font-size:14px;">${esc(l.name)}</div><div style="font-size:12px;color:var(--t3);">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div></div></div>`}}
-    if(!ls)ls='<div style="padding:8px;color:var(--t3);font-size:13px;">Все пары сняты</div>';
-    return`<div class="chgCard"><div class="chHead"><span class="chDate">📅 ${fFull(pk(x.date))}</span><div style="display:flex;gap:4px;"><button class="miniBtn bl" onclick="editChg('${x.id}')">✏️</button><button class="miniBtn rd" onclick="rmChgId('${x.id}')">✕</button></div></div>${ls}</div>`;
+    let ls='';if(x.lessons){for(let p=1;p<=5;p++){const l=x.lessons[p];if(l&&l.name)ls+=`<div class="chgLesson"><span class="clN">${p}</span><div><div style="font-weight:700;font-size:14px">${esc(l.name)}</div><div style="font-size:12px;color:var(--t3)">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div></div></div>`}}
+    if(!ls)ls='<div style="padding:8px;color:var(--t3);font-size:13px">Все пары сняты</div>';
+    return`<div class="chgCard"><div class="chHead"><span class="chDate">📅 ${fFull(pk(x.date))}</span><div style="display:flex;gap:4px"><button class="miniBtn bl" onclick="editChg('${x.id}')">✏️</button><button class="miniBtn rd" onclick="rmChgId('${x.id}')">✕</button></div></div>${ls}</div>`;
   }).join('');
 }
 
-/* Custom select */
+/* PHOTO UPLOAD */
+function addPhotos(input,containerId){
+  const files=Array.from(input.files);
+  files.forEach(f=>{
+    if(f.size>5*1024*1024){alert('Файл слишком большой (макс 5MB)');return}
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const data=e.target.result;
+      if(!uploadedPhotos[containerId])uploadedPhotos[containerId]=[];
+      uploadedPhotos[containerId].push(data);
+      renderPhotoPreview(containerId);
+    };
+    reader.readAsDataURL(f);
+  });
+  input.value='';
+}
+
+function renderPhotoPreview(containerId){
+  const c=document.getElementById(containerId);
+  if(!uploadedPhotos[containerId])uploadedPhotos[containerId]=[];
+  c.innerHTML=uploadedPhotos[containerId].map((p,i)=>`<div class="ppItem"><img src="${p}"><button class="ppRm" onclick="rmPhoto('${containerId}',${i})">✕</button></div>`).join('');
+}
+
+function rmPhoto(containerId,idx){
+  uploadedPhotos[containerId].splice(idx,1);
+  renderPhotoPreview(containerId);
+}
+
+/* CUSTOM SELECT */
 function bCS(cid,sid,cb){
   const c=document.getElementById(cid),sr=[...sj].sort((a,b)=>a.name.localeCompare(b.name)),sel=sr.find(s=>s.id===sid);
-  cs[cid]={selectedId:sid||'',onChange:cb};
+  csS[cid]={selectedId:sid||'',onChange:cb};
   let trig;if(sel)trig=`<span class="csI">📖</span><div class="csTxt"><div class="csN">${esc(sel.name)}</div><div class="csM">${sel.room?'📍 '+esc(sel.room):''}${sel.teacher?' · 👤 '+esc(sel.teacher):''}</div></div>`;else trig=`<span class="csPh">— Нет пары —</span>`;
   const opts=sr.map(s=>`<div class="csOpt${s.id===sid?' on':''}" data-sid="${s.id}"><span class="coI">📖</span><div><div class="coN">${esc(s.name)}</div><div class="coM">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div></div>`).join('');
   c.innerHTML=`<div class="csWrap"><div class="csTrig" data-cid="${cid}">${trig}<span class="csArr">▼</span></div><div class="csDd" id="${cid}-dd"><div class="csOpt emp" data-sid=""><span class="coI">✕</span><div><div class="coN" style="color:var(--t3)">— Нет —</div></div></div>${opts}</div></div>`;
   c.querySelector('.csTrig').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.csTrig'),wo=dd.classList.contains('open');closeCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
-  c.querySelectorAll('.csOpt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,sub=id?sj.find(s=>s.id===id):null;cs[cid].selectedId=id;const tr=c.querySelector('.csTrig');if(sub)tr.innerHTML=`<span class="csI">📖</span><div class="csTxt"><div class="csN">${esc(sub.name)}</div><div class="csM">${sub.room?'📍 '+esc(sub.room):''}${sub.teacher?' · 👤 '+esc(sub.teacher):''}</div></div><span class="csArr">▼</span>`;else tr.innerHTML=`<span class="csPh">— Нет пары —</span><span class="csArr">▼</span>`;c.querySelectorAll('.csOpt').forEach(x=>x.classList.remove('on'));o.classList.add('on');closeCS();if(cs[cid].onChange)cs[cid].onChange(id,sub)})});
+  c.querySelectorAll('.csOpt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,sub=id?sj.find(s=>s.id===id):null;csS[cid].selectedId=id;const tr=c.querySelector('.csTrig');if(sub)tr.innerHTML=`<span class="csI">📖</span><div class="csTxt"><div class="csN">${esc(sub.name)}</div><div class="csM">${sub.room?'📍 '+esc(sub.room):''}${sub.teacher?' · 👤 '+esc(sub.teacher):''}</div></div><span class="csArr">▼</span>`;else tr.innerHTML=`<span class="csPh">— Нет пары —</span><span class="csArr">▼</span>`;c.querySelectorAll('.csOpt').forEach(x=>x.classList.remove('on'));o.classList.add('on');closeCS();if(csS[cid].onChange)csS[cid].onChange(id,sub)})});
 }
 function closeCS(){document.querySelectorAll('.csDd.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.csTrig.open').forEach(t=>t.classList.remove('open'))}
-function gcs(id){return cs[id]?.selectedId||''}
+function gcs(id){return csS[id]?.selectedId||''}
 document.addEventListener('click',()=>closeCS());
 
-/* Lesson sheet */
+/* LESSON SHEET */
 function openLM(day,pair,week){if(!isA)return;document.getElementById('elD').value=day;document.getElementById('elP').value=pair;document.getElementById('elW').value=week;const l=sc[week]?.[day]?.[pair]||{};let sid='';if(l.name){const s=sj.find(x=>x.name===l.name);if(s)sid=s.id}bCS('elSel',sid,null);openS('shLesson')}
 function svLesson(){if(!isA)return;const d=document.getElementById('elD').value,p=document.getElementById('elP').value,w=document.getElementById('elW').value,sid=gcs('elSel'),sub=sj.find(s=>s.id===sid);if(sub)db.ref(`schedule/${w}/${d}/${p}`).set({name:sub.name,room:sub.room||'',teacher:sub.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();closeS('shLesson')}
 function rmLesson(){if(!isA)return;db.ref(`schedule/${document.getElementById('elW').value}/${document.getElementById('elD').value}/${document.getElementById('elP').value}`).remove();closeS('shLesson')}
 
-/* HW inline */
-function openHwI(dk,p,s){if(!isA)return;document.getElementById('hiD').value=dk;document.getElementById('hiP').value=p;document.getElementById('hiS').value=s;document.getElementById('hiT').value='';openS('shHwI')}
-function svHwI(){if(!isA)return;const t=document.getElementById('hiT').value.trim();if(!t){alert('Введите задание');return}db.ref('homework').push({date:document.getElementById('hiD').value,pair:parseInt(document.getElementById('hiP').value),subject:document.getElementById('hiS').value,task:t,done:false,created:new Date().toISOString()});closeS('shHwI')}
+/* HW INLINE */
+function openHwI(dk,p,s){if(!isA)return;document.getElementById('hiD').value=dk;document.getElementById('hiP').value=p;document.getElementById('hiS').value=s;document.getElementById('hiT').value='';uploadedPhotos.hiPhotos=[];renderPhotoPreview('hiPhotos');openS('shHwI')}
+function svHwI(){if(!isA)return;const t=document.getElementById('hiT').value.trim();if(!t){alert('Введите задание');return}const data={date:document.getElementById('hiD').value,pair:parseInt(document.getElementById('hiP').value),subject:document.getElementById('hiS').value,task:t,done:false,created:new Date().toISOString()};if(uploadedPhotos.hiPhotos.length)data.photos=uploadedPhotos.hiPhotos;db.ref('homework').push(data);closeS('shHwI')}
 function tHw(id){const h=hw.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
 function dHw(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
 
-/* New HW */
-function openNewHw(){if(!isA)return;bCS('nhSel','',(_,sub)=>{const info=document.getElementById('nhNext');if(sub&&sub.name){const n=findNx(sub.name);if(n)info.innerHTML=`<span style="color:var(--blue);font-weight:700;">📅 ${fFull(pk(n.date))}</span>, пара ${n.pair}`;else info.innerHTML='<span style="color:var(--red)">Не найдено</span>'}else info.textContent='Выберите предмет'});document.getElementById('nhT').value='';document.getElementById('nhNext').textContent='Выберите предмет';openS('shNewHw')}
-function svNewHw(){if(!isA)return;const sid=gcs('nhSel'),sub=sj.find(s=>s.id===sid);if(!sub){alert('Выберите предмет');return}const t=document.getElementById('nhT').value.trim();if(!t){alert('Введите задание');return}const n=findNx(sub.name);if(!n){alert('Пара не найдена');return}db.ref('newHomework').push({subject:sub.name,task:t,targetDate:n.date,targetPair:n.pair,done:false,created:new Date().toISOString()});closeS('shNewHw')}
+/* NEW HW */
+function openNewHw(){if(!isA)return;bCS('nhSel','',(_,sub)=>{const info=document.getElementById('nhNext');if(sub&&sub.name){const n=findNx(sub.name);if(n)info.innerHTML=`<span style="color:var(--blue);font-weight:700">📅 ${fFull(pk(n.date))}</span>, пара ${n.pair}`;else info.innerHTML='<span style="color:var(--red)">Не найдено</span>'}else info.textContent='Выберите предмет'});document.getElementById('nhT').value='';document.getElementById('nhNext').textContent='Выберите предмет';uploadedPhotos.nhPhotos=[];renderPhotoPreview('nhPhotos');openS('shNewHw')}
+function svNewHw(){if(!isA)return;const sid=gcs('nhSel'),sub=sj.find(s=>s.id===sid);if(!sub){alert('Выберите предмет');return}const t=document.getElementById('nhT').value.trim();if(!t){alert('Введите задание');return}const n=findNx(sub.name);if(!n){alert('Пара не найдена');return}const data={subject:sub.name,task:t,targetDate:n.date,targetPair:n.pair,done:false,created:new Date().toISOString()};if(uploadedPhotos.nhPhotos.length)data.photos=uploadedPhotos.nhPhotos;db.ref('newHomework').push(data);closeS('shNewHw')}
 function tNH(id){const h=nh.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
 function dNH(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
 
-/* Subjects */
-function openSjM(eid){document.getElementById('sjId').value=eid||'';document.getElementById('sjN').value='';document.getElementById('sjR').value='';document.getElementById('sjTch').value='';document.getElementById('sjTitle').textContent=eid?'Редактировать':'Добавить';if(eid){const s=sj.find(x=>x.id===eid);if(s){document.getElementById('sjN').value=s.name||'';document.getElementById('sjR').value=s.room||'';document.getElementById('sjTch').value=s.teacher||''}}openS('shSubj')}
+/* SUBJECTS */
+function openSjM(eid){document.getElementById('sjId').value=eid||'';document.getElementById('sjN').value='';document.getElementById('sjR').value='';document.getElementById('sjTch').value='';document.getElementById('sjTitle').textContent=eid?'Редактировать':'Добавить предмет';if(eid){const s=sj.find(x=>x.id===eid);if(s){document.getElementById('sjN').value=s.name||'';document.getElementById('sjR').value=s.room||'';document.getElementById('sjTch').value=s.teacher||''}}openS('shSubj')}
 function editSj(id){openSjM(id)}
 function svSubj(){const id=document.getElementById('sjId').value,n=document.getElementById('sjN').value.trim(),r=document.getElementById('sjR').value.trim(),t=document.getElementById('sjTch').value.trim();if(!n){alert('Название');return}if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});closeS('shSubj')}
 function rmSj(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
 
-/* Changes */
-function openChgM(eid){if(!isA)return;document.getElementById('ceId').value=eid||'';document.getElementById('ceDel').style.display=eid?'':'none';document.getElementById('ceDate').value='';let h='';for(let i=1;i<=5;i++)h+=`<div class="cpBlk"><div class="cpHead"><span class="cpN">${i}</span><span style="font-size:14px;font-weight:600;color:var(--t2);">пара</span></div><div id="cs-c${i}"></div></div>`;document.getElementById('cePairs').innerHTML=h;for(let i=1;i<=5;i++)bCS(`cs-c${i}`,'',null);if(eid){const c=ch.find(x=>x.id===eid);if(c){document.getElementById('ceDate').value=c.date;if(c.lessons){for(let i=1;i<=5;i++){const l=c.lessons[i];if(l&&l.name){const s=sj.find(x=>x.name===l.name);if(s)bCS(`cs-c${i}`,s.id,null)}}}}}openS('shChg')}
+/* CHANGES */
+function openChgM(eid){if(!isA)return;document.getElementById('ceId').value=eid||'';document.getElementById('ceDel').style.display=eid?'':'none';document.getElementById('ceDate').value='';let h='';for(let i=1;i<=5;i++)h+=`<div class="cpBlk"><div class="cpHead"><span class="cpN">${i}</span><span style="font-size:14px;font-weight:600;color:var(--t2)">пара</span></div><div id="cs-c${i}"></div></div>`;document.getElementById('cePairs').innerHTML=h;for(let i=1;i<=5;i++)bCS(`cs-c${i}`,'',null);if(eid){const c=ch.find(x=>x.id===eid);if(c){document.getElementById('ceDate').value=c.date;if(c.lessons){for(let i=1;i<=5;i++){const l=c.lessons[i];if(l&&l.name){const s=sj.find(x=>x.name===l.name);if(s)bCS(`cs-c${i}`,s.id,null)}}}}}openS('shChg')}
 function editChg(id){openChgM(id)}
 function svChg(){if(!isA)return;const eid=document.getElementById('ceId').value,date=document.getElementById('ceDate').value;if(!date){alert('Дата');return}const les={};let any=false;for(let i=1;i<=5;i++){const sid=gcs(`cs-c${i}`),sub=sj.find(s=>s.id===sid);if(sub){les[i]={name:sub.name,room:sub.room||'',teacher:sub.teacher||''};any=true}}if(eid)db.ref(`changes/${eid}`).set({date,lessons:any?les:null});else db.ref('changes').push({date,lessons:any?les:null});closeS('shChg')}
 function rmChg(){const id=document.getElementById('ceId').value;if(id){rmChgId(id);closeS('shChg')}}
 function rmChgId(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
 
-/* Times */
-function openTimesM(){if(!isA)return;document.getElementById('timesF').innerHTML=cf.pairTimes.map((t,i)=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;"><span style="min-width:50px;font-weight:700;font-size:14px;">${i+1} пара</span><input type="time" class="inp" id="ts${i}" value="${t.start}" style="flex:1;margin:0;padding:12px;"><span style="color:var(--t3)">—</span><input type="time" class="inp" id="te${i}" value="${t.end}" style="flex:1;margin:0;padding:12px;"></div>`).join('');openS('shTimes')}
+/* TIMES */
+function openTimesM(){if(!isA)return;document.getElementById('timesF').innerHTML=cf.pairTimes.map((t,i)=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px"><span style="min-width:50px;font-weight:700;font-size:14px">${i+1} пара</span><input type="time" class="inp" id="ts${i}" value="${t.start}" style="flex:1;margin:0;padding:12px"><span style="color:var(--t3)">—</span><input type="time" class="inp" id="te${i}" value="${t.end}" style="flex:1;margin:0;padding:12px"></div>`).join('');openS('shTimes')}
 function svTimes(){if(!isA)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);closeS('shTimes')}
 
 function clearAll(){if(!isA)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
-/* Sheets */
+/* SHEETS */
 function openS(id){document.getElementById(id).classList.add('open')}
 function closeS(id){document.getElementById(id).classList.remove('open')}
 document.querySelectorAll('.sheet').forEach(s=>{s.addEventListener('click',e=>{if(e.target===s)s.classList.remove('open')})});
 
-/* Keys */
+/* KEYS */
 document.getElementById('iPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
 document.getElementById('iEmail').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('iPass').focus()});
 
-/* Swipe */
+/* SWIPE */
 let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{if(!document.getElementById('pgSched').classList.contains('on'))return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>70){if(dx<0&&sD<5){sD++;rStrip();render()}else if(dx>0&&sD>0){sD--;rStrip();render()}}});
