@@ -3,67 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Мой Дневник</title>
+  <title>Дневник</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#ffffff">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#000000">
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f5f7;
-      --bg-card: #ffffff;
-      --bg-elevated: #ffffff;
-      --bg-input: #f0f0f2;
-      --bg-overlay: rgba(0,0,0,.4);
-      --text: #1a1a2e;
-      --text-secondary: #6b7280;
-      --text-muted: #9ca3af;
-      --accent: #6c5ce7;
-      --accent-light: #a29bfe;
-      --accent-bg: rgba(108,92,231,.08);
-      --accent-bg2: rgba(108,92,231,.15);
-      --green: #00b894;
-      --green-bg: rgba(0,184,148,.1);
-      --red: #e17055;
-      --red-bg: rgba(225,112,85,.1);
-      --orange: #fdcb6e;
-      --orange-bg: rgba(253,203,110,.15);
-      --border: rgba(0,0,0,.06);
-      --shadow: 0 2px 16px rgba(0,0,0,.06);
-      --shadow-lg: 0 8px 30px rgba(0,0,0,.1);
-      --radius: 16px;
-      --radius-sm: 12px;
-      --radius-xs: 8px;
-      --bottom-nav-h: 64px;
+      --bg: #000000;
+      --bg2: #1c1c1e;
+      --bg3: #2c2c2e;
+      --bg4: #3a3a3c;
+      --card: #1c1c1e;
+      --text: #ffffff;
+      --t2: rgba(255,255,255,.7);
+      --t3: rgba(255,255,255,.4);
+      --t4: rgba(255,255,255,.15);
+      --blue: #0a84ff;
+      --green: #30d158;
+      --orange: #ff9f0a;
+      --red: #ff453a;
+      --purple: #bf5af2;
+      --teal: #64d2ff;
+      --r: 14px;
+      --rs: 10px;
+      --navH: 82px;
     }
 
-    [data-theme="dark"] {
-      --bg: #0f0f1a;
-      --bg-card: #1a1a2e;
-      --bg-elevated: #22223a;
-      --bg-input: #2a2a42;
-      --bg-overlay: rgba(0,0,0,.7);
-      --text: #eeeef0;
-      --text-secondary: #9ca3af;
-      --text-muted: #6b7280;
-      --accent: #a29bfe;
-      --accent-light: #6c5ce7;
-      --accent-bg: rgba(162,155,254,.1);
-      --accent-bg2: rgba(162,155,254,.18);
-      --border: rgba(255,255,255,.06);
-      --shadow: 0 2px 16px rgba(0,0,0,.2);
-      --shadow-lg: 0 8px 30px rgba(0,0,0,.3);
+    [data-theme="light"] {
+      --bg: #f2f2f7;
+      --bg2: #ffffff;
+      --bg3: #e5e5ea;
+      --bg4: #d1d1d6;
+      --card: #ffffff;
+      --text: #000000;
+      --t2: rgba(0,0,0,.6);
+      --t3: rgba(0,0,0,.35);
+      --t4: rgba(0,0,0,.08);
+      --blue: #007aff;
+      --green: #34c759;
+      --orange: #ff9500;
+      --red: #ff3b30;
+      --purple: #af52de;
+      --teal: #5ac8fa;
     }
 
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
     html { height: -webkit-fill-available; }
 
     body {
-      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, 'SF Pro Display', 'Inter', BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -73,1264 +62,755 @@
       transition: background .3s, color .3s;
     }
 
-    /* ========== SCROLLBAR ========== */
-    ::-webkit-scrollbar { width: 0; height: 0; }
+    ::-webkit-scrollbar { width:0; height:0; }
 
-    /* ========== LOGIN ========== */
-    .login-wrap {
-      min-height: 100vh; display: flex;
-      align-items: center; justify-content: center;
-      padding: 24px;
-      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #74b9ff 100%);
+    /* LOGIN */
+    #loginPage {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:24px; background:var(--bg);
+    }
+    .loginCard {
+      width:100%; max-width:360px;
+      text-align:center;
+    }
+    .loginCard .logo { font-size:64px; margin-bottom:16px; }
+    .loginCard h1 { font-size:28px; font-weight:700; margin-bottom:4px; }
+    .loginCard .sub { color:var(--t3); font-size:15px; margin-bottom:32px; }
+    .loginCard .errMsg {
+      background:rgba(255,69,58,.15); color:var(--red);
+      padding:12px; border-radius:var(--rs); margin-bottom:16px;
+      font-size:14px; font-weight:600; display:none;
     }
 
-    .login-box {
-      width: 100%; max-width: 380px;
-      background: var(--bg-card);
-      border-radius: 24px;
-      padding: 40px 28px 32px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    .inp {
+      width:100%; padding:16px; font-size:16px;
+      background:var(--bg2); color:var(--text);
+      border:1px solid var(--t4); border-radius:var(--r);
+      font-family:inherit; outline:none; margin-bottom:12px;
+      -webkit-appearance:none; transition:border-color .2s;
+    }
+    .inp:focus { border-color:var(--blue); }
+    textarea.inp { resize:vertical; min-height:80px; }
+
+    .btnP {
+      width:100%; padding:16px; border:none; border-radius:var(--r);
+      background:var(--blue); color:#fff;
+      font-size:17px; font-weight:600; font-family:inherit;
+      cursor:pointer; transition:opacity .15s;
+    }
+    .btnP:active { opacity:.7; }
+
+    .btnS {
+      width:100%; padding:16px; border:none; border-radius:var(--r);
+      background:var(--bg2); color:var(--text);
+      font-size:17px; font-weight:600; font-family:inherit;
+      cursor:pointer; border:1px solid var(--t4); transition:opacity .15s;
+    }
+    .btnS:active { opacity:.7; }
+
+    .divLine {
+      display:flex; align-items:center; gap:12px;
+      margin:20px 0; color:var(--t3); font-size:13px;
+    }
+    .divLine::before,.divLine::after { content:''; flex:1; height:1px; background:var(--t4); }
+
+    /* APP */
+    #appPage { display:none; }
+
+    /* iOS-style top */
+    .top {
+      padding:8px 20px 12px;
+      padding-top:calc(8px + env(safe-area-inset-top));
+      position:sticky; top:0; z-index:50;
+      background:var(--bg); transition:background .3s;
+    }
+    .topRow { display:flex; justify-content:space-between; align-items:center; }
+    .topTitle { font-size:34px; font-weight:700; letter-spacing:-.5px; }
+    .topRight { display:flex; gap:8px; align-items:center; }
+
+    .pillBadge {
+      padding:4px 10px; border-radius:20px;
+      font-size:12px; font-weight:700;
+    }
+    .pillBadge.up { background:rgba(48,209,88,.15); color:var(--green); }
+    .pillBadge.lo { background:rgba(255,69,58,.15); color:var(--red); }
+
+    .circBtn {
+      width:34px; height:34px; border-radius:50%;
+      background:var(--bg2); border:none;
+      color:var(--text); font-size:16px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:transform .1s;
+    }
+    .circBtn:active { transform:scale(.9); }
+
+    .topDate { font-size:13px; color:var(--t3); margin-top:2px; font-weight:500; }
+
+    /* dropdown */
+    .dropdown {
+      position:absolute; top:calc(100% + 4px); right:20px;
+      background:var(--bg2); border-radius:var(--r);
+      min-width:180px; overflow:hidden;
+      box-shadow:0 8px 40px rgba(0,0,0,.4);
+      border:1px solid var(--t4);
+      display:none; z-index:200;
+    }
+    .dropdown.open { display:block; }
+    .ddItem {
+      display:block; width:100%; padding:14px 16px;
+      font-size:15px; font-weight:500; color:var(--text);
+      border:none; background:none; text-align:left;
+      font-family:inherit; cursor:pointer;
+      border-bottom:1px solid var(--t4);
+    }
+    .ddItem:last-child { border:none; }
+    .ddItem:active { background:var(--bg3); }
+    .ddItem.red { color:var(--red); }
+    .ddInfo { padding:12px 16px; font-size:13px; color:var(--t3); border-bottom:1px solid var(--t4); }
+
+    /* Week strip */
+    .weekStrip {
+      display:flex; align-items:center; gap:4px;
+      padding:8px 20px 16px; overflow-x:auto;
+      -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    }
+    .weekStrip::-webkit-scrollbar { display:none; }
+
+    .wsArrow {
+      width:32px; height:56px; flex-shrink:0;
+      background:var(--bg2); border:none; border-radius:var(--rs);
+      color:var(--t2); font-size:18px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:transform .1s;
+    }
+    .wsArrow:active { transform:scale(.9); }
+
+    .dayChip {
+      flex:1; min-width:44px; max-width:56px;
+      display:flex; flex-direction:column;
+      align-items:center; gap:6px;
+      padding:10px 0 12px;
+      border-radius:var(--r);
+      cursor:pointer; transition:all .2s;
+      position:relative;
+      background:transparent;
+      border:none; color:var(--text); font-family:inherit;
+    }
+    .dayChip .dcDay { font-size:11px; font-weight:600; color:var(--t3); text-transform:uppercase; }
+    .dayChip .dcNum { font-size:20px; font-weight:700; }
+    .dayChip:active { transform:scale(.94); }
+
+    .dayChip.sel {
+      background:var(--blue); color:#fff;
+    }
+    .dayChip.sel .dcDay { color:rgba(255,255,255,.7); }
+    .dayChip.sel .dcNum { color:#fff; }
+
+    .dayChip.today:not(.sel)::after {
+      content:''; position:absolute; bottom:5px;
+      width:5px; height:5px; border-radius:50%;
+      background:var(--blue);
     }
 
-    .login-icon { text-align: center; font-size: 56px; margin-bottom: 8px; }
-
-    .login-box h1 {
-      text-align: center; font-size: 24px; font-weight: 900;
-      color: var(--text); margin-bottom: 4px;
+    .dayChip .dcDot {
+      position:absolute; top:4px; right:4px;
+      width:6px; height:6px; border-radius:50%;
+      background:var(--orange);
     }
 
-    .login-box .sub { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 28px; }
+    .wsLabel {
+      flex-shrink:0; text-align:center; min-width:80px;
+      padding:0 4px;
+    }
+    .wsLabel .wslRange { font-size:13px; font-weight:700; color:var(--text); }
+    .wsLabel .wslType { font-size:11px; font-weight:600; margin-top:1px; }
+    .wslType.up { color:var(--green); }
+    .wslType.lo { color:var(--red); }
 
-    .login-err {
-      background: var(--red-bg); color: var(--red);
-      padding: 12px; border-radius: var(--radius-xs);
-      text-align: center; margin-bottom: 16px;
-      font-size: 14px; font-weight: 600;
-      display: none;
+    /* content */
+    .content {
+      padding:0 20px calc(var(--navH) + env(safe-area-inset-bottom) + 16px);
+      max-width:600px; margin:0 auto;
     }
 
-    .field { margin-bottom: 16px; }
-    .field label { display: block; font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+    .pg { display:none; }
+    .pg.on { display:block; animation:fadeUp .25s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-    .field input, .field textarea, .field select {
-      width: 100%; padding: 14px 16px;
-      background: var(--bg-input);
-      border: 2px solid transparent;
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      font-size: 15px; font-family: inherit;
-      transition: border-color .2s;
-      outline: none;
-      -webkit-appearance: none;
+    /* lesson cards */
+    .lList { display:flex; flex-direction:column; gap:8px; }
+
+    .lCard {
+      background:var(--card);
+      border-radius:var(--r);
+      padding:14px 16px;
+      display:flex; gap:12px;
+      border:1px solid var(--t4);
+      cursor:pointer;
+      transition:transform .12s;
+      position:relative;
+    }
+    .lCard:active { transform:scale(.98); }
+    .lCard.empty { opacity:.35; cursor:default; }
+    .lCard.empty:active { transform:none; }
+    .lCard.changed { border-left:3px solid var(--orange); }
+
+    .pairN {
+      width:44px; height:52px;
+      background:rgba(10,132,255,.1);
+      border-radius:var(--rs);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    [data-theme="light"] .pairN { background:rgba(0,122,255,.08); }
+    .pairN .pn { font-size:20px; font-weight:800; color:var(--blue); }
+    .pairN .pt { font-size:9px; color:var(--t3); font-weight:600; margin-top:1px; }
+
+    .lBody { flex:1; min-width:0; }
+    .lName { font-size:16px; font-weight:700; margin-bottom:3px; }
+    .lMeta { display:flex; gap:10px; font-size:13px; color:var(--t2); flex-wrap:wrap; }
+    .lEmpty { color:var(--t3); font-size:14px; }
+    .lActions { position:absolute; top:10px; right:10px; display:flex; gap:4px; }
+
+    .miniBtn {
+      padding:4px 8px; border-radius:6px; border:none;
+      font-size:11px; font-weight:700; font-family:inherit;
+      cursor:pointer; transition:opacity .15s;
+    }
+    .miniBtn:active { opacity:.6; }
+    .miniBtn.bl { background:rgba(10,132,255,.15); color:var(--blue); }
+    .miniBtn.gr { background:rgba(48,209,88,.15); color:var(--green); }
+    .miniBtn.rd { background:rgba(255,69,58,.15); color:var(--red); }
+    .miniBtn.og { background:rgba(255,159,10,.15); color:var(--orange); }
+
+    /* inline hw */
+    .hwInline {
+      margin-top:8px; padding:10px 12px;
+      background:rgba(10,132,255,.06);
+      border-radius:var(--rs);
+      border-left:3px solid var(--blue);
+    }
+    [data-theme="light"] .hwInline { background:rgba(0,122,255,.04); }
+    .hwInline.done { opacity:.4; }
+    .hwInline .hwHead { display:flex; justify-content:space-between; align-items:center; margin-bottom:3px; }
+    .hwInline .hwTag { font-size:10px; font-weight:700; text-transform:uppercase; color:var(--blue); letter-spacing:.3px; }
+    .hwInline .hwTxt { font-size:14px; line-height:1.5; }
+    .hwInline.done .hwTxt { text-decoration:line-through; }
+    .hwInline .hwBtns { display:flex; gap:3px; }
+
+    /* page heads */
+    .pgHead { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:8px; flex-wrap:wrap; }
+    .pgHead h2 { font-size:22px; font-weight:700; }
+
+    .emptyBox { text-align:center; padding:60px 20px; color:var(--t3); }
+    .emptyBox .eIcon { font-size:48px; margin-bottom:8px; opacity:.5; }
+    .emptyBox .eTxt { font-size:15px; }
+
+    /* hw items */
+    .hwCard {
+      background:var(--card); border-radius:var(--r);
+      padding:16px; border:1px solid var(--t4);
+      border-left:3px solid var(--blue);
+      margin-bottom:10px;
+    }
+    .hwCard .hwSubj { font-size:15px; font-weight:700; color:var(--blue); margin-bottom:4px; }
+    .hwCard .hwDue { font-size:12px; color:var(--t3); margin-bottom:10px; }
+    .hwCard .hwTask { font-size:14px; line-height:1.6; padding:10px; background:var(--bg2); border-radius:var(--rs); margin-bottom:10px; }
+    .hwCard .hwActs { display:flex; gap:6px; }
+
+    /* subj items */
+    .sjRow {
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px; background:var(--card);
+      border-radius:var(--r); border:1px solid var(--t4);
+      margin-bottom:8px;
+    }
+    .sjRow .sjIcon { width:40px; height:40px; border-radius:var(--rs); background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .sjRow .sjInfo { flex:1; min-width:0; }
+    .sjRow .sjN { font-weight:700; font-size:15px; }
+    .sjRow .sjM { font-size:13px; color:var(--t2); }
+
+    /* chg items */
+    .chgCard {
+      background:var(--card); border-radius:var(--r);
+      padding:16px; border:1px solid var(--t4);
+      border-left:3px solid var(--orange);
+      margin-bottom:10px;
+    }
+    .chgCard .chHead { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px; }
+    .chgCard .chDate { font-weight:700; color:var(--orange); }
+    .chgLesson {
+      display:flex; gap:8px; align-items:center;
+      padding:8px; background:var(--bg2);
+      border-radius:var(--rs); margin-bottom:4px;
+    }
+    .chgLesson .clN { width:24px; height:24px; border-radius:6px; background:rgba(255,159,10,.15); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:var(--orange); flex-shrink:0; }
+
+    /* settings */
+    .setRow {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:16px; background:var(--card);
+      border-radius:var(--r); border:1px solid var(--t4);
+      margin-bottom:8px; gap:12px; flex-wrap:wrap;
+    }
+    .setRow h4 { font-size:15px; font-weight:700; }
+    .setRow p { font-size:13px; color:var(--t3); }
+
+    /* bottom nav */
+    .bnav {
+      position:fixed; bottom:0; left:0; right:0;
+      height:calc(var(--navH) + env(safe-area-inset-bottom));
+      padding-bottom:env(safe-area-inset-bottom);
+      background:var(--bg2);
+      border-top:1px solid var(--t4);
+      display:flex; z-index:100;
+    }
+    [data-theme="light"] .bnav { background:rgba(255,255,255,.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+
+    .bnavBtn {
+      flex:1; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:2px;
+      border:none; background:none;
+      color:var(--t3); font-size:10px; font-weight:600;
+      font-family:inherit; cursor:pointer;
+      transition:color .15s; padding:0;
+      position:relative;
+    }
+    .bnavBtn .bi { font-size:24px; transition:transform .12s; }
+    .bnavBtn:active .bi { transform:scale(.85); }
+    .bnavBtn.on { color:var(--blue); }
+
+    .bnavBtn .badge {
+      position:absolute; top:6px; left:calc(50% + 6px);
+      min-width:16px; height:16px; border-radius:8px;
+      background:var(--red); color:#fff;
+      font-size:10px; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      padding:0 4px;
     }
 
-    .field input:focus, .field textarea:focus { border-color: var(--accent); }
-    .field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
-
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 14px 24px; border: none;
-      border-radius: var(--radius-sm);
-      font-size: 15px; font-weight: 700;
-      font-family: inherit; cursor: pointer;
-      transition: transform .15s, opacity .15s;
-      position: relative; overflow: hidden;
+    /* sheet modal */
+    .sheet { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:500; display:none; align-items:flex-end; justify-content:center; }
+    [data-theme="light"] .sheet { background:rgba(0,0,0,.3); }
+    .sheet.open { display:flex; }
+    .sheetBox {
+      background:var(--bg2); width:100%; max-width:500px;
+      border-radius:20px 20px 0 0;
+      padding:0 20px calc(20px + env(safe-area-inset-bottom));
+      max-height:90vh; overflow-y:auto;
+      animation:shUp .3s cubic-bezier(.32,.72,0,1);
     }
+    @keyframes shUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    .shHandle { width:36px; height:4px; background:var(--t4); border-radius:2px; margin:10px auto 16px; }
+    .sheetBox h3 { font-size:20px; font-weight:700; margin-bottom:16px; }
+    .shBtns { display:flex; gap:8px; margin-top:20px; padding-bottom:8px; }
+    .shBtns .btnP, .shBtns .btnS { flex:1; padding:14px; font-size:15px; }
+    .btnD { background:var(--red); color:#fff; flex:1; padding:14px; border:none; border-radius:var(--r); font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; }
 
-    .btn:active { transform: scale(.97); }
-    .btn-full { width: 100%; }
-
-    .btn-accent {
-      background: var(--accent); color: #fff;
-      box-shadow: 0 4px 14px rgba(108,92,231,.35);
+    /* custom select */
+    .csTrig {
+      display:flex; align-items:center; gap:10px;
+      padding:14px 16px; background:var(--bg3);
+      border:1px solid var(--t4); border-radius:var(--r);
+      cursor:pointer; min-height:52px; transition:border-color .2s;
     }
+    .csTrig:active { opacity:.8; }
+    .csTrig.open { border-color:var(--blue); border-radius:var(--r) var(--r) 0 0; }
+    .csTrig .csI { width:32px; height:32px; border-radius:8px; background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+    .csTrig .csTxt { flex:1; }
+    .csTrig .csN { font-weight:700; font-size:14px; }
+    .csTrig .csM { font-size:12px; color:var(--t3); }
+    .csTrig .csPh { color:var(--t3); font-size:14px; }
+    .csTrig .csArr { color:var(--t3); font-size:10px; transition:transform .2s; }
+    .csTrig.open .csArr { transform:rotate(180deg); }
 
-    .btn-ghost {
-      background: var(--bg-input); color: var(--text);
+    .csDd {
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--bg2); border:1px solid var(--blue);
+      border-top:1px solid var(--t4);
+      border-radius:0 0 var(--r) var(--r);
+      max-height:200px; overflow-y:auto;
+      z-index:50; display:none;
+      box-shadow:0 12px 40px rgba(0,0,0,.3);
     }
-
-    .btn-red { background: var(--red); color: #fff; }
-    .btn-green { background: var(--green); color: #fff; }
-    .btn-sm { padding: 8px 14px; font-size: 13px; border-radius: var(--radius-xs); }
-    .btn-xs { padding: 6px 10px; font-size: 12px; border-radius: 6px; }
-    .btn-icon-only { width: 44px; height: 44px; padding: 0; border-radius: var(--radius-sm); }
-
-    .sep {
-      display: flex; align-items: center; gap: 12px;
-      margin: 20px 0; color: var(--text-muted); font-size: 13px;
+    .csDd.open { display:block; }
+    .csOpt {
+      display:flex; align-items:center; gap:10px;
+      padding:12px 16px; cursor:pointer;
+      border-bottom:1px solid var(--t4);
+      transition:background .1s;
     }
-    .sep::before, .sep::after { content:''; flex:1; height:1px; background: var(--border); }
+    .csOpt:last-child { border:none; }
+    .csOpt:active { background:var(--bg3); }
+    .csOpt.on { background:rgba(10,132,255,.08); }
+    .csOpt .coI { width:28px; height:28px; border-radius:7px; background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+    .csOpt .coN { font-weight:700; font-size:14px; }
+    .csOpt .coM { font-size:11px; color:var(--t3); }
+    .csOpt.emp .coI { background:rgba(255,69,58,.1); }
+    .csWrap { position:relative; width:100%; }
 
-    /* ========== APP SHELL ========== */
-    #app { display: none; padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 8px); }
-
-    /* ---- Top bar ---- */
-    .topbar {
-      position: sticky; top: 0; z-index: 90;
-      background: var(--bg);
-      padding: 12px 20px 8px;
-      padding-top: calc(12px + env(safe-area-inset-top));
-      transition: background .3s;
+    /* change pair block */
+    .cpBlk {
+      background:var(--bg3); border-radius:var(--rs);
+      padding:12px; margin-bottom:8px;
     }
-
-    .topbar-row {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-
-    .topbar-left h1 {
-      font-size: 26px; font-weight: 900;
-      background: linear-gradient(135deg, var(--accent), #74b9ff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .topbar-left .today-text { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 1px; }
-
-    .topbar-right { display: flex; align-items: center; gap: 8px; }
-
-    .week-badge {
-      padding: 5px 12px; border-radius: 20px;
-      font-size: 12px; font-weight: 800;
-    }
-    .week-badge.upper { background: var(--green-bg); color: var(--green); }
-    .week-badge.lower { background: var(--red-bg); color: var(--red); }
-
-    .avatar-btn {
-      width: 38px; height: 38px;
-      border-radius: 50%; border: none;
-      background: var(--accent-bg);
-      color: var(--accent);
-      font-size: 16px; font-weight: 800;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ---- Profile dropdown ---- */
-    .profile-drop {
-      position: absolute; top: calc(100% + 8px); right: 20px;
-      background: var(--bg-elevated);
-      border-radius: var(--radius);
-      padding: 8px;
-      min-width: 200px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border);
-      display: none; z-index: 200;
-    }
-
-    .profile-drop.show { display: block; animation: dropIn .2s ease; }
-
-    @keyframes dropIn {
-      from { opacity:0; transform: translateY(-8px) scale(.96); }
-      to { opacity:1; transform: translateY(0) scale(1); }
-    }
-
-    .profile-drop .pd-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px; border-radius: var(--radius-xs);
-      font-size: 14px; font-weight: 600;
-      color: var(--text); cursor: pointer; border: none;
-      background: none; width: 100; font-family: inherit;
-      transition: background .15s; width: 100%;
-      text-align: left;
-    }
-
-    .profile-drop .pd-item:hover { background: var(--bg-input); }
-    .profile-drop .pd-item.danger { color: var(--red); }
-    .profile-drop .pd-email { padding: 12px; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); margin-bottom: 4px; }
-    .profile-drop .pd-email .admin-tag { background: var(--accent); color:#fff; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:800; margin-left:6px; }
-
-    /* ---- Day tabs ---- */
-    .day-tabs-wrap {
-      padding: 0 20px; margin-bottom: 12px;
-    }
-
-    .day-tabs {
-      display: flex; gap: 6px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding: 4px 0;
-    }
-
-    .day-tabs::-webkit-scrollbar { display: none; }
-
-    .day-tab {
-      flex: 1; min-width: 52px;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 4px;
-      padding: 10px 6px 12px;
-      border-radius: var(--radius-sm);
-      background: var(--bg-card);
-      border: 2px solid transparent;
-      cursor: pointer; transition: all .2s;
-      position: relative;
-      box-shadow: var(--shadow);
-    }
-
-    .day-tab .dt-name { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-    .day-tab .dt-num { font-size: 18px; font-weight: 900; color: var(--text); }
-    .day-tab:active { transform: scale(.96); }
-
-    .day-tab.active {
-      border-color: var(--accent);
-      background: var(--accent-bg);
-    }
-
-    .day-tab.active .dt-name { color: var(--accent); }
-    .day-tab.active .dt-num { color: var(--accent); }
-
-    .day-tab.is-today::after {
-      content: ''; position: absolute; bottom: 5px;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--accent);
-    }
-
-    .day-tab .dt-dot-change {
-      position: absolute; top: 5px; right: 5px;
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--orange);
-    }
-
-    /* ---- Week nav ---- */
-    .week-nav {
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px; padding: 0 20px; margin-bottom: 16px;
-    }
-
-    .week-nav-btn {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text); font-size: 18px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all .15s; box-shadow: var(--shadow);
-    }
-    .week-nav-btn:active { transform: scale(.92); }
-
-    .week-nav-label { text-align: center; }
-    .week-nav-label .wn-range { font-size: 16px; font-weight: 800; color: var(--text); }
-    .week-nav-label .wn-type { font-size: 12px; font-weight: 700; margin-top: 2px; }
-    .week-nav-label .wn-type.upper { color: var(--green); }
-    .week-nav-label .wn-type.lower { color: var(--red); }
-
-    /* ---- Content area ---- */
-    .content { padding: 0 20px; }
-    .page { display: none; }
-    .page.active { display: block; animation: pageIn .3s ease; }
-
-    @keyframes pageIn {
-      from { opacity:0; transform: translateY(16px); }
-      to { opacity:1; transform: translateY(0); }
-    }
-
-    /* ---- Lesson cards ---- */
-    .lessons-wrap { display: flex; flex-direction: column; gap: 10px; }
-
-    .lesson-card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      display: flex; gap: 14px;
-      transition: transform .15s;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .lesson-card:active { transform: scale(.985); }
-
-    .lesson-card.is-changed {
-      border-left: 4px solid var(--orange);
-    }
-
-    .lesson-card.is-empty {
-      opacity: .45; background: var(--bg-card);
-    }
-
-    .pair-badge {
-      width: 48px; min-height: 56px;
-      background: var(--accent-bg);
-      border-radius: var(--radius-sm);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 2px; flex-shrink: 0;
-    }
-
-    .pair-badge .pb-n { font-size: 20px; font-weight: 900; color: var(--accent); }
-    .pair-badge .pb-t { font-size: 10px; font-weight: 600; color: var(--text-muted); }
-
-    .lesson-body { flex: 1; min-width: 0; }
-    .lesson-body .lb-name { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-
-    .lesson-body .lb-meta {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      font-size: 13px; color: var(--text-secondary);
-      margin-bottom: 6px;
-    }
-
-    .lesson-body .lb-meta span { display: flex; align-items: center; gap: 4px; }
-    .lesson-body .lb-empty { color: var(--text-muted); font-size: 14px; font-style: italic; }
-
-    /* HW inside lesson */
-    .inline-hw {
-      margin-top: 10px; padding: 12px;
-      background: var(--accent-bg);
-      border-radius: var(--radius-xs);
-      border-left: 3px solid var(--accent);
-    }
-
-    .inline-hw.done {
-      opacity: .5; border-left-color: var(--green);
-    }
-
-    .inline-hw .ihw-top {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .inline-hw .ihw-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: .5px; }
-    .inline-hw .ihw-text { font-size: 14px; line-height: 1.5; color: var(--text); }
-    .inline-hw.done .ihw-text { text-decoration: line-through; }
-    .inline-hw .ihw-actions { display: flex; gap: 4px; }
-
-    .lesson-actions {
-      position: absolute; top: 12px; right: 12px;
-      display: flex; gap: 4px;
-    }
-
-    /* ---- HW page ---- */
-    .hw-list { display: flex; flex-direction: column; gap: 12px; }
-
-    .hw-item {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
-      position: relative;
-    }
-
-    .hw-item .hwi-subj {
-      font-size: 15px; font-weight: 800; color: var(--accent);
-      display: flex; align-items: center; gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .hw-item .hwi-due {
-      font-size: 12px; color: var(--text-muted); font-weight: 600;
-      margin-bottom: 10px;
-      display: flex; align-items: center; gap: 4px;
-    }
-
-    .hw-item .hwi-task {
-      font-size: 14px; line-height: 1.6; color: var(--text);
-      padding: 12px; background: var(--bg-input);
-      border-radius: var(--radius-xs);
-      margin-bottom: 12px;
-    }
-
-    .hw-item .hwi-btns { display: flex; gap: 6px; }
-
-    .page-head {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px; gap: 12px; flex-wrap: wrap;
-    }
-
-    .page-head h2 { font-size: 22px; font-weight: 900; }
-    .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
-    .empty-state .es-icon { font-size: 48px; margin-bottom: 12px; }
-    .empty-state .es-text { font-size: 15px; font-weight: 600; }
-
-    /* ---- Subjects ---- */
-    .subj-grid { display: flex; flex-direction: column; gap: 8px; }
-
-    .subj-row {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px 16px;
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-    }
-
-    .subj-row .sr-icon {
-      width: 42px; height: 42px;
-      background: var(--accent-bg);
-      border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0;
-    }
-
-    .subj-row .sr-info { flex: 1; min-width: 0; }
-    .subj-row .sr-name { font-weight: 800; font-size: 15px; }
-    .subj-row .sr-meta { font-size: 13px; color: var(--text-secondary); display: flex; gap: 8px; flex-wrap: wrap; }
-    .subj-row .sr-actions { display: flex; gap: 4px; }
-
-    /* ---- Changes ---- */
-    .chg-item {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--orange);
-      margin-bottom: 12px;
-    }
-
-    .chg-item .ci-head {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px; gap: 8px; flex-wrap: wrap;
-    }
-
-    .chg-item .ci-date { font-weight: 800; font-size: 15px; color: var(--orange); }
-    .chg-item .ci-btns { display: flex; gap: 4px; }
-
-    .chg-lesson {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px; background: var(--bg-input);
-      border-radius: var(--radius-xs);
-      margin-bottom: 6px;
-    }
-
-    .chg-lesson .cl-num {
-      width: 28px; height: 28px;
-      background: var(--orange-bg); border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 13px; color: #e17055; flex-shrink: 0;
-    }
-
-    .chg-lesson .cl-name { font-weight: 700; font-size: 14px; }
-    .chg-lesson .cl-meta { font-size: 12px; color: var(--text-muted); }
-
-    /* ---- Settings ---- */
-    .settings-list { display: flex; flex-direction: column; gap: 8px; }
-
-    .setting-card {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 16px;
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      gap: 12px; flex-wrap: wrap;
-      border: 1px solid var(--border);
-    }
-
-    .setting-card .sc-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
-    .setting-card .sc-info p { font-size: 13px; color: var(--text-muted); }
-
-    /* ---- Bottom nav ---- */
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
-      padding-bottom: env(safe-area-inset-bottom);
-      background: var(--bg-elevated);
-      border-top: 1px solid var(--border);
-      display: flex;
-      z-index: 100;
-      box-shadow: 0 -2px 20px rgba(0,0,0,.06);
-    }
-
-    [data-theme="dark"] .bottom-nav { box-shadow: 0 -2px 20px rgba(0,0,0,.3); }
-
-    .bnav-item {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 3px;
-      border: none; background: none;
-      color: var(--text-muted); cursor: pointer;
-      font-family: inherit; font-size: 10px; font-weight: 700;
-      transition: color .2s;
-      position: relative;
-      padding: 0;
-    }
-
-    .bnav-item .bi-icon { font-size: 22px; line-height: 1; transition: transform .15s; }
-    .bnav-item:active .bi-icon { transform: scale(.85); }
-
-    .bnav-item.active { color: var(--accent); }
-    .bnav-item.active .bi-icon { transform: scale(1.1); }
-
-    .bnav-item .bi-badge {
-      position: absolute; top: 4px; right: calc(50% - 20px);
-      min-width: 16px; height: 16px;
-      background: var(--red); color: #fff;
-      border-radius: 8px; font-size: 10px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      padding: 0 4px;
-    }
-
-    /* ---- Modal ---- */
-    .modal-bg {
-      position: fixed; inset: 0;
-      background: var(--bg-overlay);
-      z-index: 500;
-      display: none; align-items: flex-end; justify-content: center;
-    }
-
-    .modal-bg.show { display: flex; }
-
-    .modal-sheet {
-      background: var(--bg-elevated);
-      border-radius: 24px 24px 0 0;
-      padding: 8px 24px calc(24px + env(safe-area-inset-bottom));
-      width: 100%; max-width: 520px;
-      max-height: 92vh; overflow-y: auto;
-      animation: sheetUp .3s cubic-bezier(.32,.72,0,1);
-    }
-
-    @keyframes sheetUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-
-    .modal-handle {
-      width: 36px; height: 4px;
-      background: var(--text-muted); opacity: .3;
-      border-radius: 2px; margin: 8px auto 20px;
-    }
-
-    .modal-sheet h3 { font-size: 20px; font-weight: 900; margin-bottom: 20px; }
-    .modal-btns { display: flex; gap: 8px; margin-top: 24px; }
-    .modal-btns .btn { flex: 1; }
-
-    /* ---- Custom select ---- */
-    .csel-trigger {
-      display: flex; align-items: center; gap: 10px;
-      padding: 14px 16px;
-      background: var(--bg-input);
-      border: 2px solid transparent;
-      border-radius: var(--radius-sm);
-      cursor: pointer; transition: border-color .2s;
-      min-height: 52px;
-    }
-
-    .csel-trigger:hover, .csel-trigger.open { border-color: var(--accent); }
-
-    .csel-trigger .ct-icon {
-      width: 32px; height: 32px;
-      background: var(--accent-bg);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; flex-shrink: 0;
-    }
-
-    .csel-trigger .ct-text { flex: 1; min-width: 0; }
-    .csel-trigger .ct-name { font-weight: 700; font-size: 14px; }
-    .csel-trigger .ct-meta { font-size: 12px; color: var(--text-muted); }
-    .csel-trigger .ct-ph { color: var(--text-muted); font-size: 14px; }
-    .csel-trigger .ct-arr { color: var(--text-muted); font-size: 10px; transition: transform .2s; }
-    .csel-trigger.open .ct-arr { transform: rotate(180deg); }
-
-    .csel-dd {
-      position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--bg-elevated);
-      border: 2px solid var(--accent);
-      border-top: 1px solid var(--border);
-      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-      max-height: 200px; overflow-y: auto;
-      z-index: 50; display: none;
-      box-shadow: var(--shadow-lg);
-    }
-    .csel-dd.open { display: block; }
-
-    .csel-opt {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 16px; cursor: pointer;
-      transition: background .12s;
-      border-bottom: 1px solid var(--border);
-    }
-    .csel-opt:last-child { border-bottom: none; }
-    .csel-opt:hover { background: var(--accent-bg); }
-    .csel-opt.sel { background: var(--accent-bg2); }
-
-    .csel-opt .co-icon {
-      width: 28px; height: 28px;
-      background: var(--accent-bg); border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; flex-shrink: 0;
-    }
-    .csel-opt .co-name { font-weight: 700; font-size: 14px; }
-    .csel-opt .co-meta { font-size: 11px; color: var(--text-muted); }
-    .csel-opt.empty-opt .co-icon { background: var(--red-bg); color: var(--red); }
-
-    .csel-wrap { position: relative; width: 100%; }
-
-    /* ---- Changes pair editor ---- */
-    .cpair-block {
-      background: var(--bg-input); border-radius: var(--radius-xs);
-      padding: 14px; margin-bottom: 10px;
-    }
-    .cpair-block .cpb-head {
-      display: flex; align-items: center; gap: 8px;
-      margin-bottom: 10px;
-    }
-    .cpair-block .cpb-num {
-      width: 26px; height: 26px;
-      background: var(--accent-bg); border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 13px; color: var(--accent);
-    }
-    .cpair-block .cpb-label { font-weight: 700; font-size: 14px; color: var(--text-secondary); }
-
-    .admin-hide { display: none; }
-
-    /* ---- Responsive ---- */
-    @media (max-width: 400px) {
-      .topbar-left h1 { font-size: 22px; }
-      .day-tab { min-width: 46px; padding: 8px 4px 10px; }
-      .day-tab .dt-num { font-size: 16px; }
-      .lesson-card { padding: 14px; gap: 10px; }
-      .pair-badge { width: 42px; }
-      .pair-badge .pb-n { font-size: 18px; }
-    }
-
-    @media (min-width: 768px) {
-      .content { max-width: 600px; margin: 0 auto; }
-      .day-tabs-wrap { max-width: 600px; margin: 0 auto 12px; }
-      .week-nav { max-width: 600px; margin: 0 auto 16px; }
-      .topbar { max-width: 100%; }
-      .topbar > .topbar-row { max-width: 600px; margin: 0 auto; }
+    .cpBlk .cpHead { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+    .cpBlk .cpN { width:24px; height:24px; border-radius:6px; background:rgba(10,132,255,.1); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; color:var(--blue); }
+
+    .admH { display:none !important; }
+
+    @media(max-width:380px) {
+      .topTitle { font-size:28px; }
+      .dayChip .dcNum { font-size:17px; }
+      .dayChip { min-width:38px; }
     }
   </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen" class="login-wrap">
-  <div class="login-box">
-    <div class="login-icon">📚</div>
+<div id="loginPage">
+  <div class="loginCard">
+    <div class="logo">📓</div>
     <h1>Дневник</h1>
-    <p class="sub">Войдите в свой аккаунт</p>
-    <div class="login-err" id="login-err"></div>
-    <div class="field"><label>Email</label><input type="email" id="l-email" placeholder="your@email.com" autocomplete="email"></div>
-    <div class="field"><label>Пароль</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
-    <button class="btn btn-accent btn-full" onclick="doLogin()">Войти</button>
-    <div class="sep">или</div>
-    <button class="btn btn-ghost btn-full" onclick="guestLogin()">Войти как гость</button>
+    <p class="sub">Войдите чтобы продолжить</p>
+    <div class="errMsg" id="errMsg"></div>
+    <input class="inp" type="email" id="iEmail" placeholder="Email" autocomplete="email">
+    <input class="inp" type="password" id="iPass" placeholder="Пароль" autocomplete="current-password">
+    <button class="btnP" onclick="doLogin()">Войти</button>
+    <div class="divLine">или</div>
+    <button class="btnS" onclick="guestIn()">Гостевой вход</button>
   </div>
 </div>
 
-<!-- APP -->
-<div id="app">
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="topbar-row">
-      <div class="topbar-left">
-        <h1>Дневник</h1>
-        <div class="today-text" id="top-today"></div>
+<div id="appPage">
+  <div class="top" id="topBar">
+    <div class="topRow">
+      <div>
+        <div class="topTitle">Дневник</div>
+        <div class="topDate" id="topDate"></div>
       </div>
-      <div class="topbar-right">
-        <span class="week-badge" id="top-week-badge"></span>
-        <button class="avatar-btn" id="avatar-btn" onclick="toggleProfile()"></button>
+      <div class="topRight">
+        <span class="pillBadge" id="topBadge"></span>
+        <button class="circBtn" id="menuBtn" onclick="togMenu()">☰</button>
       </div>
     </div>
-    <div class="profile-drop" id="profile-drop">
-      <div class="pd-email" id="pd-email"></div>
-      <button class="pd-item" onclick="toggleTheme()">🎨 Сменить тему</button>
-      <button class="pd-item danger" onclick="doLogout()">🚪 Выйти</button>
+    <div class="dropdown" id="menuDrop">
+      <div class="ddInfo" id="ddEmail"></div>
+      <button class="ddItem" onclick="togTheme()">🎨 Тема</button>
+      <button class="ddItem red" onclick="doLogout()">Выйти</button>
     </div>
   </div>
 
-  <!-- Week nav -->
-  <div class="week-nav">
-    <button class="week-nav-btn" onclick="prevWeek()">‹</button>
-    <div class="week-nav-label">
-      <div class="wn-range" id="wn-range"></div>
-      <div class="wn-type" id="wn-type"></div>
-    </div>
-    <button class="week-nav-btn" onclick="nextWeek()">›</button>
-  </div>
+  <div class="weekStrip" id="weekStrip"></div>
 
-  <!-- Day tabs -->
-  <div class="day-tabs-wrap" id="dtw">
-    <div class="day-tabs" id="day-tabs"></div>
-  </div>
-
-  <!-- Content -->
   <div class="content">
-    <!-- Schedule -->
-    <div class="page active" id="pg-schedule">
-      <div class="lessons-wrap" id="lessons-wrap"></div>
+    <div class="pg on" id="pgSched">
+      <div class="lList" id="lList"></div>
     </div>
 
-    <!-- Homework -->
-    <div class="page" id="pg-hw">
-      <div class="page-head">
+    <div class="pg" id="pgHw">
+      <div class="pgHead">
         <h2>Домашнее задание</h2>
-        <button class="btn btn-accent btn-sm admin-hide" id="add-hw-btn" onclick="openNewHwModal()">+ Добавить</button>
+        <button class="btnP admH" id="addHwBtn" onclick="openNewHw()" style="padding:10px 16px;font-size:14px;">+ Добавить</button>
       </div>
-      <div class="hw-list" id="hw-list"></div>
+      <div id="hwList"></div>
     </div>
 
-    <!-- Changes -->
-    <div class="page admin-hide" id="pg-changes">
-      <div class="page-head">
+    <div class="pg admH" id="pgChg">
+      <div class="pgHead">
         <h2>Замены</h2>
-        <button class="btn btn-accent btn-sm" onclick="openChgModal()">+ Добавить</button>
+        <button class="btnP" onclick="openChgM()" style="padding:10px 16px;font-size:14px;">+ Добавить</button>
       </div>
-      <div id="chg-list"></div>
+      <div id="chgList"></div>
     </div>
 
-    <!-- Subjects -->
-    <div class="page admin-hide" id="pg-subjects">
-      <div class="page-head">
+    <div class="pg admH" id="pgSubj">
+      <div class="pgHead">
         <h2>Предметы</h2>
-        <button class="btn btn-accent btn-sm" onclick="openSubjModal()">+ Добавить</button>
+        <button class="btnP" onclick="openSjM()" style="padding:10px 16px;font-size:14px;">+ Добавить</button>
       </div>
-      <div class="subj-grid" id="subj-list"></div>
+      <div id="sjList"></div>
     </div>
 
-    <!-- Settings -->
-    <div class="page admin-hide" id="pg-settings">
-      <h2 style="margin-bottom:20px;">Настройки</h2>
-      <div class="settings-list">
-        <div class="setting-card">
-          <div class="sc-info"><h4>Начало недель</h4><p>Понедельник верхней</p></div>
-          <input type="date" class="field-inline" id="cfg-week-start" style="padding:10px;background:var(--bg-input);border:2px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;">
-        </div>
-        <div class="setting-card">
-          <div class="sc-info"><h4>Время пар</h4><p>Начало и конец</p></div>
-          <button class="btn btn-ghost btn-sm" onclick="openTimesModal()">Изменить</button>
-        </div>
-        <div class="setting-card">
-          <div class="sc-info"><h4>Очистить данные</h4><p>Удалить всё</p></div>
-          <button class="btn btn-red btn-sm" onclick="clearAll()">Очистить</button>
-        </div>
-      </div>
+    <div class="pg admH" id="pgSet">
+      <h2 style="margin-bottom:16px;">Настройки</h2>
+      <div class="setRow"><div><h4>Начало недель</h4><p>Понедельник верхней</p></div><input type="date" class="inp" id="cfgWS" style="width:auto;margin:0;padding:10px;"></div>
+      <div class="setRow"><div><h4>Время пар</h4><p>Начало и конец</p></div><button class="btnS" onclick="openTimesM()" style="padding:10px 14px;font-size:14px;width:auto;">Изменить</button></div>
+      <div class="setRow"><div><h4>Очистить</h4><p>Удалить все данные</p></div><button class="btnD" onclick="clearAll()" style="padding:10px 14px;font-size:14px;width:auto;">Очистить</button></div>
     </div>
   </div>
 
-  <!-- Bottom nav -->
-  <nav class="bottom-nav" id="bottom-nav">
-    <button class="bnav-item active" data-pg="pg-schedule">
-      <span class="bi-icon">📅</span><span>Расписание</span>
-    </button>
-    <button class="bnav-item" data-pg="pg-hw" id="bn-hw">
-      <span class="bi-icon">📝</span><span>ДЗ</span>
-    </button>
-    <button class="bnav-item admin-hide" data-pg="pg-changes">
-      <span class="bi-icon">🔄</span><span>Замены</span>
-    </button>
-    <button class="bnav-item admin-hide" data-pg="pg-subjects">
-      <span class="bi-icon">📖</span><span>Предметы</span>
-    </button>
-    <button class="bnav-item admin-hide" data-pg="pg-settings">
-      <span class="bi-icon">⚙️</span><span>Ещё</span>
-    </button>
+  <nav class="bnav" id="bnav">
+    <button class="bnavBtn on" data-pg="pgSched"><span class="bi">📅</span>Расписание</button>
+    <button class="bnavBtn" data-pg="pgHw" id="bnHw"><span class="bi">📝</span>ДЗ</button>
+    <button class="bnavBtn admH" data-pg="pgChg"><span class="bi">🔄</span>Замены</button>
+    <button class="bnavBtn admH" data-pg="pgSubj"><span class="bi">📖</span>Предметы</button>
+    <button class="bnavBtn admH" data-pg="pgSet"><span class="bi">⚙️</span>Ещё</button>
   </nav>
 </div>
 
-<!-- MODALS -->
-<div class="modal-bg" id="m-lesson">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h3>Редактировать пару</h3>
-    <input type="hidden" id="el-day"><input type="hidden" id="el-pair"><input type="hidden" id="el-week">
-    <div class="field"><label>Предмет</label><div id="el-sel-c"></div></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeM('m-lesson')">Отмена</button>
-      <button class="btn btn-red" onclick="delLesson()">Убрать</button>
-      <button class="btn btn-accent" onclick="saveLesson()">Сохранить</button>
-    </div>
-  </div>
-</div>
+<!-- SHEETS -->
+<div class="sheet" id="shLesson"><div class="sheetBox"><div class="shHandle"></div><h3>Редактировать</h3><input type="hidden" id="elD"><input type="hidden" id="elP"><input type="hidden" id="elW"><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Предмет</label><div id="elSel"></div></div><div class="shBtns"><button class="btnS" onclick="closeS('shLesson')">Отмена</button><button class="btnD" onclick="rmLesson()">Убрать</button><button class="btnP" onclick="svLesson()">Ок</button></div></div></div>
 
-<div class="modal-bg" id="m-hw-inline">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h3>Домашнее задание</h3>
-    <input type="hidden" id="hi-date"><input type="hidden" id="hi-pair">
-    <div class="field"><label>Предмет</label><input type="text" id="hi-subj" readonly style="opacity:.6;"></div>
-    <div class="field"><label>Задание</label><textarea id="hi-task" placeholder="Что нужно сделать..."></textarea></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeM('m-hw-inline')">Отмена</button>
-      <button class="btn btn-accent" onclick="saveInlineHw()">Сохранить</button>
-    </div>
-  </div>
-</div>
+<div class="sheet" id="shHwI"><div class="sheetBox"><div class="shHandle"></div><h3>Домашка</h3><input type="hidden" id="hiD"><input type="hidden" id="hiP"><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Предмет</label><input class="inp" id="hiS" readonly style="opacity:.5;margin:0;"></div><div class="field" style="margin-bottom:0;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Задание</label><textarea class="inp" id="hiT" placeholder="Что задали..." style="margin:0;"></textarea></div><div class="shBtns"><button class="btnS" onclick="closeS('shHwI')">Отмена</button><button class="btnP" onclick="svHwI()">Ок</button></div></div></div>
 
-<div class="modal-bg" id="m-new-hw">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h3>Новое ДЗ</h3>
-    <div class="field"><label>Предмет</label><div id="nhw-sel"></div></div>
-    <div class="field"><label>Задание</label><textarea id="nhw-task" placeholder="Опишите задание..."></textarea></div>
-    <div class="field"><label>Ближайшая пара</label>
-      <div id="nhw-next" style="padding:14px;background:var(--bg-input);border-radius:var(--radius-xs);font-size:14px;color:var(--text-muted);min-height:48px;display:flex;align-items:center;gap:6px;">Выберите предмет...</div>
-    </div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeM('m-new-hw')">Отмена</button>
-      <button class="btn btn-accent" onclick="saveNewHw()">Сохранить</button>
-    </div>
-  </div>
-</div>
+<div class="sheet" id="shNewHw"><div class="sheetBox"><div class="shHandle"></div><h3>Новое ДЗ</h3><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Предмет</label><div id="nhSel"></div></div><div class="field" style="margin-bottom:12px;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Задание</label><textarea class="inp" id="nhT" placeholder="Описание..." style="margin:0;"></textarea></div><div class="field" style="margin-bottom:0;"><label style="display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;">Ближайшая пара</label><div id="nhNext" style="padding:14px;background:var(--bg3);border-radius:var(--rs);font-size:14px;color:var(--t3);">Выберите предмет</div></div><div class="shBtns"><button class="btnS" onclick="closeS('shNewHw')">Отмена</button><button class="btnP" onclick="svNewHw()">Ок</button></div></div></div>
 
-<div class="modal-bg" id="m-subj">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h3 id="subj-m-title">Добавить предмет</h3>
-    <input type="hidden" id="se-id">
-    <div class="field"><label>Название</label><input type="text" id="se-name" placeholder="Математика"></div>
-    <div class="field"><label>Аудитория</label><input type="text" id="se-room" placeholder="Каб. 301"></div>
-    <div class="field"><label>Преподаватель</label><input type="text" id="se-teacher" placeholder="Иванов И.И."></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeM('m-subj')">Отмена</button>
-      <button class="btn btn-accent" onclick="saveSubj()">Сохранить</button>
-    </div>
-  </div>
-</div>
+<div class="sheet" id="shSubj"><div class="sheetBox"><div class="shHandle"></div><h3 id="sjTitle">Добавить</h3><input type="hidden" id="sjId"><input class="inp" id="sjN" placeholder="Название"><input class="inp" id="sjR" placeholder="Аудитория"><input class="inp" id="sjTch" placeholder="Преподаватель"><div class="shBtns"><button class="btnS" onclick="closeS('shSubj')">Отмена</button><button class="btnP" onclick="svSubj()">Ок</button></div></div></div>
 
-<div class="modal-bg" id="m-chg">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h3>Замена на дату</h3>
-    <input type="hidden" id="ce-id">
-    <div class="field"><label>Дата</label><input type="date" id="ce-date"></div>
-    <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Замена действует только на выбранную дату. Пустое = нет пары.</p>
-    <div id="ce-pairs"></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeM('m-chg')">Отмена</button>
-      <button class="btn btn-red" id="ce-del" onclick="delChg()" style="display:none;">Удалить</button>
-      <button class="btn btn-accent" onclick="saveChg()">Сохранить</button>
-    </div>
-  </div>
-</div>
+<div class="sheet" id="shChg"><div class="sheetBox"><div class="shHandle"></div><h3>Замена</h3><input type="hidden" id="ceId"><input class="inp" type="date" id="ceDate" style="margin-bottom:8px;"><p style="font-size:13px;color:var(--t3);margin-bottom:12px;">Замена действует только на эту дату</p><div id="cePairs"></div><div class="shBtns"><button class="btnS" onclick="closeS('shChg')">Отмена</button><button class="btnD" id="ceDel" onclick="rmChg()" style="display:none;">Удалить</button><button class="btnP" onclick="svChg()">Ок</button></div></div></div>
 
-<div class="modal-bg" id="m-times">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <h3>Время пар</h3>
-    <div id="times-form"></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeM('m-times')">Отмена</button>
-      <button class="btn btn-accent" onclick="saveTimes()">Сохранить</button>
-    </div>
-  </div>
-</div>
+<div class="sheet" id="shTimes"><div class="sheetBox"><div class="shHandle"></div><h3>Время пар</h3><div id="timesF"></div><div class="shBtns"><button class="btnS" onclick="closeS('shTimes')">Отмена</button><button class="btnP" onclick="svTimes()">Ок</button></div></div></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
-/* ===== Theme ===== */
-function initTheme(){setTheme(localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
-function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#0f0f1a':'#f5f5f7'}
-function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')}
-initTheme();
+const TH=()=>document.documentElement.getAttribute('data-theme');
+function initTh(){setTh(localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
+function setTh(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#000':'#f2f2f7'}
+function togTheme(){setTh(TH()==='dark'?'light':'dark');closeDd()}
+initTh();
 
-/* ===== Firebase ===== */
 firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
-const auth=firebase.auth(),db=firebase.database();
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+const au=firebase.auth(),db=firebase.database();
+au.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-/* ===== State ===== */
-const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
-const DSK=['Пн','Вт','Ср','Чт','Пт','Сб'],DFL=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
-let curUser=null,isAdmin=false,isGuest=false;
-let sched={upper:{},lower:{}},hwData=[],chgData=[],nhwData=[],subjData=[];
-let cfg={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
-let vwMon=getMon(new Date()),selDayIdx=todayIdx(),csState={};
+const ADM=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
+const DK=['Пн','Вт','Ср','Чт','Пт','Сб'],DL=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
+let cU=null,isA=false,isG=false;
+let sc={upper:{},lower:{}},hw=[],ch=[],nh=[],sj=[];
+let cf={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
+let vM=gMon(new Date()),sD=tIdx(),cs={};
 
-/* ===== Helpers ===== */
-function getMon(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
-function fdk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
-function pdk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
-function fds(d){return String(new Date(d).getDate()).padStart(2,'0')+'.'+String(new Date(d).getMonth()+1).padStart(2,'0')}
-function fdFull(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
-function fdShort(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
-function todayIdx(){const w=new Date().getDay();return w===0?5:(w-1)}
+function gMon(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
+function fk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
+function pk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
+function fShort(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
+function fFull(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
+function tIdx(){const w=new Date().getDay();return w===0?5:(w-1)}
 function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML}
 
-function gwt(mon){
-  if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);return Math.ceil(((mon-s)/864e5+s.getDay()+1)/7)%2===1?'upper':'lower'}
-  const sd=getMon(pdk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/864e5)/7)%2===0?'upper':'lower';
+function gwt(m){
+  if(!cf.weekStartDate){const s=new Date(m.getFullYear(),0,1);return Math.ceil(((m-s)/864e5+s.getDay()+1)/7)%2===1?'upper':'lower'}
+  const sd=gMon(pk(cf.weekStartDate));return Math.floor(Math.round((m-sd)/864e5)/7)%2===0?'upper':'lower';
 }
 
-function lessonsFor(dk){
-  const d=pdk(dk),dow=d.getDay();if(dow===0)return{};
+function lesFor(dk){
+  const d=pk(dk),dow=d.getDay();if(dow===0)return{};
   const di=dow-1;if(di>5)return{};
-  const ch=chgData.find(c=>c.date===dk);
-  if(ch)return ch.lessons||{};
-  return(sched[gwt(getMon(d))]||{})[DSK[di]]||{};
+  const c=ch.find(x=>x.date===dk);
+  if(c)return c.lessons||{};
+  return(sc[gwt(gMon(d))]||{})[DK[di]]||{};
 }
 
-function findNext(subj){
-  const today=new Date();today.setHours(0,0,0,0);
-  for(let o=1;o<=60;o++){
-    const cd=new Date(today);cd.setDate(cd.getDate()+o);
-    const dow=cd.getDay();if(dow===0||dow>6)continue;
-    const dk=fdk(cd),les=lessonsFor(dk);
-    for(let p=1;p<=5;p++){const l=les[p];if(l&&l.name&&l.name.toLowerCase().trim()===subj.toLowerCase().trim())return{date:dk,pair:p}}
-  }
+function findNx(subj){
+  const td=new Date();td.setHours(0,0,0,0);
+  for(let o=1;o<=60;o++){const d=new Date(td);d.setDate(d.getDate()+o);const dow=d.getDay();if(dow===0||dow>6)continue;const dk=fk(d),ls=lesFor(dk);for(let p=1;p<=5;p++){const l=ls[p];if(l&&l.name&&l.name.toLowerCase().trim()===subj.toLowerCase().trim())return{date:dk,pair:p}}}
   return null;
 }
 
-function recalcHw(){
-  if(!isAdmin)return;
-  const tk=fdk(new Date());
-  nhwData.forEach(h=>{if(h.done||!h.subject)return;const nx=findNext(h.subject);if(nx&&(nx.date!==h.targetDate||nx.pair!==h.targetPair))db.ref(`newHomework/${h.id}`).update({targetDate:nx.date,targetPair:nx.pair})});
-}
+function recalc(){if(!isA)return;nh.forEach(h=>{if(h.done||!h.subject)return;const n=findNx(h.subject);if(n&&(n.date!==h.targetDate||n.pair!==h.targetPair))db.ref(`newHomework/${h.id}`).update({targetDate:n.date,targetPair:n.pair})})}
 
-/* ===== Auth ===== */
-auth.onAuthStateChanged(u=>{if(u){curUser=u;isAdmin=ADMINS.includes(u.uid);isGuest=false;boot()}else if(localStorage.getItem('gs')){isGuest=true;boot()}});
-
-function doLogin(){
-  const e=document.getElementById('l-email').value.trim(),p=document.getElementById('l-pass').value;
-  if(!e||!p){showLErr('Введите email и пароль');return}
-  auth.signInWithEmailAndPassword(e,p).catch(()=>showLErr('Неверные данные'));
-}
-function showLErr(m){const e=document.getElementById('login-err');e.textContent=m;e.style.display='block'}
-function guestLogin(){isGuest=true;isAdmin=false;curUser=null;localStorage.setItem('gs','1');boot()}
-function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGuest=false;isAdmin=false;curUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';document.getElementById('profile-drop').classList.remove('show')})}
+au.onAuthStateChanged(u=>{if(u){cU=u;isA=ADM.includes(u.uid);isG=false;boot()}else if(localStorage.getItem('gs')){isG=true;boot()}});
+function doLogin(){const e=document.getElementById('iEmail').value.trim(),p=document.getElementById('iPass').value;if(!e||!p){shErr('Введите email и пароль');return}au.signInWithEmailAndPassword(e,p).catch(()=>shErr('Неверные данные'))}
+function shErr(m){const e=document.getElementById('errMsg');e.textContent=m;e.style.display='block'}
+function guestIn(){isG=true;isA=false;cU=null;localStorage.setItem('gs','1');boot()}
+function doLogout(){localStorage.removeItem('gs');au.signOut().then(()=>{isG=false;isA=false;cU=null;document.getElementById('appPage').style.display='none';document.getElementById('loginPage').style.display='flex';closeDd()})}
 
 function boot(){
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('app').style.display='block';
-  const letter=(isGuest?'Г':(curUser?.email?.[0]||'?')).toUpperCase();
-  document.getElementById('avatar-btn').textContent=letter;
-  const eml=document.getElementById('pd-email');
-  eml.innerHTML=(isGuest?'Гость':esc(curUser?.email||''))+(isAdmin?'<span class="admin-tag">Админ</span>':'');
-  if(isAdmin)document.querySelectorAll('.admin-hide').forEach(e=>e.classList.remove('admin-hide'));
-  setupNav();loadData();
-  selDayIdx=todayIdx();
-  vwMon=getMon(new Date());
-  updateAll();
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('appPage').style.display='block';
+  document.getElementById('ddEmail').innerHTML=(isG?'Гость':esc(cU?.email||''))+(isA?' <span style="background:var(--blue);color:#fff;padding:2px 6px;border-radius:4px;font-size:11px;font-weight:800;margin-left:4px;">Админ</span>':'');
+  if(isA)document.querySelectorAll('.admH').forEach(e=>e.classList.remove('admH'));
+  setupNav();loadData();sD=tIdx();vM=gMon(new Date());updAll();
 }
 
-/* ===== Profile ===== */
-function toggleProfile(){document.getElementById('profile-drop').classList.toggle('show')}
-document.addEventListener('click',e=>{if(!e.target.closest('#avatar-btn')&&!e.target.closest('#profile-drop'))document.getElementById('profile-drop').classList.remove('show')});
+function togMenu(){document.getElementById('menuDrop').classList.toggle('open')}
+function closeDd(){document.getElementById('menuDrop').classList.remove('open')}
+document.addEventListener('click',e=>{if(!e.target.closest('#menuBtn')&&!e.target.closest('#menuDrop'))closeDd()});
 
-/* ===== Navigation ===== */
 function setupNav(){
-  document.querySelectorAll('.bnav-item').forEach(b=>{
-    b.addEventListener('click',()=>{
-      document.querySelectorAll('.bnav-item').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById(b.dataset.pg).classList.add('active');
-      const isDiary=b.dataset.pg==='pg-schedule';
-      document.getElementById('dtw').style.display=isDiary?'':'none';
-      document.querySelector('.week-nav').style.display=isDiary?'':'none';
-    });
-  });
+  document.querySelectorAll('.bnavBtn').forEach(b=>{b.addEventListener('click',()=>{
+    document.querySelectorAll('.bnavBtn').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');document.getElementById(b.dataset.pg).classList.add('on');
+    const isSch=b.dataset.pg==='pgSched';
+    document.getElementById('weekStrip').style.display=isSch?'':'none';
+  })});
 }
 
-/* ===== Data ===== */
 function loadData(){
-  db.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('cfg-week-start').value=cfg.weekStartDate}updateAll()});
-  db.ref('schedule').on('value',s=>{sched=s.val()||{upper:{},lower:{}};renderDay();recalcHw()});
-  db.ref('homework').on('value',s=>{const d=s.val();hwData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDay()});
-  db.ref('subjects').on('value',s=>{const d=s.val();subjData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDay()});
-  db.ref('newHomework').on('value',s=>{const d=s.val();nhwData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwPage();renderDay();updHwBadge()});
-  db.ref('changes').on('value',s=>{const d=s.val();chgData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanOld();renderDay();renderDayTabs();renderChanges();recalcHw()});
-  document.getElementById('cfg-week-start').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
+  db.ref('settings').on('value',s=>{if(s.val()){cf={...cf,...s.val()};if(cf.weekStartDate)document.getElementById('cfgWS').value=cf.weekStartDate}updAll()});
+  db.ref('schedule').on('value',s=>{sc=s.val()||{upper:{},lower:{}};render();recalc()});
+  db.ref('homework').on('value',s=>{const d=s.val();hw=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];render()});
+  db.ref('subjects').on('value',s=>{const d=s.val();sj=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];rSubj();render()});
+  db.ref('newHomework').on('value',s=>{const d=s.val();nh=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];rHwPg();render();updBdg()});
+  db.ref('changes').on('value',s=>{const d=s.val();ch=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanOld();render();rStrip();rChg();recalc()});
+  document.getElementById('cfgWS').addEventListener('change',e=>{if(isA)db.ref('settings/weekStartDate').set(e.target.value)});
 }
 
-function cleanOld(){if(!isAdmin)return;const tk=fdk(new Date());chgData.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
+function cleanOld(){if(!isA)return;const tk=fk(new Date());ch.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
 
-/* ===== Update ===== */
-function updateAll(){updateTopbar();updateWeekNav();renderDayTabs();renderDay()}
+function updAll(){updTop();rStrip();render()}
 
-function updateTopbar(){
-  const t=new Date(),wt=gwt(getMon(t));
-  document.getElementById('top-today').textContent=fdFull(t);
-  const wb=document.getElementById('top-week-badge');
-  wb.textContent=wt==='upper'?'▲ Верхняя':'▼ Нижняя';
-  wb.className='week-badge '+wt;
+function updTop(){
+  const t=new Date(),wt=gwt(gMon(t));
+  document.getElementById('topDate').textContent=fFull(t);
+  const b=document.getElementById('topBadge');
+  b.textContent=wt==='upper'?'▲ Верхняя':'▼ Нижняя';
+  b.className='pillBadge '+(wt==='upper'?'up':'lo');
 }
 
-function updateWeekNav(){
-  const e=new Date(vwMon);e.setDate(e.getDate()+5);
-  const wt=gwt(vwMon);
-  document.getElementById('wn-range').textContent=`${fdShort(vwMon)} — ${fdShort(e)}`;
-  const tp=document.getElementById('wn-type');
-  tp.textContent=wt==='upper'?'▲ Верхняя неделя':'▼ Нижняя неделя';
-  tp.className='wn-type '+wt;
-}
+function prevW(){vM.setDate(vM.getDate()-7);sD=0;updAll()}
+function nextW(){vM.setDate(vM.getDate()+7);sD=0;updAll()}
 
-function prevWeek(){vwMon.setDate(vwMon.getDate()-7);selDayIdx=0;updateAll()}
-function nextWeek(){vwMon.setDate(vwMon.getDate()+7);selDayIdx=0;updateAll()}
-
-/* ===== Day tabs ===== */
-function renderDayTabs(){
-  const c=document.getElementById('day-tabs'),tk=fdk(new Date());
-  let h='';
+function rStrip(){
+  const c=document.getElementById('weekStrip'),tk=fk(new Date());
+  const e=new Date(vM);e.setDate(e.getDate()+5);
+  const wt=gwt(vM);
+  let h=`<button class="wsArrow" onclick="prevW()">‹</button>`;
   for(let i=0;i<6;i++){
-    const d=new Date(vwMon);d.setDate(d.getDate()+i);
-    const dk=fdk(d),isT=dk===tk,hasCh=chgData.some(c=>c.date===dk);
-    h+=`<div class="day-tab${i===selDayIdx?' active':''}${isT?' is-today':''}" onclick="pickDay(${i})" data-di="${i}">
-      ${hasCh?'<span class="dt-dot-change"></span>':''}
-      <span class="dt-name">${DSK[i]}</span>
-      <span class="dt-num">${d.getDate()}</span>
-    </div>`;
+    const d=new Date(vM);d.setDate(d.getDate()+i);
+    const dk=fk(d),isT=dk===tk,hasCh=ch.some(x=>x.date===dk);
+    h+=`<button class="dayChip${i===sD?' sel':''}${isT?' today':''}" onclick="pickD(${i})">
+      ${hasCh?'<span class="dcDot"></span>':''}
+      <span class="dcDay">${DK[i]}</span>
+      <span class="dcNum">${d.getDate()}</span>
+    </button>`;
   }
+  h+=`<div class="wsLabel"><div class="wslRange">${fShort(vM)} — ${fShort(e)}</div><div class="wslType ${wt==='upper'?'up':'lo'}">${wt==='upper'?'▲ Верхняя':'▼ Нижняя'}</div></div>`;
+  h+=`<button class="wsArrow" onclick="nextW()">›</button>`;
   c.innerHTML=h;
-  // scroll active into view
-  setTimeout(()=>{const a=c.querySelector('.day-tab.active');if(a)a.scrollIntoView({inline:'center',behavior:'smooth'})},50);
+  setTimeout(()=>{const a=c.querySelector('.dayChip.sel');if(a)a.scrollIntoView({inline:'center',behavior:'smooth'})},30);
 }
 
-function pickDay(i){selDayIdx=i;renderDayTabs();renderDay()}
+function pickD(i){sD=i;rStrip();render()}
 
-/* ===== Lessons ===== */
-function renderDay(){
-  const wrap=document.getElementById('lessons-wrap');
-  const d=new Date(vwMon);d.setDate(d.getDate()+selDayIdx);
-  const dk=fdk(d),wt=gwt(vwMon),dayKey=DSK[selDayIdx];
-  const ch=chgData.find(c=>c.date===dk),hasCh=!!ch;
-  const lessons=hasCh?(ch.lessons||{}):(sched[wt]?.[dayKey]||{});
+function render(){
+  const w=document.getElementById('lList');
+  const d=new Date(vM);d.setDate(d.getDate()+sD);
+  const dk=fk(d),wt=gwt(vM),dayK=DK[sD];
+  const cx=ch.find(x=>x.date===dk),hasCh=!!cx;
+  const les=hasCh?(cx.lessons||{}):(sc[wt]?.[dayK]||{});
   let h='';
   for(let p=1;p<=5;p++){
-    const l=lessons[p],has=l&&l.name,time=cfg.pairTimes[p-1];
-    const iho=hwData.filter(x=>x.date===dk&&x.pair===p);
-    const ihn=nhwData.filter(x=>x.targetDate===dk&&x.targetPair===p);
-    h+=`<div class="lesson-card${has?'':' is-empty'}${hasCh&&has?' is-changed':''}" ${isAdmin&&!hasCh?`onclick="openLessonM('${dayKey}',${p},'${wt}')"`:''}>
-      <div class="pair-badge"><span class="pb-n">${p}</span><span class="pb-t">${time?.start||''}</span></div>
-      <div class="lesson-body">
-        ${has?`
-          <div class="lb-name">${esc(l.name)}</div>
-          <div class="lb-meta">
-            ${l.room?`<span>📍 ${esc(l.room)}</span>`:''}
-            ${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}
-          </div>
-          ${renderIHw(iho,'Домашка','hw')}
-          ${renderIHw(ihn,'ДЗ','nh')}
-        `:`<div class="lb-empty">${isAdmin&&!hasCh?'+ Добавить пару':'Нет пары'}</div>`}
+    const l=les[p],has=l&&l.name,tm=cf.pairTimes[p-1];
+    const iho=hw.filter(x=>x.date===dk&&x.pair===p);
+    const ihn=nh.filter(x=>x.targetDate===dk&&x.targetPair===p);
+    h+=`<div class="lCard${has?'':' empty'}${hasCh&&has?' changed':''}" ${isA&&!hasCh&&has?`onclick="openLM('${dayK}',${p},'${wt}')"`:''} ${isA&&!hasCh&&!has?`onclick="openLM('${dayK}',${p},'${wt}')"`:''}>
+      <div class="pairN"><span class="pn">${p}</span><span class="pt">${tm?.start||''}</span></div>
+      <div class="lBody">
+        ${has?`<div class="lName">${esc(l.name)}</div><div class="lMeta">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${rIHw(iho,'Домашка','hw')}${rIHw(ihn,'ДЗ','nh')}`:`<div class="lEmpty">${isA?'Нажмите чтобы добавить':'—'}</div>`}
       </div>
-      ${has&&isAdmin?`<div class="lesson-actions"><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openInlineHw('${dk}',${p},'${esc(l.name)}')">+ ДЗ</button></div>`:''}
+      ${has&&isA?`<div class="lActions"><button class="miniBtn bl" onclick="event.stopPropagation();openHwI('${dk}',${p},'${esc(l.name)}')">+ДЗ</button></div>`:''}
     </div>`;
   }
-  wrap.innerHTML=h;
+  w.innerHTML=h;
 }
 
-function renderIHw(list,label,type){
+function rIHw(list,lbl,tp){
   if(!list.length)return'';
-  return list.map(h=>`<div class="inline-hw${h.done?' done':''}">
-    <div class="ihw-top">
-      <span class="ihw-label">${label}</span>
-      <div class="ihw-actions">
-        <button class="btn ${h.done?'btn-ghost':'btn-green'} btn-xs" onclick="event.stopPropagation();${type==='hw'?`togHw('${h.id}')`:`togNH('${h.id}')`}">${h.done?'↩':'✓'}</button>
-        ${isAdmin?`<button class="btn btn-red btn-xs" onclick="event.stopPropagation();${type==='hw'?`rmHw('${h.id}')`:`rmNH('${h.id}')`}">✕</button>`:''}
-      </div>
-    </div>
-    <div class="ihw-text">${esc(h.task)}</div>
+  return list.map(h=>`<div class="hwInline${h.done?' done':''}">
+    <div class="hwHead"><span class="hwTag">${lbl}</span><div class="hwBtns"><button class="miniBtn ${h.done?'og':'gr'}" onclick="event.stopPropagation();${tp==='hw'?`tHw('${h.id}')`:`tNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isA?`<button class="miniBtn rd" onclick="event.stopPropagation();${tp==='hw'?`dHw('${h.id}')`:`dNH('${h.id}')`}">✕</button>`:''}</div></div>
+    <div class="hwTxt">${esc(h.task)}</div>
   </div>`).join('');
 }
 
-/* ===== HW page ===== */
-function renderHwPage(){
-  const c=document.getElementById('hw-list'),tk=fdk(new Date());
-  const p=nhwData.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
-  if(!p.length){c.innerHTML='<div class="empty-state"><div class="es-icon">📚</div><div class="es-text">Нет предстоящих заданий</div></div>';return}
-  c.innerHTML=p.map(h=>`<div class="hw-item">
-    <div class="hwi-subj">📖 ${esc(h.subject)}</div>
-    <div class="hwi-due">📅 ${fdFull(pdk(h.targetDate))}, пара ${h.targetPair||'?'}</div>
-    <div class="hwi-task">${esc(h.task)}</div>
-    <div class="hwi-btns">
-      <button class="btn btn-green btn-sm" onclick="togNH('${h.id}')">✓ Выполнено</button>
-      ${isAdmin?`<button class="btn btn-red btn-sm" onclick="rmNH('${h.id}')">Удалить</button>`:''}
-    </div>
-  </div>`).join('');
+function rHwPg(){
+  const c=document.getElementById('hwList'),tk=fk(new Date());
+  const p=nh.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
+  if(!p.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">📚</div><div class="eTxt">Нет заданий</div></div>';return}
+  c.innerHTML=p.map(h=>`<div class="hwCard"><div class="hwSubj">📖 ${esc(h.subject)}</div><div class="hwDue">📅 ${fFull(pk(h.targetDate))}, пара ${h.targetPair||'?'}</div><div class="hwTask">${esc(h.task)}</div><div class="hwActs"><button class="btnP" style="padding:8px 14px;font-size:13px;" onclick="tNH('${h.id}')">✓ Выполнено</button>${isA?`<button class="btnD" style="padding:8px 14px;font-size:13px;" onclick="dNH('${h.id}')">Удалить</button>`:''}</div></div>`).join('');
 }
 
-function updHwBadge(){
-  const tk=fdk(new Date()),n=nhwData.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;
-  const bn=document.getElementById('bn-hw');
-  const old=bn.querySelector('.bi-badge');if(old)old.remove();
-  if(n>0){const b=document.createElement('span');b.className='bi-badge';b.textContent=n;bn.appendChild(b)}
+function updBdg(){
+  const tk=fk(new Date()),n=nh.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;
+  const bn=document.getElementById('bnHw'),old=bn.querySelector('.badge');if(old)old.remove();
+  if(n>0){const b=document.createElement('span');b.className='badge';b.textContent=n;bn.appendChild(b)}
 }
 
-/* ===== Subjects ===== */
-function renderSubjects(){
-  const c=document.getElementById('subj-list');
-  if(!subjData.length){c.innerHTML='<div class="empty-state"><div class="es-icon">📖</div><div class="es-text">Добавьте предметы</div></div>';return}
-  c.innerHTML=subjData.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="subj-row">
-    <div class="sr-icon">📖</div>
-    <div class="sr-info"><div class="sr-name">${esc(s.name)}</div><div class="sr-meta">${s.room?`<span>📍 ${esc(s.room)}</span>`:''}${s.teacher?`<span>👤 ${esc(s.teacher)}</span>`:''}</div></div>
-    <div class="sr-actions"><button class="btn btn-ghost btn-xs" onclick="editSubj('${s.id}')">✏️</button><button class="btn btn-red btn-xs" onclick="rmSubj('${s.id}')">✕</button></div>
-  </div>`).join('');
+function rSubj(){
+  const c=document.getElementById('sjList');
+  if(!sj.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">📖</div><div class="eTxt">Добавьте предметы</div></div>';return}
+  c.innerHTML=sj.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="sjRow"><div class="sjIcon">📖</div><div class="sjInfo"><div class="sjN">${esc(s.name)}</div><div class="sjM">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div><div style="display:flex;gap:4px;"><button class="miniBtn bl" onclick="editSj('${s.id}')">✏️</button><button class="miniBtn rd" onclick="rmSj('${s.id}')">✕</button></div></div>`).join('');
 }
 
-function openSubjModal(eid){
-  document.getElementById('se-id').value=eid||'';
-  document.getElementById('se-name').value='';document.getElementById('se-room').value='';document.getElementById('se-teacher').value='';
-  document.getElementById('subj-m-title').textContent=eid?'Редактировать':'Добавить предмет';
-  if(eid){const s=subjData.find(x=>x.id===eid);if(s){document.getElementById('se-name').value=s.name||'';document.getElementById('se-room').value=s.room||'';document.getElementById('se-teacher').value=s.teacher||''}}
-  openM('m-subj');
+function rChg(){
+  const c=document.getElementById('chgList'),tk=fk(new Date());
+  const f=ch.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
+  if(!f.length){c.innerHTML='<div class="emptyBox"><div class="eIcon">🔄</div><div class="eTxt">Нет замен</div></div>';return}
+  c.innerHTML=f.map(x=>{
+    let ls='';if(x.lessons){for(let p=1;p<=5;p++){const l=x.lessons[p];if(l&&l.name)ls+=`<div class="chgLesson"><span class="clN">${p}</span><div><div style="font-weight:700;font-size:14px;">${esc(l.name)}</div><div style="font-size:12px;color:var(--t3);">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div></div></div>`}}
+    if(!ls)ls='<div style="padding:8px;color:var(--t3);font-size:13px;">Все пары сняты</div>';
+    return`<div class="chgCard"><div class="chHead"><span class="chDate">📅 ${fFull(pk(x.date))}</span><div style="display:flex;gap:4px;"><button class="miniBtn bl" onclick="editChg('${x.id}')">✏️</button><button class="miniBtn rd" onclick="rmChgId('${x.id}')">✕</button></div></div>${ls}</div>`;
+  }).join('');
 }
 
-function editSubj(id){openSubjModal(id)}
-
-function saveSubj(){
-  const id=document.getElementById('se-id').value,n=document.getElementById('se-name').value.trim(),r=document.getElementById('se-room').value.trim(),t=document.getElementById('se-teacher').value.trim();
-  if(!n){alert('Введите название');return}
-  if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});
-  closeM('m-subj');
+/* Custom select */
+function bCS(cid,sid,cb){
+  const c=document.getElementById(cid),sr=[...sj].sort((a,b)=>a.name.localeCompare(b.name)),sel=sr.find(s=>s.id===sid);
+  cs[cid]={selectedId:sid||'',onChange:cb};
+  let trig;if(sel)trig=`<span class="csI">📖</span><div class="csTxt"><div class="csN">${esc(sel.name)}</div><div class="csM">${sel.room?'📍 '+esc(sel.room):''}${sel.teacher?' · 👤 '+esc(sel.teacher):''}</div></div>`;else trig=`<span class="csPh">— Нет пары —</span>`;
+  const opts=sr.map(s=>`<div class="csOpt${s.id===sid?' on':''}" data-sid="${s.id}"><span class="coI">📖</span><div><div class="coN">${esc(s.name)}</div><div class="coM">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div></div>`).join('');
+  c.innerHTML=`<div class="csWrap"><div class="csTrig" data-cid="${cid}">${trig}<span class="csArr">▼</span></div><div class="csDd" id="${cid}-dd"><div class="csOpt emp" data-sid=""><span class="coI">✕</span><div><div class="coN" style="color:var(--t3)">— Нет —</div></div></div>${opts}</div></div>`;
+  c.querySelector('.csTrig').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.csTrig'),wo=dd.classList.contains('open');closeCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
+  c.querySelectorAll('.csOpt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,sub=id?sj.find(s=>s.id===id):null;cs[cid].selectedId=id;const tr=c.querySelector('.csTrig');if(sub)tr.innerHTML=`<span class="csI">📖</span><div class="csTxt"><div class="csN">${esc(sub.name)}</div><div class="csM">${sub.room?'📍 '+esc(sub.room):''}${sub.teacher?' · 👤 '+esc(sub.teacher):''}</div></div><span class="csArr">▼</span>`;else tr.innerHTML=`<span class="csPh">— Нет пары —</span><span class="csArr">▼</span>`;c.querySelectorAll('.csOpt').forEach(x=>x.classList.remove('on'));o.classList.add('on');closeCS();if(cs[cid].onChange)cs[cid].onChange(id,sub)})});
 }
+function closeCS(){document.querySelectorAll('.csDd.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.csTrig.open').forEach(t=>t.classList.remove('open'))}
+function gcs(id){return cs[id]?.selectedId||''}
+document.addEventListener('click',()=>closeCS());
 
-function rmSubj(id){if(confirm('Удалить предмет?'))db.ref(`subjects/${id}`).remove()}
+/* Lesson sheet */
+function openLM(day,pair,week){if(!isA)return;document.getElementById('elD').value=day;document.getElementById('elP').value=pair;document.getElementById('elW').value=week;const l=sc[week]?.[day]?.[pair]||{};let sid='';if(l.name){const s=sj.find(x=>x.name===l.name);if(s)sid=s.id}bCS('elSel',sid,null);openS('shLesson')}
+function svLesson(){if(!isA)return;const d=document.getElementById('elD').value,p=document.getElementById('elP').value,w=document.getElementById('elW').value,sid=gcs('elSel'),sub=sj.find(s=>s.id===sid);if(sub)db.ref(`schedule/${w}/${d}/${p}`).set({name:sub.name,room:sub.room||'',teacher:sub.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();closeS('shLesson')}
+function rmLesson(){if(!isA)return;db.ref(`schedule/${document.getElementById('elW').value}/${document.getElementById('elD').value}/${document.getElementById('elP').value}`).remove();closeS('shLesson')}
 
-/* ===== Changes ===== */
-function renderChanges(){
-  const c=document.getElementById('chg-list'),tk=fdk(new Date());
-  const f=chgData.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
-  if(!f.length){c.innerHTML='<div class="empty-state"><div class="es-icon">🔄</div><div class="es-text">Нет замен</div></div>';return}
-  c.innerHTML=f.map(ch=>`<div class="chg-item">
-    <div class="ci-head"><span class="ci-date">📅 ${fdFull(pdk(ch.date))}</span><div class="ci-btns"><button class="btn btn-ghost btn-xs" onclick="editChg('${ch.id}')">✏️</button><button class="btn btn-red btn-xs" onclick="rmChgById('${ch.id}')">✕</button></div></div>
-    ${renderChgLessons(ch.lessons)}
-  </div>`).join('');
-}
+/* HW inline */
+function openHwI(dk,p,s){if(!isA)return;document.getElementById('hiD').value=dk;document.getElementById('hiP').value=p;document.getElementById('hiS').value=s;document.getElementById('hiT').value='';openS('shHwI')}
+function svHwI(){if(!isA)return;const t=document.getElementById('hiT').value.trim();if(!t){alert('Введите задание');return}db.ref('homework').push({date:document.getElementById('hiD').value,pair:parseInt(document.getElementById('hiP').value),subject:document.getElementById('hiS').value,task:t,done:false,created:new Date().toISOString()});closeS('shHwI')}
+function tHw(id){const h=hw.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
+function dHw(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
 
-function renderChgLessons(les){
-  if(!les)return'<div style="padding:8px;color:var(--text-muted);font-size:13px;">Все пары сняты</div>';
-  let h='';for(let p=1;p<=5;p++){const l=les[p];if(l&&l.name)h+=`<div class="chg-lesson"><span class="cl-num">${p}</span><div><div class="cl-name">${esc(l.name)}</div><div class="cl-meta">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div></div></div>`}
-  return h||'<div style="padding:8px;color:var(--text-muted);font-size:13px;">Все пары сняты</div>';
-}
+/* New HW */
+function openNewHw(){if(!isA)return;bCS('nhSel','',(_,sub)=>{const info=document.getElementById('nhNext');if(sub&&sub.name){const n=findNx(sub.name);if(n)info.innerHTML=`<span style="color:var(--blue);font-weight:700;">📅 ${fFull(pk(n.date))}</span>, пара ${n.pair}`;else info.innerHTML='<span style="color:var(--red)">Не найдено</span>'}else info.textContent='Выберите предмет'});document.getElementById('nhT').value='';document.getElementById('nhNext').textContent='Выберите предмет';openS('shNewHw')}
+function svNewHw(){if(!isA)return;const sid=gcs('nhSel'),sub=sj.find(s=>s.id===sid);if(!sub){alert('Выберите предмет');return}const t=document.getElementById('nhT').value.trim();if(!t){alert('Введите задание');return}const n=findNx(sub.name);if(!n){alert('Пара не найдена');return}db.ref('newHomework').push({subject:sub.name,task:t,targetDate:n.date,targetPair:n.pair,done:false,created:new Date().toISOString()});closeS('shNewHw')}
+function tNH(id){const h=nh.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
+function dNH(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
 
-function openChgModal(eid){
-  if(!isAdmin)return;
-  document.getElementById('ce-id').value=eid||'';
-  document.getElementById('ce-del').style.display=eid?'':'none';
-  document.getElementById('ce-date').value='';
-  let ph='';for(let i=1;i<=5;i++)ph+=`<div class="cpair-block"><div class="cpb-head"><span class="cpb-num">${i}</span><span class="cpb-label">пара</span></div><div id="cs-cp-${i}"></div></div>`;
-  document.getElementById('ce-pairs').innerHTML=ph;
-  for(let i=1;i<=5;i++)buildCS(`cs-cp-${i}`,'',null);
-  if(eid){const ch=chgData.find(c=>c.id===eid);if(ch){document.getElementById('ce-date').value=ch.date;if(ch.lessons){for(let i=1;i<=5;i++){const l=ch.lessons[i];if(l&&l.name){const s=subjData.find(x=>x.name===l.name);if(s)buildCS(`cs-cp-${i}`,s.id,null)}}}}}
-  openM('m-chg');
-}
+/* Subjects */
+function openSjM(eid){document.getElementById('sjId').value=eid||'';document.getElementById('sjN').value='';document.getElementById('sjR').value='';document.getElementById('sjTch').value='';document.getElementById('sjTitle').textContent=eid?'Редактировать':'Добавить';if(eid){const s=sj.find(x=>x.id===eid);if(s){document.getElementById('sjN').value=s.name||'';document.getElementById('sjR').value=s.room||'';document.getElementById('sjTch').value=s.teacher||''}}openS('shSubj')}
+function editSj(id){openSjM(id)}
+function svSubj(){const id=document.getElementById('sjId').value,n=document.getElementById('sjN').value.trim(),r=document.getElementById('sjR').value.trim(),t=document.getElementById('sjTch').value.trim();if(!n){alert('Название');return}if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});closeS('shSubj')}
+function rmSj(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
 
-function editChg(id){openChgModal(id)}
+/* Changes */
+function openChgM(eid){if(!isA)return;document.getElementById('ceId').value=eid||'';document.getElementById('ceDel').style.display=eid?'':'none';document.getElementById('ceDate').value='';let h='';for(let i=1;i<=5;i++)h+=`<div class="cpBlk"><div class="cpHead"><span class="cpN">${i}</span><span style="font-size:14px;font-weight:600;color:var(--t2);">пара</span></div><div id="cs-c${i}"></div></div>`;document.getElementById('cePairs').innerHTML=h;for(let i=1;i<=5;i++)bCS(`cs-c${i}`,'',null);if(eid){const c=ch.find(x=>x.id===eid);if(c){document.getElementById('ceDate').value=c.date;if(c.lessons){for(let i=1;i<=5;i++){const l=c.lessons[i];if(l&&l.name){const s=sj.find(x=>x.name===l.name);if(s)bCS(`cs-c${i}`,s.id,null)}}}}}openS('shChg')}
+function editChg(id){openChgM(id)}
+function svChg(){if(!isA)return;const eid=document.getElementById('ceId').value,date=document.getElementById('ceDate').value;if(!date){alert('Дата');return}const les={};let any=false;for(let i=1;i<=5;i++){const sid=gcs(`cs-c${i}`),sub=sj.find(s=>s.id===sid);if(sub){les[i]={name:sub.name,room:sub.room||'',teacher:sub.teacher||''};any=true}}if(eid)db.ref(`changes/${eid}`).set({date,lessons:any?les:null});else db.ref('changes').push({date,lessons:any?les:null});closeS('shChg')}
+function rmChg(){const id=document.getElementById('ceId').value;if(id){rmChgId(id);closeS('shChg')}}
+function rmChgId(id){if(!isA)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
 
-function saveChg(){
-  if(!isAdmin)return;
-  const eid=document.getElementById('ce-id').value,date=document.getElementById('ce-date').value;
-  if(!date){alert('Выберите дату');return}
-  const lessons={};let any=false;
-  for(let i=1;i<=5;i++){const sid=gcsv(`cs-cp-${i}`),subj=subjData.find(s=>s.id===sid);if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};any=true}}
-  if(eid)db.ref(`changes/${eid}`).set({date,lessons:any?lessons:null});else db.ref('changes').push({date,lessons:any?lessons:null});
-  closeM('m-chg');
-}
+/* Times */
+function openTimesM(){if(!isA)return;document.getElementById('timesF').innerHTML=cf.pairTimes.map((t,i)=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;"><span style="min-width:50px;font-weight:700;font-size:14px;">${i+1} пара</span><input type="time" class="inp" id="ts${i}" value="${t.start}" style="flex:1;margin:0;padding:12px;"><span style="color:var(--t3)">—</span><input type="time" class="inp" id="te${i}" value="${t.end}" style="flex:1;margin:0;padding:12px;"></div>`).join('');openS('shTimes')}
+function svTimes(){if(!isA)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);closeS('shTimes')}
 
-function delChg(){const id=document.getElementById('ce-id').value;if(id){rmChgById(id);closeM('m-chg')}}
-function rmChgById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
+function clearAll(){if(!isA)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
-/* ===== Custom Select ===== */
-function buildCS(cid,selId,onChange){
-  const c=document.getElementById(cid);
-  const sorted=[...subjData].sort((a,b)=>a.name.localeCompare(b.name));
-  const sel=sorted.find(s=>s.id===selId);
-  csState[cid]={selectedId:selId||'',onChange};
-  let trig;
-  if(sel)trig=`<span class="ct-icon">📖</span><div class="ct-text"><div class="ct-name">${esc(sel.name)}</div><div class="ct-meta">${sel.room?'📍 '+esc(sel.room):''}${sel.teacher?' · 👤 '+esc(sel.teacher):''}</div></div>`;
-  else trig=`<span class="ct-ph">— Нет пары —</span>`;
-  const opts=sorted.map(s=>`<div class="csel-opt${s.id===selId?' sel':''}" data-sid="${s.id}"><span class="co-icon">📖</span><div><div class="co-name">${esc(s.name)}</div><div class="co-meta">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div></div>`).join('');
-  c.innerHTML=`<div class="csel-wrap"><div class="csel-trigger" data-cid="${cid}">${trig}<span class="ct-arr">▼</span></div><div class="csel-dd" id="${cid}-dd"><div class="csel-opt empty-opt" data-sid=""><span class="co-icon">✕</span><div><div class="co-name" style="color:var(--text-muted);">— Нет пары —</div></div></div>${opts}</div></div>`;
-  c.querySelector('.csel-trigger').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.csel-trigger'),wo=dd.classList.contains('open');closeAllCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
-  c.querySelectorAll('.csel-opt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,subj=id?subjData.find(s=>s.id===id):null;csState[cid].selectedId=id;const tr=c.querySelector('.csel-trigger');if(subj)tr.innerHTML=`<span class="ct-icon">📖</span><div class="ct-text"><div class="ct-name">${esc(subj.name)}</div><div class="ct-meta">${subj.room?'📍 '+esc(subj.room):''}${subj.teacher?' · 👤 '+esc(subj.teacher):''}</div></div><span class="ct-arr">▼</span>`;else tr.innerHTML=`<span class="ct-ph">— Нет пары —</span><span class="ct-arr">▼</span>`;c.querySelectorAll('.csel-opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');closeAllCS();if(csState[cid].onChange)csState[cid].onChange(id,subj)})});
-}
+/* Sheets */
+function openS(id){document.getElementById(id).classList.add('open')}
+function closeS(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.sheet').forEach(s=>{s.addEventListener('click',e=>{if(e.target===s)s.classList.remove('open')})});
 
-function closeAllCS(){document.querySelectorAll('.csel-dd.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.csel-trigger.open').forEach(t=>t.classList.remove('open'))}
-function gcsv(id){return csState[id]?.selectedId||''}
-document.addEventListener('click',()=>closeAllCS());
+/* Keys */
+document.getElementById('iPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('iEmail').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('iPass').focus()});
 
-/* ===== Lesson modal ===== */
-function openLessonM(day,pair,week){
-  if(!isAdmin)return;
-  document.getElementById('el-day').value=day;document.getElementById('el-pair').value=pair;document.getElementById('el-week').value=week;
-  const l=sched[week]?.[day]?.[pair]||{};let csid='';if(l.name){const s=subjData.find(x=>x.name===l.name);if(s)csid=s.id}
-  buildCS('el-sel-c',csid,null);openM('m-lesson');
-}
-
-function saveLesson(){
-  if(!isAdmin)return;
-  const d=document.getElementById('el-day').value,p=document.getElementById('el-pair').value,w=document.getElementById('el-week').value,sid=gcsv('el-sel-c'),subj=subjData.find(s=>s.id===sid);
-  if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();
-  closeM('m-lesson');
-}
-
-function delLesson(){
-  if(!isAdmin)return;
-  db.ref(`schedule/${document.getElementById('el-week').value}/${document.getElementById('el-day').value}/${document.getElementById('el-pair').value}`).remove();
-  closeM('m-lesson');
-}
-
-/* ===== Inline HW ===== */
-function openInlineHw(dk,pair,subj){
-  if(!isAdmin)return;
-  document.getElementById('hi-date').value=dk;document.getElementById('hi-pair').value=pair;document.getElementById('hi-subj').value=subj;document.getElementById('hi-task').value='';
-  openM('m-hw-inline');
-}
-
-function saveInlineHw(){
-  if(!isAdmin)return;
-  const task=document.getElementById('hi-task').value.trim();if(!task){alert('Введите задание');return}
-  db.ref('homework').push({date:document.getElementById('hi-date').value,pair:parseInt(document.getElementById('hi-pair').value),subject:document.getElementById('hi-subj').value,task,done:false,created:new Date().toISOString()});
-  closeM('m-hw-inline');
-}
-
-function togHw(id){const h=hwData.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
-function rmHw(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
-
-/* ===== New HW modal ===== */
-function openNewHwModal(){
-  if(!isAdmin)return;
-  buildCS('nhw-sel','',(_,subj)=>{
-    const info=document.getElementById('nhw-next');
-    if(subj&&subj.name){const nx=findNext(subj.name);if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:700;">📅 ${fdFull(pdk(nx.date))}</span>, пара ${nx.pair}`;else info.innerHTML='<span style="color:var(--red)">Не найдено в расписании</span>'}
-    else info.innerHTML='Выберите предмет...';
-  });
-  document.getElementById('nhw-task').value='';document.getElementById('nhw-next').innerHTML='Выберите предмет...';
-  openM('m-new-hw');
-}
-
-function saveNewHw(){
-  if(!isAdmin)return;
-  const sid=gcsv('nhw-sel'),subj=subjData.find(s=>s.id===sid);
-  if(!subj){alert('Выберите предмет');return}
-  const task=document.getElementById('nhw-task').value.trim();if(!task){alert('Введите задание');return}
-  const nx=findNext(subj.name);if(!nx){alert('Пара не найдена');return}
-  db.ref('newHomework').push({subject:subj.name,task,targetDate:nx.date,targetPair:nx.pair,done:false,created:new Date().toISOString()});
-  closeM('m-new-hw');
-}
-
-function togNH(id){const h=nhwData.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
-function rmNH(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
-
-/* ===== Times modal ===== */
-function openTimesModal(){
-  if(!isAdmin)return;
-  document.getElementById('times-form').innerHTML=cfg.pairTimes.map((t,i)=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><span style="min-width:60px;font-weight:700;font-size:14px;">${i+1} пара</span><input type="time" id="pt-s${i}" value="${t.start}" style="flex:1;padding:12px;background:var(--bg-input);border:2px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;"><span style="color:var(--text-muted);">—</span><input type="time" id="pt-e${i}" value="${t.end}" style="flex:1;padding:12px;background:var(--bg-input);border:2px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;"></div>`).join('');
-  openM('m-times');
-}
-
-function saveTimes(){
-  if(!isAdmin)return;
-  const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`pt-s${i}`).value,end:document.getElementById(`pt-e${i}`).value});
-  db.ref('settings/pairTimes').set(t);closeM('m-times');
-}
-
-function clearAll(){if(!isAdmin)return;if(confirm('Удалить ВСЕ данные?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
-
-/* ===== Modals ===== */
-function openM(id){document.getElementById(id).classList.add('show')}
-function closeM(id){document.getElementById(id).classList.remove('show')}
-document.querySelectorAll('.modal-bg').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('show')})});
-
-/* ===== Keyboard ===== */
-document.getElementById('l-pass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
-document.getElementById('l-email').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('l-pass').focus()});
-
-/* ===== Touch swipe for days ===== */
-let touchStartX=0;
-document.getElementById('lessons-wrap')?.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX},{passive:true});
-document.addEventListener('touchend',e=>{
-  if(!document.getElementById('pg-schedule').classList.contains('active'))return;
-  const dx=e.changedTouches[0].clientX-touchStartX;
-  if(Math.abs(dx)>80){
-    if(dx<0&&selDayIdx<5){selDayIdx++;renderDayTabs();renderDay()}
-    else if(dx>0&&selDayIdx>0){selDayIdx--;renderDayTabs();renderDay()}
-  }
-});
+/* Swipe */
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{if(!document.getElementById('pgSched').classList.contains('on'))return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>70){if(dx<0&&sD<5){sD++;rStrip();render()}else if(dx>0&&sD>0){sD--;rStrip();render()}}});
 </script>
 </body>
 </html>
