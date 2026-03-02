@@ -3,1113 +3,907 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Дневник</title>
+  <title>Мой Дневник</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Дневник">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#6366f1">
-  <link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#ffffff">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-primary: #050508;
-      --bg-secondary: #0c0c14;
-      --bg-card: rgba(255,255,255,0.03);
-      --bg-card-hover: rgba(255,255,255,0.06);
-      --bg-input: rgba(255,255,255,0.06);
-      --bg-glass: rgba(12,12,20,0.85);
-      --border-color: rgba(255,255,255,0.06);
-      --border-light: rgba(255,255,255,0.1);
-      --text-primary: #f0f0f5;
-      --text-secondary: rgba(255,255,255,0.65);
-      --text-muted: rgba(255,255,255,0.35);
-      --accent: #818cf8;
-      --accent-rgb: 129,140,248;
-      --accent-soft: rgba(129,140,248,0.12);
-      --success: #34d399;
-      --success-rgb: 52,211,153;
-      --warning: #fbbf24;
-      --warning-rgb: 251,191,36;
-      --danger: #f87171;
-      --danger-rgb: 248,113,113;
-      --radius-sm: 10px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-xl: 24px;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
-      --shadow-md: 0 8px 32px rgba(0,0,0,0.3);
-      --shadow-lg: 0 16px 48px rgba(0,0,0,0.4);
+      --bg: #f5f5f7;
+      --bg-card: #ffffff;
+      --bg-elevated: #ffffff;
+      --bg-input: #f0f0f2;
+      --bg-overlay: rgba(0,0,0,.4);
+      --text: #1a1a2e;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --accent-bg: rgba(108,92,231,.08);
+      --accent-bg2: rgba(108,92,231,.15);
+      --green: #00b894;
+      --green-bg: rgba(0,184,148,.1);
+      --red: #e17055;
+      --red-bg: rgba(225,112,85,.1);
+      --orange: #fdcb6e;
+      --orange-bg: rgba(253,203,110,.15);
+      --border: rgba(0,0,0,.06);
+      --shadow: 0 2px 16px rgba(0,0,0,.06);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,.1);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-xs: 8px;
+      --bottom-nav-h: 64px;
     }
 
-    [data-theme="light"] {
-      --bg-primary: #f2f2f7;
-      --bg-secondary: #ffffff;
-      --bg-card: rgba(0,0,0,0.02);
-      --bg-card-hover: rgba(0,0,0,0.05);
-      --bg-input: rgba(0,0,0,0.04);
-      --bg-glass: rgba(255,255,255,0.85);
-      --border-color: rgba(0,0,0,0.06);
-      --border-light: rgba(0,0,0,0.1);
-      --text-primary: #1c1c1e;
-      --text-secondary: rgba(0,0,0,0.6);
-      --text-muted: rgba(0,0,0,0.35);
-      --accent: #6366f1;
-      --accent-rgb: 99,102,241;
-      --accent-soft: rgba(99,102,241,0.1);
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-      --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
-      --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+    [data-theme="dark"] {
+      --bg: #0f0f1a;
+      --bg-card: #1a1a2e;
+      --bg-elevated: #22223a;
+      --bg-input: #2a2a42;
+      --bg-overlay: rgba(0,0,0,.7);
+      --text: #eeeef0;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --accent: #a29bfe;
+      --accent-light: #6c5ce7;
+      --accent-bg: rgba(162,155,254,.1);
+      --accent-bg2: rgba(162,155,254,.18);
+      --border: rgba(255,255,255,.06);
+      --shadow: 0 2px 16px rgba(0,0,0,.2);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,.3);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     html { height: -webkit-fill-available; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-      background: var(--bg-primary);
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       min-height: -webkit-fill-available;
-      color: var(--text-primary);
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background .4s ease, color .4s ease;
       overflow-x: hidden;
+      transition: background .3s, color .3s;
     }
 
-    /* Safe area */
-    .safe-area-top {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: env(safe-area-inset-top);
-      background: var(--bg-glass);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      z-index: 101;
+    /* ========== SCROLLBAR ========== */
+    ::-webkit-scrollbar { width: 0; height: 0; }
+
+    /* ========== LOGIN ========== */
+    .login-wrap {
+      min-height: 100vh; display: flex;
+      align-items: center; justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #74b9ff 100%);
     }
 
-    /* Container */
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 16px;
-      padding-left: calc(16px + env(safe-area-inset-left));
-      padding-right: calc(16px + env(safe-area-inset-right));
-      padding-bottom: calc(24px + env(safe-area-inset-bottom));
-    }
-
-    /* Header */
-    header {
-      background: var(--bg-glass);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border-color);
-      padding: 12px 16px;
-      padding-top: calc(12px + env(safe-area-inset-top));
-      padding-left: calc(16px + env(safe-area-inset-left));
-      padding-right: calc(16px + env(safe-area-inset-right));
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-content {
-      max-width: 720px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .header-left { display: flex; align-items: center; gap: 12px; }
-
-    .logo {
-      font-size: 1.3em;
-      font-weight: 800;
-      background: linear-gradient(135deg, #818cf8, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
-    }
-
-    .header-date {
-      font-size: .8em;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-
-    .header-week {
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: .75em;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    .header-week.upper { background: linear-gradient(135deg, #10b981, #34d399); color: #000; }
-    .header-week.lower { background: linear-gradient(135deg, #f43f5e, #fb7185); color: #fff; }
-
-    .theme-toggle {
-      width: 36px; height: 36px;
-      border-radius: var(--radius-sm);
+    .login-box {
+      width: 100%; max-width: 380px;
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      font-size: 1.1em;
+      border-radius: 24px;
+      padding: 40px 28px 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    }
+
+    .login-icon { text-align: center; font-size: 56px; margin-bottom: 8px; }
+
+    .login-box h1 {
+      text-align: center; font-size: 24px; font-weight: 900;
+      color: var(--text); margin-bottom: 4px;
+    }
+
+    .login-box .sub { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 28px; }
+
+    .login-err {
+      background: var(--red-bg); color: var(--red);
+      padding: 12px; border-radius: var(--radius-xs);
+      text-align: center; margin-bottom: 16px;
+      font-size: 14px; font-weight: 600;
+      display: none;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 14px 16px;
+      background: var(--bg-input);
+      border: 2px solid transparent;
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 15px; font-family: inherit;
+      transition: border-color .2s;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .field input:focus, .field textarea:focus { border-color: var(--accent); }
+    .field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 14px 24px; border: none;
+      border-radius: var(--radius-sm);
+      font-size: 15px; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      transition: transform .15s, opacity .15s;
+      position: relative; overflow: hidden;
+    }
+
+    .btn:active { transform: scale(.97); }
+    .btn-full { width: 100%; }
+
+    .btn-accent {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 4px 14px rgba(108,92,231,.35);
+    }
+
+    .btn-ghost {
+      background: var(--bg-input); color: var(--text);
+    }
+
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-sm { padding: 8px 14px; font-size: 13px; border-radius: var(--radius-xs); }
+    .btn-xs { padding: 6px 10px; font-size: 12px; border-radius: 6px; }
+    .btn-icon-only { width: 44px; height: 44px; padding: 0; border-radius: var(--radius-sm); }
+
+    .sep {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0; color: var(--text-muted); font-size: 13px;
+    }
+    .sep::before, .sep::after { content:''; flex:1; height:1px; background: var(--border); }
+
+    /* ========== APP SHELL ========== */
+    #app { display: none; padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 8px); }
+
+    /* ---- Top bar ---- */
+    .topbar {
+      position: sticky; top: 0; z-index: 90;
+      background: var(--bg);
+      padding: 12px 20px 8px;
+      padding-top: calc(12px + env(safe-area-inset-top));
+      transition: background .3s;
+    }
+
+    .topbar-row {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .topbar-left h1 {
+      font-size: 26px; font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), #74b9ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .topbar-left .today-text { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-top: 1px; }
+
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+    .week-badge {
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 800;
+    }
+    .week-badge.upper { background: var(--green-bg); color: var(--green); }
+    .week-badge.lower { background: var(--red-bg); color: var(--red); }
+
+    .avatar-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%; border: none;
+      background: var(--accent-bg);
+      color: var(--accent);
+      font-size: 16px; font-weight: 800;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: all .2s;
-    }
-    .theme-toggle:active { transform: scale(.92); }
-
-    .user-info {
-      display: flex; align-items: center; gap: 6px;
-      font-size: .78em; color: var(--text-muted);
     }
 
-    .admin-badge {
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
-      color: #000;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: .7em;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+    /* ---- Profile dropdown ---- */
+    .profile-drop {
+      position: absolute; top: calc(100% + 8px); right: 20px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius);
+      padding: 8px;
+      min-width: 200px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      display: none; z-index: 200;
     }
 
-    /* Buttons */
-    .btn {
-      padding: 10px 18px;
-      border: none;
+    .profile-drop.show { display: block; animation: dropIn .2s ease; }
+
+    @keyframes dropIn {
+      from { opacity:0; transform: translateY(-8px) scale(.96); }
+      to { opacity:1; transform: translateY(0) scale(1); }
+    }
+
+    .profile-drop .pd-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px; border-radius: var(--radius-xs);
+      font-size: 14px; font-weight: 600;
+      color: var(--text); cursor: pointer; border: none;
+      background: none; width: 100; font-family: inherit;
+      transition: background .15s; width: 100%;
+      text-align: left;
+    }
+
+    .profile-drop .pd-item:hover { background: var(--bg-input); }
+    .profile-drop .pd-item.danger { color: var(--red); }
+    .profile-drop .pd-email { padding: 12px; font-size: 13px; color: var(--text-muted); border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+    .profile-drop .pd-email .admin-tag { background: var(--accent); color:#fff; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:800; margin-left:6px; }
+
+    /* ---- Day tabs ---- */
+    .day-tabs-wrap {
+      padding: 0 20px; margin-bottom: 12px;
+    }
+
+    .day-tabs {
+      display: flex; gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 4px 0;
+    }
+
+    .day-tabs::-webkit-scrollbar { display: none; }
+
+    .day-tab {
+      flex: 1; min-width: 52px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
+      padding: 10px 6px 12px;
       border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: .88em;
-      transition: all .2s;
-      font-family: inherit;
-      letter-spacing: -0.01em;
+      background: var(--bg-card);
+      border: 2px solid transparent;
+      cursor: pointer; transition: all .2s;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .day-tab .dt-name { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+    .day-tab .dt-num { font-size: 18px; font-weight: 900; color: var(--text); }
+    .day-tab:active { transform: scale(.96); }
+
+    .day-tab.active {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    .day-tab.active .dt-name { color: var(--accent); }
+    .day-tab.active .dt-num { color: var(--accent); }
+
+    .day-tab.is-today::after {
+      content: ''; position: absolute; bottom: 5px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .day-tab .dt-dot-change {
+      position: absolute; top: 5px; right: 5px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--orange);
+    }
+
+    /* ---- Week nav ---- */
+    .week-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; padding: 0 20px; margin-bottom: 16px;
+    }
+
+    .week-nav-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); font-size: 18px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .15s; box-shadow: var(--shadow);
+    }
+    .week-nav-btn:active { transform: scale(.92); }
+
+    .week-nav-label { text-align: center; }
+    .week-nav-label .wn-range { font-size: 16px; font-weight: 800; color: var(--text); }
+    .week-nav-label .wn-type { font-size: 12px; font-weight: 700; margin-top: 2px; }
+    .week-nav-label .wn-type.upper { color: var(--green); }
+    .week-nav-label .wn-type.lower { color: var(--red); }
+
+    /* ---- Content area ---- */
+    .content { padding: 0 20px; }
+    .page { display: none; }
+    .page.active { display: block; animation: pageIn .3s ease; }
+
+    @keyframes pageIn {
+      from { opacity:0; transform: translateY(16px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    /* ---- Lesson cards ---- */
+    .lessons-wrap { display: flex; flex-direction: column; gap: 10px; }
+
+    .lesson-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex; gap: 14px;
+      transition: transform .15s;
+      border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
     }
 
-    .btn:active { transform: scale(.96); }
+    .lesson-card:active { transform: scale(.985); }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(var(--accent-rgb), .3);
+    .lesson-card.is-changed {
+      border-left: 4px solid var(--orange);
     }
 
-    .btn-secondary {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
+    .lesson-card.is-empty {
+      opacity: .45; background: var(--bg-card);
     }
 
-    .btn-danger {
-      background: linear-gradient(135deg, #ef4444, #f87171);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(var(--danger-rgb), .25);
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #10b981, #34d399);
-      color: #000;
-      box-shadow: 0 4px 16px rgba(var(--success-rgb), .25);
-    }
-
-    .btn-warning {
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
-      color: #000;
-      box-shadow: 0 4px 16px rgba(var(--warning-rgb), .25);
-    }
-
-    .btn-sm { padding: 6px 12px; font-size: .8em; }
-    .btn-xs { padding: 4px 8px; font-size: .72em; border-radius: 8px; }
-
-    .btn-icon {
-      width: 40px; height: 40px; padding: 0;
-      display: flex; align-items: center; justify-content: center;
+    .pair-badge {
+      width: 48px; min-height: 56px;
+      background: var(--accent-bg);
       border-radius: var(--radius-sm);
-      font-size: 1.1em;
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .btn-icon:active { transform: scale(.92); }
-
-    /* Week Navigator */
-    .week-navigator {
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px;
-      padding: 14px 16px;
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2px; flex-shrink: 0;
     }
 
-    .week-dates { text-align: center; min-width: 160px; }
+    .pair-badge .pb-n { font-size: 20px; font-weight: 900; color: var(--accent); }
+    .pair-badge .pb-t { font-size: 10px; font-weight: 600; color: var(--text-muted); }
 
-    .week-dates-range {
-      font-size: 1.1em; font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 2px;
-      letter-spacing: -0.01em;
+    .lesson-body { flex: 1; min-width: 0; }
+    .lesson-body .lb-name { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+
+    .lesson-body .lb-meta {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      font-size: 13px; color: var(--text-secondary);
+      margin-bottom: 6px;
     }
 
-    .week-dates-type { font-size: .8em; font-weight: 600; }
-    .week-dates-type.upper { color: var(--success); }
-    .week-dates-type.lower { color: var(--danger); }
+    .lesson-body .lb-meta span { display: flex; align-items: center; gap: 4px; }
+    .lesson-body .lb-empty { color: var(--text-muted); font-size: 14px; font-style: italic; }
 
-    /* Navigation */
-    .nav {
-      display: flex; gap: 6px;
-      margin-bottom: 16px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-bottom: 2px;
-    }
-    .nav::-webkit-scrollbar { display: none; }
-
-    .nav-btn {
-      padding: 10px 16px;
-      border: none;
-      background: var(--bg-card);
-      color: var(--text-secondary);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: .82em;
-      font-weight: 600;
-      transition: all .2s;
-      font-family: inherit;
-      border: 1px solid var(--border-color);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .nav-btn:active { transform: scale(.96); }
-    .nav-btn.active {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 4px 16px rgba(var(--accent-rgb), .3);
-    }
-
-    /* Sections */
-    .section { display: none; }
-    .section.active {
-      display: block;
-      animation: fadeIn .35s cubic-bezier(.25,.46,.45,.94);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Day blocks */
-    .days-grid { display: flex; flex-direction: column; gap: 14px; }
-
-    .day-block {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      transition: border-color .3s, box-shadow .3s;
-    }
-
-    .day-block.today {
-      border-color: rgba(var(--accent-rgb), .4);
-      box-shadow: 0 0 0 1px rgba(var(--accent-rgb), .15), 0 8px 32px rgba(var(--accent-rgb), .08);
-    }
-
-    .day-block.has-changes {
-      border-color: rgba(var(--warning-rgb), .4);
-    }
-
-    .day-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 16px;
-      background: var(--bg-card-hover);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .day-title {
-      font-size: .95em; font-weight: 700;
-      display: flex; align-items: center; gap: 8px;
-      color: var(--text-primary);
-      letter-spacing: -0.01em;
-    }
-
-    .day-title .date {
-      font-weight: 500; color: var(--text-muted); font-size: .88em;
-    }
-
-    .day-badges { display: flex; gap: 6px; }
-
-    .today-label {
-      background: linear-gradient(135deg, var(--accent), #a78bfa);
-      color: #fff;
-      padding: 3px 10px;
-      border-radius: 10px;
-      font-size: .68em;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .changes-label {
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
-      color: #000;
-      padding: 3px 10px;
-      border-radius: 10px;
-      font-size: .68em;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .day-content { padding: 8px; }
-
-    /* Lessons */
-    .lessons-list { display: flex; flex-direction: column; gap: 4px; }
-
-    .lesson-row {
-      display: flex; align-items: flex-start;
-      gap: 10px; padding: 10px;
-      background: transparent;
-      border-radius: var(--radius-sm);
-      transition: background .2s;
-      cursor: pointer;
-    }
-
-    .lesson-row:active { background: var(--bg-card-hover); }
-    .lesson-row.empty { opacity: .4; }
-
-    .lesson-row.changed {
-      background: rgba(var(--warning-rgb), .06);
-      border: 1px solid rgba(var(--warning-rgb), .15);
-      border-radius: var(--radius-sm);
-    }
-
-    .lesson-number {
-      width: 42px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 6px;
-      background: var(--accent-soft);
-      border-radius: var(--radius-sm);
-      flex-shrink: 0;
-    }
-
-    .lesson-num { font-size: 1.15em; font-weight: 800; color: var(--accent); }
-    .lesson-time { font-size: .58em; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
-
-    .lesson-info { flex: 1; min-width: 0; }
-
-    .lesson-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; flex-wrap: wrap; }
-    .lesson-name { font-weight: 700; font-size: .9em; color: var(--text-primary); letter-spacing: -0.01em; }
-
-    .lesson-details {
-      display: flex; gap: 10px; font-size: .78em;
-      color: var(--text-muted); margin-bottom: 4px; flex-wrap: wrap;
-    }
-
-    .lesson-room { color: var(--accent); font-weight: 600; }
-    .lesson-empty-text { color: var(--text-muted); font-style: italic; font-size: .85em; }
-
-    /* Homework inline */
-    .lesson-homework {
-      margin-top: 6px; padding: 10px;
-      background: var(--accent-soft);
-      border-radius: var(--radius-sm);
+    /* HW inside lesson */
+    .inline-hw {
+      margin-top: 10px; padding: 12px;
+      background: var(--accent-bg);
+      border-radius: var(--radius-xs);
       border-left: 3px solid var(--accent);
     }
 
-    .lesson-homework-header {
+    .inline-hw.done {
+      opacity: .5; border-left-color: var(--green);
+    }
+
+    .inline-hw .ihw-top {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 4px;
     }
 
-    .lesson-homework-title {
-      font-size: .68em; color: var(--accent);
-      font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.04em;
+    .inline-hw .ihw-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); letter-spacing: .5px; }
+    .inline-hw .ihw-text { font-size: 14px; line-height: 1.5; color: var(--text); }
+    .inline-hw.done .ihw-text { text-decoration: line-through; }
+    .inline-hw .ihw-actions { display: flex; gap: 4px; }
+
+    .lesson-actions {
+      position: absolute; top: 12px; right: 12px;
+      display: flex; gap: 4px;
     }
 
-    .lesson-homework-text { font-size: .82em; line-height: 1.5; color: var(--text-primary); }
+    /* ---- HW page ---- */
+    .hw-list { display: flex; flex-direction: column; gap: 12px; }
 
-    .lesson-homework.done { opacity: .45; border-left-color: var(--success); }
-    .lesson-homework.done .lesson-homework-text { text-decoration: line-through; }
-
-    .add-hw-btn {
-      padding: 3px 8px;
-      background: var(--accent-soft);
-      border: none;
-      color: var(--accent);
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: .72em;
-      font-weight: 700;
-    }
-
-    /* Cards */
-    .wrap-card {
+    .hw-item {
       background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      position: relative;
     }
 
-    .section-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
-    }
-
-    .section-title { font-size: 1.05em; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
-
-    .no-items {
-      text-align: center; padding: 40px 20px;
-      color: var(--text-muted); font-size: .9em;
-    }
-
-    /* Change cards */
-    .change-card {
-      background: rgba(var(--warning-rgb), .06);
-      border: 1px solid rgba(var(--warning-rgb), .15);
-      border-radius: var(--radius-md);
-      padding: 14px;
-      margin-bottom: 10px;
-    }
-
-    .change-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px; flex-wrap: wrap; gap: 10px;
-    }
-
-    .change-date { font-weight: 700; font-size: .95em; color: var(--warning); }
-
-    .change-lesson-row {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px;
-      background: var(--bg-card);
-      border-radius: var(--radius-sm);
+    .hw-item .hwi-subj {
+      font-size: 15px; font-weight: 800; color: var(--accent);
+      display: flex; align-items: center; gap: 6px;
       margin-bottom: 6px;
     }
 
-    .change-pair-num {
-      width: 28px; height: 28px;
-      background: rgba(var(--warning-rgb), .2);
-      border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; color: var(--warning);
-      font-size: .85em; flex-shrink: 0;
+    .hw-item .hwi-due {
+      font-size: 12px; color: var(--text-muted); font-weight: 600;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 4px;
     }
 
-    .change-lesson-info { flex: 1; }
-    .change-lesson-name { font-weight: 700; font-size: .9em; color: var(--text-primary); }
-    .change-lesson-details { font-size: .78em; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
+    .hw-item .hwi-task {
+      font-size: 14px; line-height: 1.6; color: var(--text);
+      padding: 12px; background: var(--bg-input);
+      border-radius: var(--radius-xs);
+      margin-bottom: 12px;
+    }
 
-    /* Settings */
-    .setting-row {
+    .hw-item .hwi-btns { display: flex; gap: 6px; }
+
+    .page-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px; gap: 12px; flex-wrap: wrap;
+    }
+
+    .page-head h2 { font-size: 22px; font-weight: 900; }
+    .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+    .empty-state .es-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state .es-text { font-size: 15px; font-weight: 600; }
+
+    /* ---- Subjects ---- */
+    .subj-grid { display: flex; flex-direction: column; gap: 8px; }
+
+    .subj-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .subj-row .sr-icon {
+      width: 42px; height: 42px;
+      background: var(--accent-bg);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .subj-row .sr-info { flex: 1; min-width: 0; }
+    .subj-row .sr-name { font-weight: 800; font-size: 15px; }
+    .subj-row .sr-meta { font-size: 13px; color: var(--text-secondary); display: flex; gap: 8px; flex-wrap: wrap; }
+    .subj-row .sr-actions { display: flex; gap: 4px; }
+
+    /* ---- Changes ---- */
+    .chg-item {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .chg-item .ci-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px; gap: 8px; flex-wrap: wrap;
+    }
+
+    .chg-item .ci-date { font-weight: 800; font-size: 15px; color: var(--orange); }
+    .chg-item .ci-btns { display: flex; gap: 4px; }
+
+    .chg-lesson {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px; background: var(--bg-input);
+      border-radius: var(--radius-xs);
+      margin-bottom: 6px;
+    }
+
+    .chg-lesson .cl-num {
+      width: 28px; height: 28px;
+      background: var(--orange-bg); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 13px; color: #e17055; flex-shrink: 0;
+    }
+
+    .chg-lesson .cl-name { font-weight: 700; font-size: 14px; }
+    .chg-lesson .cl-meta { font-size: 12px; color: var(--text-muted); }
+
+    /* ---- Settings ---- */
+    .settings-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .setting-card {
       display: flex; justify-content: space-between; align-items: center;
       padding: 16px;
-      background: var(--bg-card-hover);
-      border-radius: var(--radius-md);
-      margin-bottom: 8px;
-      flex-wrap: wrap; gap: 12px;
-      border: 1px solid var(--border-color);
-    }
-
-    .setting-info h4 { margin-bottom: 2px; font-size: .9em; color: var(--text-primary); font-weight: 700; }
-    .setting-info p { font-size: .78em; color: var(--text-muted); }
-
-    .setting-input {
-      padding: 10px 14px;
-      border: 1px solid var(--border-light);
-      background: var(--bg-input);
-      border-radius: var(--radius-sm);
-      color: var(--text-primary);
-      font-family: inherit;
-      font-size: .88em;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 1000;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 20px;
-      padding-top: calc(40px + env(safe-area-inset-top));
-      overflow-y: auto;
-    }
-
-    [data-theme="light"] .modal-overlay { background: rgba(0,0,0,.4); }
-    .modal-overlay.active { display: flex; }
-
-    .modal {
-      background: var(--bg-secondary);
-      border-radius: var(--radius-xl);
-      padding: 24px;
-      width: 100%; max-width: 480px;
-      border: 1px solid var(--border-color);
-      animation: modalIn .3s cubic-bezier(.25,.46,.45,.94);
-      margin: auto;
-      box-shadow: var(--shadow-lg);
-    }
-
-    @keyframes modalIn {
-      from { opacity: 0; transform: scale(.95) translateY(-16px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    .modal h3 {
-      margin-bottom: 20px; font-size: 1.1em;
-      color: var(--text-primary); font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .form-group { margin-bottom: 14px; }
-
-    .form-group label {
-      display: block; margin-bottom: 6px;
-      color: var(--text-secondary); font-size: .82em; font-weight: 600;
-    }
-
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 12px 14px;
-      border: 1px solid var(--border-light);
-      background: var(--bg-input);
-      border-radius: var(--radius-sm);
-      color: var(--text-primary);
-      font-size: .95em;
-      font-family: inherit;
-      -webkit-appearance: none;
-      transition: border-color .2s;
-    }
-
-    .form-group textarea { resize: vertical; min-height: 80px; }
-    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
-
-    .modal-buttons { display: flex; gap: 8px; margin-top: 20px; }
-    .modal-buttons .btn { flex: 1; }
-
-    /* Login */
-    .login-screen {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      padding-top: calc(20px + env(safe-area-inset-top));
-      background: var(--bg-primary);
-    }
-
-    .login-container {
-      width: 100%; max-width: 380px;
-      padding: 36px 28px;
       background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-color);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      gap: 12px; flex-wrap: wrap;
+      border: 1px solid var(--border);
     }
 
-    .login-logo { text-align: center; font-size: 3.5em; margin-bottom: 12px; }
+    .setting-card .sc-info h4 { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+    .setting-card .sc-info p { font-size: 13px; color: var(--text-muted); }
 
-    .login-container h2 {
-      text-align: center; margin-bottom: 6px;
-      font-size: 1.5em; color: var(--text-primary);
-      font-weight: 800; letter-spacing: -0.02em;
+    /* ---- Bottom nav ---- */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
+      padding-bottom: env(safe-area-inset-bottom);
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 100;
+      box-shadow: 0 -2px 20px rgba(0,0,0,.06);
     }
 
-    .login-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 28px; font-size: .88em; }
+    [data-theme="dark"] .bottom-nav { box-shadow: 0 -2px 20px rgba(0,0,0,.3); }
 
-    .login-error {
-      background: rgba(var(--danger-rgb), .1);
-      border: 1px solid rgba(var(--danger-rgb), .25);
-      color: var(--danger);
-      padding: 12px;
-      border-radius: var(--radius-sm);
-      text-align: center;
-      margin-bottom: 16px;
-      font-size: .88em;
-      font-weight: 500;
-    }
-
-    .login-container .btn { width: 100%; padding: 14px; margin-top: 8px; }
-
-    .divider {
-      display: flex; align-items: center; gap: 15px;
-      margin: 20px 0; color: var(--text-muted); font-size: .82em;
-    }
-    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
-
-    /* Install prompt */
-    .install-prompt {
-      position: fixed;
-      bottom: calc(20px + env(safe-area-inset-bottom));
-      left: 16px; right: 16px;
-      max-width: 400px;
-      margin: 0 auto;
-      background: var(--bg-secondary);
-      border: 1px solid rgba(var(--accent-rgb), .25);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      display: none;
-      align-items: center; gap: 12px;
-      z-index: 999;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .install-prompt.show { display: flex; animation: slideUp .3s ease; }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .install-prompt-icon { font-size: 1.8em; }
-    .install-prompt-text { flex: 1; }
-    .install-prompt-text h4 { font-size: .88em; margin-bottom: 2px; color: var(--text-primary); font-weight: 700; }
-    .install-prompt-text p { font-size: .75em; color: var(--text-muted); }
-    .install-prompt-close { background: none; border: none; color: var(--text-muted); font-size: 1.4em; cursor: pointer; padding: 5px; }
-
-    /* Custom Select */
-    .cs-trigger {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 14px;
-      background: var(--bg-input);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: border-color .2s;
-      min-height: 48px;
-      user-select: none;
-    }
-
-    .cs-trigger:hover { border-color: var(--accent); }
-    .cs-trigger.open { border-color: var(--accent); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
-
-    .cs-trigger .cs-icon {
-      width: 32px; height: 32px;
-      background: var(--accent-soft);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85em; flex-shrink: 0;
-    }
-
-    .cs-trigger .cs-text { flex: 1; min-width: 0; }
-    .cs-trigger .cs-name { font-weight: 700; font-size: .88em; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .cs-trigger .cs-meta { font-size: .72em; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .cs-trigger .cs-placeholder { color: var(--text-muted); font-size: .88em; }
-    .cs-trigger .cs-arrow { color: var(--text-muted); font-size: .65em; flex-shrink: 0; transition: transform .2s; }
-    .cs-trigger.open .cs-arrow { transform: rotate(180deg); }
-
-    .cs-dropdown {
-      position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--bg-secondary);
-      border: 1px solid var(--accent);
-      border-top: 1px solid var(--border-light);
-      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-      max-height: 220px; overflow-y: auto;
-      z-index: 50; display: none;
-      box-shadow: var(--shadow-md);
-    }
-
-    .cs-dropdown.open { display: block; }
-
-    .cs-option {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px;
-      cursor: pointer;
-      transition: background .15s;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .cs-option:last-child { border-bottom: none; }
-    .cs-option:hover { background: rgba(var(--accent-rgb), .08); }
-    .cs-option.selected { background: rgba(var(--accent-rgb), .12); }
-
-    .cs-option .cso-icon {
-      width: 30px; height: 30px;
-      background: var(--accent-soft);
-      border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .82em; flex-shrink: 0;
-    }
-
-    .cs-option .cso-text { flex: 1; min-width: 0; }
-    .cs-option .cso-name { font-weight: 700; font-size: .85em; color: var(--text-primary); }
-    .cs-option .cso-meta { font-size: .7em; color: var(--text-muted); }
-    .cs-option.empty-opt .cso-icon { background: rgba(var(--danger-rgb), .1); color: var(--danger); }
-    .cs-option.empty-opt:hover { background: rgba(var(--danger-rgb), .06); }
-    .custom-select { position: relative; width: 100%; }
-
-    /* Subject cards */
-    .subject-card {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px;
-      background: var(--bg-card-hover);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      margin-bottom: 8px;
-      transition: background .2s;
-    }
-
-    .subject-icon {
-      width: 40px; height: 40px;
-      background: var(--accent-soft);
-      border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2em; flex-shrink: 0;
-    }
-
-    .subject-info { flex: 1; min-width: 0; }
-    .subject-name { font-weight: 700; font-size: .9em; color: var(--text-primary); }
-    .subject-meta { font-size: .78em; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
-    .subject-actions { display: flex; gap: 6px; }
-
-    /* HW cards */
-    .hw-card {
-      background: var(--bg-card-hover);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      margin-bottom: 10px;
+    .bnav-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 3px;
+      border: none; background: none;
+      color: var(--text-muted); cursor: pointer;
+      font-family: inherit; font-size: 10px; font-weight: 700;
+      transition: color .2s;
       position: relative;
-      overflow: hidden;
+      padding: 0;
     }
 
-    .hw-card::before {
-      content: ''; position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px; background: var(--accent);
-      border-radius: 4px 0 0 4px;
+    .bnav-item .bi-icon { font-size: 22px; line-height: 1; transition: transform .15s; }
+    .bnav-item:active .bi-icon { transform: scale(.85); }
+
+    .bnav-item.active { color: var(--accent); }
+    .bnav-item.active .bi-icon { transform: scale(1.1); }
+
+    .bnav-item .bi-badge {
+      position: absolute; top: 4px; right: calc(50% - 20px);
+      min-width: 16px; height: 16px;
+      background: var(--red); color: #fff;
+      border-radius: 8px; font-size: 10px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 4px;
     }
 
-    .hw-card-top {
-      display: flex; justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 10px; gap: 10px; flex-wrap: wrap;
+    /* ---- Modal ---- */
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: var(--bg-overlay);
+      z-index: 500;
+      display: none; align-items: flex-end; justify-content: center;
     }
 
-    .hw-card-subject {
-      font-weight: 800; font-size: 1em; color: var(--accent);
-      display: flex; align-items: center; gap: 8px;
-      letter-spacing: -0.01em;
+    .modal-bg.show { display: flex; }
+
+    .modal-sheet {
+      background: var(--bg-elevated);
+      border-radius: 24px 24px 0 0;
+      padding: 8px 24px calc(24px + env(safe-area-inset-bottom));
+      width: 100%; max-width: 520px;
+      max-height: 92vh; overflow-y: auto;
+      animation: sheetUp .3s cubic-bezier(.32,.72,0,1);
     }
 
-    .hw-card-subject-icon {
-      width: 30px; height: 30px;
-      background: var(--accent-soft);
+    @keyframes sheetUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-handle {
+      width: 36px; height: 4px;
+      background: var(--text-muted); opacity: .3;
+      border-radius: 2px; margin: 8px auto 20px;
+    }
+
+    .modal-sheet h3 { font-size: 20px; font-weight: 900; margin-bottom: 20px; }
+    .modal-btns { display: flex; gap: 8px; margin-top: 24px; }
+    .modal-btns .btn { flex: 1; }
+
+    /* ---- Custom select ---- */
+    .csel-trigger {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px;
+      background: var(--bg-input);
+      border: 2px solid transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer; transition: border-color .2s;
+      min-height: 52px;
+    }
+
+    .csel-trigger:hover, .csel-trigger.open { border-color: var(--accent); }
+
+    .csel-trigger .ct-icon {
+      width: 32px; height: 32px;
+      background: var(--accent-bg);
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      font-size: .85em;
+      font-size: 14px; flex-shrink: 0;
     }
 
-    .hw-card-due {
-      display: flex; align-items: center; gap: 5px;
-      font-size: .75em; color: var(--text-muted);
-      background: var(--bg-card);
-      padding: 4px 10px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      white-space: nowrap;
-      font-weight: 500;
+    .csel-trigger .ct-text { flex: 1; min-width: 0; }
+    .csel-trigger .ct-name { font-weight: 700; font-size: 14px; }
+    .csel-trigger .ct-meta { font-size: 12px; color: var(--text-muted); }
+    .csel-trigger .ct-ph { color: var(--text-muted); font-size: 14px; }
+    .csel-trigger .ct-arr { color: var(--text-muted); font-size: 10px; transition: transform .2s; }
+    .csel-trigger.open .ct-arr { transform: rotate(180deg); }
+
+    .csel-dd {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--bg-elevated);
+      border: 2px solid var(--accent);
+      border-top: 1px solid var(--border);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      max-height: 200px; overflow-y: auto;
+      z-index: 50; display: none;
+      box-shadow: var(--shadow-lg);
     }
+    .csel-dd.open { display: block; }
 
-    .hw-card-task {
-      font-size: .88em; line-height: 1.6;
-      color: var(--text-primary);
-      padding: 12px;
-      background: var(--bg-card);
-      border-radius: var(--radius-sm);
-      margin-bottom: 10px;
-      border: 1px solid var(--border-color);
+    .csel-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; cursor: pointer;
+      transition: background .12s;
+      border-bottom: 1px solid var(--border);
     }
+    .csel-opt:last-child { border-bottom: none; }
+    .csel-opt:hover { background: var(--accent-bg); }
+    .csel-opt.sel { background: var(--accent-bg2); }
 
-    .hw-card-actions { display: flex; gap: 6px; }
-
-    .hw-badge {
-      background: var(--danger);
-      color: #fff;
-      border-radius: 50%;
-      min-width: 18px; height: 18px;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: .65em; font-weight: 800;
-      margin-left: 5px; padding: 0 4px;
-    }
-
-    /* Change pair rows */
-    .change-pair-row {
-      background: var(--bg-card);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-      margin-bottom: 8px;
-      border: 1px solid var(--border-color);
-    }
-
-    .change-pair-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-
-    .change-pair-num-badge {
-      width: 26px; height: 26px;
-      background: rgba(var(--warning-rgb), .2);
-      border-radius: 6px;
+    .csel-opt .co-icon {
+      width: 28px; height: 28px;
+      background: var(--accent-bg); border-radius: 7px;
       display: flex; align-items: center; justify-content: center;
-      font-weight: 800; color: var(--warning);
-      font-size: .82em;
+      font-size: 12px; flex-shrink: 0;
+    }
+    .csel-opt .co-name { font-weight: 700; font-size: 14px; }
+    .csel-opt .co-meta { font-size: 11px; color: var(--text-muted); }
+    .csel-opt.empty-opt .co-icon { background: var(--red-bg); color: var(--red); }
+
+    .csel-wrap { position: relative; width: 100%; }
+
+    /* ---- Changes pair editor ---- */
+    .cpair-block {
+      background: var(--bg-input); border-radius: var(--radius-xs);
+      padding: 14px; margin-bottom: 10px;
+    }
+    .cpair-block .cpb-head {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .cpair-block .cpb-num {
+      width: 26px; height: 26px;
+      background: var(--accent-bg); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 13px; color: var(--accent);
+    }
+    .cpair-block .cpb-label { font-weight: 700; font-size: 14px; color: var(--text-secondary); }
+
+    .admin-hide { display: none; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 400px) {
+      .topbar-left h1 { font-size: 22px; }
+      .day-tab { min-width: 46px; padding: 8px 4px 10px; }
+      .day-tab .dt-num { font-size: 16px; }
+      .lesson-card { padding: 14px; gap: 10px; }
+      .pair-badge { width: 42px; }
+      .pair-badge .pb-n { font-size: 18px; }
     }
 
-    /* Responsive */
-    @media (max-width: 500px) {
-      .header-content { gap: 8px; }
-      .header-left { gap: 8px; }
-      .logo { font-size: 1.1em; }
-      .header-date { font-size: .72em; }
-      .user-info span:not(.admin-badge) { display: none; }
-      .week-navigator { padding: 12px; gap: 12px; }
-      .week-dates-range { font-size: .95em; }
-      .btn-icon { width: 36px; height: 36px; font-size: 1em; }
-      .setting-row { flex-direction: column; align-items: flex-start; }
-      .container { padding: 12px; }
-      .nav-btn { padding: 9px 14px; font-size: .78em; }
-      .day-header { padding: 10px 14px; }
-      .day-content { padding: 6px; }
-      .lesson-row { padding: 8px; gap: 8px; }
-      .lesson-number { width: 38px; }
-      .lesson-num { font-size: 1.05em; }
-      .wrap-card { padding: 16px; }
+    @media (min-width: 768px) {
+      .content { max-width: 600px; margin: 0 auto; }
+      .day-tabs-wrap { max-width: 600px; margin: 0 auto 12px; }
+      .week-nav { max-width: 600px; margin: 0 auto 16px; }
+      .topbar { max-width: 100%; }
+      .topbar > .topbar-row { max-width: 600px; margin: 0 auto; }
     }
-
-    @media (max-width: 380px) {
-      .logo { font-size: 1em; }
-      .header-week { padding: 4px 8px; font-size: .7em; }
-      .theme-toggle { width: 32px; height: 32px; font-size: .95em; }
-      .nav-btn { padding: 8px 10px; font-size: .74em; }
-    }
-
-    /* Scrollbar styling */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
   </style>
 </head>
 <body>
 
-<div class="safe-area-top"></div>
-
-<div id="login-screen" class="login-screen">
-  <div class="login-container">
-    <div class="login-logo">📚</div>
-    <h2>Дневник</h2>
-    <p class="login-subtitle">Техникум</p>
-    <div class="login-error" id="login-error" style="display:none;"></div>
-    <div class="form-group"><label>Email</label><input type="email" id="login-email" placeholder="admin@example.com" autocomplete="email"></div>
-    <div class="form-group"><label>Пароль</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
-    <button class="btn btn-primary" onclick="doLogin()">Войти</button>
-    <div class="divider">или</div>
-    <button class="btn btn-secondary" onclick="enterAsGuest()">Войти как гость</button>
+<!-- LOGIN -->
+<div id="login-screen" class="login-wrap">
+  <div class="login-box">
+    <div class="login-icon">📚</div>
+    <h1>Дневник</h1>
+    <p class="sub">Войдите в свой аккаунт</p>
+    <div class="login-err" id="login-err"></div>
+    <div class="field"><label>Email</label><input type="email" id="l-email" placeholder="your@email.com" autocomplete="email"></div>
+    <div class="field"><label>Пароль</label><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"></div>
+    <button class="btn btn-accent btn-full" onclick="doLogin()">Войти</button>
+    <div class="sep">или</div>
+    <button class="btn btn-ghost btn-full" onclick="guestLogin()">Войти как гость</button>
   </div>
 </div>
 
-<div id="app" style="display:none;">
-  <header>
-    <div class="header-content">
-      <div class="header-left">
-        <div class="logo">📚 Дневник</div>
-        <div class="header-date" id="header-date"></div>
+<!-- APP -->
+<div id="app">
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-row">
+      <div class="topbar-left">
+        <h1>Дневник</h1>
+        <div class="today-text" id="top-today"></div>
       </div>
-      <div class="header-right">
-        <div class="header-week" id="header-week"></div>
-        <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌙</span></button>
-        <div class="user-info">
-          <span id="user-email"></span>
-          <span class="admin-badge" id="admin-badge" style="display:none;">Админ</span>
-        </div>
-        <button class="btn btn-secondary btn-sm" onclick="doLogout()">Выйти</button>
+      <div class="topbar-right">
+        <span class="week-badge" id="top-week-badge"></span>
+        <button class="avatar-btn" id="avatar-btn" onclick="toggleProfile()"></button>
       </div>
     </div>
-  </header>
+    <div class="profile-drop" id="profile-drop">
+      <div class="pd-email" id="pd-email"></div>
+      <button class="pd-item" onclick="toggleTheme()">🎨 Сменить тему</button>
+      <button class="pd-item danger" onclick="doLogout()">🚪 Выйти</button>
+    </div>
+  </div>
 
-  <div class="container">
-    <div class="week-navigator">
-      <button class="btn-icon" onclick="prevWeek()">←</button>
-      <div class="week-dates">
-        <div class="week-dates-range" id="week-range"></div>
-        <div class="week-dates-type" id="week-type"></div>
+  <!-- Week nav -->
+  <div class="week-nav">
+    <button class="week-nav-btn" onclick="prevWeek()">‹</button>
+    <div class="week-nav-label">
+      <div class="wn-range" id="wn-range"></div>
+      <div class="wn-type" id="wn-type"></div>
+    </div>
+    <button class="week-nav-btn" onclick="nextWeek()">›</button>
+  </div>
+
+  <!-- Day tabs -->
+  <div class="day-tabs-wrap" id="dtw">
+    <div class="day-tabs" id="day-tabs"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Schedule -->
+    <div class="page active" id="pg-schedule">
+      <div class="lessons-wrap" id="lessons-wrap"></div>
+    </div>
+
+    <!-- Homework -->
+    <div class="page" id="pg-hw">
+      <div class="page-head">
+        <h2>Домашнее задание</h2>
+        <button class="btn btn-accent btn-sm admin-hide" id="add-hw-btn" onclick="openNewHwModal()">+ Добавить</button>
       </div>
-      <button class="btn-icon" onclick="nextWeek()">→</button>
+      <div class="hw-list" id="hw-list"></div>
     </div>
 
-    <div class="nav" id="main-nav">
-      <button class="nav-btn active" data-section="home">🏠 Расписание</button>
-      <button class="nav-btn" data-section="homework-tab" id="homework-nav">📋 ДЗ</button>
-      <button class="nav-btn admin-only" data-section="changes" id="changes-nav">📝 Замены</button>
-      <button class="nav-btn admin-only" data-section="subjects" id="subjects-nav">📖 Предметы</button>
-      <button class="nav-btn admin-only" data-section="settings" id="settings-nav">⚙️ Настройки</button>
-    </div>
-
-    <div class="section active" id="home">
-      <div class="days-grid" id="days-grid"></div>
-    </div>
-
-    <div class="section" id="homework-tab">
-      <div class="wrap-card">
-        <div class="section-header">
-          <h2 class="section-title">📋 Домашнее задание</h2>
-          <button class="btn btn-primary admin-only" onclick="openNewHwModal()">+ Добавить</button>
-        </div>
-        <div id="hw-tab-list"></div>
+    <!-- Changes -->
+    <div class="page admin-hide" id="pg-changes">
+      <div class="page-head">
+        <h2>Замены</h2>
+        <button class="btn btn-accent btn-sm" onclick="openChgModal()">+ Добавить</button>
       </div>
+      <div id="chg-list"></div>
     </div>
 
-    <div class="section" id="changes">
-      <div class="wrap-card">
-        <div class="section-header">
-          <h2 class="section-title">📝 Изменения</h2>
-          <button class="btn btn-warning" onclick="openChangeModal()">+ Добавить</button>
-        </div>
-        <div id="changes-list"></div>
+    <!-- Subjects -->
+    <div class="page admin-hide" id="pg-subjects">
+      <div class="page-head">
+        <h2>Предметы</h2>
+        <button class="btn btn-accent btn-sm" onclick="openSubjModal()">+ Добавить</button>
       </div>
+      <div class="subj-grid" id="subj-list"></div>
     </div>
 
-    <div class="section" id="subjects">
-      <div class="wrap-card">
-        <div class="section-header">
-          <h2 class="section-title">📖 Предметы</h2>
-          <button class="btn btn-primary" onclick="openSubjectModal()">+ Добавить</button>
+    <!-- Settings -->
+    <div class="page admin-hide" id="pg-settings">
+      <h2 style="margin-bottom:20px;">Настройки</h2>
+      <div class="settings-list">
+        <div class="setting-card">
+          <div class="sc-info"><h4>Начало недель</h4><p>Понедельник верхней</p></div>
+          <input type="date" class="field-inline" id="cfg-week-start" style="padding:10px;background:var(--bg-input);border:2px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;">
         </div>
-        <div id="subjects-list"></div>
-      </div>
-    </div>
-
-    <div class="section" id="settings">
-      <div class="wrap-card">
-        <h2 class="section-title" style="margin-bottom:20px;">⚙️ Настройки</h2>
-        <div class="setting-row">
-          <div class="setting-info"><h4>Тема</h4><p>Светлая / тёмная</p></div>
-          <button class="btn btn-secondary" onclick="toggleTheme()">Сменить</button>
+        <div class="setting-card">
+          <div class="sc-info"><h4>Время пар</h4><p>Начало и конец</p></div>
+          <button class="btn btn-ghost btn-sm" onclick="openTimesModal()">Изменить</button>
         </div>
-        <div class="setting-row">
-          <div class="setting-info"><h4>Начало недель</h4><p>Понедельник верхней</p></div>
-          <input type="date" class="setting-input" id="week-start-date">
-        </div>
-        <div class="setting-row">
-          <div class="setting-info"><h4>Время пар</h4><p>Начало и конец</p></div>
-          <button class="btn btn-secondary" onclick="openTimesModal()">Настроить</button>
-        </div>
-        <div class="setting-row">
-          <div class="setting-info"><h4>Очистить всё</h4><p>Удалить все данные</p></div>
-          <button class="btn btn-danger" onclick="clearAll()">Очистить</button>
+        <div class="setting-card">
+          <div class="sc-info"><h4>Очистить данные</h4><p>Удалить всё</p></div>
+          <button class="btn btn-red btn-sm" onclick="clearAll()">Очистить</button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bnav-item active" data-pg="pg-schedule">
+      <span class="bi-icon">📅</span><span>Расписание</span>
+    </button>
+    <button class="bnav-item" data-pg="pg-hw" id="bn-hw">
+      <span class="bi-icon">📝</span><span>ДЗ</span>
+    </button>
+    <button class="bnav-item admin-hide" data-pg="pg-changes">
+      <span class="bi-icon">🔄</span><span>Замены</span>
+    </button>
+    <button class="bnav-item admin-hide" data-pg="pg-subjects">
+      <span class="bi-icon">📖</span><span>Предметы</span>
+    </button>
+    <button class="bnav-item admin-hide" data-pg="pg-settings">
+      <span class="bi-icon">⚙️</span><span>Ещё</span>
+    </button>
+  </nav>
 </div>
 
-<div class="install-prompt" id="install-prompt">
-  <div class="install-prompt-icon">📲</div>
-  <div class="install-prompt-text"><h4>Добавить на экран</h4><p>Установи как приложение</p></div>
-  <button class="btn btn-primary btn-sm" onclick="installApp()">Добавить</button>
-  <button class="install-prompt-close" onclick="hideInstallPrompt()">×</button>
-</div>
-
-<!-- Modals -->
-<div class="modal-overlay" id="lesson-modal">
-  <div class="modal">
-    <h3>✏️ Редактировать пару</h3>
-    <input type="hidden" id="edit-day"><input type="hidden" id="edit-pair"><input type="hidden" id="edit-week">
-    <div class="form-group"><label>Предмет</label><div id="lesson-sel-c"></div></div>
-    <div class="modal-buttons">
-      <button class="btn btn-secondary" onclick="closeModal('lesson-modal')">Отмена</button>
-      <button class="btn btn-danger" onclick="delLesson()">Очистить</button>
-      <button class="btn btn-primary" onclick="saveLesson()">Сохранить</button>
+<!-- MODALS -->
+<div class="modal-bg" id="m-lesson">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3>Редактировать пару</h3>
+    <input type="hidden" id="el-day"><input type="hidden" id="el-pair"><input type="hidden" id="el-week">
+    <div class="field"><label>Предмет</label><div id="el-sel-c"></div></div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeM('m-lesson')">Отмена</button>
+      <button class="btn btn-red" onclick="delLesson()">Убрать</button>
+      <button class="btn btn-accent" onclick="saveLesson()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="hw-modal">
-  <div class="modal">
-    <h3>📝 Домашка</h3>
-    <input type="hidden" id="hw-date"><input type="hidden" id="hw-pair">
-    <div class="form-group"><label>Предмет</label><input type="text" id="hw-subject" readonly style="opacity:.7;"></div>
-    <div class="form-group"><label>Задание</label><textarea id="hw-task" placeholder="Что нужно сделать..."></textarea></div>
-    <div class="modal-buttons">
-      <button class="btn btn-secondary" onclick="closeModal('hw-modal')">Отмена</button>
-      <button class="btn btn-primary" onclick="saveOldHw()">Сохранить</button>
+<div class="modal-bg" id="m-hw-inline">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3>Домашнее задание</h3>
+    <input type="hidden" id="hi-date"><input type="hidden" id="hi-pair">
+    <div class="field"><label>Предмет</label><input type="text" id="hi-subj" readonly style="opacity:.6;"></div>
+    <div class="field"><label>Задание</label><textarea id="hi-task" placeholder="Что нужно сделать..."></textarea></div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeM('m-hw-inline')">Отмена</button>
+      <button class="btn btn-accent" onclick="saveInlineHw()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="new-hw-modal">
-  <div class="modal">
-    <h3 style="display:flex;align-items:center;gap:10px;">
-      <span style="width:36px;height:36px;background:var(--accent-soft);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1em;">📋</span>
-      Новое ДЗ
-    </h3>
-    <div class="form-group"><label>📖 Предмет</label><div id="nhw-sel-c"></div></div>
-    <div class="form-group"><label>📝 Задание</label><textarea id="nhw-task" placeholder="Опишите задание..." style="min-height:100px;"></textarea></div>
-    <div class="form-group"><label>📅 Следующая пара</label>
-      <div id="nhw-next" style="padding:12px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-sm);font-size:.88em;color:var(--text-muted);min-height:44px;display:flex;align-items:center;gap:8px;">
-        Выберите предмет...
-      </div>
+<div class="modal-bg" id="m-new-hw">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3>Новое ДЗ</h3>
+    <div class="field"><label>Предмет</label><div id="nhw-sel"></div></div>
+    <div class="field"><label>Задание</label><textarea id="nhw-task" placeholder="Опишите задание..."></textarea></div>
+    <div class="field"><label>Ближайшая пара</label>
+      <div id="nhw-next" style="padding:14px;background:var(--bg-input);border-radius:var(--radius-xs);font-size:14px;color:var(--text-muted);min-height:48px;display:flex;align-items:center;gap:6px;">Выберите предмет...</div>
     </div>
-    <div class="modal-buttons">
-      <button class="btn btn-secondary" onclick="closeModal('new-hw-modal')">Отмена</button>
-      <button class="btn btn-primary" onclick="saveNewHw()">💾 Сохранить</button>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeM('m-new-hw')">Отмена</button>
+      <button class="btn btn-accent" onclick="saveNewHw()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="subj-modal">
-  <div class="modal">
-    <h3 id="subj-modal-title">📖 Добавить предмет</h3>
-    <input type="hidden" id="subj-edit-id">
-    <div class="form-group"><label>Название</label><input type="text" id="subj-name" placeholder="Математика"></div>
-    <div class="form-group"><label>Аудитория</label><input type="text" id="subj-room" placeholder="Каб. 301"></div>
-    <div class="form-group"><label>Преподаватель</label><input type="text" id="subj-teacher" placeholder="Иванов И.И."></div>
-    <div class="modal-buttons">
-      <button class="btn btn-secondary" onclick="closeModal('subj-modal')">Отмена</button>
-      <button class="btn btn-primary" onclick="saveSubject()">Сохранить</button>
+<div class="modal-bg" id="m-subj">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3 id="subj-m-title">Добавить предмет</h3>
+    <input type="hidden" id="se-id">
+    <div class="field"><label>Название</label><input type="text" id="se-name" placeholder="Математика"></div>
+    <div class="field"><label>Аудитория</label><input type="text" id="se-room" placeholder="Каб. 301"></div>
+    <div class="field"><label>Преподаватель</label><input type="text" id="se-teacher" placeholder="Иванов И.И."></div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeM('m-subj')">Отмена</button>
+      <button class="btn btn-accent" onclick="saveSubj()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="chg-modal">
-  <div class="modal">
-    <h3>📝 Изменение на дату</h3>
-    <input type="hidden" id="chg-edit-id">
-    <div class="form-group"><label>📅 Дата</label><input type="date" id="chg-date"></div>
-    <p style="color:var(--text-muted);font-size:.78em;margin-bottom:12px;">Действует <b>только на эту дату</b>. Пустое = нет пары.</p>
-    <div id="chg-pairs-c"></div>
-    <div class="modal-buttons">
-      <button class="btn btn-secondary" onclick="closeModal('chg-modal')">Отмена</button>
-      <button class="btn btn-danger" id="chg-del-btn" onclick="delChange()" style="display:none;">Удалить</button>
-      <button class="btn btn-primary" onclick="saveChange()">Сохранить</button>
+<div class="modal-bg" id="m-chg">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3>Замена на дату</h3>
+    <input type="hidden" id="ce-id">
+    <div class="field"><label>Дата</label><input type="date" id="ce-date"></div>
+    <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Замена действует только на выбранную дату. Пустое = нет пары.</p>
+    <div id="ce-pairs"></div>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeM('m-chg')">Отмена</button>
+      <button class="btn btn-red" id="ce-del" onclick="delChg()" style="display:none;">Удалить</button>
+      <button class="btn btn-accent" onclick="saveChg()">Сохранить</button>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="times-modal">
-  <div class="modal">
-    <h3>🕐 Время пар</h3>
+<div class="modal-bg" id="m-times">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3>Время пар</h3>
     <div id="times-form"></div>
-    <div class="modal-buttons">
-      <button class="btn btn-secondary" onclick="closeModal('times-modal')">Отмена</button>
-      <button class="btn btn-primary" onclick="saveTimes()">Сохранить</button>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeM('m-times')">Отмена</button>
+      <button class="btn btn-accent" onclick="saveTimes()">Сохранить</button>
     </div>
   </div>
 </div>
@@ -1118,57 +912,55 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
-function initTheme(){setTheme(localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
-function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);const i=document.getElementById('theme-icon');if(i)i.textContent=t==='dark'?'☀️':'🌙';const s=document.querySelector('.safe-area-top');if(s)s.style.background=t==='dark'?'rgba(12,12,20,0.85)':'rgba(255,255,255,0.85)'}
+/* ===== Theme ===== */
+function initTheme(){setTheme(localStorage.getItem('th')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))}
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('th',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#0f0f1a':'#f5f5f7'}
 function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')}
 initTheme();
 
+/* ===== Firebase ===== */
 firebase.initializeApp({apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"});
-
 const auth=firebase.auth(),db=firebase.database();
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"],DS=['Пн','Вт','Ср','Чт','Пт','Сб'],DF=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
-
+/* ===== State ===== */
+const ADMINS=["zFKU6TAgIuhZetCOuWpHvDDw6Oj2"];
+const DSK=['Пн','Вт','Ср','Чт','Пт','Сб'],DFL=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 let curUser=null,isAdmin=false,isGuest=false;
-let sched={upper:{},lower:{}},hwList=[],chgList=[],nhwList=[],subjList=[];
+let sched={upper:{},lower:{}},hwData=[],chgData=[],nhwData=[],subjData=[];
 let cfg={weekStartDate:null,pairTimes:[{start:'08:30',end:'10:00'},{start:'10:10',end:'11:40'},{start:'12:10',end:'13:40'},{start:'13:50',end:'15:20'},{start:'15:30',end:'17:00'}]};
-let vws=getMonday(new Date()),defPrompt=null,css={};
+let vwMon=getMon(new Date()),selDayIdx=todayIdx(),csState={};
 
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();defPrompt=e;setTimeout(()=>{if(!localStorage.getItem('ipd'))document.getElementById('install-prompt').classList.add('show')},3000)});
-
-function installApp(){if(defPrompt){defPrompt.prompt();defPrompt.userChoice.then(()=>{defPrompt=null;hideInstallPrompt()})}}
-function hideInstallPrompt(){document.getElementById('install-prompt').classList.remove('show');localStorage.setItem('ipd','1')}
-function getMonday(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
+/* ===== Helpers ===== */
+function getMon(d){const r=new Date(d);r.setHours(12,0,0,0);const w=r.getDay();r.setDate(r.getDate()-w+(w===0?-6:1));return r}
 function fdk(d){const r=new Date(d);return`${r.getFullYear()}-${String(r.getMonth()+1).padStart(2,'0')}-${String(r.getDate()).padStart(2,'0')}`}
-function pdk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0)}
-function fds(d){const r=new Date(d);return String(r.getDate()).padStart(2,'0')+'.'+String(r.getMonth()+1).padStart(2,'0')}
-function fdf(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
-function fdh(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'long'})}
+function pdk(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)}
+function fds(d){return String(new Date(d).getDate()).padStart(2,'0')+'.'+String(new Date(d).getMonth()+1).padStart(2,'0')}
+function fdFull(d){return new Date(d).toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
+function fdShort(d){return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
+function todayIdx(){const w=new Date().getDay();return w===0?5:(w-1)}
 function esc(t){if(!t)return'';const d=document.createElement('div');d.textContent=t;return d.innerHTML}
 
-function gwt(mon){if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);return Math.ceil(((mon-s)/86400000+s.getDay()+1)/7)%2===1?'upper':'lower'}const sd=getMonday(pdk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/(864e5))/7)%2===0?'upper':'lower'}
-
-function lessonsFor(dateKey){
-  const d=pdk(dateKey),dow=d.getDay();
-  if(dow===0)return{};
-  const di=dow-1;if(di>5)return{};
-  const ch=chgList.find(c=>c.date===dateKey);
-  if(ch)return ch.lessons||{};
-  return(sched[gwt(getMonday(d))]||{})[DS[di]]||{};
+function gwt(mon){
+  if(!cfg.weekStartDate){const s=new Date(mon.getFullYear(),0,1);return Math.ceil(((mon-s)/864e5+s.getDay()+1)/7)%2===1?'upper':'lower'}
+  const sd=getMon(pdk(cfg.weekStartDate));return Math.floor(Math.round((mon-sd)/864e5)/7)%2===0?'upper':'lower';
 }
 
-function findNext(subjectName){
+function lessonsFor(dk){
+  const d=pdk(dk),dow=d.getDay();if(dow===0)return{};
+  const di=dow-1;if(di>5)return{};
+  const ch=chgData.find(c=>c.date===dk);
+  if(ch)return ch.lessons||{};
+  return(sched[gwt(getMon(d))]||{})[DSK[di]]||{};
+}
+
+function findNext(subj){
   const today=new Date();today.setHours(0,0,0,0);
-  for(let off=1;off<=60;off++){
-    const cd=new Date(today);cd.setDate(cd.getDate()+off);
+  for(let o=1;o<=60;o++){
+    const cd=new Date(today);cd.setDate(cd.getDate()+o);
     const dow=cd.getDay();if(dow===0||dow>6)continue;
-    const dateKey=fdk(cd);
-    const lessons=lessonsFor(dateKey);
-    for(let p=1;p<=5;p++){
-      const l=lessons[p];
-      if(l&&l.name&&l.name.toLowerCase().trim()===subjectName.toLowerCase().trim())return{date:dateKey,pair:p};
-    }
+    const dk=fdk(cd),les=lessonsFor(dk);
+    for(let p=1;p<=5;p++){const l=les[p];if(l&&l.name&&l.name.toLowerCase().trim()===subj.toLowerCase().trim())return{date:dk,pair:p}}
   }
   return null;
 }
@@ -1176,220 +968,369 @@ function findNext(subjectName){
 function recalcHw(){
   if(!isAdmin)return;
   const tk=fdk(new Date());
-  nhwList.forEach(hw=>{
-    if(hw.done||!hw.subject)return;
-    if(hw.targetDate&&hw.targetDate<tk)return;
-    const nx=findNext(hw.subject);
-    if(nx){
-      if(nx.date!==hw.targetDate||nx.pair!==hw.targetPair){
-        db.ref(`newHomework/${hw.id}`).update({targetDate:nx.date,targetPair:nx.pair});
-      }
-    }
+  nhwData.forEach(h=>{if(h.done||!h.subject)return;const nx=findNext(h.subject);if(nx&&(nx.date!==h.targetDate||nx.pair!==h.targetPair))db.ref(`newHomework/${h.id}`).update({targetDate:nx.date,targetPair:nx.pair})});
+}
+
+/* ===== Auth ===== */
+auth.onAuthStateChanged(u=>{if(u){curUser=u;isAdmin=ADMINS.includes(u.uid);isGuest=false;boot()}else if(localStorage.getItem('gs')){isGuest=true;boot()}});
+
+function doLogin(){
+  const e=document.getElementById('l-email').value.trim(),p=document.getElementById('l-pass').value;
+  if(!e||!p){showLErr('Введите email и пароль');return}
+  auth.signInWithEmailAndPassword(e,p).catch(()=>showLErr('Неверные данные'));
+}
+function showLErr(m){const e=document.getElementById('login-err');e.textContent=m;e.style.display='block'}
+function guestLogin(){isGuest=true;isAdmin=false;curUser=null;localStorage.setItem('gs','1');boot()}
+function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGuest=false;isAdmin=false;curUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';document.getElementById('profile-drop').classList.remove('show')})}
+
+function boot(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  const letter=(isGuest?'Г':(curUser?.email?.[0]||'?')).toUpperCase();
+  document.getElementById('avatar-btn').textContent=letter;
+  const eml=document.getElementById('pd-email');
+  eml.innerHTML=(isGuest?'Гость':esc(curUser?.email||''))+(isAdmin?'<span class="admin-tag">Админ</span>':'');
+  if(isAdmin)document.querySelectorAll('.admin-hide').forEach(e=>e.classList.remove('admin-hide'));
+  setupNav();loadData();
+  selDayIdx=todayIdx();
+  vwMon=getMon(new Date());
+  updateAll();
+}
+
+/* ===== Profile ===== */
+function toggleProfile(){document.getElementById('profile-drop').classList.toggle('show')}
+document.addEventListener('click',e=>{if(!e.target.closest('#avatar-btn')&&!e.target.closest('#profile-drop'))document.getElementById('profile-drop').classList.remove('show')});
+
+/* ===== Navigation ===== */
+function setupNav(){
+  document.querySelectorAll('.bnav-item').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.bnav-item').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById(b.dataset.pg).classList.add('active');
+      const isDiary=b.dataset.pg==='pg-schedule';
+      document.getElementById('dtw').style.display=isDiary?'':'none';
+      document.querySelector('.week-nav').style.display=isDiary?'':'none';
+    });
   });
 }
 
+/* ===== Data ===== */
+function loadData(){
+  db.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('cfg-week-start').value=cfg.weekStartDate}updateAll()});
+  db.ref('schedule').on('value',s=>{sched=s.val()||{upper:{},lower:{}};renderDay();recalcHw()});
+  db.ref('homework').on('value',s=>{const d=s.val();hwData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDay()});
+  db.ref('subjects').on('value',s=>{const d=s.val();subjData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDay()});
+  db.ref('newHomework').on('value',s=>{const d=s.val();nhwData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwPage();renderDay();updHwBadge()});
+  db.ref('changes').on('value',s=>{const d=s.val();chgData=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanOld();renderDay();renderDayTabs();renderChanges();recalcHw()});
+  document.getElementById('cfg-week-start').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
+}
+
+function cleanOld(){if(!isAdmin)return;const tk=fdk(new Date());chgData.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
+
+/* ===== Update ===== */
+function updateAll(){updateTopbar();updateWeekNav();renderDayTabs();renderDay()}
+
+function updateTopbar(){
+  const t=new Date(),wt=gwt(getMon(t));
+  document.getElementById('top-today').textContent=fdFull(t);
+  const wb=document.getElementById('top-week-badge');
+  wb.textContent=wt==='upper'?'▲ Верхняя':'▼ Нижняя';
+  wb.className='week-badge '+wt;
+}
+
+function updateWeekNav(){
+  const e=new Date(vwMon);e.setDate(e.getDate()+5);
+  const wt=gwt(vwMon);
+  document.getElementById('wn-range').textContent=`${fdShort(vwMon)} — ${fdShort(e)}`;
+  const tp=document.getElementById('wn-type');
+  tp.textContent=wt==='upper'?'▲ Верхняя неделя':'▼ Нижняя неделя';
+  tp.className='wn-type '+wt;
+}
+
+function prevWeek(){vwMon.setDate(vwMon.getDate()-7);selDayIdx=0;updateAll()}
+function nextWeek(){vwMon.setDate(vwMon.getDate()+7);selDayIdx=0;updateAll()}
+
+/* ===== Day tabs ===== */
+function renderDayTabs(){
+  const c=document.getElementById('day-tabs'),tk=fdk(new Date());
+  let h='';
+  for(let i=0;i<6;i++){
+    const d=new Date(vwMon);d.setDate(d.getDate()+i);
+    const dk=fdk(d),isT=dk===tk,hasCh=chgData.some(c=>c.date===dk);
+    h+=`<div class="day-tab${i===selDayIdx?' active':''}${isT?' is-today':''}" onclick="pickDay(${i})" data-di="${i}">
+      ${hasCh?'<span class="dt-dot-change"></span>':''}
+      <span class="dt-name">${DSK[i]}</span>
+      <span class="dt-num">${d.getDate()}</span>
+    </div>`;
+  }
+  c.innerHTML=h;
+  // scroll active into view
+  setTimeout(()=>{const a=c.querySelector('.day-tab.active');if(a)a.scrollIntoView({inline:'center',behavior:'smooth'})},50);
+}
+
+function pickDay(i){selDayIdx=i;renderDayTabs();renderDay()}
+
+/* ===== Lessons ===== */
+function renderDay(){
+  const wrap=document.getElementById('lessons-wrap');
+  const d=new Date(vwMon);d.setDate(d.getDate()+selDayIdx);
+  const dk=fdk(d),wt=gwt(vwMon),dayKey=DSK[selDayIdx];
+  const ch=chgData.find(c=>c.date===dk),hasCh=!!ch;
+  const lessons=hasCh?(ch.lessons||{}):(sched[wt]?.[dayKey]||{});
+  let h='';
+  for(let p=1;p<=5;p++){
+    const l=lessons[p],has=l&&l.name,time=cfg.pairTimes[p-1];
+    const iho=hwData.filter(x=>x.date===dk&&x.pair===p);
+    const ihn=nhwData.filter(x=>x.targetDate===dk&&x.targetPair===p);
+    h+=`<div class="lesson-card${has?'':' is-empty'}${hasCh&&has?' is-changed':''}" ${isAdmin&&!hasCh?`onclick="openLessonM('${dayKey}',${p},'${wt}')"`:''}>
+      <div class="pair-badge"><span class="pb-n">${p}</span><span class="pb-t">${time?.start||''}</span></div>
+      <div class="lesson-body">
+        ${has?`
+          <div class="lb-name">${esc(l.name)}</div>
+          <div class="lb-meta">
+            ${l.room?`<span>📍 ${esc(l.room)}</span>`:''}
+            ${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}
+          </div>
+          ${renderIHw(iho,'Домашка','hw')}
+          ${renderIHw(ihn,'ДЗ','nh')}
+        `:`<div class="lb-empty">${isAdmin&&!hasCh?'+ Добавить пару':'Нет пары'}</div>`}
+      </div>
+      ${has&&isAdmin?`<div class="lesson-actions"><button class="btn btn-ghost btn-xs" onclick="event.stopPropagation();openInlineHw('${dk}',${p},'${esc(l.name)}')">+ ДЗ</button></div>`:''}
+    </div>`;
+  }
+  wrap.innerHTML=h;
+}
+
+function renderIHw(list,label,type){
+  if(!list.length)return'';
+  return list.map(h=>`<div class="inline-hw${h.done?' done':''}">
+    <div class="ihw-top">
+      <span class="ihw-label">${label}</span>
+      <div class="ihw-actions">
+        <button class="btn ${h.done?'btn-ghost':'btn-green'} btn-xs" onclick="event.stopPropagation();${type==='hw'?`togHw('${h.id}')`:`togNH('${h.id}')`}">${h.done?'↩':'✓'}</button>
+        ${isAdmin?`<button class="btn btn-red btn-xs" onclick="event.stopPropagation();${type==='hw'?`rmHw('${h.id}')`:`rmNH('${h.id}')`}">✕</button>`:''}
+      </div>
+    </div>
+    <div class="ihw-text">${esc(h.task)}</div>
+  </div>`).join('');
+}
+
+/* ===== HW page ===== */
+function renderHwPage(){
+  const c=document.getElementById('hw-list'),tk=fdk(new Date());
+  const p=nhwData.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
+  if(!p.length){c.innerHTML='<div class="empty-state"><div class="es-icon">📚</div><div class="es-text">Нет предстоящих заданий</div></div>';return}
+  c.innerHTML=p.map(h=>`<div class="hw-item">
+    <div class="hwi-subj">📖 ${esc(h.subject)}</div>
+    <div class="hwi-due">📅 ${fdFull(pdk(h.targetDate))}, пара ${h.targetPair||'?'}</div>
+    <div class="hwi-task">${esc(h.task)}</div>
+    <div class="hwi-btns">
+      <button class="btn btn-green btn-sm" onclick="togNH('${h.id}')">✓ Выполнено</button>
+      ${isAdmin?`<button class="btn btn-red btn-sm" onclick="rmNH('${h.id}')">Удалить</button>`:''}
+    </div>
+  </div>`).join('');
+}
+
+function updHwBadge(){
+  const tk=fdk(new Date()),n=nhwData.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;
+  const bn=document.getElementById('bn-hw');
+  const old=bn.querySelector('.bi-badge');if(old)old.remove();
+  if(n>0){const b=document.createElement('span');b.className='bi-badge';b.textContent=n;bn.appendChild(b)}
+}
+
+/* ===== Subjects ===== */
+function renderSubjects(){
+  const c=document.getElementById('subj-list');
+  if(!subjData.length){c.innerHTML='<div class="empty-state"><div class="es-icon">📖</div><div class="es-text">Добавьте предметы</div></div>';return}
+  c.innerHTML=subjData.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="subj-row">
+    <div class="sr-icon">📖</div>
+    <div class="sr-info"><div class="sr-name">${esc(s.name)}</div><div class="sr-meta">${s.room?`<span>📍 ${esc(s.room)}</span>`:''}${s.teacher?`<span>👤 ${esc(s.teacher)}</span>`:''}</div></div>
+    <div class="sr-actions"><button class="btn btn-ghost btn-xs" onclick="editSubj('${s.id}')">✏️</button><button class="btn btn-red btn-xs" onclick="rmSubj('${s.id}')">✕</button></div>
+  </div>`).join('');
+}
+
+function openSubjModal(eid){
+  document.getElementById('se-id').value=eid||'';
+  document.getElementById('se-name').value='';document.getElementById('se-room').value='';document.getElementById('se-teacher').value='';
+  document.getElementById('subj-m-title').textContent=eid?'Редактировать':'Добавить предмет';
+  if(eid){const s=subjData.find(x=>x.id===eid);if(s){document.getElementById('se-name').value=s.name||'';document.getElementById('se-room').value=s.room||'';document.getElementById('se-teacher').value=s.teacher||''}}
+  openM('m-subj');
+}
+
+function editSubj(id){openSubjModal(id)}
+
+function saveSubj(){
+  const id=document.getElementById('se-id').value,n=document.getElementById('se-name').value.trim(),r=document.getElementById('se-room').value.trim(),t=document.getElementById('se-teacher').value.trim();
+  if(!n){alert('Введите название');return}
+  if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});
+  closeM('m-subj');
+}
+
+function rmSubj(id){if(confirm('Удалить предмет?'))db.ref(`subjects/${id}`).remove()}
+
+/* ===== Changes ===== */
+function renderChanges(){
+  const c=document.getElementById('chg-list'),tk=fdk(new Date());
+  const f=chgData.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
+  if(!f.length){c.innerHTML='<div class="empty-state"><div class="es-icon">🔄</div><div class="es-text">Нет замен</div></div>';return}
+  c.innerHTML=f.map(ch=>`<div class="chg-item">
+    <div class="ci-head"><span class="ci-date">📅 ${fdFull(pdk(ch.date))}</span><div class="ci-btns"><button class="btn btn-ghost btn-xs" onclick="editChg('${ch.id}')">✏️</button><button class="btn btn-red btn-xs" onclick="rmChgById('${ch.id}')">✕</button></div></div>
+    ${renderChgLessons(ch.lessons)}
+  </div>`).join('');
+}
+
+function renderChgLessons(les){
+  if(!les)return'<div style="padding:8px;color:var(--text-muted);font-size:13px;">Все пары сняты</div>';
+  let h='';for(let p=1;p<=5;p++){const l=les[p];if(l&&l.name)h+=`<div class="chg-lesson"><span class="cl-num">${p}</span><div><div class="cl-name">${esc(l.name)}</div><div class="cl-meta">${l.room?'📍 '+esc(l.room):''}${l.teacher?' · 👤 '+esc(l.teacher):''}</div></div></div>`}
+  return h||'<div style="padding:8px;color:var(--text-muted);font-size:13px;">Все пары сняты</div>';
+}
+
+function openChgModal(eid){
+  if(!isAdmin)return;
+  document.getElementById('ce-id').value=eid||'';
+  document.getElementById('ce-del').style.display=eid?'':'none';
+  document.getElementById('ce-date').value='';
+  let ph='';for(let i=1;i<=5;i++)ph+=`<div class="cpair-block"><div class="cpb-head"><span class="cpb-num">${i}</span><span class="cpb-label">пара</span></div><div id="cs-cp-${i}"></div></div>`;
+  document.getElementById('ce-pairs').innerHTML=ph;
+  for(let i=1;i<=5;i++)buildCS(`cs-cp-${i}`,'',null);
+  if(eid){const ch=chgData.find(c=>c.id===eid);if(ch){document.getElementById('ce-date').value=ch.date;if(ch.lessons){for(let i=1;i<=5;i++){const l=ch.lessons[i];if(l&&l.name){const s=subjData.find(x=>x.name===l.name);if(s)buildCS(`cs-cp-${i}`,s.id,null)}}}}}
+  openM('m-chg');
+}
+
+function editChg(id){openChgModal(id)}
+
+function saveChg(){
+  if(!isAdmin)return;
+  const eid=document.getElementById('ce-id').value,date=document.getElementById('ce-date').value;
+  if(!date){alert('Выберите дату');return}
+  const lessons={};let any=false;
+  for(let i=1;i<=5;i++){const sid=gcsv(`cs-cp-${i}`),subj=subjData.find(s=>s.id===sid);if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};any=true}}
+  if(eid)db.ref(`changes/${eid}`).set({date,lessons:any?lessons:null});else db.ref('changes').push({date,lessons:any?lessons:null});
+  closeM('m-chg');
+}
+
+function delChg(){const id=document.getElementById('ce-id').value;if(id){rmChgById(id);closeM('m-chg')}}
+function rmChgById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
+
+/* ===== Custom Select ===== */
 function buildCS(cid,selId,onChange){
   const c=document.getElementById(cid);
-  const sorted=[...subjList].sort((a,b)=>a.name.localeCompare(b.name));
+  const sorted=[...subjData].sort((a,b)=>a.name.localeCompare(b.name));
   const sel=sorted.find(s=>s.id===selId);
-  css[cid]={selectedId:selId||'',onChange};
+  csState[cid]={selectedId:selId||'',onChange};
   let trig;
-  if(sel)trig=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(sel.name)}</div><div class="cs-meta">${sel.room?'📍'+esc(sel.room):''}${sel.teacher?' · 👤'+esc(sel.teacher):''}</div></div>`;
-  else trig=`<span class="cs-placeholder">— нет пары —</span>`;
-  const opts=sorted.map(s=>`<div class="cs-option${s.id===selId?' selected':''}" data-sid="${s.id}"><span class="cso-icon">📖</span><div class="cso-text"><div class="cso-name">${esc(s.name)}</div><div class="cso-meta">${s.room?'📍'+esc(s.room):''}${s.teacher?' · 👤'+esc(s.teacher):''}</div></div></div>`).join('');
-  c.innerHTML=`<div class="custom-select"><div class="cs-trigger" data-cid="${cid}">${trig}<span class="cs-arrow">▼</span></div><div class="cs-dropdown" id="${cid}-dd"><div class="cs-option empty-opt" data-sid=""><span class="cso-icon">✕</span><div class="cso-text"><div class="cso-name" style="color:var(--text-muted)">— Нет пары —</div></div></div>${opts}</div></div>`;
-  c.querySelector('.cs-trigger').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.cs-trigger'),wo=dd.classList.contains('open');closeAllCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
-  c.querySelectorAll('.cs-option').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,subj=id?subjList.find(s=>s.id===id):null;css[cid].selectedId=id;const tr=c.querySelector('.cs-trigger');if(subj)tr.innerHTML=`<span class="cs-icon">📖</span><div class="cs-text"><div class="cs-name">${esc(subj.name)}</div><div class="cs-meta">${subj.room?'📍'+esc(subj.room):''}${subj.teacher?' · 👤'+esc(subj.teacher):''}</div></div><span class="cs-arrow">▼</span>`;else tr.innerHTML=`<span class="cs-placeholder">— нет пары —</span><span class="cs-arrow">▼</span>`;c.querySelectorAll('.cs-option').forEach(x=>x.classList.remove('selected'));o.classList.add('selected');closeAllCS();if(css[cid].onChange)css[cid].onChange(id,subj)})});
+  if(sel)trig=`<span class="ct-icon">📖</span><div class="ct-text"><div class="ct-name">${esc(sel.name)}</div><div class="ct-meta">${sel.room?'📍 '+esc(sel.room):''}${sel.teacher?' · 👤 '+esc(sel.teacher):''}</div></div>`;
+  else trig=`<span class="ct-ph">— Нет пары —</span>`;
+  const opts=sorted.map(s=>`<div class="csel-opt${s.id===selId?' sel':''}" data-sid="${s.id}"><span class="co-icon">📖</span><div><div class="co-name">${esc(s.name)}</div><div class="co-meta">${s.room?'📍 '+esc(s.room):''}${s.teacher?' · 👤 '+esc(s.teacher):''}</div></div></div>`).join('');
+  c.innerHTML=`<div class="csel-wrap"><div class="csel-trigger" data-cid="${cid}">${trig}<span class="ct-arr">▼</span></div><div class="csel-dd" id="${cid}-dd"><div class="csel-opt empty-opt" data-sid=""><span class="co-icon">✕</span><div><div class="co-name" style="color:var(--text-muted);">— Нет пары —</div></div></div>${opts}</div></div>`;
+  c.querySelector('.csel-trigger').addEventListener('click',e=>{e.stopPropagation();const dd=document.getElementById(cid+'-dd'),tr=c.querySelector('.csel-trigger'),wo=dd.classList.contains('open');closeAllCS();if(!wo){dd.classList.add('open');tr.classList.add('open')}});
+  c.querySelectorAll('.csel-opt').forEach(o=>{o.addEventListener('click',e=>{e.stopPropagation();const id=o.dataset.sid,subj=id?subjData.find(s=>s.id===id):null;csState[cid].selectedId=id;const tr=c.querySelector('.csel-trigger');if(subj)tr.innerHTML=`<span class="ct-icon">📖</span><div class="ct-text"><div class="ct-name">${esc(subj.name)}</div><div class="ct-meta">${subj.room?'📍 '+esc(subj.room):''}${subj.teacher?' · 👤 '+esc(subj.teacher):''}</div></div><span class="ct-arr">▼</span>`;else tr.innerHTML=`<span class="ct-ph">— Нет пары —</span><span class="ct-arr">▼</span>`;c.querySelectorAll('.csel-opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');closeAllCS();if(csState[cid].onChange)csState[cid].onChange(id,subj)})});
 }
 
-function closeAllCS(){document.querySelectorAll('.cs-dropdown.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.cs-trigger.open').forEach(t=>t.classList.remove('open'))}
-function gcsv(id){return css[id]?.selectedId||''}
+function closeAllCS(){document.querySelectorAll('.csel-dd.open').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.csel-trigger.open').forEach(t=>t.classList.remove('open'))}
+function gcsv(id){return csState[id]?.selectedId||''}
 document.addEventListener('click',()=>closeAllCS());
 
-auth.onAuthStateChanged(u=>{if(u){curUser=u;isAdmin=ADMINS.includes(u.uid);isGuest=false;showApp()}else if(localStorage.getItem('gs')){isGuest=true;showApp()}});
-
-function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-password').value;if(!e||!p){showLE('Введите email и пароль');return}auth.signInWithEmailAndPassword(e,p).catch(()=>showLE('Неверные данные'))}
-function showLE(m){const e=document.getElementById('login-error');e.textContent=m;e.style.display='block'}
-function enterAsGuest(){isGuest=true;isAdmin=false;curUser=null;localStorage.setItem('gs','1');showApp()}
-function doLogout(){localStorage.removeItem('gs');auth.signOut().then(()=>{isGuest=false;isAdmin=false;curUser=null;document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex'})}
-
-function showApp(){
-  document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';
-  document.getElementById('admin-badge').style.display=isAdmin?'inline':'none';
-  document.getElementById('user-email').textContent=isGuest?'Гость':(curUser?.email?.split('@')[0]||'');
-  document.querySelectorAll('.admin-only').forEach(el=>el.style.display=isAdmin?'':'none');
-  document.getElementById('main-nav').classList.remove('hidden');
-  init();
+/* ===== Lesson modal ===== */
+function openLessonM(day,pair,week){
+  if(!isAdmin)return;
+  document.getElementById('el-day').value=day;document.getElementById('el-pair').value=pair;document.getElementById('el-week').value=week;
+  const l=sched[week]?.[day]?.[pair]||{};let csid='';if(l.name){const s=subjData.find(x=>x.name===l.name);if(s)csid=s.id}
+  buildCS('el-sel-c',csid,null);openM('m-lesson');
 }
 
-function init(){setupNav();loadData();vws=getMonday(new Date());updateHeader()}
-
-function setupNav(){document.querySelectorAll('.nav-btn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.section).classList.add('active')})})}
-
-function loadData(){
-  db.ref('settings').on('value',s=>{if(s.val()){cfg={...cfg,...s.val()};if(cfg.weekStartDate)document.getElementById('week-start-date').value=cfg.weekStartDate}updateAll();updateHeader()});
-  db.ref('schedule').on('value',s=>{sched=s.val()||{upper:{},lower:{}};renderDays();recalcHw()});
-  db.ref('homework').on('value',s=>{const d=s.val();hwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderDays()});
-  db.ref('subjects').on('value',s=>{const d=s.val();subjList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderSubjects();renderDays()});
-  db.ref('newHomework').on('value',s=>{const d=s.val();nhwList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];renderHwTab();renderDays();updateHwBadge()});
-  db.ref('changes').on('value',s=>{const d=s.val();chgList=d?Object.keys(d).map(k=>({id:k,...d[k]})):[];cleanPast();renderDays();renderChanges();recalcHw()});
-  document.getElementById('week-start-date').addEventListener('change',e=>{if(isAdmin)db.ref('settings/weekStartDate').set(e.target.value)});
+function saveLesson(){
+  if(!isAdmin)return;
+  const d=document.getElementById('el-day').value,p=document.getElementById('el-pair').value,w=document.getElementById('el-week').value,sid=gcsv('el-sel-c'),subj=subjData.find(s=>s.id===sid);
+  if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();
+  closeM('m-lesson');
 }
 
-function cleanPast(){if(!isAdmin)return;const tk=fdk(new Date());chgList.forEach(c=>{if(c.date<tk)db.ref(`changes/${c.id}`).remove()})}
-
-function updateHeader(){const t=new Date(),wt=gwt(getMonday(t));document.getElementById('header-date').textContent=fdh(t);const w=document.getElementById('header-week');w.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';w.className='header-week '+wt}
-
-function updateWeekNav(){const e=new Date(vws);e.setDate(e.getDate()+5);const wt=gwt(vws);document.getElementById('week-range').textContent=`${fds(vws)} — ${fds(e)}`;const t=document.getElementById('week-type');t.textContent=wt==='upper'?'☀️ Верхняя':'🌙 Нижняя';t.className='week-dates-type '+wt}
-
-function prevWeek(){vws.setDate(vws.getDate()-7);updateAll()}
-function nextWeek(){vws.setDate(vws.getDate()+7);updateAll()}
-function updateAll(){updateWeekNav();renderDays()}
-
-function renderSubjects(){
-  const c=document.getElementById('subjects-list');
-  if(!subjList.length){c.innerHTML='<div class="no-items">📖 Добавьте предметы</div>';return}
-  c.innerHTML=subjList.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>`<div class="subject-card"><div class="subject-icon">📖</div><div class="subject-info"><div class="subject-name">${esc(s.name)}</div><div class="subject-meta">${s.room?`<span>📍 ${esc(s.room)}</span>`:''}${s.teacher?`<span>👤 ${esc(s.teacher)}</span>`:''}</div></div><div class="subject-actions"><button class="btn btn-xs btn-secondary" onclick="editSubject('${s.id}')">✏️</button><button class="btn btn-xs btn-danger" onclick="delSubject('${s.id}')">✕</button></div></div>`).join('');
+function delLesson(){
+  if(!isAdmin)return;
+  db.ref(`schedule/${document.getElementById('el-week').value}/${document.getElementById('el-day').value}/${document.getElementById('el-pair').value}`).remove();
+  closeM('m-lesson');
 }
 
-function openSubjectModal(eid){document.getElementById('subj-edit-id').value=eid||'';document.getElementById('subj-name').value='';document.getElementById('subj-room').value='';document.getElementById('subj-teacher').value='';document.getElementById('subj-modal-title').textContent=eid?'📖 Редактировать':'📖 Добавить';if(eid){const s=subjList.find(x=>x.id===eid);if(s){document.getElementById('subj-name').value=s.name||'';document.getElementById('subj-room').value=s.room||'';document.getElementById('subj-teacher').value=s.teacher||''}}openModal('subj-modal')}
-
-function editSubject(id){openSubjectModal(id)}
-
-function saveSubject(){const id=document.getElementById('subj-edit-id').value,n=document.getElementById('subj-name').value.trim(),r=document.getElementById('subj-room').value.trim(),t=document.getElementById('subj-teacher').value.trim();if(!n){alert('Введите название');return}if(id)db.ref(`subjects/${id}`).set({name:n,room:r,teacher:t});else db.ref('subjects').push({name:n,room:r,teacher:t});closeModal('subj-modal')}
-
-function delSubject(id){if(confirm('Удалить?'))db.ref(`subjects/${id}`).remove()}
-
-function renderHwTab(){
-  const c=document.getElementById('hw-tab-list'),tk=fdk(new Date());
-  const p=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).sort((a,b)=>a.targetDate.localeCompare(b.targetDate));
-  if(!p.length){c.innerHTML='<div class="no-items">📚 Нет предстоящих ДЗ</div>';return}
-  c.innerHTML=p.map(h=>`<div class="hw-card"><div class="hw-card-top"><div class="hw-card-subject"><span class="hw-card-subject-icon">📖</span>${esc(h.subject)}</div><div class="hw-card-due">📅 ${fdf(pdk(h.targetDate))}</div></div><div class="hw-card-task">${esc(h.task)}</div><div class="hw-card-actions"><button class="btn btn-xs btn-success" onclick="toggleNH('${h.id}')">✓ Выполнено</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="delNH('${h.id}')">✕</button>`:''}</div></div>`).join('');
+/* ===== Inline HW ===== */
+function openInlineHw(dk,pair,subj){
+  if(!isAdmin)return;
+  document.getElementById('hi-date').value=dk;document.getElementById('hi-pair').value=pair;document.getElementById('hi-subj').value=subj;document.getElementById('hi-task').value='';
+  openM('m-hw-inline');
 }
 
-function updateHwBadge(){const tk=fdk(new Date()),n=nhwList.filter(h=>h.targetDate&&h.targetDate>=tk&&!h.done).length;document.getElementById('homework-nav').innerHTML=n>0?`📋 ДЗ <span class="hw-badge">${n}</span>`:'📋 ДЗ'}
+function saveInlineHw(){
+  if(!isAdmin)return;
+  const task=document.getElementById('hi-task').value.trim();if(!task){alert('Введите задание');return}
+  db.ref('homework').push({date:document.getElementById('hi-date').value,pair:parseInt(document.getElementById('hi-pair').value),subject:document.getElementById('hi-subj').value,task,done:false,created:new Date().toISOString()});
+  closeM('m-hw-inline');
+}
 
+function togHw(id){const h=hwData.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
+function rmHw(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
+
+/* ===== New HW modal ===== */
 function openNewHwModal(){
   if(!isAdmin)return;
-  buildCS('nhw-sel-c','',(_,subj)=>{
+  buildCS('nhw-sel','',(_,subj)=>{
     const info=document.getElementById('nhw-next');
-    if(subj&&subj.name){const nx=findNext(subj.name);if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:700;">📅 ${fdf(pdk(nx.date))}</span><span style="color:var(--text-muted);margin-left:6px;">(пара ${nx.pair})</span>`;else info.innerHTML='<span style="color:var(--danger)">❌ Не найдено</span>'}
+    if(subj&&subj.name){const nx=findNext(subj.name);if(nx)info.innerHTML=`<span style="color:var(--accent);font-weight:700;">📅 ${fdFull(pdk(nx.date))}</span>, пара ${nx.pair}`;else info.innerHTML='<span style="color:var(--red)">Не найдено в расписании</span>'}
     else info.innerHTML='Выберите предмет...';
   });
-  document.getElementById('nhw-task').value='';
-  document.getElementById('nhw-next').innerHTML='Выберите предмет...';
-  openModal('new-hw-modal');
+  document.getElementById('nhw-task').value='';document.getElementById('nhw-next').innerHTML='Выберите предмет...';
+  openM('m-new-hw');
 }
 
 function saveNewHw(){
   if(!isAdmin)return;
-  const sid=gcsv('nhw-sel-c'),subj=subjList.find(s=>s.id===sid);
+  const sid=gcsv('nhw-sel'),subj=subjData.find(s=>s.id===sid);
   if(!subj){alert('Выберите предмет');return}
-  const task=document.getElementById('nhw-task').value.trim();
-  if(!task){alert('Введите задание');return}
-  const nx=findNext(subj.name);
-  if(!nx){alert('Пара не найдена');return}
+  const task=document.getElementById('nhw-task').value.trim();if(!task){alert('Введите задание');return}
+  const nx=findNext(subj.name);if(!nx){alert('Пара не найдена');return}
   db.ref('newHomework').push({subject:subj.name,task,targetDate:nx.date,targetPair:nx.pair,done:false,created:new Date().toISOString()});
-  closeModal('new-hw-modal');
+  closeM('m-new-hw');
 }
 
-function toggleNH(id){const h=nhwList.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
-function delNH(id){if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
+function togNH(id){const h=nhwData.find(x=>x.id===id);if(h)db.ref(`newHomework/${id}/done`).set(!h.done)}
+function rmNH(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`newHomework/${id}`).remove()}
 
-function renderDays(){
-  const g=document.getElementById('days-grid'),wt=gwt(vws),wd=sched[wt]||{},tk=fdk(new Date());
-  let h='';
-  for(let i=0;i<6;i++){
-    const dd=new Date(vws);dd.setDate(dd.getDate()+i);const dk=DS[i],dateKey=fdk(dd),isT=dateKey===tk;
-    const ch=chgList.find(c=>c.date===dateKey),hasCh=!!ch;
-    const lessons=hasCh?(ch.lessons||{}):(wd[dk]||{});
-    h+=`<div class="day-block ${isT?'today':''} ${hasCh?'has-changes':''}"><div class="day-header"><div class="day-title">${DF[i]} <span class="date">${fds(dd)}</span></div><div class="day-badges">${hasCh?'<span class="changes-label">⚡ Замена</span>':''}${isT?'<span class="today-label">Сегодня</span>':''}</div></div><div class="day-content"><div class="lessons-list">${renderL(dk,lessons,wt,dateKey,hasCh)}</div></div></div>`;
-  }
-  g.innerHTML=h;
-}
-
-function renderL(dk,lessons,wt,dateKey,hasCh){
-  let h='';
-  for(let p=1;p<=5;p++){
-    const l=lessons[p],has=l&&l.name,time=cfg.pairTimes[p-1];
-    const ho=hwList.filter(x=>x.date===dateKey&&x.pair===p);
-    const hn=nhwList.filter(x=>x.targetDate===dateKey&&x.targetPair===p);
-    h+=`<div class="lesson-row ${has?'':'empty'} ${hasCh&&has?'changed':''}" onclick="${isAdmin&&!hasCh?`openLessonModal('${dk}',${p},'${wt}')`:''}"><div class="lesson-number"><div class="lesson-num">${p}</div><div class="lesson-time">${time?.start||''}</div></div><div class="lesson-info">${has?`<div class="lesson-name-row"><span class="lesson-name">${esc(l.name)}</span>${isAdmin?`<button class="add-hw-btn" onclick="event.stopPropagation();openHwModal('${dateKey}',${p},'${esc(l.name)}')">+ ДЗ</button>`:''}</div><div class="lesson-details">${l.room?`<span class="lesson-room">📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div>${rhb(ho,'📝 Домашка','hw')}${rhb(hn,'📋 ДЗ','nh')}`:`<span class="lesson-empty-text">${isAdmin&&!hasCh?'Добавить':'—'}</span>`}</div></div>`;
-  }
-  return h;
-}
-
-function rhb(list,title,type){
-  if(!list||!list.length)return'';
-  return list.map(h=>`<div class="lesson-homework ${h.done?'done':''}" onclick="event.stopPropagation();"><div class="lesson-homework-header"><span class="lesson-homework-title">${title}</span><div><button class="btn btn-xs ${h.done?'btn-secondary':'btn-success'}" onclick="${type==='hw'?`toggleOldHw('${h.id}')`:`toggleNH('${h.id}')`}">${h.done?'↩':'✓'}</button>${isAdmin?`<button class="btn btn-xs btn-danger" onclick="${type==='hw'?`delOldHw('${h.id}')`:`delNH('${h.id}')`}">✕</button>`:''}</div></div><div class="lesson-homework-text">${esc(h.task)}</div></div>`).join('');
-}
-
-function renderChanges(){
-  const c=document.getElementById('changes-list'),tk=fdk(new Date());
-  const f=chgList.filter(x=>x.date>=tk).sort((a,b)=>a.date.localeCompare(b.date));
-  if(!f.length){c.innerHTML='<div class="no-items">Нет изменений</div>';return}
-  c.innerHTML=f.map(ch=>`<div class="change-card"><div class="change-header"><span class="change-date">${fdf(pdk(ch.date))}</span><div><button class="btn btn-sm btn-secondary" onclick="editChange('${ch.id}')">✏️</button><button class="btn btn-sm btn-danger" onclick="delChangeById('${ch.id}')">✕</button></div></div><div>${renderCL(ch.lessons)}</div></div>`).join('');
-}
-
-function renderCL(lessons){
-  if(!lessons)return'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
-  let h='';for(let p=1;p<=5;p++){const l=lessons[p];if(l&&l.name)h+=`<div class="change-lesson-row"><div class="change-pair-num">${p}</div><div class="change-lesson-info"><div class="change-lesson-name">${esc(l.name)}</div><div class="change-lesson-details">${l.room?`<span>📍 ${esc(l.room)}</span>`:''}${l.teacher?`<span>👤 ${esc(l.teacher)}</span>`:''}</div></div></div>`}
-  return h||'<div style="color:var(--text-muted);padding:10px;">Пар нет</div>';
-}
-
-function openChangeModal(eid){
+/* ===== Times modal ===== */
+function openTimesModal(){
   if(!isAdmin)return;
-  document.getElementById('chg-edit-id').value=eid||'';
-  document.getElementById('chg-del-btn').style.display=eid?'block':'none';
-  document.getElementById('chg-date').value='';
-  let ph='';for(let i=1;i<=5;i++)ph+=`<div class="change-pair-row"><div class="change-pair-header"><span class="change-pair-num-badge">${i}</span><span style="font-weight:600;font-size:.85em;color:var(--text-secondary);">пара</span></div><div id="cs-chg-${i}"></div></div>`;
-  document.getElementById('chg-pairs-c').innerHTML=ph;
-  for(let i=1;i<=5;i++)buildCS(`cs-chg-${i}`,'',null);
-  if(eid){const ch=chgList.find(c=>c.id===eid);if(ch){document.getElementById('chg-date').value=ch.date;if(ch.lessons){for(let i=1;i<=5;i++){const l=ch.lessons[i];if(l&&l.name){const s=subjList.find(x=>x.name===l.name);if(s)buildCS(`cs-chg-${i}`,s.id,null)}}}}}
-  openModal('chg-modal');
+  document.getElementById('times-form').innerHTML=cfg.pairTimes.map((t,i)=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><span style="min-width:60px;font-weight:700;font-size:14px;">${i+1} пара</span><input type="time" id="pt-s${i}" value="${t.start}" style="flex:1;padding:12px;background:var(--bg-input);border:2px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;"><span style="color:var(--text-muted);">—</span><input type="time" id="pt-e${i}" value="${t.end}" style="flex:1;padding:12px;background:var(--bg-input);border:2px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;"></div>`).join('');
+  openM('m-times');
 }
 
-function editChange(id){openChangeModal(id)}
-
-function saveChange(){
+function saveTimes(){
   if(!isAdmin)return;
-  const eid=document.getElementById('chg-edit-id').value,date=document.getElementById('chg-date').value;
-  if(!date){alert('Выберите дату');return}
-  const lessons={};let any=false;
-  for(let i=1;i<=5;i++){const sid=gcsv(`cs-chg-${i}`),subj=subjList.find(s=>s.id===sid);if(subj){lessons[i]={name:subj.name,room:subj.room||'',teacher:subj.teacher||''};any=true}}
-  const data={date,lessons:any?lessons:null};
-  if(eid)db.ref(`changes/${eid}`).set(data);else db.ref('changes').push(data);
-  closeModal('chg-modal');
+  const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`pt-s${i}`).value,end:document.getElementById(`pt-e${i}`).value});
+  db.ref('settings/pairTimes').set(t);closeM('m-times');
 }
 
-function delChange(){const id=document.getElementById('chg-edit-id').value;if(id){delChangeById(id);closeModal('chg-modal')}}
-function delChangeById(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`changes/${id}`).remove()}
+function clearAll(){if(!isAdmin)return;if(confirm('Удалить ВСЕ данные?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
 
-function openModal(id){document.getElementById(id).classList.add('active')}
-function closeModal(id){document.getElementById(id).classList.remove('active')}
+/* ===== Modals ===== */
+function openM(id){document.getElementById(id).classList.add('show')}
+function closeM(id){document.getElementById(id).classList.remove('show')}
+document.querySelectorAll('.modal-bg').forEach(bg=>{bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('show')})});
 
-function openLessonModal(day,pair,week){if(!isAdmin)return;document.getElementById('edit-day').value=day;document.getElementById('edit-pair').value=pair;document.getElementById('edit-week').value=week;const l=sched[week]?.[day]?.[pair]||{};let csid='';if(l.name){const s=subjList.find(x=>x.name===l.name);if(s)csid=s.id}buildCS('lesson-sel-c',csid,null);openModal('lesson-modal')}
+/* ===== Keyboard ===== */
+document.getElementById('l-pass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('l-email').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('l-pass').focus()});
 
-function saveLesson(){if(!isAdmin)return;const d=document.getElementById('edit-day').value,p=document.getElementById('edit-pair').value,w=document.getElementById('edit-week').value,sid=gcsv('lesson-sel-c'),subj=subjList.find(s=>s.id===sid);if(subj)db.ref(`schedule/${w}/${d}/${p}`).set({name:subj.name,room:subj.room||'',teacher:subj.teacher||''});else db.ref(`schedule/${w}/${d}/${p}`).remove();closeModal('lesson-modal')}
-
-function delLesson(){if(!isAdmin)return;db.ref(`schedule/${document.getElementById('edit-week').value}/${document.getElementById('edit-day').value}/${document.getElementById('edit-pair').value}`).remove();closeModal('lesson-modal')}
-
-function openHwModal(dk,pair,subj){if(!isAdmin)return;document.getElementById('hw-date').value=dk;document.getElementById('hw-pair').value=pair;document.getElementById('hw-subject').value=subj;document.getElementById('hw-task').value='';openModal('hw-modal')}
-
-function saveOldHw(){if(!isAdmin)return;const task=document.getElementById('hw-task').value.trim();if(!task){alert('Введите задание');return}db.ref('homework').push({date:document.getElementById('hw-date').value,pair:parseInt(document.getElementById('hw-pair').value),subject:document.getElementById('hw-subject').value,task,done:false,created:new Date().toISOString()});closeModal('hw-modal')}
-
-function toggleOldHw(id){const h=hwList.find(x=>x.id===id);if(h)db.ref(`homework/${id}/done`).set(!h.done)}
-function delOldHw(id){if(!isAdmin)return;if(confirm('Удалить?'))db.ref(`homework/${id}`).remove()}
-
-function openTimesModal(){if(!isAdmin)return;document.getElementById('times-form').innerHTML=cfg.pairTimes.map((t,i)=>`<div class="form-group" style="display:flex;gap:10px;align-items:center;margin-bottom:12px;"><span style="min-width:50px;font-weight:600;">${i+1} пара</span><input type="time" id="ts${i}" value="${t.start}" class="setting-input" style="flex:1;"><span style="color:var(--text-muted);">—</span><input type="time" id="te${i}" value="${t.end}" class="setting-input" style="flex:1;"></div>`).join('');openModal('times-modal')}
-
-function saveTimes(){if(!isAdmin)return;const t=[];for(let i=0;i<5;i++)t.push({start:document.getElementById(`ts${i}`).value,end:document.getElementById(`te${i}`).value});db.ref('settings/pairTimes').set(t);closeModal('times-modal')}
-
-function clearAll(){if(!isAdmin)return;if(confirm('Удалить ВСЁ?')){db.ref('schedule').remove();db.ref('homework').remove();db.ref('newHomework').remove();db.ref('changes').remove();db.ref('subjects').remove()}}
-
-document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active')})});
-document.getElementById('login-password').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin()});
-document.getElementById('login-email').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('login-password').focus()});
+/* ===== Touch swipe for days ===== */
+let touchStartX=0;
+document.getElementById('lessons-wrap')?.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(!document.getElementById('pg-schedule').classList.contains('active'))return;
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  if(Math.abs(dx)>80){
+    if(dx<0&&selDayIdx<5){selDayIdx++;renderDayTabs();renderDay()}
+    else if(dx>0&&selDayIdx>0){selDayIdx--;renderDayTabs();renderDay()}
+  }
+});
 </script>
 </body>
 </html>
