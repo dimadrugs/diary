@@ -3,869 +3,702 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Конструктор документов ООП</title>
+<title>Конструктор рабочих программ</title>
 <style>
 :root{--bg:#000;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
-.topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
 .topbar h1{font-size:17px;font-weight:600}
-.topbar-right{display:flex;gap:8px;align-items:center}
-.container{max-width:900px;margin:0 auto;padding:16px}
-.card{background:var(--card);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px;transition:transform .15s}
-.card:active{transform:scale(.98)}
-.card h3{font-size:15px;font-weight:600;margin-bottom:8px}
-.card p{font-size:13px;color:var(--t2);line-height:1.4}
-.btnP{background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;transition:transform .1s,opacity .1s;display:inline-flex;align-items:center;gap:6px}
-.btnP:active{transform:scale(.96);opacity:.8}
-.btnS{background:transparent;color:var(--text);border:1px solid var(--t4);padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;transition:transform .1s}
-.btnS:active{transform:scale(.96)}
-.btnD{background:var(--red);color:#fff;border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;transition:transform .1s}
-.btnD:active{transform:scale(.96)}
-.btnSm{padding:6px 12px;font-size:12px;border-radius:var(--rs)}
+.topbar-r{display:flex;gap:8px;align-items:center}
+.container{max-width:960px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.card h3{font-size:15px;font-weight:600;margin-bottom:6px}
+.card p{font-size:13px;color:var(--t2);line-height:1.5}
+.btn{border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .1s,opacity .1s}
+.btn:active{transform:scale(.96);opacity:.8}
+.btnP{background:var(--blue);color:#fff}
+.btnS{background:transparent;color:var(--text);border:1px solid var(--t4)!important}
+.btnD{background:var(--red);color:#fff}
+.btnG{background:var(--green);color:#fff}
+.btnSm{padding:6px 14px;font-size:12px;border-radius:var(--rs)}
 .inp{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .inp:focus{border-color:var(--blue)}
-textarea.inp{min-height:100px;resize:vertical}
+textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
 select.inp{appearance:none;-webkit-appearance:none}
 label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight:500}
-.field-group{margin-bottom:16px}
+.fg{margin-bottom:16px}
 .pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
 .pill.bl{background:rgba(10,132,255,.15);color:var(--blue)}
 .pill.gr{background:rgba(48,209,88,.15);color:var(--green)}
 .pill.og{background:rgba(255,159,10,.15);color:var(--orange)}
 .pill.rd{background:rgba(255,69,58,.15);color:var(--red)}
 .pill.pr{background:rgba(191,90,242,.15);color:var(--purple)}
-.mb{display:inline-block;padding:3px 6px;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer}
-.mb.bl{background:rgba(10,132,255,.15);color:var(--blue)}
-.mb.gr{background:rgba(48,209,88,.15);color:var(--green)}
-.mb.rd{background:rgba(255,69,58,.15);color:var(--red)}
-.mb.og{background:rgba(255,159,10,.15);color:var(--orange)}
-.tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tab{padding:8px 16px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--t2);border:none;transition:all .2s}
-.tab.active{background:var(--blue);color:#fff}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.flex-between{display:flex;justify-content:space-between;align-items:center}
-.gap8{gap:8px}
+.flex-b{display:flex;justify-content:space-between;align-items:center}
+.gap8{display:flex;gap:8px;flex-wrap:wrap}
 .mt8{margin-top:8px}
 .mt16{margin-top:16px}
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
-.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.sheet-overlay.open{display:flex}
-.sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;padding:0;animation:sheetUp .3s ease}
-@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.shBox{padding:20px}
-.sheet-handle{width:36px;height:5px;border-radius:3px;background:var(--t4);margin:8px auto 0}
-.sheet-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 0}
-.sheet-header h2{font-size:17px;font-weight:600}
-.sheet-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.doc-preview{background:#fff;color:#000;padding:40px;border-radius:8px;font-family:'Times New Roman',serif;font-size:14px;line-height:1.6;min-height:400px}
-.doc-preview h1{font-size:16px;text-align:center;margin-bottom:4px;font-family:'Times New Roman',serif}
-.doc-preview h2{font-size:14px;text-align:center;margin-bottom:16px;font-family:'Times New Roman',serif}
-.doc-preview table{width:100%;border-collapse:collapse;margin:12px 0}
-.doc-preview table th,.doc-preview table td{border:1px solid #000;padding:6px 8px;font-size:13px;text-align:left;vertical-align:top}
-.doc-preview table th{background:#f0f0f0;font-weight:700}
-.doc-preview .field-editable{border:none;border-bottom:1px solid #007aff;background:rgba(0,122,255,.05);padding:4px 6px;font-family:'Times New Roman',serif;font-size:14px;color:#000;width:100%;outline:none;min-height:20px}
-.doc-preview textarea.field-editable{min-height:60px;resize:vertical;border:1px solid #007aff;border-radius:4px;padding:8px}
-.theme-toggle{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--t4);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 0;font-size:10px;color:var(--t3);cursor:pointer;transition:color .2s}
-.bnav-item.active{color:var(--blue)}
-.bnav-item svg{width:24px;height:24px;margin-bottom:2px}
-.page-content{padding-bottom:70px}
-.print-doc{background:#fff;color:#000;font-family:'Times New Roman',serif}
-@media(min-width:900px){.container{padding:24px}.grid2{grid-template-columns:1fr 1fr}.bnav{display:none}}
-@media(max-width:899px){.grid2{grid-template-columns:1fr}}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--t4);border-radius:3px}
+
+/* Auth screen */
+.auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
+.auth-box h2{font-size:22px;margin-bottom:8px}
+.auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
+.auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:16px}
+.tab{padding:8px 14px;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--t2);border:none;transition:all .2s}
+.tab.active{background:var(--blue);color:#fff}
+
+/* Sheet */
+.sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.sheet-ov.open{display:flex}
+.sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
+@keyframes shUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sh-handle{width:36px;height:5px;border-radius:3px;background:var(--t4);margin:8px auto 0}
+.sh-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 0}
+.sh-head h2{font-size:17px;font-weight:600}
+.sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sh-body{padding:20px}
+
+/* Section tabs inside program */
+.sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.sec-tab{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s}
+.sec-tab.active{background:var(--purple);color:#fff}
+.sec-tab:hover{color:var(--text)}
+
+/* Section content */
+.sec-content{background:var(--bg3);border-radius:var(--r);padding:16px;min-height:200px}
+.sec-content h4{font-size:14px;margin-bottom:12px;color:var(--blue)}
+
+/* Read-only mode */
+.readonly-text{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6;white-space:pre-wrap;color:var(--text);min-height:60px}
+
+/* Notification */
+.toast{position:fixed;top:20px;right:20px;background:var(--green);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:600;z-index:999;transform:translateX(120%);transition:transform .3s ease}
+.toast.show{transform:translateX(0)}
+
+/* Theme toggle */
+.th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+
+@media(max-width:600px){
+  .sec-tabs{gap:3px}
+  .sec-tab{font-size:10px;padding:5px 8px}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <h1>📋 Конструктор документов ООП</h1>
-  <div class="topbar-right">
-    <button class="theme-toggle" onclick="toggleTheme()" title="Тема">🌓</button>
-    <span id="userInfo" style="font-size:12px;color:var(--t2)"></span>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ======================== AUTH SCREEN ======================== -->
+<div id="authScreen" class="auth-screen">
+  <div class="auth-box">
+    <div style="font-size:48px;margin-bottom:12px">📄</div>
+    <h2>Конструктор программ</h2>
+    <p>Войдите в систему для работы с рабочими программами техникума</p>
+    <div class="fg">
+      <label>Email</label>
+      <input class="inp" id="authEmail" type="email" placeholder="admin@test.ru">
+    </div>
+    <div class="fg">
+      <label>Пароль</label>
+      <input class="inp" id="authPass" type="password" placeholder="test">
+    </div>
+    <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
+    <div class="auth-err" id="authErr"></div>
+    <p style="margin-top:16px;font-size:11px;color:var(--t3)">
+      admin@test.ru / test — редактирование<br>
+      test@test.ru / test — только просмотр
+    </p>
   </div>
 </div>
 
-<div class="container">
-  <div class="tabs" id="mainTabs">
-    <button class="tab active" onclick="showPage('templates')">📋 Шаблоны</button>
-    <button class="tab" onclick="showPage('objects')">🎯 Объекты ООП</button>
-    <button class="tab" onclick="showPage('assignments')">📎 Назначения</button>
-    <button class="tab" onclick="showPage('myDocs')">📝 Мои документы</button>
+<!-- ======================== MAIN APP ======================== -->
+<div id="appMain" class="hidden">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <h1>📄 Конструктор программ</h1>
+    <div class="topbar-r">
+      <button class="th-tog" onclick="toggleTheme()">🌓</button>
+      <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
+      <span id="roleLabel" class="pill bl" style="font-size:10px"></span>
+      <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
+    </div>
+  </div>
+
+  <!-- PROGRAMS LIST -->
+  <div class="container" id="programsListPage">
+    <div class="flex-b mb12">
+      <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
+      <button class="btn btnP btnSm" id="btnAddProgram" onclick="openAddProgram()">+ Добавить программу</button>
+    </div>
+    <div id="programsList">
+      <p style="color:var(--t3);text-align:center;padding:60px 20px">Загрузка...</p>
+    </div>
+  </div>
+
+  <!-- PROGRAM EDITOR -->
+  <div class="container hidden" id="programEditorPage">
+    <div class="flex-b mb12">
+      <button class="btn btnSm btnS" onclick="backToList()">← Назад к списку</button>
+      <div class="gap8">
+        <button class="btn btnSm btnG" id="btnDownloadDoc" onclick="downloadAsDocx()">📥 Скачать DOCX</button>
+        <button class="btn btnSm btnS" id="btnDownloadPdf" onclick="downloadAsPdf()">📥 PDF</button>
+      </div>
+    </div>
+    <div class="card" id="programHeader" style="border-left:4px solid var(--purple)">
+      <h3 id="editorTitle"></h3>
+      <p id="editorMeta"></p>
+    </div>
+
+    <!-- Section tabs -->
+    <div class="sec-tabs" id="sectionTabs"></div>
+
+    <!-- Section content area -->
+    <div class="sec-content" id="sectionContent">
+      <p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел</p>
+    </div>
   </div>
 </div>
 
-<div class="container page-content" id="page-templates">
-  <div class="flex-between mb12">
-    <h2 style="font-size:20px;font-weight:700">Шаблоны документов</h2>
-    <button class="btnP btnSm" onclick="openCreateTemplate()">+ Создать</button>
-  </div>
-  <div id="templatesList"></div>
-</div>
-
-<div class="container page-content hidden" id="page-objects">
-  <div class="flex-between mb12">
-    <h2 style="font-size:20px;font-weight:700">Объекты ООП</h2>
-    <button class="btnP btnSm" onclick="openCreateObject()">+ Добавить</button>
-  </div>
-  <div id="objectsList"></div>
-</div>
-
-<div class="container page-content hidden" id="page-assignments">
-  <div class="flex-between mb12">
-    <h2 style="font-size:20px;font-weight:700">Назначения</h2>
-    <button class="btnP btnSm" onclick="openCreateAssignment()">+ Назначить</button>
-  </div>
-  <div id="assignmentsList"></div>
-</div>
-
-<div class="container page-content hidden" id="page-myDocs">
-  <h2 style="font-size:20px;font-weight:700;margin-bottom:12px">Мои документы</h2>
-  <div id="myDocsList"></div>
-</div>
-
-<!-- SHEET: Create/Edit Template -->
-<div class="sheet-overlay" id="sheetTemplate">
+<!-- ======================== SHEET: Add Program ======================== -->
+<div class="sheet-ov" id="sheetAddProgram">
   <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <h2 id="sheetTemplateTitle">Новый шаблон</h2>
-      <button class="sheet-close" onclick="closeSheet('sheetTemplate')">✕</button>
+    <div class="sh-handle"></div>
+    <div class="sh-head">
+      <h2>Новая рабочая программа</h2>
+      <button class="sh-close" onclick="closeSheet('sheetAddProgram')">✕</button>
     </div>
-    <div class="shBox">
-      <div class="field-group">
-        <label>Название шаблона</label>
-        <input class="inp" id="tplName" placeholder="Практическая работа №1">
+    <div class="sh-body">
+      <div class="fg">
+        <label>Код дисциплины</label>
+        <input class="inp" id="newCode" placeholder="ОУП.06">
       </div>
-      <div class="field-group">
-        <label>Привязка к объекту ООП</label>
-        <select class="inp" id="tplObjectId"></select>
+      <div class="fg">
+        <label>Название дисциплины</label>
+        <input class="inp" id="newTitle" placeholder="Иностранный язык">
       </div>
-      <div class="field-group">
-        <label>Поля документа (JSON)</label>
-        <textarea class="inp" id="tplFields" placeholder='{"student_name":{"label":"ФИО","type":"text","required":true}}'></textarea>
+      <div class="fg">
+        <label>Специальность</label>
+        <input class="inp" id="newSpecialty" placeholder="11.02.06 Техническая эксплуатация...">
       </div>
-      <div class="field-group">
-        <label>HTML-содержимое шаблона</label>
-        <textarea class="inp" id="tplHtml" style="min-height:200px" placeholder="HTML с {{field_name}} плейсхолдерами"></textarea>
+      <div class="fg">
+        <label>Квалификация выпускника</label>
+        <input class="inp" id="newQualification" placeholder="Техник">
       </div>
-      <button class="btnP" style="width:100%" onclick="saveTemplate()">💾 Сохранить шаблон</button>
-    </div>
-  </div>
-</div>
-
-<!-- SHEET: Create OOP Object -->
-<div class="sheet-overlay" id="sheetObject">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <h2>Новый объект ООП</h2>
-      <button class="sheet-close" onclick="closeSheet('sheetObject')">✕</button>
-    </div>
-    <div class="shBox">
-      <div class="field-group">
-        <label>Код предмета</label>
-        <input class="inp" id="objSubjectCode" value="ОУП.06">
+      <div class="fg">
+        <label>Форма обучения</label>
+        <input class="inp" id="newForm" placeholder="Очная" value="Очная">
       </div>
-      <div class="field-group">
-        <label>Раздел</label>
-        <input class="inp" id="objSection" placeholder="Раздел 1">
+      <div class="fg">
+        <label>Год начала подготовки</label>
+        <input class="inp" id="newYear" type="number" placeholder="2024" value="2024">
       </div>
-      <div class="field-group">
-        <label>Тема</label>
-        <input class="inp" id="objTheme" placeholder="Тема 1.1">
-      </div>
-      <div class="field-group">
-        <label>Название</label>
-        <input class="inp" id="objTitle" placeholder="Повседневная жизнь семьи">
-      </div>
-      <div class="field-group">
-        <label>Часы</label>
-        <input class="inp" type="number" id="objHours" value="6">
-      </div>
-      <div class="field-group">
-        <label>Компетенции</label>
-        <input class="inp" id="objCompetencies" placeholder="ОК01, ОК02, ОК04">
-      </div>
-      <button class="btnP" style="width:100%" onclick="saveObject()">💾 Сохранить</button>
+      <button class="btn btnP" style="width:100%" onclick="saveNewProgram()">📄 Создать программу</button>
     </div>
   </div>
 </div>
 
-<!-- SHEET: Create Assignment -->
-<div class="sheet-overlay" id="sheetAssignment">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <h2>Назначить документ</h2>
-      <button class="sheet-close" onclick="closeSheet('sheetAssignment')">✕</button>
-    </div>
-    <div class="shBox">
-      <div class="field-group">
-        <label>Шаблон</label>
-        <select class="inp" id="asgTemplate"></select>
-      </div>
-      <div class="field-group">
-        <label>Назначить (группа или UID студента)</label>
-        <input class="inp" id="asgTarget" placeholder="group:ТЭРО-125 или user:abc123">
-      </div>
-      <div class="field-group">
-        <label>Дедлайн</label>
-        <input class="inp" type="datetime-local" id="asgDeadline">
-      </div>
-      <button class="btnP" style="width:100%" onclick="saveAssignment()">📎 Назначить</button>
-    </div>
-  </div>
-</div>
-
-<!-- SHEET: Fill Document -->
-<div class="sheet-overlay" id="sheetFillDoc">
-  <div class="sheet" style="max-width:800px">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <h2 id="fillDocTitle">Заполнение документа</h2>
-      <button class="sheet-close" onclick="closeSheet('sheetFillDoc')">✕</button>
-    </div>
-    <div class="shBox">
-      <div id="docPreviewArea"></div>
-      <div class="mt16" style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btnP" onclick="saveFilledDoc()">💾 Сохранить</button>
-        <button class="btnS" onclick="downloadPDF()">📥 Скачать PDF</button>
-        <button class="btnS" onclick="downloadDOCX()">📥 Скачать DOCX</button>
-        <button class="btnP btnSm" style="background:var(--green)" onclick="submitDoc()">✅ Сдать</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BOTTOM NAV -->
-<div class="bnav">
-  <div class="bnav-item active" onclick="showPage('templates')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-    Шаблоны
-  </div>
-  <div class="bnav-item" onclick="showPage('objects')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
-    Объекты
-  </div>
-  <div class="bnav-item" onclick="showPage('assignments')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c.98 0 1.813.626 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75"/></svg>
-    Назначения
-  </div>
-  <div class="bnav-item" onclick="showPage('myDocs')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>
-    Мои документы
-  </div>
-</div>
-
-<!-- Firebase SDK -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- docx -->
 <script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
 
 <script>
-// ============================================================
-// FIREBASE CONFIG
-// ============================================================
+// ======================================================================
+// FIREBASE CONFIG — ЗАМЕНИ НА СВОИ
+// ======================================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
-  authDomain: "my-diary-e223c.firebaseapp.com",
-  databaseURL: "https://my-diary-e223c-default-rtdb.firebaseio.com",
-  projectId: "my-diary-e223c",
-  storageBucket: "my-diary-e223c.firebasestorage.app",
-  messagingSenderId: "903986378920",
-  appId: "1:903986378920:web:b6ebc6691f6d767f78aa9d"
+  apiKey: "AIzaSyBvAJOkMBqaIqkEpAO3tu2_Gcb-sEON3uQ",
+  authDomain: "diary-b9e53.firebaseapp.com",
+  databaseURL: "https://diary-b9e53-default-rtdb.firebaseio.com",
+  projectId: "diary-b9e53",
+  storageBucket: "diary-b9e53.firebasestorage.app",
+  messagingSenderId: "922889650498",
+  appId: "1:922889650498:web:1d40e14dd9c50eef3e1cf9"
 };
-
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 const db = firebase.database();
 
-// ============================================================
-// ТЕКУЩИЙ ПОЛЬЗОВАТЕЛЬ
-// ============================================================
-let currentUser = {
-  uid: 'admin1',
-  name: 'Преподаватель Петров А.В.',
-  role: 'admin',
-  group: ''
-};
-// Для студента раскомментируй:
-// currentUser = { uid: 'student1', name: 'Иванов И.И.', role: 'student', group: 'ТЭРО-125' };
+// ======================================================================
+// РАЗДЕЛЫ ПРОГРАММЫ (ключи и названия)
+// ======================================================================
+const SECTIONS = [
+  { key: 'title_page',       name: 'Титульный лист',        icon: '📋' },
+  { key: 'goals',            name: 'Цели и задачи',         icon: '🎯' },
+  { key: 'place_in_oop',     name: 'Место в структуре ООП', icon: '🏗' },
+  { key: 'results',          name: 'Результаты обучения',   icon: '📊' },
+  { key: 'structure',        name: 'Структура и содержание', icon: '📐' },
+  { key: 'lectures',         name: 'Лекционные занятия',    icon: '🎓' },
+  { key: 'practices',        name: 'Практические занятия',  icon: '🔬' },
+  { key: 'labs',             name: 'Лабораторные работы',   icon: '🧪' },
+  { key: 'coursework',       name: 'Курсовые работы',       icon: '📝' },
+  { key: 'self_study',       name: 'Самостоятельная работа', icon: '📖' },
+  { key: 'methodology',      name: 'Учебно-методическое обесп.', icon: '📚' },
+  { key: 'material_tech',    name: 'Материально-техническое обесп.', icon: '🏢' },
+  { key: 'approval',         name: 'Рассмотрение и утверждение', icon: '✅' }
+];
 
-document.getElementById('userInfo').textContent = currentUser.name + ' [' + currentUser.role + ']';
+// ======================================================================
+// STATE
+// ======================================================================
+let currentUser = null;   // firebase auth user
+let userRole = null;      // 'admin' | 'viewer'
+let currentProgramId = null;
+let currentProgramData = null;
+let currentSectionKey = null;
 
-// ============================================================
-// ТЕМА
-// ============================================================
+// ======================================================================
+// THEME
+// ======================================================================
 function toggleTheme() {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
-  localStorage.setItem('theme', html.dataset.theme);
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('theme', h.dataset.theme);
 }
 if (localStorage.getItem('theme')) document.documentElement.dataset.theme = localStorage.getItem('theme');
 
-// ============================================================
-// НАВИГАЦИЯ
-// ============================================================
-let currentPage = 'templates';
-function showPage(page) {
-  currentPage = page;
-  document.querySelectorAll('[id^="page-"]').forEach(el => el.classList.add('hidden'));
-  document.getElementById('page-' + page).classList.remove('hidden');
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
-  const tabs = document.querySelectorAll('.tab');
-  const bnavs = document.querySelectorAll('.bnav-item');
-  const map = { templates: 0, objects: 1, assignments: 2, myDocs: 3 };
-  if (tabs[map[page]]) tabs[map[page]].classList.add('active');
-  if (bnavs[map[page]]) bnavs[map[page]].classList.add('active');
-  loadPageData(page);
+// ======================================================================
+// TOAST
+// ======================================================================
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-function loadPageData(page) {
-  if (page === 'templates') loadTemplates();
-  if (page === 'objects') loadObjects();
-  if (page === 'assignments') loadAssignments();
-  if (page === 'myDocs') loadMyDocs();
-}
-
-// ============================================================
+// ======================================================================
 // SHEETS
-// ============================================================
+// ======================================================================
 function openSheet(id) { document.getElementById(id).classList.add('open'); }
 function closeSheet(id) { document.getElementById(id).classList.remove('open'); }
-
-document.querySelectorAll('.sheet-overlay').forEach(ov => {
+document.querySelectorAll('.sheet-ov').forEach(ov => {
   ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('open'); });
 });
 
-// ============================================================
-// OOP OBJECTS
-// ============================================================
-const DEFAULT_OBJECTS = [
-  { section:"Раздел 1", theme:"Тема 1.1", title:"Повседневная жизнь семьи. Внешность и характер членов семьи", hours:6, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.2", title:"Молодёжь в современном обществе. Досуг молодёжи: увлечения и интересы", hours:6, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.3", title:"Условия проживания в городской и сельской местности", hours:6, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.4", title:"Покупки: одежда, обувь и продукты питания", hours:6, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.5", title:"Здоровый образ жизни и забота о здоровье. Спорт", hours:8, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.6", title:"Туризм. Виды отдыха", hours:4, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.7", title:"Страна/страны изучаемого языка", hours:6, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 1", theme:"Тема 1.8", title:"Россия", hours:8, competencies:"ОК01, ОК02, ОК04", subjectCode:"ОУП.06" },
-  { section:"Раздел 2", theme:"Тема 2.1", title:"Современный мир профессий. Роль иностранного языка", hours:4, competencies:"ОК01, ОК02, ОК04, ОК09, ПК4.3", subjectCode:"ОУП.06" },
-  { section:"Раздел 2", theme:"Тема 2.2", title:"Промышленные технологии", hours:4, competencies:"ОК01, ОК02, ОК04, ОК09, ПК4.3", subjectCode:"ОУП.06" },
-  { section:"Раздел 2", theme:"Тема 2.3", title:"Технический прогресс. Современные средства связи", hours:4, competencies:"ОК01, ОК02, ОК04, ОК09, ПК4.3", subjectCode:"ОУП.06" },
-  { section:"Раздел 2", theme:"Тема 2.4", title:"Выдающиеся люди родной страны и стран изучаемого языка", hours:4, competencies:"ОК01, ОК02, ОК04, ОК09, ПК4.3", subjectCode:"ОУП.06" },
-  { section:"Раздел 2", theme:"Тема 2.5", title:"Профессиональные требования", hours:4, competencies:"ОК01, ОК02, ОК04, ОК09, ПК4.3", subjectCode:"ОУП.06" }
-];
+// ======================================================================
+// AUTH
+// ======================================================================
+function doLogin() {
+  const email = document.getElementById('authEmail').value.trim();
+  const pass = document.getElementById('authPass').value;
+  document.getElementById('authErr').textContent = '';
+  if (!email || !pass) { document.getElementById('authErr').textContent = 'Заполните все поля'; return; }
 
-function seedObjects() {
-  db.ref('oop_objects').once('value', snap => {
-    if (!snap.exists()) {
-      DEFAULT_OBJECTS.forEach(obj => db.ref('oop_objects').push(obj));
-    }
-  });
-}
-seedObjects();
-
-let objectsCache = {};
-function loadObjects() {
-  db.ref('oop_objects').on('value', snap => {
-    objectsCache = snap.val() || {};
-    const container = document.getElementById('objectsList');
-    if (!container) return;
-    container.innerHTML = '';
-    Object.entries(objectsCache).forEach(([id, obj]) => {
-      container.innerHTML += `
-        <div class="card">
-          <div class="flex-between">
-            <div>
-              <span class="pill bl">${obj.subjectCode || 'ОУП.06'}</span>
-              <span class="pill pr">${obj.theme}</span>
-            </div>
-            <span class="pill og">${obj.hours}ч</span>
-          </div>
-          <h3 class="mt8">${obj.title}</h3>
-          <p>${obj.section} • ${obj.competencies}</p>
-          <div class="mt8">
-            <button class="mb rd" onclick="deleteObject('${id}')">Удалить</button>
-          </div>
-        </div>`;
+  auth.signInWithEmailAndPassword(email, pass)
+    .catch(err => {
+      // Если пользователь не существует — создаём
+      if (err.code === 'auth/user-not-found') {
+        auth.createUserWithEmailAndPassword(email, pass)
+          .then(cred => {
+            // Сохраняем роль
+            const role = email === 'admin@test.ru' ? 'admin' : 'viewer';
+            return db.ref('users/' + cred.user.uid).set({
+              email: email,
+              role: role,
+              createdAt: Date.now()
+            });
+          })
+          .catch(err2 => {
+            document.getElementById('authErr').textContent = err2.message;
+          });
+      } else if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+        document.getElementById('authErr').textContent = 'Неверный пароль';
+      } else {
+        document.getElementById('authErr').textContent = err.message;
+      }
     });
-  });
 }
 
-function openCreateObject() { openSheet('sheetObject'); }
-
-function saveObject() {
-  const obj = {
-    subjectCode: document.getElementById('objSubjectCode').value,
-    section: document.getElementById('objSection').value,
-    theme: document.getElementById('objTheme').value,
-    title: document.getElementById('objTitle').value,
-    hours: parseInt(document.getElementById('objHours').value) || 2,
-    competencies: document.getElementById('objCompetencies').value
-  };
-  db.ref('oop_objects').push(obj);
-  closeSheet('sheetObject');
+function doLogout() {
+  auth.signOut();
 }
 
-function deleteObject(id) {
-  if (confirm('Удалить объект ООП?')) db.ref('oop_objects/' + id).remove();
+// Auth state listener
+auth.onAuthStateChanged(user => {
+  if (user) {
+    currentUser = user;
+    // Get role from DB
+    db.ref('users/' + user.uid).once('value', snap => {
+      const data = snap.val();
+      if (!data) {
+        // First login — set role based on email
+        const role = user.email === 'admin@test.ru' ? 'admin' : 'viewer';
+        db.ref('users/' + user.uid).set({ email: user.email, role: role, createdAt: Date.now() });
+        userRole = role;
+      } else {
+        userRole = data.role || 'viewer';
+      }
+      showApp();
+    });
+  } else {
+    currentUser = null;
+    userRole = null;
+    document.getElementById('authScreen').classList.remove('hidden');
+    document.getElementById('appMain').classList.add('hidden');
+  }
+});
+
+function showApp() {
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('appMain').classList.remove('hidden');
+  document.getElementById('userLabel').textContent = currentUser.email;
+  document.getElementById('roleLabel').textContent = userRole === 'admin' ? '🔧 Редактор' : '👁 Просмотр';
+  document.getElementById('roleLabel').className = 'pill ' + (userRole === 'admin' ? 'gr' : 'bl');
+
+  // Скрыть кнопку добавления для viewer
+  document.getElementById('btnAddProgram').classList.toggle('hidden', userRole !== 'admin');
+
+  loadPrograms();
+  showProgramsList();
 }
 
-// ============================================================
-// TEMPLATES
-// ============================================================
-const DEFAULT_TEMPLATE_HTML = `
-<div style="text-align:center;margin-bottom:20px">
-  <p style="font-size:12px">Приложение 9.3.6<br>ОПОП-ППССЗ по специальности 11.02.06</p>
-  <h1 style="font-size:16px;margin:16px 0 4px">ПРАКТИЧЕСКАЯ РАБОТА</h1>
-  <h2 style="font-size:14px;font-weight:normal">по учебному предмету ОУП.06 Иностранный язык</h2>
-</div>
-<table>
-  <tr><td style="width:35%"><strong>ФИО студента:</strong></td><td>{{student_name}}</td></tr>
-  <tr><td><strong>Группа:</strong></td><td>{{group}}</td></tr>
-  <tr><td><strong>Дата выполнения:</strong></td><td>{{date}}</td></tr>
-  <tr><td><strong>Тема:</strong></td><td>{{topic}}</td></tr>
-</table>
-<h3 style="margin:16px 0 8px;font-size:14px">Цель работы</h3>
-<p style="font-size:13px">Закрепить лексический и грамматический материал по теме, развить навыки говорения, чтения и письменной речи.</p>
-<h3 style="margin:16px 0 8px;font-size:14px">Задание 1. Лексико-грамматическое упражнение</h3>
-<div>{{task1}}</div>
-<h3 style="margin:16px 0 8px;font-size:14px">Задание 2. Работа с текстом</h3>
-<div>{{task2}}</div>
-<h3 style="margin:16px 0 8px;font-size:14px">Задание 3. Письменное высказывание</h3>
-<div>{{task3}}</div>
-<h3 style="margin:16px 0 8px;font-size:14px">Вывод</h3>
-<div>{{conclusion}}</div>
-<table style="margin-top:24px">
-  <tr>
-    <td style="width:50%"><strong>Оценка:</strong> {{grade}}</td>
-    <td><strong>Подпись преподавателя:</strong> ___________</td>
-  </tr>
-</table>`;
+function isAdmin() { return userRole === 'admin'; }
 
-const DEFAULT_FIELDS = {
-  student_name: { label: "ФИО студента", type: "text", required: true },
-  group: { label: "Группа", type: "text", required: true },
-  date: { label: "Дата выполнения", type: "date", required: true },
-  topic: { label: "Тема работы", type: "text", required: false },
-  task1: { label: "Задание 1. Лексико-грамматическое упражнение", type: "textarea", required: true },
-  task2: { label: "Задание 2. Работа с текстом", type: "textarea", required: true },
-  task3: { label: "Задание 3. Письменное высказывание", type: "textarea", required: true },
-  conclusion: { label: "Вывод", type: "textarea", required: true },
-  grade: { label: "Оценка", type: "text", required: false }
-};
+// ======================================================================
+// PROGRAMS LIST
+// ======================================================================
+function showProgramsList() {
+  document.getElementById('programsListPage').classList.remove('hidden');
+  document.getElementById('programEditorPage').classList.add('hidden');
+  currentProgramId = null;
+}
 
-let templatesCache = {};
-function loadTemplates() {
-  db.ref('templates').on('value', snap => {
-    templatesCache = snap.val() || {};
-    const container = document.getElementById('templatesList');
-    container.innerHTML = '';
-    if (Object.keys(templatesCache).length === 0) {
-      container.innerHTML = '<p style="color:var(--t3);text-align:center;padding:40px">Нет шаблонов. Нажмите «+ Создать» для добавления.</p>';
+function backToList() {
+  showProgramsList();
+}
+
+let programsListener = null;
+function loadPrograms() {
+  if (programsListener) db.ref('programs').off('value', programsListener);
+  programsListener = db.ref('programs').on('value', snap => {
+    const programs = snap.val() || {};
+    const container = document.getElementById('programsList');
+
+    if (Object.keys(programs).length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center;padding:60px 20px">
+          <div style="font-size:64px;margin-bottom:16px">📄</div>
+          <p style="color:var(--t3);font-size:15px">Нет рабочих программ</p>
+          ${isAdmin() ? '<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Добавить программу» чтобы создать первую</p>' : '<p style="color:var(--t3);font-size:13px;margin-top:8px">Администратор ещё не добавил программы</p>'}
+        </div>`;
       return;
     }
-    Object.entries(templatesCache).forEach(([id, tpl]) => {
-      const objName = objectsCache[tpl.objectId]?.title || 'Не привязан';
-      const fieldCount = tpl.fields ? Object.keys(tpl.fields).length : 0;
-      container.innerHTML += `
-        <div class="card">
-          <div class="flex-between">
-            <h3>${tpl.title}</h3>
-            <span class="pill gr">${fieldCount} полей</span>
-          </div>
-          <p class="mt8">📎 ${objName}</p>
-          <div class="mt8" style="display:flex;gap:6px;flex-wrap:wrap">
-            <button class="mb bl" onclick="previewTemplate('${id}')">👁 Просмотр</button>
-            <button class="mb og" onclick="editTemplate('${id}')">✏ Редакт.</button>
-            <button class="mb rd" onclick="deleteTemplate('${id}')">🗑 Удалить</button>
-          </div>
-        </div>`;
-    });
-  });
-}
 
-function openCreateTemplate() {
-  document.getElementById('sheetTemplateTitle').textContent = 'Новый шаблон';
-  document.getElementById('tplName').value = 'Практическая работа №1';
-  document.getElementById('tplFields').value = JSON.stringify(DEFAULT_FIELDS, null, 2);
-  document.getElementById('tplHtml').value = DEFAULT_TEMPLATE_HTML;
-  const sel = document.getElementById('tplObjectId');
-  sel.innerHTML = '<option value="">— Не привязан —</option>';
-  Object.entries(objectsCache).forEach(([id, obj]) => {
-    sel.innerHTML += `<option value="${id}">${obj.theme}: ${obj.title}</option>`;
-  });
-  currentEditTemplateId = null;
-  openSheet('sheetTemplate');
-}
-
-let currentEditTemplateId = null;
-function editTemplate(id) {
-  const tpl = templatesCache[id];
-  if (!tpl) return;
-  document.getElementById('sheetTemplateTitle').textContent = 'Редактирование';
-  document.getElementById('tplName').value = tpl.title;
-  document.getElementById('tplFields').value = JSON.stringify(tpl.fields || {}, null, 2);
-  document.getElementById('tplHtml').value = tpl.htmlContent || '';
-  const sel = document.getElementById('tplObjectId');
-  sel.innerHTML = '<option value="">— Не привязан —</option>';
-  Object.entries(objectsCache).forEach(([oid, obj]) => {
-    sel.innerHTML += `<option value="${oid}" ${oid === tpl.objectId ? 'selected' : ''}>${obj.theme}: ${obj.title}</option>`;
-  });
-  currentEditTemplateId = id;
-  openSheet('sheetTemplate');
-}
-
-function saveTemplate() {
-  let fields;
-  try {
-    fields = JSON.parse(document.getElementById('tplFields').value);
-  } catch (e) {
-    alert('Ошибка JSON в полях: ' + e.message);
-    return;
-  }
-  const data = {
-    title: document.getElementById('tplName').value,
-    objectId: document.getElementById('tplObjectId').value,
-    htmlContent: document.getElementById('tplHtml').value,
-    fields: fields,
-    createdBy: currentUser.uid,
-    createdAt: Date.now()
-  };
-  if (currentEditTemplateId) {
-    db.ref('templates/' + currentEditTemplateId).update(data);
-  } else {
-    db.ref('templates').push(data);
-  }
-  closeSheet('sheetTemplate');
-}
-
-function deleteTemplate(id) {
-  if (confirm('Удалить шаблон?')) db.ref('templates/' + id).remove();
-}
-
-function previewTemplate(id) {
-  const tpl = templatesCache[id];
-  if (!tpl) return;
-  currentFillDocId = null;
-  currentFillTemplateId = id;
-  currentFillValues = {};
-  renderDocPreview(tpl, {});
-  document.getElementById('fillDocTitle').textContent = tpl.title + ' — Просмотр';
-  openSheet('sheetFillDoc');
-}
-
-// ============================================================
-// ASSIGNMENTS
-// ============================================================
-let assignmentsCache = {};
-function loadAssignments() {
-  db.ref('assignments').on('value', snap => {
-    assignmentsCache = snap.val() || {};
-    const container = document.getElementById('assignmentsList');
     container.innerHTML = '';
-    Object.entries(assignmentsCache).forEach(([id, asg]) => {
-      const tplName = templatesCache[asg.templateId]?.title || asg.templateId;
-      const deadline = asg.deadline ? new Date(asg.deadline).toLocaleString('ru') : '—';
+    Object.entries(programs).forEach(([id, prog]) => {
+      const sectionsCount = prog.sections ? Object.keys(prog.sections).filter(k => prog.sections[k] && prog.sections[k].trim()).length : 0;
+      const totalSections = SECTIONS.length;
+      const pct = Math.round((sectionsCount / totalSections) * 100);
+      const dateStr = prog.createdAt ? new Date(prog.createdAt).toLocaleDateString('ru') : '';
+      const updStr = prog.updatedAt ? new Date(prog.updatedAt).toLocaleDateString('ru') : '';
+
       container.innerHTML += `
-        <div class="card">
-          <div class="flex-between">
-            <h3>📋 ${tplName}</h3>
-            <span class="pill ${asg.status === 'active' ? 'gr' : 'rd'}">${asg.status}</span>
+        <div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram('${id}')">
+          <div class="flex-b">
+            <div>
+              <span class="pill pr">${prog.code || ''}</span>
+              <span class="pill bl">${prog.year || ''}</span>
+            </div>
+            <span class="pill ${pct >= 80 ? 'gr' : pct >= 40 ? 'og' : 'rd'}">${sectionsCount}/${totalSections} разделов</span>
           </div>
-          <p class="mt8">👤 ${asg.assignedTo} • ⏰ ${deadline}</p>
-          <div class="mt8">
-            <button class="mb rd" onclick="deleteAssignment('${id}')">Удалить</button>
-          </div>
+          <h3 class="mt8">${prog.title || 'Без названия'}</h3>
+          <p>${prog.specialty || ''}</p>
+          <p class="mt8" style="font-size:11px;color:var(--t3)">
+            Создано: ${dateStr}${updStr ? ' • Обновлено: ' + updStr : ''}
+          </p>
+          ${isAdmin() ? `<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">🗑 Удалить</button></div>` : ''}
         </div>`;
     });
   });
 }
 
-function openCreateAssignment() {
-  const sel = document.getElementById('asgTemplate');
-  sel.innerHTML = '';
-  Object.entries(templatesCache).forEach(([id, tpl]) => {
-    sel.innerHTML += `<option value="${id}">${tpl.title}</option>`;
-  });
-  openSheet('sheetAssignment');
+// ======================================================================
+// ADD PROGRAM
+// ======================================================================
+function openAddProgram() {
+  if (!isAdmin()) return;
+  document.getElementById('newCode').value = '';
+  document.getElementById('newTitle').value = '';
+  document.getElementById('newSpecialty').value = '';
+  document.getElementById('newQualification').value = '';
+  document.getElementById('newForm').value = 'Очная';
+  document.getElementById('newYear').value = new Date().getFullYear();
+  openSheet('sheetAddProgram');
 }
 
-function saveAssignment() {
+function saveNewProgram() {
+  if (!isAdmin()) return;
+  const code = document.getElementById('newCode').value.trim();
+  const title = document.getElementById('newTitle').value.trim();
+  if (!code || !title) { alert('Заполните код и название'); return; }
+
   const data = {
-    templateId: document.getElementById('asgTemplate').value,
-    assignedTo: document.getElementById('asgTarget').value,
-    assignedBy: currentUser.uid,
-    assignedAt: Date.now(),
-    deadline: new Date(document.getElementById('asgDeadline').value).getTime() || null,
-    status: 'active'
+    code: code,
+    title: title,
+    specialty: document.getElementById('newSpecialty').value.trim(),
+    qualification: document.getElementById('newQualification').value.trim(),
+    form: document.getElementById('newForm').value.trim(),
+    year: document.getElementById('newYear').value.trim(),
+    createdBy: currentUser.uid,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    sections: {}
   };
-  db.ref('assignments').push(data);
-  closeSheet('sheetAssignment');
+
+  // Инициализируем пустые разделы
+  SECTIONS.forEach(s => { data.sections[s.key] = ''; });
+
+  db.ref('programs').push(data);
+  closeSheet('sheetAddProgram');
+  toast('✅ Программа создана');
 }
 
-function deleteAssignment(id) {
-  if (confirm('Удалить назначение?')) db.ref('assignments/' + id).remove();
+function deleteProgram(id) {
+  if (!isAdmin()) return;
+  if (confirm('Удалить эту рабочую программу? Это действие необратимо.')) {
+    db.ref('programs/' + id).remove();
+    toast('🗑 Программа удалена');
+  }
 }
 
-// ============================================================
-// MY DOCS
-// ============================================================
-let currentFillDocId = null;
-let currentFillTemplateId = null;
-let currentFillValues = {};
-let currentAssignmentId = null;
+// ======================================================================
+// OPEN PROGRAM (editor / viewer)
+// ======================================================================
+function openProgram(id) {
+  currentProgramId = id;
+  currentSectionKey = null;
 
-function loadMyDocs() {
-  const container = document.getElementById('myDocsList');
-  container.innerHTML = '<p style="color:var(--t3);text-align:center;padding:20px">Загрузка...</p>';
-  db.ref('assignments').once('value', asnap => {
-    const assignments = asnap.val() || {};
-    const myAssignments = Object.entries(assignments).filter(([_, a]) => {
-      if (a.assignedTo === 'user:' + currentUser.uid) return true;
-      if (a.assignedTo === 'group:' + currentUser.group) return true;
-      if (currentUser.role === 'admin' || currentUser.role === 'teacher') return true;
-      return false;
-    });
-    db.ref('filled_documents').orderByChild('studentUid').equalTo(currentUser.uid).once('value', dsnap => {
-      const docs = dsnap.val() || {};
-      container.innerHTML = '';
-      if (myAssignments.length === 0) {
-        container.innerHTML = '<p style="color:var(--t3);text-align:center;padding:40px">Нет назначенных документов</p>';
-        return;
-      }
-      myAssignments.forEach(([asgId, asg]) => {
-        const tpl = templatesCache[asg.templateId];
-        if (!tpl) return;
-        const existingDoc = Object.entries(docs).find(([_, d]) => d.assignmentId === asgId);
-        const statusPill = existingDoc
-          ? `<span class="pill ${existingDoc[1].status === 'submitted' ? 'gr' : existingDoc[1].status === 'graded' ? 'pr' : 'og'}">${existingDoc[1].status === 'submitted' ? 'Сдано' : existingDoc[1].status === 'graded' ? 'Оценено: ' + existingDoc[1].grade : 'Черновик'}</span>`
-          : '<span class="pill og">Не начато</span>';
-        const deadline = asg.deadline ? new Date(asg.deadline).toLocaleDateString('ru') : '';
-        container.innerHTML += `
-          <div class="card">
-            <div class="flex-between">
-              <h3>${tpl.title}</h3>
-              ${statusPill}
-            </div>
-            <p class="mt8">${deadline ? '⏰ Дедлайн: ' + deadline : ''}</p>
-            <div class="mt8">
-              <button class="btnP btnSm" onclick="openFillDoc('${asgId}','${existingDoc ? existingDoc[0] : ''}')">
-                ${existingDoc ? '✏ Продолжить' : '📝 Начать'}
-              </button>
-            </div>
-          </div>`;
-      });
-    });
+  document.getElementById('programsListPage').classList.add('hidden');
+  document.getElementById('programEditorPage').classList.remove('hidden');
+
+  // Load program data
+  db.ref('programs/' + id).on('value', snap => {
+    currentProgramData = snap.val();
+    if (!currentProgramData) { backToList(); return; }
+    renderEditor();
   });
 }
 
-function openFillDoc(assignmentId, docId) {
-  currentAssignmentId = assignmentId;
-  const asg = assignmentsCache[assignmentId];
-  if (!asg) return;
-  const tpl = templatesCache[asg.templateId];
-  if (!tpl) return;
-  currentFillTemplateId = asg.templateId;
-  if (docId) {
-    currentFillDocId = docId;
-    db.ref('filled_documents/' + docId + '/fieldValues').once('value', snap => {
-      currentFillValues = snap.val() || {};
-      renderDocPreview(tpl, currentFillValues);
-      document.getElementById('fillDocTitle').textContent = tpl.title;
-      openSheet('sheetFillDoc');
-    });
+function renderEditor() {
+  const prog = currentProgramData;
+  document.getElementById('editorTitle').textContent = prog.code + ' — ' + prog.title;
+  document.getElementById('editorMeta').textContent =
+    `${prog.specialty || ''} • ${prog.qualification || ''} • ${prog.form || ''} • ${prog.year || ''}`;
+
+  // Render section tabs
+  const tabsEl = document.getElementById('sectionTabs');
+  tabsEl.innerHTML = '';
+  SECTIONS.forEach(s => {
+    const hasContent = prog.sections && prog.sections[s.key] && prog.sections[s.key].trim();
+    const isActive = currentSectionKey === s.key;
+    tabsEl.innerHTML += `
+      <button class="sec-tab ${isActive ? 'active' : ''}" onclick="openSection('${s.key}')" title="${s.name}">
+        ${s.icon} ${s.name}
+        ${hasContent ? ' ✓' : ''}
+      </button>`;
+  });
+
+  // If section is selected, render it
+  if (currentSectionKey) {
+    renderSection(currentSectionKey);
+  }
+}
+
+function openSection(key) {
+  currentSectionKey = key;
+  // Update tab styles
+  document.querySelectorAll('.sec-tab').forEach(t => t.classList.remove('active'));
+  event.target.closest('.sec-tab').classList.add('active');
+  renderSection(key);
+}
+
+function renderSection(key) {
+  const sec = SECTIONS.find(s => s.key === key);
+  if (!sec) return;
+  const content = (currentProgramData.sections && currentProgramData.sections[key]) || '';
+  const container = document.getElementById('sectionContent');
+
+  if (isAdmin()) {
+    // ADMIN: editable
+    container.innerHTML = `
+      <h4>${sec.icon} ${sec.name}</h4>
+      <div class="fg">
+        <label>Содержимое раздела (форматированный текст)</label>
+        <textarea class="inp" id="sectionTextarea"
+                  style="min-height:300px;font-size:14px;line-height:1.7"
+                  placeholder="Введите содержимое раздела «${sec.name}»..."
+                  oninput="markUnsaved()">${escapeHtml(content)}</textarea>
+      </div>
+      <div class="gap8">
+        <button class="btn btnP" onclick="saveSection()">💾 Сохранить раздел</button>
+        <button class="btn btnSm btnS" onclick="clearSection()">🗑 Очистить</button>
+      </div>
+      <div id="saveStatus" class="mt8" style="font-size:12px;color:var(--t3)">
+        ${content ? '✅ Сохранено' : '📝 Раздел пуст — заполните и сохраните'}
+      </div>`;
   } else {
-    currentFillDocId = null;
-    currentFillValues = {};
-    if (currentUser.role === 'student') {
-      currentFillValues.student_name = currentUser.name;
-      currentFillValues.group = currentUser.group;
-    }
-    currentFillValues.date = new Date().toISOString().split('T')[0];
-    if (tpl.objectId && objectsCache[tpl.objectId]) {
-      currentFillValues.topic = objectsCache[tpl.objectId].theme + ': ' + objectsCache[tpl.objectId].title;
-    }
-    renderDocPreview(tpl, currentFillValues);
-    document.getElementById('fillDocTitle').textContent = tpl.title;
-    openSheet('sheetFillDoc');
+    // VIEWER: read-only
+    container.innerHTML = `
+      <h4>${sec.icon} ${sec.name}</h4>
+      ${content
+        ? `<div class="readonly-text">${escapeHtml(content)}</div>`
+        : `<p style="color:var(--t3);padding:20px;text-align:center">Раздел не заполнен</p>`
+      }`;
   }
 }
 
-function renderDocPreview(tpl, values) {
-  let html = tpl.htmlContent || '';
-  const fields = tpl.fields || {};
-  Object.entries(fields).forEach(([key, field]) => {
-    const val = values[key] || '';
-    let inputHtml;
-    if (field.type === 'textarea') {
-      inputHtml = `<textarea class="field-editable" data-field="${key}" placeholder="${field.label}">${val}</textarea>`;
-    } else if (field.type === 'date') {
-      inputHtml = `<input type="date" class="field-editable" data-field="${key}" value="${val}">`;
-    } else {
-      inputHtml = `<input type="text" class="field-editable" data-field="${key}" value="${val}" placeholder="${field.label}">`;
-    }
-    html = html.replace(new RegExp('\\{\\{' + key + '\\}\\}', 'g'), inputHtml);
-  });
-  document.getElementById('docPreviewArea').innerHTML = `<div class="doc-preview" id="docPrintable">${html}</div>`;
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
-function collectFieldValues() {
-  const vals = {};
-  document.querySelectorAll('.field-editable').forEach(el => {
-    vals[el.dataset.field] = el.value || el.textContent;
-  });
-  return vals;
+function markUnsaved() {
+  const st = document.getElementById('saveStatus');
+  if (st) st.innerHTML = '<span style="color:var(--orange)">⚠️ Есть несохранённые изменения</span>';
 }
 
-function saveFilledDoc() {
-  const vals = collectFieldValues();
-  const data = {
-    templateId: currentFillTemplateId,
-    assignmentId: currentAssignmentId,
-    studentUid: currentUser.uid,
-    status: 'draft',
-    lastSavedAt: Date.now(),
-    fieldValues: vals
-  };
-  if (currentFillDocId) {
-    db.ref('filled_documents/' + currentFillDocId).update(data);
-    alert('✅ Сохранено!');
-  } else {
-    const ref = db.ref('filled_documents').push(data);
-    currentFillDocId = ref.key;
-    alert('✅ Документ создан и сохранён!');
+function saveSection() {
+  if (!isAdmin() || !currentProgramId || !currentSectionKey) return;
+  const text = document.getElementById('sectionTextarea').value;
+  db.ref('programs/' + currentProgramId + '/sections/' + currentSectionKey).set(text);
+  db.ref('programs/' + currentProgramId + '/updatedAt').set(Date.now());
+  const st = document.getElementById('saveStatus');
+  if (st) st.innerHTML = '<span style="color:var(--green)">✅ Сохранено</span>';
+  toast('✅ Раздел сохранён');
+}
+
+function clearSection() {
+  if (!isAdmin()) return;
+  if (confirm('Очистить содержимое этого раздела?')) {
+    document.getElementById('sectionTextarea').value = '';
+    saveSection();
   }
 }
 
-function submitDoc() {
-  if (!currentFillDocId) saveFilledDoc();
-  if (currentFillDocId) {
-    db.ref('filled_documents/' + currentFillDocId).update({ status: 'submitted' });
-    alert('✅ Документ сдан преподавателю!');
-    closeSheet('sheetFillDoc');
-    if (currentPage === 'myDocs') loadMyDocs();
-  }
-}
+// ======================================================================
+// DOWNLOAD DOCX
+// ======================================================================
+function downloadAsDocx() {
+  if (!currentProgramData) return;
+  const prog = currentProgramData;
+  const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, PageBreak } = docx;
 
-// ============================================================
-// PDF
-// ============================================================
-function downloadPDF() {
-  const printArea = buildPrintHtml();
-  const opt = {
-    margin: [10, 10, 10, 10],
-    filename: (templatesCache[currentFillTemplateId]?.title || 'document') + '.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-  html2pdf().set(opt).from(printArea).save();
-}
-
-function buildPrintHtml() {
-  const tpl = templatesCache[currentFillTemplateId];
-  if (!tpl) return '<p>Шаблон не найден</p>';
-  let html = tpl.htmlContent || '';
-  const vals = collectFieldValues();
-  const fields = tpl.fields || {};
-  Object.entries(fields).forEach(([key, field]) => {
-    const val = vals[key] || '______';
-    const display = field.type === 'date' && val && val !== '______'
-      ? new Date(val).toLocaleDateString('ru')
-      : val;
-    html = html.replace(new RegExp('\\{\\{' + key + '\\}\\}', 'g'), `<span style="border-bottom:1px solid #000;padding:0 4px">${display}</span>`);
-  });
-  const wrapper = document.createElement('div');
-  wrapper.className = 'print-doc';
-  wrapper.style.cssText = 'font-family:Times New Roman,serif;font-size:14px;line-height:1.6;color:#000;padding:20px';
-  wrapper.innerHTML = html;
-  return wrapper;
-}
-
-// ============================================================
-// DOCX
-// ============================================================
-function downloadDOCX() {
-  const vals = collectFieldValues();
-  const tpl = templatesCache[currentFillTemplateId];
-  if (!tpl) return;
-  const fields = tpl.fields || {};
-  const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType } = docx;
   const children = [];
-  children.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [
-    new TextRun({ text: 'Приложение 9.3.6 ОПОП-ППССЗ по специальности 11.02.06', size: 20 })
-  ]}));
+
+  // Title page
   children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [
-    new TextRun({ text: 'ПРАКТИЧЕСКАЯ РАБОТА', bold: true, size: 28 })
+    new TextRun({ text: 'РАБОЧАЯ ПРОГРАММА', bold: true, size: 32 })
   ]}));
-  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 400 }, children: [
-    new TextRun({ text: 'по учебному предмету ОУП.06 Иностранный язык', size: 24 })
+  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 100 }, children: [
+    new TextRun({ text: `учебной дисциплины ${prog.code} ${prog.title}`, size: 28 })
   ]}));
-  const infoRows = [
-    ['ФИО студента:', vals.student_name || ''],
-    ['Группа:', vals.group || ''],
-    ['Дата:', vals.date ? new Date(vals.date).toLocaleDateString('ru') : ''],
-    ['Тема:', vals.topic || '']
-  ];
-  const cellBorder = { style: BorderStyle.SINGLE, size: 1, color: '000000' };
-  const borders = { top: cellBorder, bottom: cellBorder, left: cellBorder, right: cellBorder };
-  children.push(new Table({
-    width: { size: 100, type: WidthType.PERCENTAGE },
-    rows: infoRows.map(([label, value]) => new TableRow({
-      children: [
-        new TableCell({ borders, width: { size: 35, type: WidthType.PERCENTAGE }, children: [
-          new Paragraph({ children: [new TextRun({ text: label, bold: true, size: 22 })] })
-        ]}),
-        new TableCell({ borders, children: [
-          new Paragraph({ children: [new TextRun({ text: value, size: 22 })] })
-        ]})
-      ]
-    }))
-  }));
-  const taskFields = ['task1', 'task2', 'task3', 'conclusion'];
-  taskFields.forEach(key => {
-    if (fields[key]) {
-      children.push(new Paragraph({ spacing: { before: 300 }, children: [
-        new TextRun({ text: fields[key].label, bold: true, size: 24 })
-      ]}));
-      children.push(new Paragraph({ spacing: { after: 200 }, children: [
-        new TextRun({ text: vals[key] || '', size: 22 })
+  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 100 }, children: [
+    new TextRun({ text: `Специальность: ${prog.specialty || ''}`, size: 22 })
+  ]}));
+  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 100 }, children: [
+    new TextRun({ text: `Квалификация: ${prog.qualification || ''} • Форма обучения: ${prog.form || ''} • Год: ${prog.year || ''}`, size: 20 })
+  ]}));
+  children.push(new Paragraph({ children: [new PageBreak()] }));
+
+  // Each section
+  SECTIONS.forEach(sec => {
+    const text = (prog.sections && prog.sections[sec.key]) || '';
+    children.push(new Paragraph({
+      heading: HeadingLevel.HEADING_2,
+      spacing: { before: 400, after: 200 },
+      children: [new TextRun({ text: sec.icon + ' ' + sec.name, bold: true, size: 26 })]
+    }));
+    if (text) {
+      text.split('\n').forEach(line => {
+        children.push(new Paragraph({ spacing: { after: 80 }, children: [
+          new TextRun({ text: line, size: 22 })
+        ]}));
+      });
+    } else {
+      children.push(new Paragraph({ children: [
+        new TextRun({ text: '(Раздел не заполнен)', italics: true, size: 22, color: '999999' })
       ]}));
     }
   });
-  children.push(new Paragraph({ spacing: { before: 400 }, children: [
-    new TextRun({ text: 'Оценка: ' + (vals.grade || '___'), size: 22 }),
-    new TextRun({ text: '    Подпись преподавателя: ___________', size: 22 })
-  ]}));
+
   const doc = new Document({ sections: [{ children }] });
+
   Packer.toBlob(doc).then(blob => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = (tpl.title || 'document') + '.docx';
+    a.download = `РП_${prog.code}_${prog.title}.docx`;
     a.click();
     URL.revokeObjectURL(url);
   });
+  toast('📥 DOCX скачивается...');
 }
 
-// ============================================================
+// ======================================================================
+// DOWNLOAD PDF
+// ======================================================================
+function downloadAsPdf() {
+  if (!currentProgramData) return;
+  const prog = currentProgramData;
+
+  // Build HTML for PDF
+  let html = `
+    <div style="font-family:'Times New Roman',serif;color:#000;padding:20px">
+      <h1 style="text-align:center;font-size:18px;margin-bottom:4px">РАБОЧАЯ ПРОГРАММА</h1>
+      <h2 style="text-align:center;font-size:16px;font-weight:normal;margin-bottom:8px">
+        учебной дисциплины ${prog.code} ${prog.title}
+      </h2>
+      <p style="text-align:center;font-size:13px;color:#666;margin-bottom:24px">
+        ${prog.specialty || ''} • ${prog.qualification || ''} • ${prog.form || ''} • ${prog.year || ''}
+      </p>
+      <hr style="margin-bottom:24px">`;
+
+  SECTIONS.forEach(sec => {
+    const text = (prog.sections && prog.sections[sec.key]) || '';
+    html += `<h3 style="font-size:14px;margin:20px 0 8px;color:#333">${sec.icon} ${sec.name}</h3>`;
+    if (text) {
+      html += `<div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${escapeHtml(text)}</div>`;
+    } else {
+      html += `<p style="color:#999;font-style:italic;font-size:12px">(Раздел не заполнен)</p>`;
+    }
+  });
+
+  html += '</div>';
+
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = html;
+
+  html2pdf().set({
+    margin: [15, 15, 15, 15],
+    filename: `РП_${prog.code}_${prog.title}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(wrapper).save();
+
+  toast('📥 PDF скачивается...');
+}
+
+// ======================================================================
 // INIT
-// ============================================================
-db.ref('oop_objects').once('value', snap => {
-  objectsCache = snap.val() || {};
-  loadTemplates();
-  loadAssignments();
-});
+// ======================================================================
+// Check if users need seeding (first run)
+// The auth listener handles everything
+
 </script>
 </body>
 </html>
