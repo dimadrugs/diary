@@ -11,8 +11,7 @@
 body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
 .ae{height:1.1em;width:1.1em;vertical-align:-0.15em;display:inline-block;pointer-events:none}
 
-/* Notification bar */
-.notif{position:fixed;top:0;left:0;right:0;padding:10px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s ease}
+.notif{position:fixed;top:0;left:0;right:0;padding:12px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s ease}
 .notif.show{transform:translateY(0)}
 .notif.success{background:var(--green);color:#fff}
 .notif.error{background:var(--red);color:#fff}
@@ -35,7 +34,6 @@ body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;ba
 .btnSm{padding:6px 14px;font-size:12px;border-radius:var(--rs)}
 .inp{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .inp:focus{border-color:var(--blue)}
-textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
 label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight:500}
 .fg{margin-bottom:16px}
 .pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
@@ -50,36 +48,35 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
 
-/* Auth */
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
 .auth-box h2{font-size:22px;margin-bottom:8px}
 .auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
 .auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
 
-/* Upload zone */
 .upload-zone{border:2px dashed var(--t4);border-radius:var(--r);padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
 .upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(10,132,255,.05)}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.upload-zone p{color:var(--t3);font-size:14px;margin-top:8px}
 
-/* Document viewer/editor */
-.doc-frame{background:#fff;color:#000;border-radius:8px;padding:30px 40px;min-height:500px;font-family:'Times New Roman',serif;font-size:14pt;line-height:1.5;overflow-x:auto;box-shadow:0 2px 20px rgba(0,0,0,.3)}
-.doc-frame table{border-collapse:collapse;width:100%}
-.doc-frame table td,.doc-frame table th{border:1px solid #000;padding:4px 8px;vertical-align:top}
-.doc-frame h1,.doc-frame h2,.doc-frame h3,.doc-frame h4{font-family:'Times New Roman',serif}
-.doc-frame p{margin:0 0 6px;font-family:'Times New Roman',serif}
-.doc-frame [contenteditable=true]{outline:none;transition:background .2s}
-.doc-frame [contenteditable=true]:focus{background:rgba(0,122,255,.08);border-radius:2px}
-.doc-frame [contenteditable=true]:hover{background:rgba(0,122,255,.04)}
+/* Document preview container — docx-preview renders here */
+.doc-wrapper{background:#e8e8e8;border-radius:8px;padding:20px;min-height:500px}
+[data-theme="dark"] .doc-wrapper{background:#333}
 
-/* Edit toolbar */
-.edit-bar{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;position:sticky;top:56px;z-index:50}
-.edit-bar .sep{width:1px;height:20px;background:var(--t4);margin:0 4px}
-.ebar-btn{background:var(--bg3);border:none;color:var(--text);padding:6px 10px;border-radius:6px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:500}
-.ebar-btn:hover{background:var(--blue);color:#fff}
-.ebar-btn:active{transform:scale(.95)}
-.ebar-btn.active{background:var(--blue);color:#fff}
+/* docx-preview output styling fixes */
+.doc-wrapper .docx-wrapper{background:#fff!important;padding:20px 40px!important;margin:0 auto!important;max-width:210mm;box-shadow:0 2px 20px rgba(0,0,0,.2);border-radius:4px}
+.doc-wrapper .docx-wrapper section.docx{padding:40px 50px!important;margin-bottom:20px!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.1)!important;min-height:297mm}
+
+/* Floating save bar */
+.float-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 12px;display:flex;gap:8px;align-items:center;z-index:150;backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .3s,transform .3s}
+.float-bar.hide{opacity:0;transform:translateX(-50%) translateY(20px);pointer-events:none}
+.float-status{font-size:12px;color:var(--t3);padding:0 8px}
+
+/* Search/Replace panel */
+.replace-panel{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.replace-panel h4{font-size:14px;margin-bottom:12px;color:var(--blue)}
+.replace-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.replace-row .inp{flex:1}
+.replace-count{font-size:12px;color:var(--t3);margin-top:4px}
 
 /* Sheet */
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
@@ -92,7 +89,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sh-body{padding:20px}
 
-/* Loading overlay */
 .loading-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-ov.show{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--t4);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
@@ -102,24 +98,17 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 
 @media(max-width:768px){
-  .doc-frame{padding:15px 12px;font-size:12pt}
-  .topbar h1{font-size:14px}
-  .edit-bar{top:48px}
-  .container{padding:10px}
-}
-@media print{
-  .topbar,.edit-bar,.bnav,.btn,.th-tog,.topbar-r{display:none!important}
-  .doc-frame{box-shadow:none;border-radius:0;padding:0}
-  body{background:#fff}
+  .doc-wrapper .docx-wrapper section.docx{padding:20px!important}
+  .float-bar{bottom:10px;left:10px;right:10px;transform:none;border-radius:14px}
+  .float-bar.hide{transform:translateY(20px)}
+  .replace-row{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
-<!-- NOTIFICATION BAR -->
 <div class="notif" id="notif"></div>
 
-<!-- LOADING -->
 <div class="loading-ov" id="loadingOv">
   <div class="spinner"></div>
   <p id="loadingText">Загрузка...</p>
@@ -160,35 +149,30 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
         <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px">
       </button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
-      <span id="roleLabel" class="pill bl" style="font-size:10px"></span>
+      <span id="roleLabel" class="pill bl"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
     </div>
   </div>
 
-  <!-- ===== PAGE: LIST ===== -->
+  <!-- LIST PAGE -->
   <div class="container" id="pageList">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
       <button class="btn btnP btnSm hidden" id="btnUpload" onclick="openUploadSheet()">+ Загрузить DOCX</button>
     </div>
-    <div id="programsList">
-      <p style="color:var(--t3);text-align:center;padding:60px 20px">Загрузка...</p>
-    </div>
+    <div id="programsList"></div>
   </div>
 
-  <!-- ===== PAGE: EDITOR ===== -->
-  <div class="container hidden" id="pageEditor">
-    <!-- Top controls -->
+  <!-- EDITOR PAGE -->
+  <div class="container hidden" id="pageEditor" style="padding-bottom:80px">
     <div class="flex-b mb12">
-      <button class="btn btnSm btnS" onclick="backToList()">← Назад к списку</button>
-      <div class="gap8" id="editorButtons">
-        <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
-        <button class="btn btnSm btnO" onclick="downloadEditedDocx()">Скачать DOCX</button>
+      <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
+      <div class="gap8">
+        <button class="btn btnSm btnO hidden" id="btnDownloadOriginal" onclick="downloadOriginalDocx()">Скачать оригинал DOCX</button>
         <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>
       </div>
     </div>
 
-    <!-- Program info card -->
     <div class="card" style="border-left:4px solid var(--purple)">
       <div class="flex-b">
         <h3 id="editorTitle">—</h3>
@@ -197,40 +181,35 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
       <p id="editorMeta"></p>
     </div>
 
-    <!-- Edit toolbar (only for admin) -->
-    <div class="edit-bar hidden" id="editBar">
-      <button class="ebar-btn" onclick="execCmd('bold')"><b>Ж</b></button>
-      <button class="ebar-btn" onclick="execCmd('italic')"><i>К</i></button>
-      <button class="ebar-btn" onclick="execCmd('underline')"><u>П</u></button>
-      <div class="sep"></div>
-      <button class="ebar-btn" onclick="execCmd('justifyLeft')">←</button>
-      <button class="ebar-btn" onclick="execCmd('justifyCenter')">↔</button>
-      <button class="ebar-btn" onclick="execCmd('justifyRight')">→</button>
-      <button class="ebar-btn" onclick="execCmd('justifyFull')">⇔</button>
-      <div class="sep"></div>
-      <button class="ebar-btn" onclick="execCmd('insertUnorderedList')">• Список</button>
-      <button class="ebar-btn" onclick="execCmd('insertOrderedList')">1. Список</button>
-      <div class="sep"></div>
-      <select class="inp" style="width:auto;padding:4px 8px;font-size:12px;background:var(--bg3);border-radius:6px" onchange="execFontSize(this.value)">
-        <option value="">Размер</option>
-        <option value="1">8pt</option>
-        <option value="2">10pt</option>
-        <option value="3">12pt</option>
-        <option value="4">14pt</option>
-        <option value="5">18pt</option>
-        <option value="6">24pt</option>
-        <option value="7">36pt</option>
-      </select>
-      <div class="sep"></div>
-      <span style="font-size:11px;color:var(--t3)">Кликните на текст в документе чтобы редактировать</span>
+    <!-- Replace panel (admin only) -->
+    <div class="replace-panel hidden" id="replacePanel">
+      <h4>Найти и заменить текст в документе</h4>
+      <div class="replace-row">
+        <input class="inp" id="findText" placeholder="Найти текст...">
+        <input class="inp" id="replaceText" placeholder="Заменить на...">
+        <button class="btn btnSm btnP" onclick="doReplace()">Заменить всё</button>
+      </div>
+      <div class="replace-count" id="replaceCount"></div>
+      <p style="font-size:11px;color:var(--t3);margin-top:8px">
+        Изменения применяются к оригинальному DOCX файлу. Форматирование, таблицы, шрифты, отступы — всё сохраняется.
+      </p>
     </div>
 
-    <!-- Document view -->
-    <div id="docContainer"></div>
+    <!-- Document preview -->
+    <div class="doc-wrapper" id="docWrapper">
+      <p style="color:var(--t3);text-align:center;padding:40px">Загрузка документа...</p>
+    </div>
+  </div>
+
+  <!-- Floating save bar (admin only) -->
+  <div class="float-bar hide" id="floatBar">
+    <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить изменения</button>
+    <button class="btn btnSm btnO" onclick="downloadModifiedDocx()">Скачать изменённый DOCX</button>
+    <span class="float-status" id="floatStatus">Без изменений</span>
   </div>
 </div>
 
-<!-- ===== SHEET: Upload ===== -->
+<!-- SHEET: Upload -->
 <div class="sheet-ov" id="sheetUpload">
   <div class="sheet">
     <div class="sh-handle"></div>
@@ -248,16 +227,16 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
         <div class="upload-zone" id="uploadZone">
           <input type="file" id="fileInput" accept=".docx" onchange="handleFileSelect(event)">
           <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e4.png" style="width:48px;height:48px" alt="">
-          <p>Перетащите DOCX файл сюда или нажмите для выбора</p>
+          <p style="color:var(--t3);font-size:14px;margin-top:8px">Перетащите DOCX или нажмите для выбора</p>
           <p id="fileName" style="color:var(--blue);font-weight:600;margin-top:8px"></p>
         </div>
       </div>
-      <button class="btn btnP" style="width:100%" onclick="uploadProgram()">Загрузить программу</button>
+      <button class="btn btnP" style="width:100%" onclick="uploadProgram()">Загрузить</button>
     </div>
   </div>
 </div>
 
-<!-- ===== SHEET: Rename ===== -->
+<!-- SHEET: Rename -->
 <div class="sheet-ov" id="sheetRename">
   <div class="sheet">
     <div class="sh-handle"></div>
@@ -267,7 +246,7 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     </div>
     <div class="sh-body">
       <div class="fg">
-        <label>Новое название</label>
+        <label>Название</label>
         <input class="inp" id="renameTitle">
       </div>
       <button class="btn btnP" style="width:100%" onclick="doRename()">Сохранить</button>
@@ -280,19 +259,16 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<!-- Mammoth: DOCX → HTML (сохраняет структуру) -->
-<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<!-- docx-preview: рендерит DOCX как в Word, сохраняя ВСЁ форматирование -->
+<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.3.3/dist/docx-preview.min.js"></script>
+
+<!-- JSZip: для работы с DOCX (zip архив) изнутри -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- html-docx-js: HTML → DOCX -->
-<script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.min.js"></script>
-
 <script>
-// ======================================================================
-// FIREBASE
-// ======================================================================
 const firebaseConfig={
   apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
   authDomain:"my-diary-e223c.firebaseapp.com",
@@ -309,39 +285,47 @@ const db=firebase.database();
 // ======================================================================
 // HELPERS
 // ======================================================================
-function ae(code){return `<img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/${code}.png" alt="">`}
-
 function notify(msg,type='success'){
   const n=document.getElementById('notif');
-  n.textContent=msg;
-  n.className='notif '+type+' show';
+  n.textContent=msg;n.className='notif '+type+' show';
   setTimeout(()=>n.classList.remove('show'),3000);
 }
-
-function showLoading(text){
-  document.getElementById('loadingText').textContent=text||'Загрузка...';
-  document.getElementById('loadingOv').classList.add('show');
-}
+function showLoading(t){document.getElementById('loadingText').textContent=t||'Загрузка...';document.getElementById('loadingOv').classList.add('show')}
 function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
-
 function openSheet(id){document.getElementById(id).classList.add('open')}
 function closeSheet(id){document.getElementById(id).classList.remove('open')}
 document.querySelectorAll('.sheet-ov').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')})});
-
 function toggleTheme(){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
 if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
+
+function arrayBufferToBase64(buffer){
+  let binary='';const bytes=new Uint8Array(buffer);
+  for(let i=0;i<bytes.byteLength;i+=8192){
+    binary+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+8192,bytes.byteLength)));
+  }
+  return btoa(binary);
+}
+function base64ToArrayBuffer(b64){
+  const bin=atob(b64);const bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  return bytes.buffer;
+}
+function downloadBlob(blob,name){
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=name;document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(a.href);
+}
 
 // ======================================================================
 // STATE
 // ======================================================================
-let currentUser=null;
-let userRole=null;
-let currentProgramId=null;
-let currentProgramData=null;
-let selectedFile=null;
+let currentUser=null,userRole=null;
+let currentProgramId=null,currentProgramData=null;
 let selectedFileArrayBuffer=null;
 let renameId=null;
-let hasUnsavedChanges=false;
+let currentDocxArrayBuffer=null; // текущий DOCX в памяти
+let replacements=[]; // список замен [{find,replace}]
+let hasChanges=false;
 
 function isAdmin(){return userRole==='admin'}
 
@@ -351,49 +335,28 @@ function isAdmin(){return userRole==='admin'}
 function doLogin(){
   const email=document.getElementById('authEmail').value.trim();
   const pass=document.getElementById('authPass').value;
-  const errEl=document.getElementById('authErr');
-  errEl.textContent='';
-  if(!email||!pass){errEl.textContent='Заполните все поля';return}
-  if(pass.length<6){errEl.textContent='Пароль минимум 6 символов';return}
-
-  auth.signInWithEmailAndPassword(email,pass)
-    .then(()=>errEl.textContent='')
-    .catch(err=>{
-      if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'){
-        errEl.textContent='Создаю аккаунт...';
-        auth.createUserWithEmailAndPassword(email,pass)
-          .then(cred=>{
-            const role=(email==='admin@test.ru')?'admin':'viewer';
-            return db.ref('users/'+cred.user.uid).set({email,role,createdAt:Date.now()});
-          })
-          .then(()=>errEl.textContent='')
-          .catch(e2=>{
-            errEl.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message;
-          });
-      } else if(err.code==='auth/wrong-password'){
-        errEl.textContent='Неверный пароль';
-      } else if(err.code==='auth/too-many-requests'){
-        errEl.textContent='Слишком много попыток, подождите';
-      } else {
-        errEl.textContent=err.message;
-      }
-    });
+  const err=document.getElementById('authErr');err.textContent='';
+  if(!email||!pass){err.textContent='Заполните все поля';return}
+  if(pass.length<6){err.textContent='Пароль минимум 6 символов';return}
+  auth.signInWithEmailAndPassword(email,pass).catch(e=>{
+    if(e.code==='auth/user-not-found'||e.code==='auth/invalid-credential'){
+      err.textContent='Создаю аккаунт...';
+      auth.createUserWithEmailAndPassword(email,pass).then(c=>{
+        const r=email==='admin@test.ru'?'admin':'viewer';
+        return db.ref('users/'+c.user.uid).set({email,role:r,createdAt:Date.now()});
+      }).catch(e2=>{err.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message});
+    } else if(e.code==='auth/wrong-password'){err.textContent='Неверный пароль'}
+    else{err.textContent=e.message}
+  });
 }
-
 function doLogout(){auth.signOut()}
-
 auth.onAuthStateChanged(user=>{
   if(user){
     currentUser=user;
-    db.ref('users/'+user.uid).once('value',snap=>{
-      const data=snap.val();
-      if(!data){
-        const role=user.email==='admin@test.ru'?'admin':'viewer';
-        db.ref('users/'+user.uid).set({email:user.email,role,createdAt:Date.now()});
-        userRole=role;
-      } else {
-        userRole=data.role||'viewer';
-      }
+    db.ref('users/'+user.uid).once('value',s=>{
+      const d=s.val();
+      if(!d){const r=user.email==='admin@test.ru'?'admin':'viewer';db.ref('users/'+user.uid).set({email:user.email,role:r,createdAt:Date.now()});userRole=r}
+      else userRole=d.role||'viewer';
       showApp();
     });
   } else {
@@ -402,22 +365,14 @@ auth.onAuthStateChanged(user=>{
     document.getElementById('appMain').classList.add('hidden');
   }
 });
-
 function showApp(){
   document.getElementById('authScreen').classList.add('hidden');
   document.getElementById('appMain').classList.remove('hidden');
   document.getElementById('userLabel').textContent=currentUser.email;
-  const rl=document.getElementById('roleLabel');
-  if(isAdmin()){
-    rl.innerHTML='Редактор';
-    rl.className='pill gr';
-  } else {
-    rl.innerHTML='Просмотр';
-    rl.className='pill bl';
-  }
+  document.getElementById('roleLabel').textContent=isAdmin()?'Редактор':'Просмотр';
+  document.getElementById('roleLabel').className='pill '+(isAdmin()?'gr':'bl');
   document.getElementById('btnUpload').classList.toggle('hidden',!isAdmin());
-  loadPrograms();
-  showList();
+  loadPrograms();showList();
 }
 
 // ======================================================================
@@ -426,15 +381,12 @@ function showApp(){
 function showList(){
   document.getElementById('pageList').classList.remove('hidden');
   document.getElementById('pageEditor').classList.add('hidden');
-  currentProgramId=null;
-  currentProgramData=null;
-  hasUnsavedChanges=false;
+  document.getElementById('floatBar').classList.add('hide');
+  currentProgramId=null;currentProgramData=null;currentDocxArrayBuffer=null;
+  replacements=[];hasChanges=false;
 }
-
 function backToList(){
-  if(hasUnsavedChanges&&isAdmin()){
-    if(!confirm('Есть несохранённые изменения. Вернуться без сохранения?'))return;
-  }
+  if(hasChanges&&isAdmin()&&!confirm('Есть несохранённые изменения. Выйти?'))return;
   showList();
 }
 
@@ -443,36 +395,34 @@ function backToList(){
 // ======================================================================
 function loadPrograms(){
   db.ref('programs').on('value',snap=>{
-    const programs=snap.val()||{};
-    const container=document.getElementById('programsList');
-    if(Object.keys(programs).length===0){
-      container.innerHTML=`<div style="text-align:center;padding:60px 20px">
+    const progs=snap.val()||{};
+    const c=document.getElementById('programsList');
+    if(!Object.keys(progs).length){
+      c.innerHTML=`<div style="text-align:center;padding:60px 20px">
         <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c2.png" style="width:64px;height:64px;margin-bottom:16px" alt="">
-        <p style="color:var(--t3);font-size:15px">Нет загруженных программ</p>
-        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX» чтобы добавить</p>':''}
-      </div>`;
-      return;
+        <p style="color:var(--t3);font-size:15px">Нет программ</p>
+        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX»</p>':''}
+      </div>`;return;
     }
-    container.innerHTML='';
-    // Sort by date desc
-    const sorted=Object.entries(programs).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
-    sorted.forEach(([id,prog])=>{
-      const dateStr=prog.createdAt?new Date(prog.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
-      const updStr=prog.updatedAt?new Date(prog.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-      const sizeKb=prog.docxBase64?Math.round(prog.docxBase64.length*0.75/1024):0;
-      container.innerHTML+=`
+    c.innerHTML='';
+    Object.entries(progs).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0)).forEach(([id,p])=>{
+      const d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
+      const u=p.updatedAt&&p.updatedAt!==p.createdAt?new Date(p.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      const sz=p.docxBase64?Math.round(p.docxBase64.length*0.75/1024):0;
+      const rCount=p.replacements?p.replacements.length:0;
+      c.innerHTML+=`
         <div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram('${id}')">
           <div class="flex-b">
-            <h3>${ae('1f4c4')} ${prog.title||'Без названия'}</h3>
-            <span class="pill pr">${sizeKb?sizeKb+' КБ':'—'}</span>
+            <h3>${p.title||'Без названия'}</h3>
+            <div class="gap8">
+              ${rCount?`<span class="pill og">${rCount} замен</span>`:''}
+              <span class="pill pr">${sz} КБ</span>
+            </div>
           </div>
-          <p class="mt8" style="font-size:12px;color:var(--t3)">
-            Загружено: ${dateStr}${updStr?' | Изменено: '+updStr:''}
-          </p>
+          <p class="mt8" style="font-size:12px;color:var(--t3)">Загружено: ${d}${u?' | Изменено: '+u:''}</p>
           ${isAdmin()?`<div class="mt8 gap8">
-            <button class="btn btnSm btnS" onclick="event.stopPropagation();openRename('${id}','${(prog.title||'').replace(/'/g,"\\'")}')">Переименовать</button>
+            <button class="btn btnSm btnS" onclick="event.stopPropagation();openRename('${id}','${(p.title||'').replace(/'/g,"\\'")}')">Переименовать</button>
             <button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">Удалить</button>
-            <button class="btn btnSm btnO" onclick="event.stopPropagation();reuploadDocx('${id}')">Перезагрузить DOCX</button>
           </div>`:''}
         </div>`;
     });
@@ -487,157 +437,32 @@ function openUploadSheet(){
   document.getElementById('uploadTitle').value='';
   document.getElementById('fileName').textContent='';
   document.getElementById('fileInput').value='';
-  selectedFile=null;
   selectedFileArrayBuffer=null;
   openSheet('sheetUpload');
 }
-
 function handleFileSelect(e){
-  const file=e.target.files[0];
-  if(!file)return;
-  if(!file.name.endsWith('.docx')){
-    notify('Только файлы .docx','error');
-    return;
-  }
-  selectedFile=file;
-  document.getElementById('fileName').textContent=file.name+' ('+Math.round(file.size/1024)+' КБ)';
-  // Auto-fill title from filename
-  if(!document.getElementById('uploadTitle').value){
-    document.getElementById('uploadTitle').value=file.name.replace('.docx','');
-  }
-  // Read as ArrayBuffer
-  const reader=new FileReader();
-  reader.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
-  reader.readAsArrayBuffer(file);
+  const f=e.target.files[0];if(!f)return;
+  if(!f.name.endsWith('.docx')){notify('Только .docx','error');return}
+  document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
+  if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
+  const r=new FileReader();r.onload=ev=>{selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
 }
-
 async function uploadProgram(){
   if(!isAdmin())return;
   const title=document.getElementById('uploadTitle').value.trim();
   if(!title){notify('Введите название','error');return}
-  if(!selectedFileArrayBuffer){notify('Выберите DOCX файл','error');return}
-
-  showLoading('Обработка документа...');
-
+  if(!selectedFileArrayBuffer){notify('Выберите файл','error');return}
+  showLoading('Загрузка...');
   try{
-    // 1. Convert DOCX to HTML with Mammoth (preserves structure)
-    const result=await mammoth.convertToHtml(
-      {arrayBuffer:selectedFileArrayBuffer},
-      {
-        styleMap:[
-          "p[style-name='Heading 1'] => h1:fresh",
-          "p[style-name='Heading 2'] => h2:fresh",
-          "p[style-name='Heading 3'] => h3:fresh",
-          "p[style-name='Normal'] => p:fresh"
-        ],
-        convertImage: mammoth.images.inline(function(element){
-          return element.read("base64").then(function(imageBuffer){
-            return {src:"data:"+element.contentType+";base64,"+imageBuffer};
-          });
-        })
-      }
-    );
-
-    const htmlContent=result.value;
-    if(result.messages.length>0){
-      console.log('Mammoth messages:',result.messages);
-    }
-
-    // 2. Convert ArrayBuffer to base64 for storage (original DOCX)
-    const base64=arrayBufferToBase64(selectedFileArrayBuffer);
-
-    // 3. Check size — Firebase limit ~10MB per node
-    const sizeBytes=base64.length;
-    if(sizeBytes>9*1024*1024){
-      hideLoading();
-      notify('Файл слишком большой (макс ~7МБ). Удалите изображения из документа.','error');
-      return;
-    }
-
-    // 4. Save to Firebase
-    const programData={
-      title:title,
-      htmlContent:htmlContent,
-      docxBase64:base64,
-      createdBy:currentUser.uid,
-      createdAt:Date.now(),
-      updatedAt:Date.now()
-    };
-
-    await db.ref('programs').push(programData);
-
-    hideLoading();
-    closeSheet('sheetUpload');
-    notify('Программа загружена');
-    selectedFile=null;
+    const b64=arrayBufferToBase64(selectedFileArrayBuffer);
+    if(b64.length>9*1024*1024){hideLoading();notify('Файл слишком большой (макс ~7МБ)','error');return}
+    await db.ref('programs').push({
+      title,docxBase64:b64,replacements:[],
+      createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now()
+    });
+    hideLoading();closeSheet('sheetUpload');notify('Программа загружена');
     selectedFileArrayBuffer=null;
-
-  } catch(err){
-    hideLoading();
-    console.error(err);
-    notify('Ошибка обработки: '+err.message,'error');
-  }
-}
-
-function arrayBufferToBase64(buffer){
-  let binary='';
-  const bytes=new Uint8Array(buffer);
-  const len=bytes.byteLength;
-  // Process in chunks to avoid call stack overflow
-  const chunkSize=8192;
-  for(let i=0;i<len;i+=chunkSize){
-    const chunk=bytes.subarray(i,Math.min(i+chunkSize,len));
-    binary+=String.fromCharCode.apply(null,chunk);
-  }
-  return btoa(binary);
-}
-
-function base64ToArrayBuffer(base64){
-  const binary=atob(base64);
-  const len=binary.length;
-  const bytes=new Uint8Array(len);
-  for(let i=0;i<len;i++){
-    bytes[i]=binary.charCodeAt(i);
-  }
-  return bytes.buffer;
-}
-
-// ======================================================================
-// REUPLOAD
-// ======================================================================
-let reuploadTargetId=null;
-function reuploadDocx(id){
-  reuploadTargetId=id;
-  const inp=document.createElement('input');
-  inp.type='file';
-  inp.accept='.docx';
-  inp.onchange=async function(e){
-    const file=e.target.files[0];
-    if(!file||!file.name.endsWith('.docx'))return;
-    showLoading('Перезагрузка документа...');
-    try{
-      const ab=await file.arrayBuffer();
-      const result=await mammoth.convertToHtml({arrayBuffer:ab},{
-        convertImage:mammoth.images.inline(function(el){
-          return el.read("base64").then(function(buf){
-            return{src:"data:"+el.contentType+";base64,"+buf};
-          });
-        })
-      });
-      const base64=arrayBufferToBase64(ab);
-      await db.ref('programs/'+reuploadTargetId).update({
-        htmlContent:result.value,
-        docxBase64:base64,
-        updatedAt:Date.now()
-      });
-      hideLoading();
-      notify('Документ перезагружен');
-    }catch(err){
-      hideLoading();
-      notify('Ошибка: '+err.message,'error');
-    }
-  };
-  inp.click();
+  }catch(e){hideLoading();notify('Ошибка: '+e.message,'error')}
 }
 
 // ======================================================================
@@ -645,267 +470,293 @@ function reuploadDocx(id){
 // ======================================================================
 function deleteProgram(id){
   if(!isAdmin())return;
-  if(confirm('Удалить программу? Действие необратимо.')){
-    db.ref('programs/'+id).remove();
-    notify('Программа удалена');
-  }
+  if(confirm('Удалить программу?')){db.ref('programs/'+id).remove();notify('Удалено')}
 }
-
-function openRename(id,currentTitle){
-  renameId=id;
-  document.getElementById('renameTitle').value=currentTitle;
-  openSheet('sheetRename');
-}
-
+function openRename(id,t){renameId=id;document.getElementById('renameTitle').value=t;openSheet('sheetRename')}
 function doRename(){
   if(!renameId)return;
-  const newTitle=document.getElementById('renameTitle').value.trim();
-  if(!newTitle){notify('Введите название','error');return}
-  db.ref('programs/'+renameId+'/title').set(newTitle);
-  db.ref('programs/'+renameId+'/updatedAt').set(Date.now());
-  closeSheet('sheetRename');
-  notify('Переименовано');
+  const t=document.getElementById('renameTitle').value.trim();
+  if(!t){notify('Введите название','error');return}
+  db.ref('programs/'+renameId).update({title:t,updatedAt:Date.now()});
+  closeSheet('sheetRename');notify('Переименовано');
 }
 
 // ======================================================================
-// OPEN PROGRAM (EDITOR)
+// OPEN PROGRAM → RENDER DOCX PREVIEW
 // ======================================================================
 async function openProgram(id){
   showLoading('Загрузка документа...');
-  currentProgramId=id;
-  hasUnsavedChanges=false;
-
+  currentProgramId=id;hasChanges=false;
   const snap=await db.ref('programs/'+id).once('value');
   currentProgramData=snap.val();
-  if(!currentProgramData){hideLoading();backToList();return}
+  if(!currentProgramData||!currentProgramData.docxBase64){hideLoading();notify('Документ не найден','error');return}
 
-  // Show editor page
-  document.getElementById('pageList').classList.add('hidden');
-  document.getElementById('pageEditor').classList.remove('hidden');
+  // Load saved replacements
+  replacements=currentProgramData.replacements||[];
 
-  // Header
-  document.getElementById('editorTitle').textContent=currentProgramData.title||'Без названия';
-  document.getElementById('editorDate').textContent=currentProgramData.updatedAt?'Обновлено: '+new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
-  document.getElementById('editorMeta').textContent='Загружен пользователем: '+currentUser.email;
+  // Convert base64 → ArrayBuffer
+  currentDocxArrayBuffer=base64ToArrayBuffer(currentProgramData.docxBase64);
 
-  // Show/hide edit controls
-  const editBar=document.getElementById('editBar');
-  const editorBtns=document.getElementById('editorButtons');
-  if(isAdmin()){
-    editBar.classList.remove('hidden');
-    editorBtns.innerHTML=`
-      <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
-      <button class="btn btnSm btnO" onclick="downloadEditedDocx()">Скачать DOCX</button>
-      <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>`;
-  } else {
-    editBar.classList.add('hidden');
-    editorBtns.innerHTML=`
-      <button class="btn btnSm btnO" onclick="downloadOriginalDocx()">Скачать DOCX (оригинал)</button>
-      <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>`;
+  // Apply saved replacements to get modified DOCX
+  let docxToRender=currentDocxArrayBuffer;
+  if(replacements.length>0){
+    docxToRender=await applyReplacements(currentDocxArrayBuffer,replacements);
   }
 
-  // Render document
-  renderDocument(currentProgramData.htmlContent);
+  // Show editor
+  document.getElementById('pageList').classList.add('hidden');
+  document.getElementById('pageEditor').classList.remove('hidden');
+  document.getElementById('editorTitle').textContent=currentProgramData.title||'—';
+  document.getElementById('editorDate').textContent=currentProgramData.updatedAt?new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
+  document.getElementById('editorMeta').textContent=replacements.length?replacements.length+' замен применено':'Оригинальный документ';
+
+  // Show/hide admin controls
+  document.getElementById('replacePanel').classList.toggle('hidden',!isAdmin());
+  document.getElementById('btnDownloadOriginal').classList.toggle('hidden',!isAdmin());
+  if(isAdmin()){
+    document.getElementById('floatBar').classList.remove('hide');
+    updateFloatStatus();
+  }
+
+  // Render DOCX preview using docx-preview
+  await renderDocxPreview(docxToRender);
   hideLoading();
 }
 
-function renderDocument(html){
-  const container=document.getElementById('docContainer');
-  const editable=isAdmin();
-
-  // Wrap in doc-frame with proper styling
-  container.innerHTML=`
-    <div class="doc-frame" id="docFrame">
-      <div id="docContent" ${editable?'contenteditable="true"':''} 
-           style="outline:none;min-height:400px"
-           ${editable?'oninput="onDocEdit()"':''}>${html}</div>
-    </div>`;
-
-  // Apply Times New Roman and proper sizing to all elements inside
-  const frame=document.getElementById('docContent');
-  if(frame){
-    // Ensure all paragraphs and text have proper font
-    const allEls=frame.querySelectorAll('*');
-    allEls.forEach(el=>{
-      if(!el.style.fontFamily){
-        el.style.fontFamily="'Times New Roman', serif";
-      }
+async function renderDocxPreview(arrayBuffer){
+  const container=document.getElementById('docWrapper');
+  container.innerHTML='';
+  try{
+    await docx.renderAsync(arrayBuffer,container,null,{
+      className:'docx',
+      inWrapper:true,
+      ignoreWidth:false,
+      ignoreHeight:false,
+      ignoreFonts:false,
+      breakPages:true,
+      ignoreLastRenderedPageBreak:true,
+      experimental:false,
+      trimXmlDeclaration:true,
+      useBase64URL:true,
+      renderHeaders:true,
+      renderFooters:true,
+      renderFootnotes:true,
+      renderEndnotes:true
     });
+  }catch(e){
+    console.error('docx-preview error:',e);
+    container.innerHTML=`<p style="color:var(--red);text-align:center;padding:40px">Ошибка рендера: ${e.message}</p>`;
   }
 }
 
-function onDocEdit(){
-  hasUnsavedChanges=true;
+// ======================================================================
+// FIND & REPLACE IN DOCX (works inside the actual XML)
+// ======================================================================
+async function applyReplacements(originalArrayBuffer,reps){
+  if(!reps||!reps.length)return originalArrayBuffer;
+  const zip=await JSZip.loadAsync(originalArrayBuffer);
+  
+  // Process all XML files that contain text
+  const xmlFiles=['word/document.xml','word/header1.xml','word/header2.xml','word/header3.xml',
+                  'word/footer1.xml','word/footer2.xml','word/footer3.xml'];
+  
+  for(const path of xmlFiles){
+    const file=zip.file(path);
+    if(!file)continue;
+    let xml=await file.async('string');
+    
+    for(const rep of reps){
+      if(!rep.find)continue;
+      // Smart replacement: handle text split across XML runs
+      // First try simple replacement
+      const escaped=rep.find.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      xml=xml.replace(new RegExp(escaped,'g'),rep.replace||'');
+      
+      // Also handle split runs: rebuild text content
+      xml=replaceInXmlRuns(xml,rep.find,rep.replace||'');
+    }
+    zip.file(path,xml);
+  }
+  
+  return await zip.generateAsync({type:'arraybuffer'});
+}
+
+function replaceInXmlRuns(xml,findStr,replaceStr){
+  // DOCX often splits text across multiple <w:r><w:t> elements
+  // This function finds text across runs and replaces it
+  
+  // Extract all <w:p> paragraphs
+  const pRegex=/<w:p[ >][\s\S]*?<\/w:p>/g;
+  
+  return xml.replace(pRegex,function(paragraph){
+    // Get all text content from <w:t> tags
+    const tRegex=/<w:t[^>]*>([\s\S]*?)<\/w:t>/g;
+    let texts=[];
+    let match;
+    while((match=tRegex.exec(paragraph))!==null){
+      texts.push({full:match[0],text:match[1],index:match.index});
+    }
+    
+    if(!texts.length)return paragraph;
+    
+    // Concatenate all text
+    const fullText=texts.map(t=>t.text).join('');
+    
+    // Check if findStr exists in concatenated text
+    if(fullText.indexOf(findStr)===-1)return paragraph;
+    
+    // Replace in concatenated text
+    const newText=fullText.split(findStr).join(replaceStr);
+    
+    // Put all text into first <w:t> and empty the rest
+    let result=paragraph;
+    for(let i=texts.length-1;i>=0;i--){
+      if(i===0){
+        result=result.substring(0,texts[i].index)+
+          '<w:t xml:space="preserve">'+newText+'</w:t>'+
+          result.substring(texts[i].index+texts[i].full.length);
+      } else {
+        result=result.substring(0,texts[i].index)+
+          '<w:t xml:space="preserve"></w:t>'+
+          result.substring(texts[i].index+texts[i].full.length);
+      }
+    }
+    return result;
+  });
 }
 
 // ======================================================================
-// EDIT TOOLBAR COMMANDS
+// DO REPLACE (user action)
 // ======================================================================
-function execCmd(cmd){
-  document.execCommand(cmd,false,null);
-  document.getElementById('docContent').focus();
+async function doReplace(){
+  if(!isAdmin())return;
+  const find=document.getElementById('findText').value;
+  const replace=document.getElementById('replaceText').value;
+  if(!find){notify('Введите текст для поиска','error');return}
+  
+  showLoading('Применяю замену...');
+  
+  // Add to replacements list
+  replacements.push({find,replace,date:Date.now()});
+  hasChanges=true;
+  
+  // Re-apply all replacements to original DOCX
+  const modified=await applyReplacements(currentDocxArrayBuffer,replacements);
+  
+  // Re-render preview
+  await renderDocxPreview(modified);
+  
+  // Count occurrences
+  document.getElementById('replaceCount').textContent=`Замена "${find}" → "${replace}" добавлена. Всего замен: ${replacements.length}`;
+  document.getElementById('findText').value='';
+  document.getElementById('replaceText').value='';
+  
+  updateFloatStatus();
+  hideLoading();
+  notify('Замена применена');
 }
-function execFontSize(size){
-  if(size)document.execCommand('fontSize',false,size);
-  document.getElementById('docContent').focus();
+
+function updateFloatStatus(){
+  const s=document.getElementById('floatStatus');
+  if(hasChanges){
+    s.textContent=`${replacements.length} замен (не сохранено)`;
+    s.style.color='var(--orange)';
+  } else {
+    s.textContent=replacements.length?`${replacements.length} замен (сохранено)`:'Без изменений';
+    s.style.color='var(--t3)';
+  }
 }
 
 // ======================================================================
-// SAVE DOCUMENT
+// SAVE DOCUMENT (save replacements list to Firebase)
 // ======================================================================
 async function saveDocument(){
   if(!isAdmin()||!currentProgramId)return;
   showLoading('Сохранение...');
-  const content=document.getElementById('docContent');
-  if(!content){hideLoading();return}
-
-  const newHtml=content.innerHTML;
+  
+  // Save modified DOCX as new base64
+  const modified=await applyReplacements(currentDocxArrayBuffer,replacements);
+  const newBase64=arrayBufferToBase64(modified);
+  
   await db.ref('programs/'+currentProgramId).update({
-    htmlContent:newHtml,
+    docxBase64:newBase64,
+    replacements:[], // Clear replacements since they're baked in
     updatedAt:Date.now()
   });
-
-  currentProgramData.htmlContent=newHtml;
-  hasUnsavedChanges=false;
+  
+  // Update local state
+  currentDocxArrayBuffer=modified;
+  currentProgramData.docxBase64=newBase64;
+  replacements=[];
+  hasChanges=false;
+  
+  updateFloatStatus();
+  document.getElementById('editorMeta').textContent='Документ сохранён';
   hideLoading();
   notify('Документ сохранён');
 }
 
 // ======================================================================
-// DOWNLOAD ORIGINAL DOCX (from stored base64)
+// DOWNLOADS
 // ======================================================================
 function downloadOriginalDocx(){
-  if(!currentProgramData||!currentProgramData.docxBase64){
-    notify('Оригинальный DOCX не найден','error');
-    return;
-  }
-  const ab=base64ToArrayBuffer(currentProgramData.docxBase64);
-  const blob=new Blob([ab],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-  downloadBlob(blob,(currentProgramData.title||'document')+'.docx');
-  notify('DOCX скачан (оригинал)');
+  if(!currentDocxArrayBuffer)return;
+  const blob=new Blob([currentDocxArrayBuffer],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  downloadBlob(blob,(currentProgramData.title||'doc')+'_оригинал.docx');
 }
 
-// ======================================================================
-// DOWNLOAD EDITED DOCX (HTML → DOCX)
-// ======================================================================
-function downloadEditedDocx(){
-  const content=document.getElementById('docContent');
-  if(!content)return;
+async function downloadModifiedDocx(){
+  if(!currentDocxArrayBuffer)return;
   showLoading('Генерация DOCX...');
-
-  try{
-    // Build full HTML document with styles for html-docx-js
-    const fullHtml=`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body{font-family:'Times New Roman',serif;font-size:14pt;line-height:1.5;margin:2cm}
-          table{border-collapse:collapse;width:100%}
-          td,th{border:1px solid #000;padding:4px 8px;vertical-align:top;font-family:'Times New Roman',serif;font-size:12pt}
-          h1{font-size:16pt;text-align:center;font-family:'Times New Roman',serif}
-          h2{font-size:14pt;font-family:'Times New Roman',serif}
-          h3{font-size:13pt;font-family:'Times New Roman',serif}
-          p{font-family:'Times New Roman',serif;font-size:14pt;margin:0 0 6px}
-          ul,ol{font-family:'Times New Roman',serif;font-size:14pt}
-        </style>
-      </head>
-      <body>${content.innerHTML}</body>
-      </html>`;
-
-    const blob=htmlDocx.asBlob(fullHtml,{
-      orientation:'portrait',
-      margins:{top:1134,right:1134,bottom:1134,left:1701}
-    });
-
-    downloadBlob(blob,(currentProgramData.title||'document')+'_edited.docx');
-    hideLoading();
-    notify('DOCX скачан (отредактированный)');
-  }catch(err){
-    hideLoading();
-    console.error(err);
-    notify('Ошибка генерации DOCX: '+err.message,'error');
-  }
+  const modified=await applyReplacements(currentDocxArrayBuffer,replacements);
+  const blob=new Blob([modified],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  downloadBlob(blob,(currentProgramData.title||'doc')+'.docx');
+  hideLoading();
+  notify('DOCX скачан');
 }
 
-// ======================================================================
-// DOWNLOAD PDF
-// ======================================================================
 function downloadPdf(){
-  const content=document.getElementById('docContent');
-  if(!content)return;
+  const wrapper=document.getElementById('docWrapper');
+  if(!wrapper)return;
   showLoading('Генерация PDF...');
-
-  const wrapper=document.createElement('div');
-  wrapper.style.cssText="font-family:'Times New Roman',serif;font-size:14pt;line-height:1.5;color:#000;padding:10px";
-  wrapper.innerHTML=content.innerHTML;
-
+  
+  // Clone for PDF generation
+  const clone=wrapper.cloneNode(true);
+  clone.style.background='#fff';
+  
   html2pdf().set({
-    margin:[15,15,15,20],
-    filename:(currentProgramData.title||'document')+'.pdf',
+    margin:[10,10,10,10],
+    filename:(currentProgramData.title||'doc')+'.pdf',
     image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,logging:false},
+    html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#fff'},
     jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{mode:['avoid-all','css','legacy']}
-  }).from(wrapper).save().then(()=>{
-    hideLoading();
-    notify('PDF скачан');
-  }).catch(err=>{
-    hideLoading();
-    notify('Ошибка PDF: '+err.message,'error');
+  }).from(clone).save().then(()=>{
+    hideLoading();notify('PDF скачан');
+  }).catch(e=>{
+    hideLoading();notify('Ошибка PDF','error');
   });
 }
 
 // ======================================================================
-// HELPER
+// DRAG & DROP on upload zone
 // ======================================================================
-function downloadBlob(blob,filename){
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download=filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-// ======================================================================
-// DRAG & DROP
-// ======================================================================
-const uploadZone=document.getElementById('uploadZone');
-if(uploadZone){
-  ['dragenter','dragover'].forEach(ev=>{
-    uploadZone.addEventListener(ev,e=>{e.preventDefault();uploadZone.classList.add('drag')});
-  });
-  ['dragleave','drop'].forEach(ev=>{
-    uploadZone.addEventListener(ev,e=>{e.preventDefault();uploadZone.classList.remove('drag')});
-  });
-  uploadZone.addEventListener('drop',e=>{
-    const file=e.dataTransfer.files[0];
-    if(file&&file.name.endsWith('.docx')){
-      selectedFile=file;
-      document.getElementById('fileName').textContent=file.name+' ('+Math.round(file.size/1024)+' КБ)';
-      if(!document.getElementById('uploadTitle').value){
-        document.getElementById('uploadTitle').value=file.name.replace('.docx','');
-      }
-      const reader=new FileReader();
-      reader.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
-      reader.readAsArrayBuffer(file);
+const uz=document.getElementById('uploadZone');
+if(uz){
+  ['dragenter','dragover'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();uz.classList.add('drag')}));
+  ['dragleave','drop'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();uz.classList.remove('drag')}));
+  uz.addEventListener('drop',e=>{
+    const f=e.dataTransfer.files[0];
+    if(f&&f.name.endsWith('.docx')){
+      document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
+      if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
+      const r=new FileReader();r.onload=ev=>{selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
     }
   });
 }
 
-// ======================================================================
-// WARN ON CLOSE
-// ======================================================================
-window.addEventListener('beforeunload',e=>{
-  if(hasUnsavedChanges&&isAdmin()){
-    e.preventDefault();
-    e.returnValue='';
-  }
-});
+// Warn on close
+window.addEventListener('beforeunload',e=>{if(hasChanges&&isAdmin()){e.preventDefault();e.returnValue=''}});
 </script>
 </body>
 </html>
