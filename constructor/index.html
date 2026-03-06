@@ -58,27 +58,25 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(10,132,255,.05)}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
 
-/* Document preview container — docx-preview renders here */
 .doc-wrapper{background:#e8e8e8;border-radius:8px;padding:20px;min-height:500px}
 [data-theme="dark"] .doc-wrapper{background:#333}
+.doc-wrapper .docx-wrapper{background:#fff!important;margin:0 auto!important;box-shadow:0 2px 20px rgba(0,0,0,.2);border-radius:4px}
+.doc-wrapper .docx-wrapper section.docx{padding:40px 50px!important;margin-bottom:20px!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.1)!important}
 
-/* docx-preview output styling fixes */
-.doc-wrapper .docx-wrapper{background:#fff!important;padding:20px 40px!important;margin:0 auto!important;max-width:210mm;box-shadow:0 2px 20px rgba(0,0,0,.2);border-radius:4px}
-.doc-wrapper .docx-wrapper section.docx{padding:40px 50px!important;margin-bottom:20px!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.1)!important;min-height:297mm}
-
-/* Floating save bar */
 .float-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 12px;display:flex;gap:8px;align-items:center;z-index:150;backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .3s,transform .3s}
 .float-bar.hide{opacity:0;transform:translateX(-50%) translateY(20px);pointer-events:none}
 .float-status{font-size:12px;color:var(--t3);padding:0 8px}
 
-/* Search/Replace panel */
 .replace-panel{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
 .replace-panel h4{font-size:14px;margin-bottom:12px;color:var(--blue)}
 .replace-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
 .replace-row .inp{flex:1}
 .replace-count{font-size:12px;color:var(--t3);margin-top:4px}
+.replace-history{margin-top:12px;max-height:200px;overflow-y:auto}
+.replace-item{display:flex;justify-content:space-between;align-items:center;padding:8px;background:var(--bg3);border-radius:var(--rs);margin-bottom:4px;font-size:12px}
+.replace-item .old{color:var(--red);text-decoration:line-through}
+.replace-item .new{color:var(--green)}
 
-/* Sheet */
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
 .sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
@@ -102,59 +100,42 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   .float-bar{bottom:10px;left:10px;right:10px;transform:none;border-radius:14px}
   .float-bar.hide{transform:translateY(20px)}
   .replace-row{flex-direction:column}
+  .topbar h1{font-size:14px}
 }
 </style>
 </head>
 <body>
 
 <div class="notif" id="notif"></div>
+<div class="loading-ov" id="loadingOv"><div class="spinner"></div><p id="loadingText">Загрузка...</p></div>
 
-<div class="loading-ov" id="loadingOv">
-  <div class="spinner"></div>
-  <p id="loadingText">Загрузка...</p>
-</div>
-
-<!-- ======================== AUTH ======================== -->
+<!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
     <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:12px" alt="">
     <h2>Конструктор программ</h2>
     <p>Войдите для работы с рабочими программами</p>
-    <div class="fg">
-      <label>Email</label>
-      <input class="inp" id="authEmail" type="email" placeholder="admin@test.ru" value="admin@test.ru">
-    </div>
-    <div class="fg">
-      <label>Пароль</label>
-      <input class="inp" id="authPass" type="password" placeholder="123456" value="123456">
-    </div>
+    <div class="fg"><label>Email</label><input class="inp" id="authEmail" type="email" value="admin@test.ru"></div>
+    <div class="fg"><label>Пароль</label><input class="inp" id="authPass" type="password" value="123456"></div>
     <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
     <div class="auth-err" id="authErr"></div>
-    <p style="margin-top:16px;font-size:11px;color:var(--t3)">
-      admin@test.ru / 123456 — редактирование<br>
-      test@test.ru / 123456 — только просмотр
-    </p>
+    <p style="margin-top:16px;font-size:11px;color:var(--t3)">admin@test.ru / 123456 — редактирование<br>test@test.ru / 123456 — только просмотр</p>
   </div>
 </div>
 
-<!-- ======================== APP ======================== -->
+<!-- APP -->
 <div id="appMain" class="hidden">
   <div class="topbar">
-    <h1>
-      <img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:20px;width:20px">
-      Конструктор программ
-    </h1>
+    <h1><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:20px;width:20px"> Конструктор программ</h1>
     <div class="topbar-r">
-      <button class="th-tog" onclick="toggleTheme()">
-        <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px">
-      </button>
+      <button class="th-tog" onclick="toggleTheme()"><img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px"></button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
       <span id="roleLabel" class="pill bl"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
     </div>
   </div>
 
-  <!-- LIST PAGE -->
+  <!-- LIST -->
   <div class="container" id="pageList">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
@@ -163,48 +144,42 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     <div id="programsList"></div>
   </div>
 
-  <!-- EDITOR PAGE -->
+  <!-- EDITOR -->
   <div class="container hidden" id="pageEditor" style="padding-bottom:80px">
     <div class="flex-b mb12">
       <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
       <div class="gap8">
-        <button class="btn btnSm btnO hidden" id="btnDownloadOriginal" onclick="downloadOriginalDocx()">Скачать оригинал DOCX</button>
-        <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>
+        <button class="btn btnSm btnO hidden" id="btnDlOriginal" onclick="downloadOriginalDocx()">Оригинал DOCX</button>
+        <button class="btn btnSm btnS" onclick="downloadPdf()">PDF</button>
       </div>
     </div>
-
     <div class="card" style="border-left:4px solid var(--purple)">
-      <div class="flex-b">
-        <h3 id="editorTitle">—</h3>
-        <span class="pill pr" id="editorDate"></span>
-      </div>
+      <div class="flex-b"><h3 id="editorTitle">—</h3><span class="pill pr" id="editorDate"></span></div>
       <p id="editorMeta"></p>
     </div>
 
-    <!-- Replace panel (admin only) -->
+    <!-- Replace panel -->
     <div class="replace-panel hidden" id="replacePanel">
-      <h4>Найти и заменить текст в документе</h4>
+      <h4>Найти и заменить текст</h4>
       <div class="replace-row">
         <input class="inp" id="findText" placeholder="Найти текст...">
         <input class="inp" id="replaceText" placeholder="Заменить на...">
         <button class="btn btnSm btnP" onclick="doReplace()">Заменить всё</button>
       </div>
       <div class="replace-count" id="replaceCount"></div>
-      <p style="font-size:11px;color:var(--t3);margin-top:8px">
-        Изменения применяются к оригинальному DOCX файлу. Форматирование, таблицы, шрифты, отступы — всё сохраняется.
-      </p>
+      <p style="font-size:11px;color:var(--t3);margin-top:4px">Форматирование, таблицы, шрифты, отступы — всё сохраняется. Меняется только текст.</p>
+      <div class="replace-history" id="replaceHistory"></div>
     </div>
 
-    <!-- Document preview -->
     <div class="doc-wrapper" id="docWrapper">
       <p style="color:var(--t3);text-align:center;padding:40px">Загрузка документа...</p>
     </div>
   </div>
 
-  <!-- Floating save bar (admin only) -->
+  <!-- Float bar -->
   <div class="float-bar hide" id="floatBar">
-    <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить изменения</button>
-    <button class="btn btnSm btnO" onclick="downloadModifiedDocx()">Скачать изменённый DOCX</button>
+    <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
+    <button class="btn btnSm btnO" onclick="downloadModifiedDocx()">Скачать DOCX</button>
     <span class="float-status" id="floatStatus">Без изменений</span>
   </div>
 </div>
@@ -213,21 +188,15 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <div class="sheet-ov" id="sheetUpload">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-head">
-      <h2>Загрузить рабочую программу</h2>
-      <button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button>
-    </div>
+    <div class="sh-head"><h2>Загрузить программу</h2><button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button></div>
     <div class="sh-body">
-      <div class="fg">
-        <label>Название программы</label>
-        <input class="inp" id="uploadTitle" placeholder="ОУП.06 Иностранный язык">
-      </div>
+      <div class="fg"><label>Название</label><input class="inp" id="uploadTitle" placeholder="ОУП.06 Иностранный язык"></div>
       <div class="fg">
         <label>Файл DOCX</label>
         <div class="upload-zone" id="uploadZone">
           <input type="file" id="fileInput" accept=".docx" onchange="handleFileSelect(event)">
           <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e4.png" style="width:48px;height:48px" alt="">
-          <p style="color:var(--t3);font-size:14px;margin-top:8px">Перетащите DOCX или нажмите для выбора</p>
+          <p style="color:var(--t3);font-size:14px;margin-top:8px">Перетащите DOCX или нажмите</p>
           <p id="fileName" style="color:var(--blue);font-weight:600;margin-top:8px"></p>
         </div>
       </div>
@@ -240,35 +209,29 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <div class="sheet-ov" id="sheetRename">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-head">
-      <h2>Переименовать</h2>
-      <button class="sh-close" onclick="closeSheet('sheetRename')">✕</button>
-    </div>
+    <div class="sh-head"><h2>Переименовать</h2><button class="sh-close" onclick="closeSheet('sheetRename')">✕</button></div>
     <div class="sh-body">
-      <div class="fg">
-        <label>Название</label>
-        <input class="inp" id="renameTitle">
-      </div>
+      <div class="fg"><label>Название</label><input class="inp" id="renameTitle"></div>
       <button class="btn btnP" style="width:100%" onclick="doRename()">Сохранить</button>
     </div>
   </div>
 </div>
 
+<!-- JSZip ПЕРВЫМ -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
+<!-- docx-preview ПОСЛЕ JSZip -->
+<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.20/dist/docx-preview.min.js"></script>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<!-- docx-preview: рендерит DOCX как в Word, сохраняя ВСЁ форматирование -->
-<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.3.3/dist/docx-preview.min.js"></script>
-
-<!-- JSZip: для работы с DOCX (zip архив) изнутри -->
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-
 <!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
+// ======================================================================
+// FIREBASE
+// ======================================================================
 const firebaseConfig={
   apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
   authDomain:"my-diary-e223c.firebaseapp.com",
@@ -282,36 +245,44 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.database();
 
+// Проверка JSZip
+if(typeof JSZip==='undefined'){
+  console.error('JSZip не загружен!');
+  document.body.innerHTML='<p style="color:red;text-align:center;padding:40px;font-size:18px">Ошибка: JSZip не загружен. Проверьте интернет и обновите страницу.</p>';
+}
+
 // ======================================================================
 // HELPERS
 // ======================================================================
-function notify(msg,type='success'){
+function notify(msg,type){
+  type=type||'success';
   const n=document.getElementById('notif');
   n.textContent=msg;n.className='notif '+type+' show';
-  setTimeout(()=>n.classList.remove('show'),3000);
+  setTimeout(function(){n.classList.remove('show')},3000);
 }
 function showLoading(t){document.getElementById('loadingText').textContent=t||'Загрузка...';document.getElementById('loadingOv').classList.add('show')}
 function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
 function openSheet(id){document.getElementById(id).classList.add('open')}
 function closeSheet(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.sheet-ov').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')})});
-function toggleTheme(){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
+document.querySelectorAll('.sheet-ov').forEach(function(ov){ov.addEventListener('click',function(e){if(e.target===ov)ov.classList.remove('open')})});
+function toggleTheme(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
 if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
 
 function arrayBufferToBase64(buffer){
-  let binary='';const bytes=new Uint8Array(buffer);
-  for(let i=0;i<bytes.byteLength;i+=8192){
-    binary+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+8192,bytes.byteLength)));
+  var binary='';var bytes=new Uint8Array(buffer);
+  for(var i=0;i<bytes.byteLength;i+=8192){
+    var chunk=bytes.subarray(i,Math.min(i+8192,bytes.byteLength));
+    binary+=String.fromCharCode.apply(null,chunk);
   }
   return btoa(binary);
 }
 function base64ToArrayBuffer(b64){
-  const bin=atob(b64);const bytes=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  var bin=atob(b64);var bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
   return bytes.buffer;
 }
 function downloadBlob(blob,name){
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=name;document.body.appendChild(a);a.click();
   document.body.removeChild(a);URL.revokeObjectURL(a.href);
 }
@@ -319,13 +290,13 @@ function downloadBlob(blob,name){
 // ======================================================================
 // STATE
 // ======================================================================
-let currentUser=null,userRole=null;
-let currentProgramId=null,currentProgramData=null;
-let selectedFileArrayBuffer=null;
-let renameId=null;
-let currentDocxArrayBuffer=null; // текущий DOCX в памяти
-let replacements=[]; // список замен [{find,replace}]
-let hasChanges=false;
+var currentUser=null,userRole=null;
+var currentProgramId=null,currentProgramData=null;
+var selectedFileArrayBuffer=null;
+var renameId=null;
+var currentDocxArrayBuffer=null;
+var replacements=[];
+var hasChanges=false;
 
 function isAdmin(){return userRole==='admin'}
 
@@ -333,30 +304,43 @@ function isAdmin(){return userRole==='admin'}
 // AUTH
 // ======================================================================
 function doLogin(){
-  const email=document.getElementById('authEmail').value.trim();
-  const pass=document.getElementById('authPass').value;
-  const err=document.getElementById('authErr');err.textContent='';
-  if(!email||!pass){err.textContent='Заполните все поля';return}
-  if(pass.length<6){err.textContent='Пароль минимум 6 символов';return}
-  auth.signInWithEmailAndPassword(email,pass).catch(e=>{
-    if(e.code==='auth/user-not-found'||e.code==='auth/invalid-credential'){
-      err.textContent='Создаю аккаунт...';
-      auth.createUserWithEmailAndPassword(email,pass).then(c=>{
-        const r=email==='admin@test.ru'?'admin':'viewer';
-        return db.ref('users/'+c.user.uid).set({email,role:r,createdAt:Date.now()});
-      }).catch(e2=>{err.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message});
-    } else if(e.code==='auth/wrong-password'){err.textContent='Неверный пароль'}
-    else{err.textContent=e.message}
+  var email=document.getElementById('authEmail').value.trim();
+  var pass=document.getElementById('authPass').value;
+  var errEl=document.getElementById('authErr');errEl.textContent='';
+  if(!email||!pass){errEl.textContent='Заполните все поля';return}
+  if(pass.length<6){errEl.textContent='Пароль минимум 6 символов';return}
+  auth.signInWithEmailAndPassword(email,pass).catch(function(err){
+    if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'){
+      errEl.textContent='Создаю аккаунт...';
+      auth.createUserWithEmailAndPassword(email,pass).then(function(c){
+        var r=email==='admin@test.ru'?'admin':'viewer';
+        return db.ref('users/'+c.user.uid).set({email:email,role:r,createdAt:Date.now()});
+      }).catch(function(e2){
+        errEl.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message;
+      });
+    } else if(err.code==='auth/wrong-password'){
+      errEl.textContent='Неверный пароль';
+    } else if(err.code==='auth/too-many-requests'){
+      errEl.textContent='Слишком много попыток, подождите';
+    } else {
+      errEl.textContent=err.message;
+    }
   });
 }
 function doLogout(){auth.signOut()}
-auth.onAuthStateChanged(user=>{
+
+auth.onAuthStateChanged(function(user){
   if(user){
     currentUser=user;
-    db.ref('users/'+user.uid).once('value',s=>{
-      const d=s.val();
-      if(!d){const r=user.email==='admin@test.ru'?'admin':'viewer';db.ref('users/'+user.uid).set({email:user.email,role:r,createdAt:Date.now()});userRole=r}
-      else userRole=d.role||'viewer';
+    db.ref('users/'+user.uid).once('value',function(s){
+      var d=s.val();
+      if(!d){
+        var r=user.email==='admin@test.ru'?'admin':'viewer';
+        db.ref('users/'+user.uid).set({email:user.email,role:r,createdAt:Date.now()});
+        userRole=r;
+      } else {
+        userRole=d.role||'viewer';
+      }
       showApp();
     });
   } else {
@@ -365,6 +349,7 @@ auth.onAuthStateChanged(user=>{
     document.getElementById('appMain').classList.add('hidden');
   }
 });
+
 function showApp(){
   document.getElementById('authScreen').classList.add('hidden');
   document.getElementById('appMain').classList.remove('hidden');
@@ -376,7 +361,7 @@ function showApp(){
 }
 
 // ======================================================================
-// NAVIGATION
+// NAV
 // ======================================================================
 function showList(){
   document.getElementById('pageList').classList.remove('hidden');
@@ -394,43 +379,45 @@ function backToList(){
 // PROGRAMS LIST
 // ======================================================================
 function loadPrograms(){
-  db.ref('programs').on('value',snap=>{
-    const progs=snap.val()||{};
-    const c=document.getElementById('programsList');
+  db.ref('programs').on('value',function(snap){
+    var progs=snap.val()||{};
+    var c=document.getElementById('programsList');
     if(!Object.keys(progs).length){
-      c.innerHTML=`<div style="text-align:center;padding:60px 20px">
-        <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c2.png" style="width:64px;height:64px;margin-bottom:16px" alt="">
-        <p style="color:var(--t3);font-size:15px">Нет программ</p>
-        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX»</p>':''}
-      </div>`;return;
+      c.innerHTML='<div style="text-align:center;padding:60px 20px">'+
+        '<img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c2.png" style="width:64px;height:64px;margin-bottom:16px" alt="">'+
+        '<p style="color:var(--t3);font-size:15px">Нет программ</p>'+
+        (isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX»</p>':'')+
+        '</div>';return;
     }
     c.innerHTML='';
-    Object.entries(progs).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0)).forEach(([id,p])=>{
-      const d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
-      const u=p.updatedAt&&p.updatedAt!==p.createdAt?new Date(p.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-      const sz=p.docxBase64?Math.round(p.docxBase64.length*0.75/1024):0;
-      const rCount=p.replacements?p.replacements.length:0;
-      c.innerHTML+=`
-        <div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram('${id}')">
-          <div class="flex-b">
-            <h3>${p.title||'Без названия'}</h3>
-            <div class="gap8">
-              ${rCount?`<span class="pill og">${rCount} замен</span>`:''}
-              <span class="pill pr">${sz} КБ</span>
-            </div>
-          </div>
-          <p class="mt8" style="font-size:12px;color:var(--t3)">Загружено: ${d}${u?' | Изменено: '+u:''}</p>
-          ${isAdmin()?`<div class="mt8 gap8">
-            <button class="btn btnSm btnS" onclick="event.stopPropagation();openRename('${id}','${(p.title||'').replace(/'/g,"\\'")}')">Переименовать</button>
-            <button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">Удалить</button>
-          </div>`:''}
-        </div>`;
+    var sorted=Object.entries(progs).sort(function(a,b){return(b[1].createdAt||0)-(a[1].createdAt||0)});
+    sorted.forEach(function(entry){
+      var id=entry[0],p=entry[1];
+      var d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
+      var u=p.updatedAt&&p.updatedAt!==p.createdAt?new Date(p.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      var sz=p.docxBase64?Math.round(p.docxBase64.length*0.75/1024):0;
+      var safeTitle=(p.title||'').replace(/'/g,"\\'");
+      c.innerHTML+=
+        '<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram(\''+id+'\')">'+
+          '<div class="flex-b">'+
+            '<h3>'+escHtml(p.title||'Без названия')+'</h3>'+
+            '<span class="pill pr">'+sz+' КБ</span>'+
+          '</div>'+
+          '<p class="mt8" style="font-size:12px;color:var(--t3)">Загружено: '+d+(u?' | Изменено: '+u:'')+'</p>'+
+          (isAdmin()?
+            '<div class="mt8 gap8">'+
+              '<button class="btn btnSm btnS" onclick="event.stopPropagation();openRename(\''+id+'\',\''+safeTitle+'\')">Переименовать</button>'+
+              '<button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram(\''+id+'\')">Удалить</button>'+
+            '</div>':'')+
+        '</div>';
     });
   });
 }
 
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
 // ======================================================================
-// UPLOAD DOCX
+// UPLOAD
 // ======================================================================
 function openUploadSheet(){
   if(!isAdmin())return;
@@ -441,27 +428,31 @@ function openUploadSheet(){
   openSheet('sheetUpload');
 }
 function handleFileSelect(e){
-  const f=e.target.files[0];if(!f)return;
+  var f=e.target.files[0];if(!f)return;
   if(!f.name.endsWith('.docx')){notify('Только .docx','error');return}
   document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
   if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
-  const r=new FileReader();r.onload=ev=>{selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
+  var r=new FileReader();
+  r.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
+  r.readAsArrayBuffer(f);
 }
-async function uploadProgram(){
+
+function uploadProgram(){
   if(!isAdmin())return;
-  const title=document.getElementById('uploadTitle').value.trim();
+  var title=document.getElementById('uploadTitle').value.trim();
   if(!title){notify('Введите название','error');return}
   if(!selectedFileArrayBuffer){notify('Выберите файл','error');return}
-  showLoading('Загрузка...');
+  showLoading('Загрузка документа...');
   try{
-    const b64=arrayBufferToBase64(selectedFileArrayBuffer);
+    var b64=arrayBufferToBase64(selectedFileArrayBuffer);
     if(b64.length>9*1024*1024){hideLoading();notify('Файл слишком большой (макс ~7МБ)','error');return}
-    await db.ref('programs').push({
-      title,docxBase64:b64,replacements:[],
+    db.ref('programs').push({
+      title:title,docxBase64:b64,
       createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now()
+    }).then(function(){
+      hideLoading();closeSheet('sheetUpload');notify('Программа загружена');
+      selectedFileArrayBuffer=null;
     });
-    hideLoading();closeSheet('sheetUpload');notify('Программа загружена');
-    selectedFileArrayBuffer=null;
   }catch(e){hideLoading();notify('Ошибка: '+e.message,'error')}
 }
 
@@ -475,142 +466,148 @@ function deleteProgram(id){
 function openRename(id,t){renameId=id;document.getElementById('renameTitle').value=t;openSheet('sheetRename')}
 function doRename(){
   if(!renameId)return;
-  const t=document.getElementById('renameTitle').value.trim();
+  var t=document.getElementById('renameTitle').value.trim();
   if(!t){notify('Введите название','error');return}
   db.ref('programs/'+renameId).update({title:t,updatedAt:Date.now()});
   closeSheet('sheetRename');notify('Переименовано');
 }
 
 // ======================================================================
-// OPEN PROGRAM → RENDER DOCX PREVIEW
+// OPEN PROGRAM
 // ======================================================================
-async function openProgram(id){
+function openProgram(id){
   showLoading('Загрузка документа...');
-  currentProgramId=id;hasChanges=false;
-  const snap=await db.ref('programs/'+id).once('value');
-  currentProgramData=snap.val();
-  if(!currentProgramData||!currentProgramData.docxBase64){hideLoading();notify('Документ не найден','error');return}
+  currentProgramId=id;hasChanges=false;replacements=[];
 
-  // Load saved replacements
-  replacements=currentProgramData.replacements||[];
-
-  // Convert base64 → ArrayBuffer
-  currentDocxArrayBuffer=base64ToArrayBuffer(currentProgramData.docxBase64);
-
-  // Apply saved replacements to get modified DOCX
-  let docxToRender=currentDocxArrayBuffer;
-  if(replacements.length>0){
-    docxToRender=await applyReplacements(currentDocxArrayBuffer,replacements);
-  }
-
-  // Show editor
-  document.getElementById('pageList').classList.add('hidden');
-  document.getElementById('pageEditor').classList.remove('hidden');
-  document.getElementById('editorTitle').textContent=currentProgramData.title||'—';
-  document.getElementById('editorDate').textContent=currentProgramData.updatedAt?new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
-  document.getElementById('editorMeta').textContent=replacements.length?replacements.length+' замен применено':'Оригинальный документ';
-
-  // Show/hide admin controls
-  document.getElementById('replacePanel').classList.toggle('hidden',!isAdmin());
-  document.getElementById('btnDownloadOriginal').classList.toggle('hidden',!isAdmin());
-  if(isAdmin()){
-    document.getElementById('floatBar').classList.remove('hide');
-    updateFloatStatus();
-  }
-
-  // Render DOCX preview using docx-preview
-  await renderDocxPreview(docxToRender);
-  hideLoading();
-}
-
-async function renderDocxPreview(arrayBuffer){
-  const container=document.getElementById('docWrapper');
-  container.innerHTML='';
-  try{
-    await docx.renderAsync(arrayBuffer,container,null,{
-      className:'docx',
-      inWrapper:true,
-      ignoreWidth:false,
-      ignoreHeight:false,
-      ignoreFonts:false,
-      breakPages:true,
-      ignoreLastRenderedPageBreak:true,
-      experimental:false,
-      trimXmlDeclaration:true,
-      useBase64URL:true,
-      renderHeaders:true,
-      renderFooters:true,
-      renderFootnotes:true,
-      renderEndnotes:true
-    });
-  }catch(e){
-    console.error('docx-preview error:',e);
-    container.innerHTML=`<p style="color:var(--red);text-align:center;padding:40px">Ошибка рендера: ${e.message}</p>`;
-  }
-}
-
-// ======================================================================
-// FIND & REPLACE IN DOCX (works inside the actual XML)
-// ======================================================================
-async function applyReplacements(originalArrayBuffer,reps){
-  if(!reps||!reps.length)return originalArrayBuffer;
-  const zip=await JSZip.loadAsync(originalArrayBuffer);
-  
-  // Process all XML files that contain text
-  const xmlFiles=['word/document.xml','word/header1.xml','word/header2.xml','word/header3.xml',
-                  'word/footer1.xml','word/footer2.xml','word/footer3.xml'];
-  
-  for(const path of xmlFiles){
-    const file=zip.file(path);
-    if(!file)continue;
-    let xml=await file.async('string');
-    
-    for(const rep of reps){
-      if(!rep.find)continue;
-      // Smart replacement: handle text split across XML runs
-      // First try simple replacement
-      const escaped=rep.find.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      xml=xml.replace(new RegExp(escaped,'g'),rep.replace||'');
-      
-      // Also handle split runs: rebuild text content
-      xml=replaceInXmlRuns(xml,rep.find,rep.replace||'');
+  db.ref('programs/'+id).once('value').then(function(snap){
+    currentProgramData=snap.val();
+    if(!currentProgramData||!currentProgramData.docxBase64){
+      hideLoading();notify('Документ не найден','error');return;
     }
-    zip.file(path,xml);
+
+    currentDocxArrayBuffer=base64ToArrayBuffer(currentProgramData.docxBase64);
+
+    document.getElementById('pageList').classList.add('hidden');
+    document.getElementById('pageEditor').classList.remove('hidden');
+    document.getElementById('editorTitle').textContent=currentProgramData.title||'—';
+    document.getElementById('editorDate').textContent=currentProgramData.updatedAt?new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
+    document.getElementById('editorMeta').textContent='Оригинальный документ';
+
+    document.getElementById('replacePanel').classList.toggle('hidden',!isAdmin());
+    document.getElementById('btnDlOriginal').classList.toggle('hidden',!isAdmin());
+    document.getElementById('replaceHistory').innerHTML='';
+    document.getElementById('replaceCount').textContent='';
+
+    if(isAdmin()){
+      document.getElementById('floatBar').classList.remove('hide');
+      updateFloatStatus();
+    }
+
+    renderDocxPreview(currentDocxArrayBuffer);
+  });
+}
+
+// ======================================================================
+// RENDER DOCX PREVIEW
+// ======================================================================
+function renderDocxPreview(arrayBuffer){
+  var container=document.getElementById('docWrapper');
+  container.innerHTML='';
+
+  // docx-preview 0.1.20 API
+  var renderFn=null;
+
+  // Detect API version
+  if(typeof docx!=='undefined'){
+    if(typeof docx.renderAsync==='function'){
+      renderFn=docx.renderAsync;
+    }
   }
-  
-  return await zip.generateAsync({type:'arraybuffer'});
+  if(typeof window.docx!=='undefined'){
+    if(typeof window.docx.renderAsync==='function'){
+      renderFn=window.docx.renderAsync;
+    }
+  }
+
+  if(!renderFn){
+    hideLoading();
+    container.innerHTML='<p style="color:var(--red);text-align:center;padding:40px">Библиотека docx-preview не загружена. Обновите страницу.</p>';
+    return;
+  }
+
+  renderFn(arrayBuffer,container,null,{
+    className:'docx',
+    inWrapper:true,
+    ignoreWidth:false,
+    ignoreHeight:false,
+    ignoreFonts:false,
+    breakPages:true,
+    useBase64URL:true
+  }).then(function(){
+    hideLoading();
+  }).catch(function(e){
+    console.error('Render error:',e);
+    // Fallback — try minimal options
+    renderFn(arrayBuffer,container).then(function(){
+      hideLoading();
+    }).catch(function(e2){
+      hideLoading();
+      container.innerHTML='<p style="color:var(--red);text-align:center;padding:40px">Ошибка отображения: '+e2.message+'<br><br><button class="btn btnSm btnO" onclick="downloadOriginalDocx()">Скачать оригинал DOCX</button></p>';
+    });
+  });
+}
+
+// ======================================================================
+// FIND & REPLACE IN DOCX XML
+// ======================================================================
+function applyReplacements(originalBuffer,reps){
+  if(!reps||!reps.length)return Promise.resolve(originalBuffer);
+
+  return JSZip.loadAsync(originalBuffer).then(function(zip){
+    var xmlFiles=['word/document.xml','word/header1.xml','word/header2.xml','word/header3.xml',
+                  'word/footer1.xml','word/footer2.xml','word/footer3.xml'];
+
+    var promises=xmlFiles.map(function(path){
+      var file=zip.file(path);
+      if(!file)return Promise.resolve();
+      return file.async('string').then(function(xml){
+        reps.forEach(function(rep){
+          if(!rep.find)return;
+          // Simple replacement
+          var escaped=rep.find.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+          xml=xml.replace(new RegExp(escaped,'g'),rep.replace||'');
+          // Handle split runs
+          xml=replaceInXmlRuns(xml,rep.find,rep.replace||'');
+        });
+        zip.file(path,xml);
+      });
+    });
+
+    return Promise.all(promises).then(function(){
+      return zip.generateAsync({type:'arraybuffer'});
+    });
+  });
 }
 
 function replaceInXmlRuns(xml,findStr,replaceStr){
-  // DOCX often splits text across multiple <w:r><w:t> elements
-  // This function finds text across runs and replaces it
-  
-  // Extract all <w:p> paragraphs
-  const pRegex=/<w:p[ >][\s\S]*?<\/w:p>/g;
-  
+  var pRegex=/<w:p[ >][\s\S]*?<\/w:p>/g;
+
   return xml.replace(pRegex,function(paragraph){
-    // Get all text content from <w:t> tags
-    const tRegex=/<w:t[^>]*>([\s\S]*?)<\/w:t>/g;
-    let texts=[];
-    let match;
+    var tRegex=/<w:t[^>]*>([\s\S]*?)<\/w:t>/g;
+    var texts=[];
+    var match;
     while((match=tRegex.exec(paragraph))!==null){
       texts.push({full:match[0],text:match[1],index:match.index});
     }
-    
     if(!texts.length)return paragraph;
-    
-    // Concatenate all text
-    const fullText=texts.map(t=>t.text).join('');
-    
-    // Check if findStr exists in concatenated text
+
+    var fullText=texts.map(function(t){return t.text}).join('');
     if(fullText.indexOf(findStr)===-1)return paragraph;
-    
-    // Replace in concatenated text
-    const newText=fullText.split(findStr).join(replaceStr);
-    
-    // Put all text into first <w:t> and empty the rest
-    let result=paragraph;
-    for(let i=texts.length-1;i>=0;i--){
+
+    var newText=fullText.split(findStr).join(replaceStr);
+
+    var result=paragraph;
+    for(var i=texts.length-1;i>=0;i--){
       if(i===0){
         result=result.substring(0,texts[i].index)+
           '<w:t xml:space="preserve">'+newText+'</w:t>'+
@@ -626,74 +623,111 @@ function replaceInXmlRuns(xml,findStr,replaceStr){
 }
 
 // ======================================================================
-// DO REPLACE (user action)
+// DO REPLACE
 // ======================================================================
-async function doReplace(){
+function doReplace(){
   if(!isAdmin())return;
-  const find=document.getElementById('findText').value;
-  const replace=document.getElementById('replaceText').value;
+  var find=document.getElementById('findText').value;
+  var replace=document.getElementById('replaceText').value;
   if(!find){notify('Введите текст для поиска','error');return}
-  
+
   showLoading('Применяю замену...');
-  
-  // Add to replacements list
-  replacements.push({find,replace,date:Date.now()});
+
+  replacements.push({find:find,replace:replace,date:Date.now()});
   hasChanges=true;
-  
-  // Re-apply all replacements to original DOCX
-  const modified=await applyReplacements(currentDocxArrayBuffer,replacements);
-  
-  // Re-render preview
-  await renderDocxPreview(modified);
-  
-  // Count occurrences
-  document.getElementById('replaceCount').textContent=`Замена "${find}" → "${replace}" добавлена. Всего замен: ${replacements.length}`;
-  document.getElementById('findText').value='';
-  document.getElementById('replaceText').value='';
-  
-  updateFloatStatus();
-  hideLoading();
-  notify('Замена применена');
+
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    renderDocxPreview(modified);
+
+    // Update history
+    var histEl=document.getElementById('replaceHistory');
+    histEl.innerHTML='';
+    replacements.forEach(function(r,i){
+      histEl.innerHTML+=
+        '<div class="replace-item">'+
+          '<div><span class="old">'+escHtml(r.find)+'</span> → <span class="new">'+escHtml(r.replace)+'</span></div>'+
+          '<button class="btn btnSm btnD" onclick="undoReplace('+i+')" style="padding:3px 8px;font-size:10px">✕</button>'+
+        '</div>';
+    });
+
+    document.getElementById('replaceCount').textContent='Замен: '+replacements.length;
+    document.getElementById('findText').value='';
+    document.getElementById('replaceText').value='';
+
+    updateFloatStatus();
+    notify('Замена применена');
+  }).catch(function(e){
+    hideLoading();
+    notify('Ошибка замены: '+e.message,'error');
+  });
+}
+
+function undoReplace(index){
+  replacements.splice(index,1);
+  hasChanges=replacements.length>0;
+  showLoading('Отменяю...');
+
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    renderDocxPreview(modified);
+
+    var histEl=document.getElementById('replaceHistory');
+    histEl.innerHTML='';
+    replacements.forEach(function(r,i){
+      histEl.innerHTML+=
+        '<div class="replace-item">'+
+          '<div><span class="old">'+escHtml(r.find)+'</span> → <span class="new">'+escHtml(r.replace)+'</span></div>'+
+          '<button class="btn btnSm btnD" onclick="undoReplace('+i+')" style="padding:3px 8px;font-size:10px">✕</button>'+
+        '</div>';
+    });
+
+    document.getElementById('replaceCount').textContent=replacements.length?'Замен: '+replacements.length:'';
+    updateFloatStatus();
+    notify('Замена отменена');
+  });
 }
 
 function updateFloatStatus(){
-  const s=document.getElementById('floatStatus');
+  var s=document.getElementById('floatStatus');
   if(hasChanges){
-    s.textContent=`${replacements.length} замен (не сохранено)`;
+    s.textContent=replacements.length+' замен (не сохранено)';
     s.style.color='var(--orange)';
   } else {
-    s.textContent=replacements.length?`${replacements.length} замен (сохранено)`:'Без изменений';
+    s.textContent='Без изменений';
     s.style.color='var(--t3)';
   }
 }
 
 // ======================================================================
-// SAVE DOCUMENT (save replacements list to Firebase)
+// SAVE
 // ======================================================================
-async function saveDocument(){
+function saveDocument(){
   if(!isAdmin()||!currentProgramId)return;
   showLoading('Сохранение...');
-  
-  // Save modified DOCX as new base64
-  const modified=await applyReplacements(currentDocxArrayBuffer,replacements);
-  const newBase64=arrayBufferToBase64(modified);
-  
-  await db.ref('programs/'+currentProgramId).update({
-    docxBase64:newBase64,
-    replacements:[], // Clear replacements since they're baked in
-    updatedAt:Date.now()
+
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    var newBase64=arrayBufferToBase64(modified);
+
+    return db.ref('programs/'+currentProgramId).update({
+      docxBase64:newBase64,
+      updatedAt:Date.now()
+    }).then(function(){
+      // Bake in replacements
+      currentDocxArrayBuffer=modified;
+      currentProgramData.docxBase64=newBase64;
+      replacements=[];
+      hasChanges=false;
+
+      document.getElementById('replaceHistory').innerHTML='';
+      document.getElementById('replaceCount').textContent='';
+      updateFloatStatus();
+      document.getElementById('editorMeta').textContent='Документ сохранён';
+      hideLoading();
+      notify('Документ сохранён');
+    });
+  }).catch(function(e){
+    hideLoading();
+    notify('Ошибка сохранения: '+e.message,'error');
   });
-  
-  // Update local state
-  currentDocxArrayBuffer=modified;
-  currentProgramData.docxBase64=newBase64;
-  replacements=[];
-  hasChanges=false;
-  
-  updateFloatStatus();
-  document.getElementById('editorMeta').textContent='Документ сохранён';
-  hideLoading();
-  notify('Документ сохранён');
 }
 
 // ======================================================================
@@ -701,29 +735,30 @@ async function saveDocument(){
 // ======================================================================
 function downloadOriginalDocx(){
   if(!currentDocxArrayBuffer)return;
-  const blob=new Blob([currentDocxArrayBuffer],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  var blob=new Blob([currentDocxArrayBuffer],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
   downloadBlob(blob,(currentProgramData.title||'doc')+'_оригинал.docx');
+  notify('Оригинал скачан');
 }
 
-async function downloadModifiedDocx(){
+function downloadModifiedDocx(){
   if(!currentDocxArrayBuffer)return;
   showLoading('Генерация DOCX...');
-  const modified=await applyReplacements(currentDocxArrayBuffer,replacements);
-  const blob=new Blob([modified],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-  downloadBlob(blob,(currentProgramData.title||'doc')+'.docx');
-  hideLoading();
-  notify('DOCX скачан');
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    var blob=new Blob([modified],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    downloadBlob(blob,(currentProgramData.title||'doc')+'.docx');
+    hideLoading();
+    notify('DOCX скачан');
+  });
 }
 
 function downloadPdf(){
-  const wrapper=document.getElementById('docWrapper');
+  var wrapper=document.getElementById('docWrapper');
   if(!wrapper)return;
   showLoading('Генерация PDF...');
-  
-  // Clone for PDF generation
-  const clone=wrapper.cloneNode(true);
+
+  var clone=wrapper.cloneNode(true);
   clone.style.background='#fff';
-  
+
   html2pdf().set({
     margin:[10,10,10,10],
     filename:(currentProgramData.title||'doc')+'.pdf',
@@ -731,32 +766,31 @@ function downloadPdf(){
     html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#fff'},
     jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
     pagebreak:{mode:['avoid-all','css','legacy']}
-  }).from(clone).save().then(()=>{
+  }).from(clone).save().then(function(){
     hideLoading();notify('PDF скачан');
-  }).catch(e=>{
+  }).catch(function(){
     hideLoading();notify('Ошибка PDF','error');
   });
 }
 
 // ======================================================================
-// DRAG & DROP on upload zone
+// DRAG & DROP
 // ======================================================================
-const uz=document.getElementById('uploadZone');
+var uz=document.getElementById('uploadZone');
 if(uz){
-  ['dragenter','dragover'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();uz.classList.add('drag')}));
-  ['dragleave','drop'].forEach(ev=>uz.addEventListener(ev,e=>{e.preventDefault();uz.classList.remove('drag')}));
-  uz.addEventListener('drop',e=>{
-    const f=e.dataTransfer.files[0];
+  ['dragenter','dragover'].forEach(function(ev){uz.addEventListener(ev,function(e){e.preventDefault();uz.classList.add('drag')})});
+  ['dragleave','drop'].forEach(function(ev){uz.addEventListener(ev,function(e){e.preventDefault();uz.classList.remove('drag')})});
+  uz.addEventListener('drop',function(e){
+    var f=e.dataTransfer.files[0];
     if(f&&f.name.endsWith('.docx')){
       document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
       if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
-      const r=new FileReader();r.onload=ev=>{selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
+      var r=new FileReader();r.onload=function(ev){selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
     }
   });
 }
 
-// Warn on close
-window.addEventListener('beforeunload',e=>{if(hasChanges&&isAdmin()){e.preventDefault();e.returnValue=''}});
+window.addEventListener('beforeunload',function(e){if(hasChanges&&isAdmin()){e.preventDefault();e.returnValue=''}});
 </script>
 </body>
 </html>
