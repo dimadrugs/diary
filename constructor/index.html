@@ -8,108 +8,127 @@
 :root{--bg:#0a0a0a;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.notif{position:fixed;top:0;left:0;right:0;padding:12px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s}
-.notif.show{transform:translateY(0)}.notif.success{background:var(--green);color:#fff}.notif.error{background:var(--red);color:#fff}
+body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+.ae{height:1.1em;width:1.1em;vertical-align:-0.15em;display:inline-block;pointer-events:none}
+
+.notif{position:fixed;top:0;left:0;right:0;padding:12px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s ease}
+.notif.show{transform:translateY(0)}
+.notif.success{background:var(--green);color:#fff}
+.notif.error{background:var(--red);color:#fff}
+.notif.info{background:var(--blue);color:#fff}
+
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
-.topbar h1{font-size:17px;font-weight:600}.topbar-r{display:flex;gap:8px;align-items:center}
-.container{max-width:1000px;margin:0 auto;padding:16px}
+.topbar h1{font-size:17px;font-weight:600;display:flex;align-items:center;gap:6px}
+.topbar-r{display:flex;gap:8px;align-items:center}
+.container{max-width:1100px;margin:0 auto;padding:16px}
 .card{background:var(--card);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
-.btn{border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .1s}
-.btn:active{transform:scale(.96)}.btnP{background:var(--blue);color:#fff}.btnS{background:transparent;color:var(--text);border:1px solid var(--t4)!important}
-.btnD{background:var(--red);color:#fff}.btnG{background:var(--green);color:#fff}.btnO{background:var(--orange);color:#fff}
+.card h3{font-size:15px;font-weight:600;margin-bottom:6px}
+.card p{font-size:13px;color:var(--t2);line-height:1.5}
+.btn{border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .1s,opacity .1s}
+.btn:active{transform:scale(.96);opacity:.8}
+.btnP{background:var(--blue);color:#fff}
+.btnS{background:transparent;color:var(--text);border:1px solid var(--t4)!important}
+.btnD{background:var(--red);color:#fff}
+.btnG{background:var(--green);color:#fff}
+.btnO{background:var(--orange);color:#fff}
 .btnSm{padding:6px 14px;font-size:12px;border-radius:var(--rs)}
-.inp{width:100%;padding:12px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none}
+.inp{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .inp:focus{border-color:var(--blue)}
 label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight:500}
-.fg{margin-bottom:14px}
+.fg{margin-bottom:16px}
 .pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
-.pill.bl{background:rgba(10,132,255,.15);color:var(--blue)}.pill.gr{background:rgba(48,209,88,.15);color:var(--green)}
-.pill.og{background:rgba(255,159,10,.15);color:var(--orange)}.pill.pr{background:rgba(191,90,242,.15);color:var(--purple)}
-.flex-b{display:flex;justify-content:space-between;align-items:center}.gap8{display:flex;gap:8px;flex-wrap:wrap}
-.mt8{margin-top:8px}.mb12{margin-bottom:12px}.hidden{display:none!important}
+.pill.bl{background:rgba(10,132,255,.15);color:var(--blue)}
+.pill.gr{background:rgba(48,209,88,.15);color:var(--green)}
+.pill.og{background:rgba(255,159,10,.15);color:var(--orange)}
+.pill.rd{background:rgba(255,69,58,.15);color:var(--red)}
+.pill.pr{background:rgba(191,90,242,.15);color:var(--purple)}
+.flex-b{display:flex;justify-content:space-between;align-items:center}
+.gap8{display:flex;gap:8px;flex-wrap:wrap}
+.mt8{margin-top:8px}
+.mb12{margin-bottom:12px}
+.hidden{display:none!important}
+
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
-.auth-err{color:var(--red);font-size:13px;margin-top:8px}
+.auth-box h2{font-size:22px;margin-bottom:8px}
+.auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
+.auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
+
 .upload-zone{border:2px dashed var(--t4);border-radius:var(--r);padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.upload-zone:hover{border-color:var(--blue);background:rgba(10,132,255,.05)}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(10,132,255,.05)}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
 
-/* Section tabs */
-.sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
-.sec-tab{padding:8px 14px;border-radius:var(--rs);font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s}
-.sec-tab.active{background:var(--purple);color:#fff}
-.sec-tab.filled::after{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-left:5px}
+.doc-wrapper{background:#e8e8e8;border-radius:8px;padding:20px;min-height:500px}
+[data-theme="dark"] .doc-wrapper{background:#333}
+.doc-wrapper .docx-wrapper{background:#fff!important;margin:0 auto!important;box-shadow:0 2px 20px rgba(0,0,0,.2);border-radius:4px}
+.doc-wrapper .docx-wrapper section.docx{padding:40px 50px!important;margin-bottom:20px!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.1)!important}
 
-/* Section content — editable document view */
-.sec-box{background:var(--bg3);border-radius:var(--r);padding:20px;min-height:300px}
-
-/* The actual document editing area */
-.doc-edit{background:#fff;color:#000;border-radius:8px;padding:30px 40px;min-height:400px;font-family:'Times New Roman',serif;font-size:14pt;line-height:1.6;outline:none}
-.doc-edit:focus{box-shadow:0 0 0 3px rgba(10,132,255,.3)}
-.doc-edit table{border-collapse:collapse;width:100%;margin:10px 0}
-.doc-edit table td,.doc-edit table th{border:1px solid #000;padding:5px 8px;vertical-align:top}
-.doc-edit table th{background:#f0f0f0;font-weight:700}
-.doc-edit h1,.doc-edit h2,.doc-edit h3{font-family:'Times New Roman',serif}
-.doc-edit p{margin-bottom:6px}
-.doc-edit ul,.doc-edit ol{margin-left:20px;margin-bottom:8px}
-.doc-readonly{background:#f8f8f8;color:#000;border-radius:8px;padding:30px 40px;min-height:200px;font-family:'Times New Roman',serif;font-size:14pt;line-height:1.6;user-select:text}
-.doc-readonly table{border-collapse:collapse;width:100%;margin:10px 0}
-.doc-readonly table td,.doc-readonly table th{border:1px solid #000;padding:5px 8px}
-
-/* Float bar */
-.float-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 16px;display:flex;gap:8px;align-items:center;z-index:150;box-shadow:0 4px 20px rgba(0,0,0,.5);backdrop-filter:blur(20px)}
-.float-bar.hide{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(10px)}
+.float-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 12px;display:flex;gap:8px;align-items:center;z-index:150;backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .3s,transform .3s}
+.float-bar.hide{opacity:0;transform:translateX(-50%) translateY(20px);pointer-events:none}
 .float-status{font-size:12px;color:var(--t3);padding:0 8px}
 
-/* Sheet */
+.replace-panel{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.replace-panel h4{font-size:14px;margin-bottom:12px;color:var(--blue)}
+.replace-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.replace-row .inp{flex:1}
+.replace-count{font-size:12px;color:var(--t3);margin-top:4px}
+.replace-history{margin-top:12px;max-height:200px;overflow-y:auto}
+.replace-item{display:flex;justify-content:space-between;align-items:center;padding:8px;background:var(--bg3);border-radius:var(--rs);margin-bottom:4px;font-size:12px}
+.replace-item .old{color:var(--red);text-decoration:line-through}
+.replace-item .new{color:var(--green)}
+
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
-.sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s}
+.sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
 @keyframes shUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .sh-handle{width:36px;height:5px;border-radius:3px;background:var(--t4);margin:8px auto 0}
 .sh-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 0}
 .sh-head h2{font-size:17px;font-weight:600}
 .sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sh-body{padding:20px}
+
 .loading-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-ov.show{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--t4);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}.loading-ov p{color:#fff;font-size:14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-ov p{color:#fff;font-size:14px}
+
 .th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 
 @media(max-width:768px){
-  .doc-edit,.doc-readonly{padding:15px 12px;font-size:12pt}
-  .sec-tab{font-size:10px;padding:5px 8px}
-  .float-bar{bottom:10px;left:10px;right:10px;transform:none;border-radius:14px;justify-content:center}
-  .float-bar.hide{transform:translateY(10px)}
+  .doc-wrapper .docx-wrapper section.docx{padding:20px!important}
+  .float-bar{bottom:10px;left:10px;right:10px;transform:none;border-radius:14px}
+  .float-bar.hide{transform:translateY(20px)}
+  .replace-row{flex-direction:column}
+  .topbar h1{font-size:14px}
 }
 </style>
 </head>
 <body>
+
 <div class="notif" id="notif"></div>
 <div class="loading-ov" id="loadingOv"><div class="spinner"></div><p id="loadingText">Загрузка...</p></div>
 
 <!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
-    <div style="font-size:48px;margin-bottom:12px">📄</div>
-    <h2 style="margin-bottom:8px">Конструктор программ</h2>
-    <p style="font-size:13px;color:var(--t3);margin-bottom:24px">Войдите для работы</p>
-    <div class="fg"><label>Email</label><input class="inp" id="authEmail" value="admin@test.ru"></div>
+    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:12px" alt="">
+    <h2>Конструктор программ</h2>
+    <p>Войдите для работы с рабочими программами</p>
+    <div class="fg"><label>Email</label><input class="inp" id="authEmail" type="email" value="admin@test.ru"></div>
     <div class="fg"><label>Пароль</label><input class="inp" id="authPass" type="password" value="123456"></div>
     <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
     <div class="auth-err" id="authErr"></div>
-    <p style="margin-top:16px;font-size:11px;color:var(--t3)">admin@test.ru / 123456 — редактирование<br>test@test.ru / 123456 — просмотр</p>
+    <p style="margin-top:16px;font-size:11px;color:var(--t3)">admin@test.ru / 123456 — редактирование<br>test@test.ru / 123456 — только просмотр</p>
   </div>
 </div>
 
 <!-- APP -->
 <div id="appMain" class="hidden">
   <div class="topbar">
-    <h1>📄 Конструктор программ</h1>
+    <h1><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:20px;width:20px"> Конструктор программ</h1>
     <div class="topbar-r">
-      <button class="th-tog" onclick="toggleTheme()">🌓</button>
+      <button class="th-tog" onclick="toggleTheme()"><img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px"></button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
       <span id="roleLabel" class="pill bl"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
@@ -120,9 +139,9 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <div class="container" id="pageList">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
-      <button class="btn btnP btnSm hidden" id="btnUpload" onclick="openUpload()">+ Загрузить DOCX</button>
+      <button class="btn btnP btnSm hidden" id="btnUpload" onclick="openUploadSheet()">+ Загрузить DOCX</button>
     </div>
-    <div id="progList"></div>
+    <div id="programsList"></div>
   </div>
 
   <!-- EDITOR -->
@@ -130,22 +149,38 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     <div class="flex-b mb12">
       <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
       <div class="gap8">
-        <button class="btn btnSm btnG" onclick="downloadDocx()">📥 Скачать DOCX</button>
-        <button class="btn btnSm btnD hidden" id="btnDel2" onclick="delCurrent()">Удалить</button>
+        <button class="btn btnSm btnO hidden" id="btnDlOriginal" onclick="downloadOriginalDocx()">Оригинал DOCX</button>
+        <button class="btn btnSm btnS" onclick="downloadPdf()">PDF</button>
       </div>
     </div>
     <div class="card" style="border-left:4px solid var(--purple)">
-      <div class="flex-b"><h3 id="edTitle">—</h3><span class="pill pr" id="edDate"></span></div>
+      <div class="flex-b"><h3 id="editorTitle">—</h3><span class="pill pr" id="editorDate"></span></div>
+      <p id="editorMeta"></p>
     </div>
-    <div class="sec-tabs" id="secTabs"></div>
-    <div class="sec-box" id="secBox"><p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел для редактирования</p></div>
+
+    <!-- Replace panel -->
+    <div class="replace-panel hidden" id="replacePanel">
+      <h4>Найти и заменить текст</h4>
+      <div class="replace-row">
+        <input class="inp" id="findText" placeholder="Найти текст...">
+        <input class="inp" id="replaceText" placeholder="Заменить на...">
+        <button class="btn btnSm btnP" onclick="doReplace()">Заменить всё</button>
+      </div>
+      <div class="replace-count" id="replaceCount"></div>
+      <p style="font-size:11px;color:var(--t3);margin-top:4px">Форматирование, таблицы, шрифты, отступы — всё сохраняется. Меняется только текст.</p>
+      <div class="replace-history" id="replaceHistory"></div>
+    </div>
+
+    <div class="doc-wrapper" id="docWrapper">
+      <p style="color:var(--t3);text-align:center;padding:40px">Загрузка документа...</p>
+    </div>
   </div>
 
   <!-- Float bar -->
   <div class="float-bar hide" id="floatBar">
-    <button class="btn btnSm btnG" onclick="saveSec()">💾 Сохранить раздел</button>
-    <button class="btn btnSm btnP" onclick="saveAndNext()">Сохранить → далее</button>
-    <span class="float-status" id="floatStatus"></span>
+    <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
+    <button class="btn btnSm btnO" onclick="downloadModifiedDocx()">Скачать DOCX</button>
+    <span class="float-status" id="floatStatus">Без изменений</span>
   </div>
 </div>
 
@@ -153,365 +188,608 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <div class="sheet-ov" id="sheetUpload">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-head"><h2>Загрузить DOCX</h2><button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button></div>
+    <div class="sh-head"><h2>Загрузить программу</h2><button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button></div>
     <div class="sh-body">
-      <div class="fg"><label>Название</label><input class="inp" id="upTitle"></div>
+      <div class="fg"><label>Название</label><input class="inp" id="uploadTitle" placeholder="ОУП.06 Иностранный язык"></div>
       <div class="fg">
-        <div class="upload-zone">
-          <input type="file" id="fileInp" accept=".docx" onchange="onFile(event)">
-          <p style="color:var(--t3)">Перетащите или выберите DOCX</p>
+        <label>Файл DOCX</label>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".docx" onchange="handleFileSelect(event)">
+          <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e4.png" style="width:48px;height:48px" alt="">
+          <p style="color:var(--t3);font-size:14px;margin-top:8px">Перетащите DOCX или нажмите</p>
           <p id="fileName" style="color:var(--blue);font-weight:600;margin-top:8px"></p>
         </div>
       </div>
-      <button class="btn btnP" style="width:100%" onclick="doUpload()">Загрузить</button>
+      <button class="btn btnP" style="width:100%" onclick="uploadProgram()">Загрузить</button>
     </div>
   </div>
 </div>
 
-<!-- JSZip first -->
+<!-- SHEET: Rename -->
+<div class="sheet-ov" id="sheetRename">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-head"><h2>Переименовать</h2><button class="sh-close" onclick="closeSheet('sheetRename')">✕</button></div>
+    <div class="sh-body">
+      <div class="fg"><label>Название</label><input class="inp" id="renameTitle"></div>
+      <button class="btn btnP" style="width:100%" onclick="doRename()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- JSZip ПЕРВЫМ -->
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
-<!-- Mammoth for DOCX→HTML with formatting -->
-<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<!-- docx-preview ПОСЛЕ JSZip -->
+<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.20/dist/docx-preview.min.js"></script>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-var firebaseConfig={apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"};
-firebase.initializeApp(firebaseConfig);var auth=firebase.auth(),db=firebase.database();
+// ======================================================================
+// FIREBASE
+// ======================================================================
+const firebaseConfig={
+  apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
+  authDomain:"my-diary-e223c.firebaseapp.com",
+  databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",
+  projectId:"my-diary-e223c",
+  storageBucket:"my-diary-e223c.firebasestorage.app",
+  messagingSenderId:"903986378920",
+  appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.database();
 
-// ======================================================================
-// SECTION DEFINITIONS — how to split the document
-// ======================================================================
-var SECTIONS=[
-  {key:'title',name:'Титульный лист',markers:[]},
-  {key:'goals',name:'Цели и задачи',markers:['цели и задачи','цель дисциплины','цели освоения','целью изучения']},
-  {key:'place',name:'Место в структуре ООП',markers:['место дисциплины','место учебной','место предмета','место в структуре']},
-  {key:'results',name:'Результаты обучения',markers:['результаты обучения','результаты освоения','планируемые результаты','компетенции обучающ']},
-  {key:'structure',name:'Структура и содержание',markers:['структура и содержание','объем учебной','объём учебной','тематический план']},
-  {key:'thematic',name:'Тематический план',markers:['тематический план и содержание','содержание учебной дисциплины','содержание учебного предмета']},
-  {key:'conditions',name:'Условия реализации',markers:['условия реализации','учебно-методическое','информационное обеспечение','материально-техническое']},
-  {key:'control',name:'Контроль и оценка',markers:['контроль и оценка','оценка результатов','фонд оценочных']},
-  {key:'approval',name:'Рассмотрение',markers:['рассмотрение','утверждение','согласование','лист регистрации']}
-];
-
-// ======================================================================
-// STATE
-// ======================================================================
-var currentUser=null,userRole=null,currentProgId=null,currentProgData=null,currentSecKey=null,fileBuf=null,hasChanges=false;
-function isAdmin(){return userRole==='admin'}
+// Проверка JSZip
+if(typeof JSZip==='undefined'){
+  console.error('JSZip не загружен!');
+  document.body.innerHTML='<p style="color:red;text-align:center;padding:40px;font-size:18px">Ошибка: JSZip не загружен. Проверьте интернет и обновите страницу.</p>';
+}
 
 // ======================================================================
 // HELPERS
 // ======================================================================
-function notify(m,t){var n=document.getElementById('notif');n.textContent=m;n.className='notif '+(t||'success')+' show';setTimeout(function(){n.classList.remove('show')},3000)}
-function showLoad(t){document.getElementById('loadingText').textContent=t||'';document.getElementById('loadingOv').classList.add('show')}
-function hideLoad(){document.getElementById('loadingOv').classList.remove('show')}
+function notify(msg,type){
+  type=type||'success';
+  const n=document.getElementById('notif');
+  n.textContent=msg;n.className='notif '+type+' show';
+  setTimeout(function(){n.classList.remove('show')},3000);
+}
+function showLoading(t){document.getElementById('loadingText').textContent=t||'Загрузка...';document.getElementById('loadingOv').classList.add('show')}
+function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
 function openSheet(id){document.getElementById(id).classList.add('open')}
 function closeSheet(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.sheet-ov').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')})});
+document.querySelectorAll('.sheet-ov').forEach(function(ov){ov.addEventListener('click',function(e){if(e.target===ov)ov.classList.remove('open')})});
 function toggleTheme(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
 if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
-function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+function arrayBufferToBase64(buffer){
+  var binary='';var bytes=new Uint8Array(buffer);
+  for(var i=0;i<bytes.byteLength;i+=8192){
+    var chunk=bytes.subarray(i,Math.min(i+8192,bytes.byteLength));
+    binary+=String.fromCharCode.apply(null,chunk);
+  }
+  return btoa(binary);
+}
+function base64ToArrayBuffer(b64){
+  var bin=atob(b64);var bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  return bytes.buffer;
+}
+function downloadBlob(blob,name){
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=name;document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(a.href);
+}
+
+// ======================================================================
+// STATE
+// ======================================================================
+var currentUser=null,userRole=null;
+var currentProgramId=null,currentProgramData=null;
+var selectedFileArrayBuffer=null;
+var renameId=null;
+var currentDocxArrayBuffer=null;
+var replacements=[];
+var hasChanges=false;
+
+function isAdmin(){return userRole==='admin'}
 
 // ======================================================================
 // AUTH
 // ======================================================================
 function doLogin(){
-  var e=document.getElementById('authEmail').value.trim(),p=document.getElementById('authPass').value,err=document.getElementById('authErr');
-  err.textContent='';if(!e||!p){err.textContent='Заполните поля';return}
-  auth.signInWithEmailAndPassword(e,p).catch(function(er){
-    if(er.code==='auth/user-not-found'||er.code==='auth/invalid-credential'){
-      err.textContent='Создаю аккаунт...';
-      auth.createUserWithEmailAndPassword(e,p).then(function(c){return db.ref('users/'+c.user.uid).set({email:e,role:e==='admin@test.ru'?'admin':'viewer',t:Date.now()})}).catch(function(e2){err.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message});
-    } else err.textContent=er.message;
+  var email=document.getElementById('authEmail').value.trim();
+  var pass=document.getElementById('authPass').value;
+  var errEl=document.getElementById('authErr');errEl.textContent='';
+  if(!email||!pass){errEl.textContent='Заполните все поля';return}
+  if(pass.length<6){errEl.textContent='Пароль минимум 6 символов';return}
+  auth.signInWithEmailAndPassword(email,pass).catch(function(err){
+    if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'){
+      errEl.textContent='Создаю аккаунт...';
+      auth.createUserWithEmailAndPassword(email,pass).then(function(c){
+        var r=email==='admin@test.ru'?'admin':'viewer';
+        return db.ref('users/'+c.user.uid).set({email:email,role:r,createdAt:Date.now()});
+      }).catch(function(e2){
+        errEl.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message;
+      });
+    } else if(err.code==='auth/wrong-password'){
+      errEl.textContent='Неверный пароль';
+    } else if(err.code==='auth/too-many-requests'){
+      errEl.textContent='Слишком много попыток, подождите';
+    } else {
+      errEl.textContent=err.message;
+    }
   });
 }
 function doLogout(){auth.signOut()}
-auth.onAuthStateChanged(function(u){
-  if(u){currentUser=u;db.ref('users/'+u.uid).once('value',function(s){var d=s.val();if(!d){var r=u.email==='admin@test.ru'?'admin':'viewer';db.ref('users/'+u.uid).set({email:u.email,role:r,t:Date.now()});userRole=r}else userRole=d.role||'viewer';showApp()})}
-  else{currentUser=null;userRole=null;document.getElementById('authScreen').classList.remove('hidden');document.getElementById('appMain').classList.add('hidden')}
+
+auth.onAuthStateChanged(function(user){
+  if(user){
+    currentUser=user;
+    db.ref('users/'+user.uid).once('value',function(s){
+      var d=s.val();
+      if(!d){
+        var r=user.email==='admin@test.ru'?'admin':'viewer';
+        db.ref('users/'+user.uid).set({email:user.email,role:r,createdAt:Date.now()});
+        userRole=r;
+      } else {
+        userRole=d.role||'viewer';
+      }
+      showApp();
+    });
+  } else {
+    currentUser=null;userRole=null;
+    document.getElementById('authScreen').classList.remove('hidden');
+    document.getElementById('appMain').classList.add('hidden');
+  }
 });
+
 function showApp(){
-  document.getElementById('authScreen').classList.add('hidden');document.getElementById('appMain').classList.remove('hidden');
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('appMain').classList.remove('hidden');
   document.getElementById('userLabel').textContent=currentUser.email;
   document.getElementById('roleLabel').textContent=isAdmin()?'Редактор':'Просмотр';
   document.getElementById('roleLabel').className='pill '+(isAdmin()?'gr':'bl');
   document.getElementById('btnUpload').classList.toggle('hidden',!isAdmin());
-  loadProgs();showList();
+  loadPrograms();showList();
 }
 
 // ======================================================================
 // NAV
 // ======================================================================
-function showList(){document.getElementById('pageList').classList.remove('hidden');document.getElementById('pageEditor').classList.add('hidden');document.getElementById('floatBar').classList.add('hide');currentProgId=null;hasChanges=false}
-function backToList(){if(hasChanges&&isAdmin()&&!confirm('Есть несохранённые изменения. Выйти?'))return;showList()}
+function showList(){
+  document.getElementById('pageList').classList.remove('hidden');
+  document.getElementById('pageEditor').classList.add('hidden');
+  document.getElementById('floatBar').classList.add('hide');
+  currentProgramId=null;currentProgramData=null;currentDocxArrayBuffer=null;
+  replacements=[];hasChanges=false;
+}
+function backToList(){
+  if(hasChanges&&isAdmin()&&!confirm('Есть несохранённые изменения. Выйти?'))return;
+  showList();
+}
 
 // ======================================================================
-// LIST
+// PROGRAMS LIST
 // ======================================================================
-function loadProgs(){
+function loadPrograms(){
   db.ref('programs').on('value',function(snap){
-    var progs=snap.val()||{},c=document.getElementById('progList');
-    if(!Object.keys(progs).length){c.innerHTML='<div style="text-align:center;padding:60px"><p style="font-size:48px;margin-bottom:16px">📄</p><p style="color:var(--t3)">Нет программ. Загрузите DOCX.</p></div>';return}
+    var progs=snap.val()||{};
+    var c=document.getElementById('programsList');
+    if(!Object.keys(progs).length){
+      c.innerHTML='<div style="text-align:center;padding:60px 20px">'+
+        '<img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c2.png" style="width:64px;height:64px;margin-bottom:16px" alt="">'+
+        '<p style="color:var(--t3);font-size:15px">Нет программ</p>'+
+        (isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX»</p>':'')+
+        '</div>';return;
+    }
     c.innerHTML='';
-    Object.entries(progs).sort(function(a,b){return(b[1].createdAt||0)-(a[1].createdAt||0)}).forEach(function(en){
-      var id=en[0],p=en[1],secs=p.sections||{};
-      var filled=SECTIONS.filter(function(s){return secs[s.key]&&secs[s.key].trim&&secs[s.key].trim().length>10}).length;
-      var d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru'):'';
-      var u=p.updatedAt?new Date(p.updatedAt).toLocaleDateString('ru'):'';
-      c.innerHTML+='<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProg(\''+id+'\')"><div class="flex-b"><h3 style="font-size:15px">'+esc(p.title||'')+'</h3><span class="pill '+(filled>=7?'gr':filled>=3?'og':'bl')+'">'+filled+'/'+SECTIONS.length+'</span></div><p style="font-size:12px;color:var(--t3);margin-top:6px">'+d+(u&&u!==d?' → '+u:'')+'</p>'+(isAdmin()?'<button class="btn btnSm btnD mt8" onclick="event.stopPropagation();delProg(\''+id+'\')">Удалить</button>':'')+'</div>';
+    var sorted=Object.entries(progs).sort(function(a,b){return(b[1].createdAt||0)-(a[1].createdAt||0)});
+    sorted.forEach(function(entry){
+      var id=entry[0],p=entry[1];
+      var d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
+      var u=p.updatedAt&&p.updatedAt!==p.createdAt?new Date(p.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      var sz=p.docxBase64?Math.round(p.docxBase64.length*0.75/1024):0;
+      var safeTitle=(p.title||'').replace(/'/g,"\\'");
+      c.innerHTML+=
+        '<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram(\''+id+'\')">'+
+          '<div class="flex-b">'+
+            '<h3>'+escHtml(p.title||'Без названия')+'</h3>'+
+            '<span class="pill pr">'+sz+' КБ</span>'+
+          '</div>'+
+          '<p class="mt8" style="font-size:12px;color:var(--t3)">Загружено: '+d+(u?' | Изменено: '+u:'')+'</p>'+
+          (isAdmin()?
+            '<div class="mt8 gap8">'+
+              '<button class="btn btnSm btnS" onclick="event.stopPropagation();openRename(\''+id+'\',\''+safeTitle+'\')">Переименовать</button>'+
+              '<button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram(\''+id+'\')">Удалить</button>'+
+            '</div>':'')+
+        '</div>';
     });
   });
 }
-function delProg(id){if(confirm('Удалить?')){db.ref('programs/'+id).remove();notify('Удалено')}}
+
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 // ======================================================================
-// UPLOAD DOCX
+// UPLOAD
 // ======================================================================
-function openUpload(){document.getElementById('upTitle').value='';document.getElementById('fileName').textContent='';fileBuf=null;openSheet('sheetUpload')}
-function onFile(e){var f=e.target.files[0];if(!f)return;document.getElementById('fileName').textContent=f.name;if(!document.getElementById('upTitle').value)document.getElementById('upTitle').value=f.name.replace('.docx','');var r=new FileReader();r.onload=function(ev){fileBuf=ev.target.result};r.readAsArrayBuffer(f)}
+function openUploadSheet(){
+  if(!isAdmin())return;
+  document.getElementById('uploadTitle').value='';
+  document.getElementById('fileName').textContent='';
+  document.getElementById('fileInput').value='';
+  selectedFileArrayBuffer=null;
+  openSheet('sheetUpload');
+}
+function handleFileSelect(e){
+  var f=e.target.files[0];if(!f)return;
+  if(!f.name.endsWith('.docx')){notify('Только .docx','error');return}
+  document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
+  if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
+  var r=new FileReader();
+  r.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
+  r.readAsArrayBuffer(f);
+}
 
-function doUpload(){
-  var title=document.getElementById('upTitle').value.trim();
-  if(!title){notify('Название','error');return}
-  if(!fileBuf){notify('Выберите файл','error');return}
-  showLoad('Разбор документа...');
-
-  // Mammoth: DOCX → HTML with tables, formatting preserved
-  mammoth.convertToHtml({arrayBuffer:fileBuf},{
-    styleMap:["p[style-name='Heading 1'] => h1:fresh","p[style-name='Heading 2'] => h2:fresh","p[style-name='Heading 3'] => h3:fresh"],
-    convertImage:mammoth.images.inline(function(el){return el.read("base64").then(function(buf){return{src:"data:"+el.contentType+";base64,"+buf}})})
-  }).then(function(result){
-    var html=result.value;
-    // Split into sections
-    var sections=splitHtmlIntoSections(html);
-    // Store original docx as base64
-    var b64='';
-    try{var bytes=new Uint8Array(fileBuf);var bin='';for(var i=0;i<bytes.byteLength;i+=8192){bin+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+8192,bytes.byteLength)))}b64=btoa(bin)}catch(e){}
-    var data={title:title,createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now(),sections:sections};
-    if(b64.length<8*1024*1024)data.originalDocx=b64;
-    db.ref('programs').push(data);
-    hideLoad();closeSheet('sheetUpload');notify('Программа загружена и разобрана на '+Object.keys(sections).length+' разделов');
-  }).catch(function(e){hideLoad();notify('Ошибка: '+e.message,'error')});
+function uploadProgram(){
+  if(!isAdmin())return;
+  var title=document.getElementById('uploadTitle').value.trim();
+  if(!title){notify('Введите название','error');return}
+  if(!selectedFileArrayBuffer){notify('Выберите файл','error');return}
+  showLoading('Загрузка документа...');
+  try{
+    var b64=arrayBufferToBase64(selectedFileArrayBuffer);
+    if(b64.length>9*1024*1024){hideLoading();notify('Файл слишком большой (макс ~7МБ)','error');return}
+    db.ref('programs').push({
+      title:title,docxBase64:b64,
+      createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now()
+    }).then(function(){
+      hideLoading();closeSheet('sheetUpload');notify('Программа загружена');
+      selectedFileArrayBuffer=null;
+    });
+  }catch(e){hideLoading();notify('Ошибка: '+e.message,'error')}
 }
 
 // ======================================================================
-// SPLIT HTML INTO SECTIONS BY HEADERS
+// DELETE / RENAME
 // ======================================================================
-function splitHtmlIntoSections(html){
-  // Create temp DOM
-  var div=document.createElement('div');
-  div.innerHTML=html;
-  var nodes=Array.from(div.childNodes);
-  var sections={};
-  var currentKey='title';
-  var currentHtml='';
-
-  nodes.forEach(function(node){
-    var text=(node.textContent||'').toLowerCase().trim();
-    // Check if this node is a section header
-    var matchedKey=null;
-    if(text.length>3&&text.length<200){
-      SECTIONS.forEach(function(sec){
-        if(matchedKey)return;
-        sec.markers.forEach(function(marker){
-          if(matchedKey)return;
-          if(text.indexOf(marker)!==-1){matchedKey=sec.key}
-        });
-      });
-    }
-
-    if(matchedKey&&matchedKey!==currentKey){
-      // Save current section
-      if(currentHtml.trim())sections[currentKey]=currentHtml;
-      currentKey=matchedKey;
-      currentHtml='';
-    }
-
-    // Add node HTML to current section
-    if(node.outerHTML)currentHtml+=node.outerHTML;
-    else if(node.textContent)currentHtml+=node.textContent;
-  });
-
-  // Save last section
-  if(currentHtml.trim())sections[currentKey]=currentHtml;
-
-  // If nothing was split, put everything in title
-  if(Object.keys(sections).length===0)sections.title=html;
-
-  return sections;
+function deleteProgram(id){
+  if(!isAdmin())return;
+  if(confirm('Удалить программу?')){db.ref('programs/'+id).remove();notify('Удалено')}
+}
+function openRename(id,t){renameId=id;document.getElementById('renameTitle').value=t;openSheet('sheetRename')}
+function doRename(){
+  if(!renameId)return;
+  var t=document.getElementById('renameTitle').value.trim();
+  if(!t){notify('Введите название','error');return}
+  db.ref('programs/'+renameId).update({title:t,updatedAt:Date.now()});
+  closeSheet('sheetRename');notify('Переименовано');
 }
 
 // ======================================================================
 // OPEN PROGRAM
 // ======================================================================
-function openProg(id){
-  showLoad('Загрузка...');currentProgId=id;currentSecKey=null;hasChanges=false;
+function openProgram(id){
+  showLoading('Загрузка документа...');
+  currentProgramId=id;hasChanges=false;replacements=[];
+
   db.ref('programs/'+id).once('value').then(function(snap){
-    currentProgData=snap.val();if(!currentProgData){hideLoad();return}
+    currentProgramData=snap.val();
+    if(!currentProgramData||!currentProgramData.docxBase64){
+      hideLoading();notify('Документ не найден','error');return;
+    }
+
+    currentDocxArrayBuffer=base64ToArrayBuffer(currentProgramData.docxBase64);
+
     document.getElementById('pageList').classList.add('hidden');
     document.getElementById('pageEditor').classList.remove('hidden');
-    document.getElementById('edTitle').textContent=currentProgData.title||'—';
-    document.getElementById('edDate').textContent=currentProgData.updatedAt?new Date(currentProgData.updatedAt).toLocaleDateString('ru'):'';
-    document.getElementById('btnDel2').classList.toggle('hidden',!isAdmin());
-    if(isAdmin())document.getElementById('floatBar').classList.remove('hide');
-    renderTabs();hideLoad();
-    // Auto-open first section
-    openSec(SECTIONS[0].key);
-  });
-}
+    document.getElementById('editorTitle').textContent=currentProgramData.title||'—';
+    document.getElementById('editorDate').textContent=currentProgramData.updatedAt?new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
+    document.getElementById('editorMeta').textContent='Оригинальный документ';
 
-function delCurrent(){if(currentProgId&&confirm('Удалить?')){db.ref('programs/'+currentProgId).remove();notify('Удалено');showList()}}
+    document.getElementById('replacePanel').classList.toggle('hidden',!isAdmin());
+    document.getElementById('btnDlOriginal').classList.toggle('hidden',!isAdmin());
+    document.getElementById('replaceHistory').innerHTML='';
+    document.getElementById('replaceCount').textContent='';
 
-// ======================================================================
-// TABS
-// ======================================================================
-function renderTabs(){
-  var el=document.getElementById('secTabs');el.innerHTML='';
-  var secs=currentProgData.sections||{};
-  SECTIONS.forEach(function(s){
-    var has=secs[s.key]&&secs[s.key].trim&&secs[s.key].trim().length>10;
-    var active=currentSecKey===s.key;
-    el.innerHTML+='<button class="sec-tab'+(active?' active':'')+(has?' filled':'')+'" onclick="openSec(\''+s.key+'\')">'+s.name+'</button>';
-  });
-}
-
-// ======================================================================
-// OPEN SECTION — show editable content
-// ======================================================================
-function openSec(key){
-  // Save current if changed
-  if(currentSecKey&&hasChanges&&isAdmin()){collectSec()}
-  currentSecKey=key;hasChanges=false;
-  // Update tab styles
-  document.querySelectorAll('.sec-tab').forEach(function(t,i){t.classList.toggle('active',SECTIONS[i].key===key)});
-  renderSec();
-  updateFloatStatus();
-}
-
-function renderSec(){
-  var sec=SECTIONS.find(function(s){return s.key===currentSecKey});
-  if(!sec)return;
-  var secs=currentProgData.sections||{};
-  var html=secs[currentSecKey]||'';
-  var box=document.getElementById('secBox');
-
-  if(!html||html.trim().length<5){
     if(isAdmin()){
-      box.innerHTML='<p style="color:var(--t3);margin-bottom:12px">Этот раздел пуст в загруженном документе. Можете ввести содержимое:</p><div class="doc-edit" contenteditable="true" id="docEdit" oninput="onEdit()"><p>Введите содержимое раздела «'+sec.name+'»...</p></div>';
-    } else {
-      box.innerHTML='<p style="color:var(--t3);text-align:center;padding:40px">Раздел не заполнен</p>';
+      document.getElementById('floatBar').classList.remove('hide');
+      updateFloatStatus();
     }
+
+    renderDocxPreview(currentDocxArrayBuffer);
+  });
+}
+
+// ======================================================================
+// RENDER DOCX PREVIEW
+// ======================================================================
+function renderDocxPreview(arrayBuffer){
+  var container=document.getElementById('docWrapper');
+  container.innerHTML='';
+
+  // docx-preview 0.1.20 API
+  var renderFn=null;
+
+  // Detect API version
+  if(typeof docx!=='undefined'){
+    if(typeof docx.renderAsync==='function'){
+      renderFn=docx.renderAsync;
+    }
+  }
+  if(typeof window.docx!=='undefined'){
+    if(typeof window.docx.renderAsync==='function'){
+      renderFn=window.docx.renderAsync;
+    }
+  }
+
+  if(!renderFn){
+    hideLoading();
+    container.innerHTML='<p style="color:var(--red);text-align:center;padding:40px">Библиотека docx-preview не загружена. Обновите страницу.</p>';
     return;
   }
 
-  if(isAdmin()){
-    box.innerHTML='<div class="doc-edit" contenteditable="true" id="docEdit" oninput="onEdit()">'+html+'</div>';
-  } else {
-    box.innerHTML='<div class="doc-readonly">'+html+'</div>';
-  }
+  renderFn(arrayBuffer,container,null,{
+    className:'docx',
+    inWrapper:true,
+    ignoreWidth:false,
+    ignoreHeight:false,
+    ignoreFonts:false,
+    breakPages:true,
+    useBase64URL:true
+  }).then(function(){
+    hideLoading();
+  }).catch(function(e){
+    console.error('Render error:',e);
+    // Fallback — try minimal options
+    renderFn(arrayBuffer,container).then(function(){
+      hideLoading();
+    }).catch(function(e2){
+      hideLoading();
+      container.innerHTML='<p style="color:var(--red);text-align:center;padding:40px">Ошибка отображения: '+e2.message+'<br><br><button class="btn btnSm btnO" onclick="downloadOriginalDocx()">Скачать оригинал DOCX</button></p>';
+    });
+  });
 }
 
-function onEdit(){hasChanges=true;updateFloatStatus()}
+// ======================================================================
+// FIND & REPLACE IN DOCX XML
+// ======================================================================
+function applyReplacements(originalBuffer,reps){
+  if(!reps||!reps.length)return Promise.resolve(originalBuffer);
+
+  return JSZip.loadAsync(originalBuffer).then(function(zip){
+    var xmlFiles=['word/document.xml','word/header1.xml','word/header2.xml','word/header3.xml',
+                  'word/footer1.xml','word/footer2.xml','word/footer3.xml'];
+
+    var promises=xmlFiles.map(function(path){
+      var file=zip.file(path);
+      if(!file)return Promise.resolve();
+      return file.async('string').then(function(xml){
+        reps.forEach(function(rep){
+          if(!rep.find)return;
+          // Simple replacement
+          var escaped=rep.find.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+          xml=xml.replace(new RegExp(escaped,'g'),rep.replace||'');
+          // Handle split runs
+          xml=replaceInXmlRuns(xml,rep.find,rep.replace||'');
+        });
+        zip.file(path,xml);
+      });
+    });
+
+    return Promise.all(promises).then(function(){
+      return zip.generateAsync({type:'arraybuffer'});
+    });
+  });
+}
+
+function replaceInXmlRuns(xml,findStr,replaceStr){
+  var pRegex=/<w:p[ >][\s\S]*?<\/w:p>/g;
+
+  return xml.replace(pRegex,function(paragraph){
+    var tRegex=/<w:t[^>]*>([\s\S]*?)<\/w:t>/g;
+    var texts=[];
+    var match;
+    while((match=tRegex.exec(paragraph))!==null){
+      texts.push({full:match[0],text:match[1],index:match.index});
+    }
+    if(!texts.length)return paragraph;
+
+    var fullText=texts.map(function(t){return t.text}).join('');
+    if(fullText.indexOf(findStr)===-1)return paragraph;
+
+    var newText=fullText.split(findStr).join(replaceStr);
+
+    var result=paragraph;
+    for(var i=texts.length-1;i>=0;i--){
+      if(i===0){
+        result=result.substring(0,texts[i].index)+
+          '<w:t xml:space="preserve">'+newText+'</w:t>'+
+          result.substring(texts[i].index+texts[i].full.length);
+      } else {
+        result=result.substring(0,texts[i].index)+
+          '<w:t xml:space="preserve"></w:t>'+
+          result.substring(texts[i].index+texts[i].full.length);
+      }
+    }
+    return result;
+  });
+}
+
+// ======================================================================
+// DO REPLACE
+// ======================================================================
+function doReplace(){
+  if(!isAdmin())return;
+  var find=document.getElementById('findText').value;
+  var replace=document.getElementById('replaceText').value;
+  if(!find){notify('Введите текст для поиска','error');return}
+
+  showLoading('Применяю замену...');
+
+  replacements.push({find:find,replace:replace,date:Date.now()});
+  hasChanges=true;
+
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    renderDocxPreview(modified);
+
+    // Update history
+    var histEl=document.getElementById('replaceHistory');
+    histEl.innerHTML='';
+    replacements.forEach(function(r,i){
+      histEl.innerHTML+=
+        '<div class="replace-item">'+
+          '<div><span class="old">'+escHtml(r.find)+'</span> → <span class="new">'+escHtml(r.replace)+'</span></div>'+
+          '<button class="btn btnSm btnD" onclick="undoReplace('+i+')" style="padding:3px 8px;font-size:10px">✕</button>'+
+        '</div>';
+    });
+
+    document.getElementById('replaceCount').textContent='Замен: '+replacements.length;
+    document.getElementById('findText').value='';
+    document.getElementById('replaceText').value='';
+
+    updateFloatStatus();
+    notify('Замена применена');
+  }).catch(function(e){
+    hideLoading();
+    notify('Ошибка замены: '+e.message,'error');
+  });
+}
+
+function undoReplace(index){
+  replacements.splice(index,1);
+  hasChanges=replacements.length>0;
+  showLoading('Отменяю...');
+
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    renderDocxPreview(modified);
+
+    var histEl=document.getElementById('replaceHistory');
+    histEl.innerHTML='';
+    replacements.forEach(function(r,i){
+      histEl.innerHTML+=
+        '<div class="replace-item">'+
+          '<div><span class="old">'+escHtml(r.find)+'</span> → <span class="new">'+escHtml(r.replace)+'</span></div>'+
+          '<button class="btn btnSm btnD" onclick="undoReplace('+i+')" style="padding:3px 8px;font-size:10px">✕</button>'+
+        '</div>';
+    });
+
+    document.getElementById('replaceCount').textContent=replacements.length?'Замен: '+replacements.length:'';
+    updateFloatStatus();
+    notify('Замена отменена');
+  });
+}
 
 function updateFloatStatus(){
   var s=document.getElementById('floatStatus');
-  var secName=SECTIONS.find(function(x){return x.key===currentSecKey});
-  if(hasChanges){s.textContent='⚠ Изменения не сохранены — '+(secName?secName.name:'');s.style.color='var(--orange)'}
-  else{s.textContent='✓ '+(secName?secName.name:'');s.style.color='var(--green)'}
-}
-
-// ======================================================================
-// COLLECT & SAVE
-// ======================================================================
-function collectSec(){
-  if(!isAdmin()||!currentSecKey)return;
-  var el=document.getElementById('docEdit');
-  if(!el)return;
-  if(!currentProgData.sections)currentProgData.sections={};
-  currentProgData.sections[currentSecKey]=el.innerHTML;
-}
-
-function saveSec(){
-  if(!isAdmin()||!currentProgId||!currentSecKey)return;
-  collectSec();
-  showLoad('Сохранение...');
-  var data=currentProgData.sections[currentSecKey]||'';
-  db.ref('programs/'+currentProgId+'/sections/'+currentSecKey).set(data).then(function(){
-    db.ref('programs/'+currentProgId+'/updatedAt').set(Date.now());
-    hasChanges=false;updateFloatStatus();renderTabs();hideLoad();notify('Раздел «'+SECTIONS.find(function(s){return s.key===currentSecKey}).name+'» сохранён');
-  }).catch(function(e){hideLoad();notify('Ошибка: '+e.message,'error')});
-}
-
-function saveAndNext(){
-  saveSec();
-  var idx=SECTIONS.findIndex(function(s){return s.key===currentSecKey});
-  if(idx<SECTIONS.length-1){setTimeout(function(){openSec(SECTIONS[idx+1].key)},400)}
-}
-
-// ======================================================================
-// DOWNLOAD DOCX — build from sections
-// ======================================================================
-function downloadDocx(){
-  if(!currentProgData)return;
-
-  // If we have original docx with applied changes — use JSZip
-  if(currentProgData.originalDocx){
-    downloadModifiedOriginal();
-    return;
+  if(hasChanges){
+    s.textContent=replacements.length+' замен (не сохранено)';
+    s.style.color='var(--orange)';
+  } else {
+    s.textContent='Без изменений';
+    s.style.color='var(--t3)';
   }
-
-  // Otherwise build simple DOCX from HTML
-  downloadHtmlAsDocx();
 }
 
-function downloadModifiedOriginal(){
-  showLoad('Генерация DOCX...');
-  var b64=currentProgData.originalDocx;
-  var bin=atob(b64);var bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-  var ab=bytes.buffer;
+// ======================================================================
+// SAVE
+// ======================================================================
+function saveDocument(){
+  if(!isAdmin()||!currentProgramId)return;
+  showLoading('Сохранение...');
 
-  JSZip.loadAsync(ab).then(function(zip){
-    var file=zip.file('word/document.xml');
-    if(!file)throw new Error('document.xml not found');
-    return file.async('string').then(function(xml){
-      // Apply text replacements from edited sections
-      var secs=currentProgData.sections||{};
-      // For each section that was edited, we need to find and replace in XML
-      // This is complex — for now, just return original with basic replacements
-      // The key insight: store all edits and apply them
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    var newBase64=arrayBufferToBase64(modified);
 
-      var blob=new Blob([ab],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(currentProgData.title||'program')+'.docx';a.click();URL.revokeObjectURL(a.href);
-      hideLoad();notify('Оригинальный DOCX скачан');
+    return db.ref('programs/'+currentProgramId).update({
+      docxBase64:newBase64,
+      updatedAt:Date.now()
+    }).then(function(){
+      // Bake in replacements
+      currentDocxArrayBuffer=modified;
+      currentProgramData.docxBase64=newBase64;
+      replacements=[];
+      hasChanges=false;
+
+      document.getElementById('replaceHistory').innerHTML='';
+      document.getElementById('replaceCount').textContent='';
+      updateFloatStatus();
+      document.getElementById('editorMeta').textContent='Документ сохранён';
+      hideLoading();
+      notify('Документ сохранён');
     });
-  }).catch(function(e){hideLoad();downloadHtmlAsDocx()});
-}
-
-function downloadHtmlAsDocx(){
-  showLoad('Генерация DOCX...');
-  // Combine all sections into one HTML
-  var secs=currentProgData.sections||{};
-  var fullHtml='<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{font-family:"Times New Roman",serif;font-size:14pt;line-height:1.5}table{border-collapse:collapse;width:100%}td,th{border:1px solid #000;padding:5px 8px}h1{font-size:16pt;text-align:center}h2{font-size:14pt}h3{font-size:13pt}p{margin:0 0 6px}</style></head><body>';
-  SECTIONS.forEach(function(sec){
-    var html=secs[sec.key];
-    if(html&&html.trim())fullHtml+=html;
+  }).catch(function(e){
+    hideLoading();
+    notify('Ошибка сохранения: '+e.message,'error');
   });
-  fullHtml+='</body></html>';
-
-  // Use Blob to create HTML file that Word can open
-  var blob=new Blob(['\ufeff'+fullHtml],{type:'application/msword'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download=(currentProgData.title||'program')+'.doc';
-  a.click();URL.revokeObjectURL(a.href);
-  hideLoad();notify('Документ скачан (.doc)');
 }
 
 // ======================================================================
-// WARN
+// DOWNLOADS
 // ======================================================================
+function downloadOriginalDocx(){
+  if(!currentDocxArrayBuffer)return;
+  var blob=new Blob([currentDocxArrayBuffer],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  downloadBlob(blob,(currentProgramData.title||'doc')+'_оригинал.docx');
+  notify('Оригинал скачан');
+}
+
+function downloadModifiedDocx(){
+  if(!currentDocxArrayBuffer)return;
+  showLoading('Генерация DOCX...');
+  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
+    var blob=new Blob([modified],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    downloadBlob(blob,(currentProgramData.title||'doc')+'.docx');
+    hideLoading();
+    notify('DOCX скачан');
+  });
+}
+
+function downloadPdf(){
+  var wrapper=document.getElementById('docWrapper');
+  if(!wrapper)return;
+  showLoading('Генерация PDF...');
+
+  var clone=wrapper.cloneNode(true);
+  clone.style.background='#fff';
+
+  html2pdf().set({
+    margin:[10,10,10,10],
+    filename:(currentProgramData.title||'doc')+'.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#fff'},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['avoid-all','css','legacy']}
+  }).from(clone).save().then(function(){
+    hideLoading();notify('PDF скачан');
+  }).catch(function(){
+    hideLoading();notify('Ошибка PDF','error');
+  });
+}
+
+// ======================================================================
+// DRAG & DROP
+// ======================================================================
+var uz=document.getElementById('uploadZone');
+if(uz){
+  ['dragenter','dragover'].forEach(function(ev){uz.addEventListener(ev,function(e){e.preventDefault();uz.classList.add('drag')})});
+  ['dragleave','drop'].forEach(function(ev){uz.addEventListener(ev,function(e){e.preventDefault();uz.classList.remove('drag')})});
+  uz.addEventListener('drop',function(e){
+    var f=e.dataTransfer.files[0];
+    if(f&&f.name.endsWith('.docx')){
+      document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
+      if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
+      var r=new FileReader();r.onload=function(ev){selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
+    }
+  });
+}
+
 window.addEventListener('beforeunload',function(e){if(hasChanges&&isAdmin()){e.preventDefault();e.returnValue=''}});
 </script>
 </body>
