@@ -9,6 +9,13 @@
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* Apple emoji */
+.ae{height:1.2em;width:1.2em;vertical-align:-0.2em;display:inline-block;pointer-events:none}
+.ae-lg{height:1.5em;width:1.5em}
+.ae-xl{height:2em;width:2em}
+.ae-title{height:1em;width:1em;vertical-align:-0.15em}
+
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
 .topbar h1{font-size:17px;font-weight:600}
 .topbar-r{display:flex;gap:8px;align-items:center}
@@ -42,19 +49,28 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
 
-/* Auth screen */
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
 .auth-box h2{font-size:22px;margin-bottom:8px}
 .auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
 .auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
 
-/* Tabs */
-.tabs{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:16px}
-.tab{padding:8px 14px;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--t2);border:none;transition:all .2s}
-.tab.active{background:var(--blue);color:#fff}
+.sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.sec-tab{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
+.sec-tab.active{background:var(--purple);color:#fff}
+.sec-tab:hover{color:var(--text)}
+.sec-tab .ae{height:0.9em;width:0.9em;vertical-align:-0.1em}
 
-/* Sheet */
+.sec-content{background:var(--bg3);border-radius:var(--r);padding:16px;min-height:200px}
+.sec-content h4{font-size:14px;margin-bottom:12px;color:var(--blue);display:flex;align-items:center;gap:6px}
+
+.readonly-text{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6;white-space:pre-wrap;color:var(--text);min-height:60px}
+
+.toast{position:fixed;top:20px;right:20px;background:var(--green);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:600;z-index:999;transform:translateX(120%);transition:transform .3s ease}
+.toast.show{transform:translateX(0)}
+
+.th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
 .sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
@@ -65,43 +81,29 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sh-body{padding:20px}
 
-/* Section tabs inside program */
-.sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
-.sec-tab{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s}
-.sec-tab.active{background:var(--purple);color:#fff}
-.sec-tab:hover{color:var(--text)}
-
-/* Section content */
-.sec-content{background:var(--bg3);border-radius:var(--r);padding:16px;min-height:200px}
-.sec-content h4{font-size:14px;margin-bottom:12px;color:var(--blue)}
-
-/* Read-only mode */
-.readonly-text{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6;white-space:pre-wrap;color:var(--text);min-height:60px}
-
-/* Notification */
-.toast{position:fixed;top:20px;right:20px;background:var(--green);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:600;z-index:999;transform:translateX(120%);transition:transform .3s ease}
-.toast.show{transform:translateX(0)}
-
-/* Theme toggle */
-.th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+/* Filled data preview card */
+.data-card{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--rs);padding:12px;margin-bottom:8px}
+.data-card .data-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.data-card .data-value{font-size:14px;color:var(--text);line-height:1.5}
 
 @media(max-width:600px){
   .sec-tabs{gap:3px}
   .sec-tab{font-size:10px;padding:5px 8px}
+  .topbar h1{font-size:14px}
+  .topbar-r{gap:4px}
 }
 </style>
 </head>
 <body>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ======================== AUTH SCREEN ======================== -->
+<!-- ======================== AUTH ======================== -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
-    <div style="font-size:48px;margin-bottom:12px">📄</div>
+    <img class="ae-xl" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="doc" style="height:64px;width:64px;margin-bottom:12px">
     <h2>Конструктор программ</h2>
-    <p>Войдите в систему для работы с рабочими программами техникума</p>
+    <p>Войдите для работы с рабочими программами техникума</p>
     <div class="fg">
       <label>Email</label>
       <input class="inp" id="authEmail" type="email" placeholder="admin@test.ru">
@@ -119,55 +121,48 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   </div>
 </div>
 
-<!-- ======================== MAIN APP ======================== -->
+<!-- ======================== APP ======================== -->
 <div id="appMain" class="hidden">
-  <!-- TOPBAR -->
   <div class="topbar">
-    <h1>📄 Конструктор программ</h1>
+    <h1><img class="ae-title" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt=""> Конструктор программ</h1>
     <div class="topbar-r">
-      <button class="th-tog" onclick="toggleTheme()">🌓</button>
+      <button class="th-tog" onclick="toggleTheme()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="theme" style="height:18px;width:18px"></button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
       <span id="roleLabel" class="pill bl" style="font-size:10px"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
     </div>
   </div>
 
-  <!-- PROGRAMS LIST -->
+  <!-- LIST -->
   <div class="container" id="programsListPage">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
       <button class="btn btnP btnSm" id="btnAddProgram" onclick="openAddProgram()">+ Добавить программу</button>
     </div>
-    <div id="programsList">
-      <p style="color:var(--t3);text-align:center;padding:60px 20px">Загрузка...</p>
-    </div>
+    <div id="programsList"><p style="color:var(--t3);text-align:center;padding:60px 20px">Загрузка...</p></div>
   </div>
 
-  <!-- PROGRAM EDITOR -->
+  <!-- EDITOR -->
   <div class="container hidden" id="programEditorPage">
     <div class="flex-b mb12">
-      <button class="btn btnSm btnS" onclick="backToList()">← Назад к списку</button>
+      <button class="btn btnSm btnS" onclick="backToList()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/2b05-fe0f.png" alt="" style="height:12px;width:12px"> Назад</button>
       <div class="gap8">
-        <button class="btn btnSm btnG" id="btnDownloadDoc" onclick="downloadAsDocx()">📥 Скачать DOCX</button>
-        <button class="btn btnSm btnS" id="btnDownloadPdf" onclick="downloadAsPdf()">📥 PDF</button>
+        <button class="btn btnSm btnG" onclick="downloadAsDocx()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e5.png" alt="" style="height:14px;width:14px"> DOCX</button>
+        <button class="btn btnSm btnS" onclick="downloadAsPdf()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e5.png" alt="" style="height:14px;width:14px"> PDF</button>
       </div>
     </div>
     <div class="card" id="programHeader" style="border-left:4px solid var(--purple)">
       <h3 id="editorTitle"></h3>
       <p id="editorMeta"></p>
     </div>
-
-    <!-- Section tabs -->
     <div class="sec-tabs" id="sectionTabs"></div>
-
-    <!-- Section content area -->
     <div class="sec-content" id="sectionContent">
       <p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел</p>
     </div>
   </div>
 </div>
 
-<!-- ======================== SHEET: Add Program ======================== -->
+<!-- SHEET: Add Program -->
 <div class="sheet-ov" id="sheetAddProgram">
   <div class="sheet">
     <div class="sh-handle"></div>
@@ -176,31 +171,19 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
       <button class="sh-close" onclick="closeSheet('sheetAddProgram')">✕</button>
     </div>
     <div class="sh-body">
+      <div class="fg"><label>Код дисциплины</label><input class="inp" id="newCode" placeholder="ОУП.06"></div>
+      <div class="fg"><label>Название дисциплины</label><input class="inp" id="newTitle" placeholder="Иностранный язык"></div>
+      <div class="fg"><label>Специальность</label><input class="inp" id="newSpecialty" placeholder="11.02.06 Техническая эксплуатация..."></div>
+      <div class="fg"><label>Квалификация выпускника</label><input class="inp" id="newQualification" placeholder="Техник"></div>
+      <div class="fg"><label>Форма обучения</label><input class="inp" id="newForm" placeholder="Очная" value="Очная"></div>
+      <div class="fg"><label>Год начала подготовки</label><input class="inp" id="newYear" type="number" placeholder="2024" value="2024"></div>
       <div class="fg">
-        <label>Код дисциплины</label>
-        <input class="inp" id="newCode" placeholder="ОУП.06">
+        <label style="display:flex;align-items:center;gap:6px">
+          <input type="checkbox" id="newPrefill" checked>
+          Заполнить данными из рабочей программы ОУП.06 (документ)
+        </label>
       </div>
-      <div class="fg">
-        <label>Название дисциплины</label>
-        <input class="inp" id="newTitle" placeholder="Иностранный язык">
-      </div>
-      <div class="fg">
-        <label>Специальность</label>
-        <input class="inp" id="newSpecialty" placeholder="11.02.06 Техническая эксплуатация...">
-      </div>
-      <div class="fg">
-        <label>Квалификация выпускника</label>
-        <input class="inp" id="newQualification" placeholder="Техник">
-      </div>
-      <div class="fg">
-        <label>Форма обучения</label>
-        <input class="inp" id="newForm" placeholder="Очная" value="Очная">
-      </div>
-      <div class="fg">
-        <label>Год начала подготовки</label>
-        <input class="inp" id="newYear" type="number" placeholder="2024" value="2024">
-      </div>
-      <button class="btn btnP" style="width:100%" onclick="saveNewProgram()">📄 Создать программу</button>
+      <button class="btn btnP" style="width:100%" onclick="saveNewProgram()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:16px;width:16px"> Создать программу</button>
     </div>
   </div>
 </div>
@@ -209,52 +192,435 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<!-- docx -->
 <script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
 
 <script>
 // ======================================================================
-// FIREBASE CONFIG — ЗАМЕНИ НА СВОИ
+// FIREBASE
 // ======================================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyBvAJOkMBqaIqkEpAO3tu2_Gcb-sEON3uQ",
-  authDomain: "diary-b9e53.firebaseapp.com",
-  databaseURL: "https://diary-b9e53-default-rtdb.firebaseio.com",
-  projectId: "diary-b9e53",
-  storageBucket: "diary-b9e53.firebasestorage.app",
-  messagingSenderId: "922889650498",
-  appId: "1:922889650498:web:1d40e14dd9c50eef3e1cf9"
+  apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
+  authDomain: "my-diary-e223c.firebaseapp.com",
+  databaseURL: "https://my-diary-e223c-default-rtdb.firebaseio.com",
+  projectId: "my-diary-e223c",
+  storageBucket: "my-diary-e223c.firebasestorage.app",
+  messagingSenderId: "903986378920",
+  appId: "1:903986378920:web:b6ebc6691f6d767f78aa9d"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
 // ======================================================================
-// РАЗДЕЛЫ ПРОГРАММЫ (ключи и названия)
+// APPLE EMOJI HELPER
+// ======================================================================
+const E = {
+  doc:'1f4c4', target:'1f3af', building:'1f3d7-fe0f', chart:'1f4ca',
+  ruler:'1f4d0', grad:'1f393', microscope:'1f52c', lab:'1f9ea',
+  pencil:'270f-fe0f', book:'1f4d6', books:'1f4da', office:'1f3e2',
+  check:'2705', clipboard:'1f4cb', gear:'2699-fe0f', eye:'1f441-fe0f',
+  save:'1f4be', trash:'1f5d1-fe0f', edit:'270f-fe0f', download:'1f4e5',
+  plus:'2795', back:'2b05-fe0f', fire:'1f525', star:'2b50',
+  warning:'26a0-fe0f', ok:'1f44d', folder:'1f4c1', calendar:'1f4c5',
+  person:'1f464', group:'1f465', lock:'1f512', unlock:'1f513',
+  memo:'1f4dd', pin:'1f4cc', link:'1f517', bulb:'1f4a1',
+  wrench:'1f527', medal:'1f3c5', trophy:'1f3c6', rocket:'1f680'
+};
+function ae(code, cls){
+  cls = cls || '';
+  return `<img class="ae ${cls}" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/${code}.png" alt="">`;
+}
+
+// ======================================================================
+// SECTIONS
 // ======================================================================
 const SECTIONS = [
-  { key: 'title_page',       name: 'Титульный лист',        icon: '📋' },
-  { key: 'goals',            name: 'Цели и задачи',         icon: '🎯' },
-  { key: 'place_in_oop',     name: 'Место в структуре ООП', icon: '🏗' },
-  { key: 'results',          name: 'Результаты обучения',   icon: '📊' },
-  { key: 'structure',        name: 'Структура и содержание', icon: '📐' },
-  { key: 'lectures',         name: 'Лекционные занятия',    icon: '🎓' },
-  { key: 'practices',        name: 'Практические занятия',  icon: '🔬' },
-  { key: 'labs',             name: 'Лабораторные работы',   icon: '🧪' },
-  { key: 'coursework',       name: 'Курсовые работы',       icon: '📝' },
-  { key: 'self_study',       name: 'Самостоятельная работа', icon: '📖' },
-  { key: 'methodology',      name: 'Учебно-методическое обесп.', icon: '📚' },
-  { key: 'material_tech',    name: 'Материально-техническое обесп.', icon: '🏢' },
-  { key: 'approval',         name: 'Рассмотрение и утверждение', icon: '✅' }
+  { key:'title_page',    name:'Титульный лист',              icon:E.doc },
+  { key:'goals',         name:'Цели и задачи',               icon:E.target },
+  { key:'place_in_oop',  name:'Место в структуре ООП',       icon:E.building },
+  { key:'results',       name:'Результаты обучения',         icon:E.chart },
+  { key:'structure',     name:'Структура и содержание',      icon:E.ruler },
+  { key:'lectures',      name:'Лекционные занятия',          icon:E.grad },
+  { key:'practices',     name:'Практические занятия',        icon:E.microscope },
+  { key:'labs',          name:'Лабораторные работы',          icon:E.lab },
+  { key:'coursework',    name:'Курсовые работы',             icon:E.pencil },
+  { key:'self_study',    name:'Самостоятельная работа',       icon:E.book },
+  { key:'methodology',   name:'Учебно-методическое обесп.',  icon:E.books },
+  { key:'material_tech', name:'Материально-техническое обесп.', icon:E.office },
+  { key:'approval',      name:'Рассмотрение и утверждение',  icon:E.check }
 ];
+
+// ======================================================================
+// PREFILLED DATA FROM DOCUMENT
+// ======================================================================
+const PREFILL_DATA = {
+  title_page: `РАБОЧАЯ ПРОГРАММА УЧЕБНОГО ПРЕДМЕТА
+
+ОУП.06 Иностранный язык
+
+программа подготовки специалистов среднего звена
+по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта)
+
+Квалификация выпускника: Техник
+Форма обучения: Очная
+Год начала подготовки: 2024
+
+Рабочая программа учебного предмета разработана на основе:
+— Федерального государственного образовательного стандарта среднего профессионального образования по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта), утверждённого приказом Министерства образования и науки Российской Федерации от 28 июля 2014 г. № 808;
+— Федерального государственного образовательного стандарта среднего общего образования (далее — ФГОС СОО);
+— Примерной программы общеобразовательного учебного предмета «Иностранный язык», утверждённой протоколом ФГАУ «ФИРО» от 30 ноября 2022 г.;
+— Рабочей программы воспитания, утверждённой 2024 г.
+
+Год начала подготовки (по учебному плану): 2024
+Номер(а) учебного(ых) плана: ТЭРО-124, ТЭРО-125
+
+Разработчик(и): (ФИО, должность)
+Рассмотрена цикловой методической комиссией общеобразовательных дисциплин
+Протокол от «___» _________ 2024 г. № ____
+Председатель ЦМК: _______________`,
+
+  goals: `1. ЦЕЛИ И ЗАДАЧИ УЧЕБНОГО ПРЕДМЕТА
+
+Содержание программы учебного предмета «Иностранный язык» направлено на достижение следующих целей:
+
+— понимание иностранного языка как средства межличностного и профессионального общения, инструмента познания, самообразования, социализации и самореализации в полиязычном и поликультурном мире;
+— формирование иноязычной коммуникативной компетенции в совокупности её составляющих: речевой, языковой, социокультурной, компенсаторной и учебно-познавательной;
+— развитие национального самосознания, общечеловеческих ценностей, стремления к лучшему пониманию культуры своего народа и народов стран изучаемого языка.
+
+Задачи:
+— формирование и развитие коммуникативных умений (говорение, аудирование, чтение, письмо);
+— формирование и развитие языковых навыков (фонетика, лексика, грамматика);
+— формирование и развитие социокультурных умений и навыков.`,
+
+  place_in_oop: `2. МЕСТО УЧЕБНОГО ПРЕДМЕТА В СТРУКТУРЕ ОПОП
+
+Учебный предмет «Иностранный язык» является обязательным учебным предметом общеобразовательного цикла ОПОП-ППССЗ по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта).
+
+Учебный предмет «Иностранный язык» (базовый уровень) изучается в общеобразовательном цикле учебного плана ОПОП-ППССЗ на базе основного общего образования с получением среднего общего образования.
+
+Учебный предмет «Иностранный язык» имеет межпредметные связи с общеобразовательными учебными предметами — Русский язык, Литература, История, а также с дисциплинами и профессиональными модулями ОПОП.`,
+
+  results: `3. РЕЗУЛЬТАТЫ ОБУЧЕНИЯ (ОСВОЕНИЯ) УЧЕБНОГО ПРЕДМЕТА
+
+Освоение содержания учебного предмета «Иностранный язык» обеспечивает достижение обучающимися следующих результатов:
+
+ЛИЧНОСТНЫЕ РЕЗУЛЬТАТЫ:
+Код ЛР ФГОС СОО / Формулировка:
+ЛР 01 — Сформированность российской гражданской идентичности, патриотизма, уважения к своему народу, чувства ответственности перед Родиной, гордости за свой край
+ЛР 02 — Гражданская позиция как активного и ответственного члена российского общества
+ЛР 04 — Сформированность мировоззрения, соответствующего современному уровню развития науки и общественной практики
+ЛР 05 — Сформированность основ саморазвития и самовоспитания
+ЛР 06 — Толерантное сознание и поведение в поликультурном мире
+ЛР 07 — Навыки сотрудничества со сверстниками
+ЛР 08 — Нравственное сознание и поведение на основе усвоения общечеловеческих ценностей
+ЛР 09 — Готовность и способность к образованию, в том числе самообразованию
+ЛР 10 — Эстетическое отношение к миру
+ЛР 13 — Осознанный выбор будущей профессии и возможностей реализации собственных жизненных планов
+
+МЕТАПРЕДМЕТНЫЕ РЕЗУЛЬТАТЫ:
+МР 01 — Умение самостоятельно определять цели деятельности и составлять планы деятельности
+МР 02 — Умение продуктивно общаться и взаимодействовать в процессе совместной деятельности
+МР 03 — Владение навыками познавательной, учебно-исследовательской и проектной деятельности
+МР 04 — Готовность и способность к самостоятельной информационно-познавательной деятельности
+МР 05 — Умение использовать средства информационных и коммуникационных технологий
+МР 07 — Умение самостоятельно оценивать и принимать решения
+МР 08 — Владение языковыми средствами — умение ясно, логично и точно излагать свою точку зрения
+МР 09 — Владение навыками познавательной рефлексии
+
+ПРЕДМЕТНЫЕ РЕЗУЛЬТАТЫ:
+ПРб 01 — Сформированность коммуникативной иноязычной компетенции, необходимой для успешной социализации и самореализации
+ПРб 02 — Владение знаниями о социокультурной специфике страны/стран изучаемого языка
+ПРб 03 — Достижение уровня владения иностранным языком, превышающего пороговый (B1)
+ПРб 04 — Сформированность умения использовать иностранный язык как средство для получения информации из иноязычных источников
+
+ОБЩИЕ КОМПЕТЕНЦИИ:
+ОК 01 — Выбирать способы решения задач профессиональной деятельности применительно к различным контекстам
+ОК 02 — Использовать современные средства поиска, анализа и интерпретации информации
+ОК 04 — Эффективно взаимодействовать и работать в коллективе и команде
+ОК 09 — Пользоваться профессиональной документацией на государственном и иностранном языках
+
+ПРОФЕССИОНАЛЬНЫЕ КОМПЕТЕНЦИИ:
+ПК 4.3 — Составлять и оформлять техническую и технологическую документацию`,
+
+  structure: `4. СТРУКТУРА И СОДЕРЖАНИЕ УЧЕБНОГО ПРЕДМЕТА
+
+4.1. Объём учебного предмета и виды учебной работы:
+
+Вид учебной работы | Объём в часах
+Максимальная учебная нагрузка (всего) | 117
+Обязательная аудиторная нагрузка (всего) | 78
+   в том числе:
+   теоретическое обучение | —
+   практические занятия | 78
+   контрольные работы | 4
+Самостоятельная работа обучающегося (всего) | 39
+Промежуточная аттестация — дифференцированный зачёт
+
+4.2. Тематический план и содержание:
+
+РАЗДЕЛ 1. Иностранный язык для общих целей
+
+Тема 1.1. Повседневная жизнь семьи. Внешность и характер членов семьи (6 часов)
+Практические занятия:
+1. Приветствие, прощание. Представление себя и других людей в официальной и неофициальной обстановке (2ч)
+2. Отношение поколений в семье. Описание внешности человека (2ч)
+3. Описание характера личности. Семейные традиции (2ч)
+Самостоятельная работа: Составление лексического словаря по теме (2ч), Эссе «Моя семья» (1ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.2. Молодёжь в современном обществе. Досуг молодёжи: увлечения и интересы (6 часов)
+Практические занятия:
+1. Рабочий день. Досуг. Активный и пассивный отдых (2ч)
+2. Молодёжные субкультуры. Хобби и увлечения (2ч)
+3. Волонтёрство в современном мире (2ч)
+Самостоятельная работа: Написание рассказа о своём хобби (2ч), Презентация «Молодёжные движения» (1ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.3. Условия проживания в городской и сельской местности (6 часов)
+Практические занятия:
+1. Описание жилища и учебного заведения (2ч)
+2. Городская и сельская инфраструктура (2ч)
+3. Особенности проживания в городе и деревне. Преимущества и недостатки (2ч)
+Самостоятельная работа: Составление описания дома/квартиры (2ч), Сравнительная таблица «Город vs село» (1ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.4. Покупки: одежда, обувь и продукты питания (6 часов)
+Практические занятия:
+1. Виды магазинов. Ассортимент товаров (2ч)
+2. Совершение покупок. Диалоги в магазине (2ч)
+3. Национальная кухня. Еда и способы приготовления пищи (2ч)
+Самостоятельная работа: Составление диалога «В магазине» (2ч), Рецепт национального блюда на иностранном языке (1ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.5. Здоровый образ жизни и забота о здоровье: режим труда и отдыха, спорт, фитнес, диета (8 часов)
+Практические занятия:
+1. Физическая культура и спорт. Виды спорта (2ч)
+2. Здоровый образ жизни. Правильное питание (2ч)
+3. Вредные привычки. Отказ от вредных привычек (2ч)
+4. Посещение врача. У стоматолога. В аптеке (2ч)
+Самостоятельная работа: Презентация «Спорт в моей жизни» (2ч), Памятка «Здоровый образ жизни» (2ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.6. Туризм. Виды отдыха (4 часа)
+Практические занятия:
+1. Экотуризм. Путешествия по России (2ч)
+2. Путешествие за рубеж. В аэропорту, на вокзале. В гостинице (2ч)
+Самостоятельная работа: Маршрут путешествия (2ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.7. Страна/страны изучаемого языка (6 часов)
+Практические занятия:
+1. Географическое положение, климат, население (2ч)
+2. Национальные символы. Политическое и экономическое устройство (2ч)
+3. Достопримечательности. Традиции и обычаи (2ч)
+Самостоятельная работа: Доклад о стране изучаемого языка (2ч), Презентация «Достопримечательности» (1ч)
+Компетенции: ОК01, ОК02, ОК04
+
+Тема 1.8. Россия (8 часов)
+Практические занятия:
+1. Географическое положение, климат, население России (2ч)
+2. Национальные символы России. Государственное и политическое устройство (2ч)
+3. Москва — столица России. Достопримечательности Москвы (2ч)
+4. Традиции народов России. Мой родной город (2ч)
+Самостоятельная работа: Презентация «Мой родной город» (2ч), Эссе «Почему я горжусь Россией» (2ч)
+Компетенции: ОК01, ОК02, ОК04
+Контрольная работа №1 (2ч)
+
+РАЗДЕЛ 2. Иностранный язык для специальных целей
+
+Тема 2.1. Современный мир профессий. Проблемы выбора профессии. Роль иностранного языка в вашей профессии (4 часа)
+Практические занятия:
+1. Мир профессий. Выбор профессии (2ч)
+2. Роль иностранного языка в современном мире и в профессиональной деятельности (2ч)
+Самостоятельная работа: Эссе «Моя будущая профессия» (2ч)
+Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
+
+Тема 2.2. Промышленные технологии (4 часа)
+Практические занятия:
+1. Машины и механизмы. Промышленное оборудование (2ч)
+2. Работа на производстве. Техника безопасности (2ч)
+Самостоятельная работа: Составление глоссария технических терминов (2ч)
+Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
+
+Тема 2.3. Технический прогресс: перспективы и последствия. Современные средства связи (4 часа)
+Практические занятия:
+1. Достижения науки и техники. Изобретения (2ч)
+2. Современные информационные технологии. Интернет. Средства связи (2ч)
+Самостоятельная работа: Презентация «Изобретение, изменившее мир» (2ч)
+Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
+
+Тема 2.4. Выдающиеся люди родной страны и стран изучаемого языка, их вклад в науку и мировую культуру (4 часа)
+Практические занятия:
+1. Известные учёные и их открытия (2ч)
+2. Деятели культуры и искусства (2ч)
+Самостоятельная работа: Биография выдающейся личности (2ч)
+Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
+
+Тема 2.5. Профессиональные требования (4 часа)
+Практические занятия:
+1. Написание резюме и сопроводительного письма (2ч)
+2. Собеседование. Деловая переписка (2ч)
+Самостоятельная работа: Составление резюме на иностранном языке (2ч)
+Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
+Контрольная работа №2 (2ч)
+Дифференцированный зачёт (2ч)`,
+
+  lectures: `5. ЛЕКЦИОННЫЕ ЗАНЯТИЯ
+
+Лекционные занятия учебным планом не предусмотрены.
+
+По учебному предмету «Иностранный язык» все аудиторные часы отведены на практические занятия.`,
+
+  practices: `6. ПРАКТИЧЕСКИЕ ЗАНЯТИЯ
+
+Перечень практических занятий:
+
+№ п/п | Тема | Часы
+1 | Приветствие, прощание. Представление себя и других людей | 2
+2 | Отношение поколений в семье. Описание внешности человека | 2
+3 | Описание характера личности. Семейные традиции | 2
+4 | Рабочий день. Досуг. Активный и пассивный отдых | 2
+5 | Молодёжные субкультуры. Хобби и увлечения | 2
+6 | Волонтёрство в современном мире | 2
+7 | Описание жилища и учебного заведения | 2
+8 | Городская и сельская инфраструктура | 2
+9 | Особенности проживания в городе и деревне | 2
+10 | Виды магазинов. Ассортимент товаров | 2
+11 | Совершение покупок. Диалоги в магазине | 2
+12 | Национальная кухня. Еда и способы приготовления пищи | 2
+13 | Физическая культура и спорт. Виды спорта | 2
+14 | Здоровый образ жизни. Правильное питание | 2
+15 | Вредные привычки. Отказ от вредных привычек | 2
+16 | Посещение врача. У стоматолога. В аптеке | 2
+17 | Экотуризм. Путешествия по России | 2
+18 | Путешествие за рубеж. В аэропорту, на вокзале | 2
+19 | Географическое положение, климат, население (страна изуч. языка) | 2
+20 | Национальные символы. Политическое и экономическое устройство | 2
+21 | Достопримечательности. Традиции и обычаи | 2
+22 | Географическое положение, климат, население России | 2
+23 | Национальные символы России. Государственное устройство | 2
+24 | Москва — столица России. Достопримечательности | 2
+25 | Традиции народов России. Мой родной город | 2
+26 | Контрольная работа №1 | 2
+27 | Мир профессий. Выбор профессии | 2
+28 | Роль иностранного языка в профессиональной деятельности | 2
+29 | Машины и механизмы. Промышленное оборудование | 2
+30 | Работа на производстве. Техника безопасности | 2
+31 | Достижения науки и техники. Изобретения | 2
+32 | Современные информационные технологии. Интернет | 2
+33 | Известные учёные и их открытия | 2
+34 | Деятели культуры и искусства | 2
+35 | Написание резюме и сопроводительного письма | 2
+36 | Собеседование. Деловая переписка | 2
+37 | Контрольная работа №2 | 2
+38 | Дифференцированный зачёт | 2
+
+Итого: 78 часов (из них 4 часа — контрольные работы, 2 часа — дифференцированный зачёт)`,
+
+  labs: `7. ЛАБОРАТОРНЫЕ РАБОТЫ
+
+Лабораторные работы учебным планом не предусмотрены.`,
+
+  coursework: `8. КУРСОВЫЕ РАБОТЫ (ПРОЕКТЫ)
+
+Курсовые работы (проекты) учебным планом не предусмотрены.`,
+
+  self_study: `9. САМОСТОЯТЕЛЬНАЯ РАБОТА ОБУЧАЮЩИХСЯ
+
+Перечень видов самостоятельной работы:
+
+Тема 1.1 — Составление лексического словаря по теме (2ч), Эссе «Моя семья» (1ч)
+Тема 1.2 — Написание рассказа о своём хобби (2ч), Презентация «Молодёжные движения» (1ч)
+Тема 1.3 — Составление описания дома/квартиры (2ч), Сравнительная таблица «Город vs село» (1ч)
+Тема 1.4 — Составление диалога «В магазине» (2ч), Рецепт национального блюда на иностранном языке (1ч)
+Тема 1.5 — Презентация «Спорт в моей жизни» (2ч), Памятка «Здоровый образ жизни» (2ч)
+Тема 1.6 — Составление маршрута путешествия (2ч)
+Тема 1.7 — Доклад о стране изучаемого языка (2ч), Презентация «Достопримечательности» (1ч)
+Тема 1.8 — Презентация «Мой родной город» (2ч), Эссе «Почему я горжусь Россией» (2ч)
+Тема 2.1 — Эссе «Моя будущая профессия» (2ч)
+Тема 2.2 — Составление глоссария технических терминов (2ч)
+Тема 2.3 — Презентация «Изобретение, изменившее мир» (2ч)
+Тема 2.4 — Биография выдающейся личности (2ч)
+Тема 2.5 — Составление резюме на иностранном языке (2ч)
+
+Итого: 39 часов`,
+
+  methodology: `10. УЧЕБНО-МЕТОДИЧЕСКОЕ И ИНФОРМАЦИОННОЕ ОБЕСПЕЧЕНИЕ
+
+Основные источники:
+
+1. Афанасьева О.В., Дули Д., Михеева И.В. и др. Английский язык. 10 класс (базовый уровень). — М.: Просвещение, 2023.
+2. Афанасьева О.В., Дули Д., Михеева И.В. и др. Английский язык. 11 класс (базовый уровень). — М.: Просвещение, 2023.
+3. Безкоровайная Г.Т., Койранская Е.А. и др. Planet of English: учебник английского языка для учреждений СПО. — М.: Академия, 2022.
+
+Дополнительные источники:
+
+1. Голубев А.П., Балюк Н.В., Смирнова И.Б. Английский язык: учебник для студ. учреждений СПО. — М.: Академия, 2022.
+2. Карпова Т.А. English for Colleges = Английский язык для колледжей: учебное пособие. — М.: КНОРУС, 2022.
+
+Интернет-ресурсы:
+
+1. https://www.bbc.co.uk/learningenglish — BBC Learning English
+2. https://www.britishcouncil.org — British Council
+3. https://resh.edu.ru — Российская электронная школа
+4. https://www.duolingo.com — Duolingo
+5. https://www.ted.com — TED Talks`,
+
+  material_tech: `11. МАТЕРИАЛЬНО-ТЕХНИЧЕСКОЕ ОБЕСПЕЧЕНИЕ
+
+Для реализации программы учебного предмета предусмотрен кабинет «Иностранный язык».
+
+Оборудование учебного кабинета:
+— посадочные места по количеству обучающихся;
+— рабочее место преподавателя;
+— учебная доска;
+— наглядные пособия (комплекты учебных таблиц, плакатов, портретов выдающихся учёных, карт на иностранном языке);
+— учебники и учебные пособия;
+— дидактические материалы;
+— контрольно-измерительные материалы.
+
+Технические средства обучения:
+— компьютер с лицензионным программным обеспечением;
+— мультимедийный проектор;
+— экран (интерактивная доска);
+— аудио- и видеооборудование;
+— лингафонное оборудование (при наличии);
+— доступ к сети Интернет.`,
+
+  approval: `12. РАССМОТРЕНИЕ И УТВЕРЖДЕНИЕ РАБОЧЕЙ ПРОГРАММЫ
+
+Рабочая программа учебного предмета ОУП.06 Иностранный язык
+
+Рассмотрена цикловой методической комиссией общеобразовательных дисциплин.
+
+Протокол от «___» ____________ 2024 г. № ____
+
+Председатель ЦМК: _______________ / _______________ /
+
+Утверждена заместителем директора по учебной работе:
+
+«___» ____________ 2024 г.
+
+Заместитель директора по УР: _______________ / _______________ /
+
+Согласовано:
+Заведующий отделением: _______________ / _______________ /
+Методист: _______________ / _______________ /
+
+Изменения и дополнения к рабочей программе:
+
+№ п/п | Дата | Содержание изменения | Основание | Подпись
+1     |      |                      |           |
+2     |      |                      |           |
+3     |      |                      |           |`
+};
 
 // ======================================================================
 // STATE
 // ======================================================================
-let currentUser = null;   // firebase auth user
-let userRole = null;      // 'admin' | 'viewer'
+let currentUser = null;
+let userRole = null;
 let currentProgramId = null;
 let currentProgramData = null;
 let currentSectionKey = null;
@@ -262,164 +628,125 @@ let currentSectionKey = null;
 // ======================================================================
 // THEME
 // ======================================================================
-function toggleTheme() {
-  const h = document.documentElement;
-  h.dataset.theme = h.dataset.theme === 'light' ? 'dark' : 'light';
-  localStorage.setItem('theme', h.dataset.theme);
-}
-if (localStorage.getItem('theme')) document.documentElement.dataset.theme = localStorage.getItem('theme');
+function toggleTheme(){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
+if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
 
 // ======================================================================
 // TOAST
 // ======================================================================
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
 
 // ======================================================================
 // SHEETS
 // ======================================================================
-function openSheet(id) { document.getElementById(id).classList.add('open'); }
-function closeSheet(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.sheet-ov').forEach(ov => {
-  ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('open'); });
-});
+function openSheet(id){document.getElementById(id).classList.add('open')}
+function closeSheet(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.sheet-ov').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')})});
 
 // ======================================================================
 // AUTH
 // ======================================================================
-function doLogin() {
-  const email = document.getElementById('authEmail').value.trim();
-  const pass = document.getElementById('authPass').value;
-  document.getElementById('authErr').textContent = '';
-  if (!email || !pass) { document.getElementById('authErr').textContent = 'Заполните все поля'; return; }
-
-  auth.signInWithEmailAndPassword(email, pass)
-    .catch(err => {
-      // Если пользователь не существует — создаём
-      if (err.code === 'auth/user-not-found') {
-        auth.createUserWithEmailAndPassword(email, pass)
-          .then(cred => {
-            // Сохраняем роль
-            const role = email === 'admin@test.ru' ? 'admin' : 'viewer';
-            return db.ref('users/' + cred.user.uid).set({
-              email: email,
-              role: role,
-              createdAt: Date.now()
-            });
-          })
-          .catch(err2 => {
-            document.getElementById('authErr').textContent = err2.message;
-          });
-      } else if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-        document.getElementById('authErr').textContent = 'Неверный пароль';
-      } else {
-        document.getElementById('authErr').textContent = err.message;
-      }
-    });
+function doLogin(){
+  const email=document.getElementById('authEmail').value.trim();
+  const pass=document.getElementById('authPass').value;
+  document.getElementById('authErr').textContent='';
+  if(!email||!pass){document.getElementById('authErr').textContent='Заполните все поля';return}
+  auth.signInWithEmailAndPassword(email,pass).catch(err=>{
+    if(err.code==='auth/user-not-found'){
+      auth.createUserWithEmailAndPassword(email,pass).then(cred=>{
+        const role=email==='admin@test.ru'?'admin':'viewer';
+        return db.ref('users/'+cred.user.uid).set({email,role,createdAt:Date.now()});
+      }).catch(e2=>{document.getElementById('authErr').textContent=e2.message});
+    } else if(err.code==='auth/wrong-password'||err.code==='auth/invalid-credential'){
+      document.getElementById('authErr').textContent='Неверный пароль';
+    } else {
+      document.getElementById('authErr').textContent=err.message;
+    }
+  });
 }
+function doLogout(){auth.signOut()}
 
-function doLogout() {
-  auth.signOut();
-}
-
-// Auth state listener
-auth.onAuthStateChanged(user => {
-  if (user) {
-    currentUser = user;
-    // Get role from DB
-    db.ref('users/' + user.uid).once('value', snap => {
-      const data = snap.val();
-      if (!data) {
-        // First login — set role based on email
-        const role = user.email === 'admin@test.ru' ? 'admin' : 'viewer';
-        db.ref('users/' + user.uid).set({ email: user.email, role: role, createdAt: Date.now() });
-        userRole = role;
+auth.onAuthStateChanged(user=>{
+  if(user){
+    currentUser=user;
+    db.ref('users/'+user.uid).once('value',snap=>{
+      const data=snap.val();
+      if(!data){
+        const role=user.email==='admin@test.ru'?'admin':'viewer';
+        db.ref('users/'+user.uid).set({email:user.email,role,createdAt:Date.now()});
+        userRole=role;
       } else {
-        userRole = data.role || 'viewer';
+        userRole=data.role||'viewer';
       }
       showApp();
     });
   } else {
-    currentUser = null;
-    userRole = null;
+    currentUser=null;userRole=null;
     document.getElementById('authScreen').classList.remove('hidden');
     document.getElementById('appMain').classList.add('hidden');
   }
 });
 
-function showApp() {
+function showApp(){
   document.getElementById('authScreen').classList.add('hidden');
   document.getElementById('appMain').classList.remove('hidden');
-  document.getElementById('userLabel').textContent = currentUser.email;
-  document.getElementById('roleLabel').textContent = userRole === 'admin' ? '🔧 Редактор' : '👁 Просмотр';
-  document.getElementById('roleLabel').className = 'pill ' + (userRole === 'admin' ? 'gr' : 'bl');
-
-  // Скрыть кнопку добавления для viewer
-  document.getElementById('btnAddProgram').classList.toggle('hidden', userRole !== 'admin');
-
-  loadPrograms();
-  showProgramsList();
+  document.getElementById('userLabel').textContent=currentUser.email;
+  document.getElementById('roleLabel').innerHTML=userRole==='admin'? ae(E.wrench)+' Редактор' : ae(E.eye)+' Просмотр';
+  document.getElementById('roleLabel').className='pill '+(userRole==='admin'?'gr':'bl');
+  document.getElementById('btnAddProgram').classList.toggle('hidden',userRole!=='admin');
+  loadPrograms();showProgramsList();
 }
-
-function isAdmin() { return userRole === 'admin'; }
+function isAdmin(){return userRole==='admin'}
 
 // ======================================================================
 // PROGRAMS LIST
 // ======================================================================
-function showProgramsList() {
+function showProgramsList(){
   document.getElementById('programsListPage').classList.remove('hidden');
   document.getElementById('programEditorPage').classList.add('hidden');
-  currentProgramId = null;
+  currentProgramId=null;
 }
-
-function backToList() {
+function backToList(){
+  if(currentProgramId) db.ref('programs/'+currentProgramId).off('value');
   showProgramsList();
 }
 
-let programsListener = null;
-function loadPrograms() {
-  if (programsListener) db.ref('programs').off('value', programsListener);
-  programsListener = db.ref('programs').on('value', snap => {
-    const programs = snap.val() || {};
-    const container = document.getElementById('programsList');
-
-    if (Object.keys(programs).length === 0) {
-      container.innerHTML = `
-        <div style="text-align:center;padding:60px 20px">
-          <div style="font-size:64px;margin-bottom:16px">📄</div>
-          <p style="color:var(--t3);font-size:15px">Нет рабочих программ</p>
-          ${isAdmin() ? '<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Добавить программу» чтобы создать первую</p>' : '<p style="color:var(--t3);font-size:13px;margin-top:8px">Администратор ещё не добавил программы</p>'}
-        </div>`;
+let programsListener=null;
+function loadPrograms(){
+  if(programsListener)db.ref('programs').off('value',programsListener);
+  programsListener=db.ref('programs').on('value',snap=>{
+    const programs=snap.val()||{};
+    const container=document.getElementById('programsList');
+    if(Object.keys(programs).length===0){
+      container.innerHTML=`<div style="text-align:center;padding:60px 20px">
+        <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:16px" alt="">
+        <p style="color:var(--t3);font-size:15px">Нет рабочих программ</p>
+        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Добавить программу» чтобы создать первую</p>':'<p style="color:var(--t3);font-size:13px;margin-top:8px">Администратор ещё не добавил программы</p>'}
+      </div>`;
       return;
     }
-
-    container.innerHTML = '';
-    Object.entries(programs).forEach(([id, prog]) => {
-      const sectionsCount = prog.sections ? Object.keys(prog.sections).filter(k => prog.sections[k] && prog.sections[k].trim()).length : 0;
-      const totalSections = SECTIONS.length;
-      const pct = Math.round((sectionsCount / totalSections) * 100);
-      const dateStr = prog.createdAt ? new Date(prog.createdAt).toLocaleDateString('ru') : '';
-      const updStr = prog.updatedAt ? new Date(prog.updatedAt).toLocaleDateString('ru') : '';
-
-      container.innerHTML += `
+    container.innerHTML='';
+    Object.entries(programs).forEach(([id,prog])=>{
+      const sectionsCount=prog.sections?Object.keys(prog.sections).filter(k=>prog.sections[k]&&prog.sections[k].trim()).length:0;
+      const totalSections=SECTIONS.length;
+      const pct=Math.round((sectionsCount/totalSections)*100);
+      const dateStr=prog.createdAt?new Date(prog.createdAt).toLocaleDateString('ru'):'';
+      const updStr=prog.updatedAt?new Date(prog.updatedAt).toLocaleDateString('ru'):'';
+      container.innerHTML+=`
         <div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram('${id}')">
           <div class="flex-b">
             <div>
-              <span class="pill pr">${prog.code || ''}</span>
-              <span class="pill bl">${prog.year || ''}</span>
+              <span class="pill pr">${prog.code||''}</span>
+              <span class="pill bl">${prog.year||''}</span>
             </div>
-            <span class="pill ${pct >= 80 ? 'gr' : pct >= 40 ? 'og' : 'rd'}">${sectionsCount}/${totalSections} разделов</span>
+            <span class="pill ${pct>=80?'gr':pct>=40?'og':'rd'}">${sectionsCount}/${totalSections} разделов</span>
           </div>
-          <h3 class="mt8">${prog.title || 'Без названия'}</h3>
-          <p>${prog.specialty || ''}</p>
+          <h3 class="mt8">${prog.title||'Без названия'}</h3>
+          <p>${prog.specialty||''}</p>
           <p class="mt8" style="font-size:11px;color:var(--t3)">
-            Создано: ${dateStr}${updStr ? ' • Обновлено: ' + updStr : ''}
+            ${ae(E.calendar)} Создано: ${dateStr}${updStr?' • Обновлено: '+updStr:''}
           </p>
-          ${isAdmin() ? `<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">🗑 Удалить</button></div>` : ''}
+          ${isAdmin()?`<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">${ae(E.trash)} Удалить</button></div>`:''}
         </div>`;
     });
   });
@@ -428,163 +755,136 @@ function loadPrograms() {
 // ======================================================================
 // ADD PROGRAM
 // ======================================================================
-function openAddProgram() {
-  if (!isAdmin()) return;
-  document.getElementById('newCode').value = '';
-  document.getElementById('newTitle').value = '';
-  document.getElementById('newSpecialty').value = '';
-  document.getElementById('newQualification').value = '';
-  document.getElementById('newForm').value = 'Очная';
-  document.getElementById('newYear').value = new Date().getFullYear();
+function openAddProgram(){
+  if(!isAdmin())return;
+  document.getElementById('newCode').value='';
+  document.getElementById('newTitle').value='';
+  document.getElementById('newSpecialty').value='';
+  document.getElementById('newQualification').value='';
+  document.getElementById('newForm').value='Очная';
+  document.getElementById('newYear').value=new Date().getFullYear();
+  document.getElementById('newPrefill').checked=false;
   openSheet('sheetAddProgram');
 }
 
-function saveNewProgram() {
-  if (!isAdmin()) return;
-  const code = document.getElementById('newCode').value.trim();
-  const title = document.getElementById('newTitle').value.trim();
-  if (!code || !title) { alert('Заполните код и название'); return; }
+function saveNewProgram(){
+  if(!isAdmin())return;
+  const code=document.getElementById('newCode').value.trim();
+  const title=document.getElementById('newTitle').value.trim();
+  if(!code||!title){alert('Заполните код и название');return}
+  const prefill=document.getElementById('newPrefill').checked;
 
-  const data = {
-    code: code,
-    title: title,
-    specialty: document.getElementById('newSpecialty').value.trim(),
-    qualification: document.getElementById('newQualification').value.trim(),
-    form: document.getElementById('newForm').value.trim(),
-    year: document.getElementById('newYear').value.trim(),
-    createdBy: currentUser.uid,
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-    sections: {}
+  const data={
+    code,title,
+    specialty:document.getElementById('newSpecialty').value.trim(),
+    qualification:document.getElementById('newQualification').value.trim(),
+    form:document.getElementById('newForm').value.trim(),
+    year:document.getElementById('newYear').value.trim(),
+    createdBy:currentUser.uid,
+    createdAt:Date.now(),
+    updatedAt:Date.now(),
+    sections:{}
   };
-
-  // Инициализируем пустые разделы
-  SECTIONS.forEach(s => { data.sections[s.key] = ''; });
-
+  SECTIONS.forEach(s=>{data.sections[s.key]=prefill?(PREFILL_DATA[s.key]||''):'';});
   db.ref('programs').push(data);
   closeSheet('sheetAddProgram');
-  toast('✅ Программа создана');
+  toast('Программа создана');
 }
 
-function deleteProgram(id) {
-  if (!isAdmin()) return;
-  if (confirm('Удалить эту рабочую программу? Это действие необратимо.')) {
-    db.ref('programs/' + id).remove();
-    toast('🗑 Программа удалена');
+function deleteProgram(id){
+  if(!isAdmin())return;
+  if(confirm('Удалить эту рабочую программу? Действие необратимо.')){
+    db.ref('programs/'+id).remove();
+    toast('Программа удалена');
   }
 }
 
 // ======================================================================
-// OPEN PROGRAM (editor / viewer)
+// OPEN PROGRAM
 // ======================================================================
-function openProgram(id) {
-  currentProgramId = id;
-  currentSectionKey = null;
-
+function openProgram(id){
+  currentProgramId=id;currentSectionKey=null;
   document.getElementById('programsListPage').classList.add('hidden');
   document.getElementById('programEditorPage').classList.remove('hidden');
-
-  // Load program data
-  db.ref('programs/' + id).on('value', snap => {
-    currentProgramData = snap.val();
-    if (!currentProgramData) { backToList(); return; }
+  db.ref('programs/'+id).on('value',snap=>{
+    currentProgramData=snap.val();
+    if(!currentProgramData){backToList();return}
     renderEditor();
   });
 }
 
-function renderEditor() {
-  const prog = currentProgramData;
-  document.getElementById('editorTitle').textContent = prog.code + ' — ' + prog.title;
-  document.getElementById('editorMeta').textContent =
-    `${prog.specialty || ''} • ${prog.qualification || ''} • ${prog.form || ''} • ${prog.year || ''}`;
-
-  // Render section tabs
-  const tabsEl = document.getElementById('sectionTabs');
-  tabsEl.innerHTML = '';
-  SECTIONS.forEach(s => {
-    const hasContent = prog.sections && prog.sections[s.key] && prog.sections[s.key].trim();
-    const isActive = currentSectionKey === s.key;
-    tabsEl.innerHTML += `
-      <button class="sec-tab ${isActive ? 'active' : ''}" onclick="openSection('${s.key}')" title="${s.name}">
-        ${s.icon} ${s.name}
-        ${hasContent ? ' ✓' : ''}
+function renderEditor(){
+  const prog=currentProgramData;
+  document.getElementById('editorTitle').textContent=prog.code+' — '+prog.title;
+  document.getElementById('editorMeta').innerHTML=
+    `${prog.specialty||''} &bull; ${prog.qualification||''} &bull; ${prog.form||''} &bull; ${prog.year||''}`;
+  const tabsEl=document.getElementById('sectionTabs');
+  tabsEl.innerHTML='';
+  SECTIONS.forEach(s=>{
+    const hasContent=prog.sections&&prog.sections[s.key]&&prog.sections[s.key].trim();
+    const isActive=currentSectionKey===s.key;
+    tabsEl.innerHTML+=`
+      <button class="sec-tab ${isActive?'active':''}" onclick="selectSection('${s.key}',this)">
+        ${ae(s.icon)} ${s.name} ${hasContent?ae(E.check):''}
       </button>`;
   });
-
-  // If section is selected, render it
-  if (currentSectionKey) {
-    renderSection(currentSectionKey);
-  }
+  if(currentSectionKey)renderSection(currentSectionKey);
 }
 
-function openSection(key) {
-  currentSectionKey = key;
-  // Update tab styles
-  document.querySelectorAll('.sec-tab').forEach(t => t.classList.remove('active'));
-  event.target.closest('.sec-tab').classList.add('active');
+function selectSection(key,el){
+  currentSectionKey=key;
+  document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
   renderSection(key);
 }
 
-function renderSection(key) {
-  const sec = SECTIONS.find(s => s.key === key);
-  if (!sec) return;
-  const content = (currentProgramData.sections && currentProgramData.sections[key]) || '';
-  const container = document.getElementById('sectionContent');
-
-  if (isAdmin()) {
-    // ADMIN: editable
-    container.innerHTML = `
-      <h4>${sec.icon} ${sec.name}</h4>
+function renderSection(key){
+  const sec=SECTIONS.find(s=>s.key===key);
+  if(!sec)return;
+  const content=(currentProgramData.sections&&currentProgramData.sections[key])||'';
+  const container=document.getElementById('sectionContent');
+  if(isAdmin()){
+    container.innerHTML=`
+      <h4>${ae(sec.icon)} ${sec.name}</h4>
       <div class="fg">
-        <label>Содержимое раздела (форматированный текст)</label>
-        <textarea class="inp" id="sectionTextarea"
-                  style="min-height:300px;font-size:14px;line-height:1.7"
+        <label>Содержимое раздела</label>
+        <textarea class="inp" id="sectionTextarea" style="min-height:350px;font-size:14px;line-height:1.7"
                   placeholder="Введите содержимое раздела «${sec.name}»..."
                   oninput="markUnsaved()">${escapeHtml(content)}</textarea>
       </div>
       <div class="gap8">
-        <button class="btn btnP" onclick="saveSection()">💾 Сохранить раздел</button>
-        <button class="btn btnSm btnS" onclick="clearSection()">🗑 Очистить</button>
+        <button class="btn btnP" onclick="saveSection()">${ae(E.save)} Сохранить раздел</button>
+        <button class="btn btnSm btnS" onclick="clearSection()">${ae(E.trash)} Очистить</button>
       </div>
       <div id="saveStatus" class="mt8" style="font-size:12px;color:var(--t3)">
-        ${content ? '✅ Сохранено' : '📝 Раздел пуст — заполните и сохраните'}
+        ${content?ae(E.check)+' Сохранено':ae(E.memo)+' Раздел пуст — заполните и сохраните'}
       </div>`;
   } else {
-    // VIEWER: read-only
-    container.innerHTML = `
-      <h4>${sec.icon} ${sec.name}</h4>
+    container.innerHTML=`
+      <h4>${ae(sec.icon)} ${sec.name}</h4>
       ${content
-        ? `<div class="readonly-text">${escapeHtml(content)}</div>`
-        : `<p style="color:var(--t3);padding:20px;text-align:center">Раздел не заполнен</p>`
-      }`;
+        ?`<div class="readonly-text">${escapeHtml(content)}</div>`
+        :`<p style="color:var(--t3);padding:20px;text-align:center">Раздел не заполнен</p>`}`;
   }
 }
 
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML}
+function markUnsaved(){const st=document.getElementById('saveStatus');if(st)st.innerHTML=`<span style="color:var(--orange)">${ae(E.warning)} Есть несохранённые изменения</span>`}
+
+function saveSection(){
+  if(!isAdmin()||!currentProgramId||!currentSectionKey)return;
+  const text=document.getElementById('sectionTextarea').value;
+  db.ref('programs/'+currentProgramId+'/sections/'+currentSectionKey).set(text);
+  db.ref('programs/'+currentProgramId+'/updatedAt').set(Date.now());
+  const st=document.getElementById('saveStatus');
+  if(st)st.innerHTML=`<span style="color:var(--green)">${ae(E.check)} Сохранено</span>`;
+  toast('Раздел сохранён');
 }
 
-function markUnsaved() {
-  const st = document.getElementById('saveStatus');
-  if (st) st.innerHTML = '<span style="color:var(--orange)">⚠️ Есть несохранённые изменения</span>';
-}
-
-function saveSection() {
-  if (!isAdmin() || !currentProgramId || !currentSectionKey) return;
-  const text = document.getElementById('sectionTextarea').value;
-  db.ref('programs/' + currentProgramId + '/sections/' + currentSectionKey).set(text);
-  db.ref('programs/' + currentProgramId + '/updatedAt').set(Date.now());
-  const st = document.getElementById('saveStatus');
-  if (st) st.innerHTML = '<span style="color:var(--green)">✅ Сохранено</span>';
-  toast('✅ Раздел сохранён');
-}
-
-function clearSection() {
-  if (!isAdmin()) return;
-  if (confirm('Очистить содержимое этого раздела?')) {
-    document.getElementById('sectionTextarea').value = '';
+function clearSection(){
+  if(!isAdmin())return;
+  if(confirm('Очистить содержимое этого раздела?')){
+    document.getElementById('sectionTextarea').value='';
     saveSection();
   }
 }
@@ -592,113 +892,66 @@ function clearSection() {
 // ======================================================================
 // DOWNLOAD DOCX
 // ======================================================================
-function downloadAsDocx() {
-  if (!currentProgramData) return;
-  const prog = currentProgramData;
-  const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, PageBreak } = docx;
-
-  const children = [];
-
-  // Title page
-  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [
-    new TextRun({ text: 'РАБОЧАЯ ПРОГРАММА', bold: true, size: 32 })
-  ]}));
-  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 100 }, children: [
-    new TextRun({ text: `учебной дисциплины ${prog.code} ${prog.title}`, size: 28 })
-  ]}));
-  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 100 }, children: [
-    new TextRun({ text: `Специальность: ${prog.specialty || ''}`, size: 22 })
-  ]}));
-  children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 100 }, children: [
-    new TextRun({ text: `Квалификация: ${prog.qualification || ''} • Форма обучения: ${prog.form || ''} • Год: ${prog.year || ''}`, size: 20 })
-  ]}));
-  children.push(new Paragraph({ children: [new PageBreak()] }));
-
-  // Each section
-  SECTIONS.forEach(sec => {
-    const text = (prog.sections && prog.sections[sec.key]) || '';
-    children.push(new Paragraph({
-      heading: HeadingLevel.HEADING_2,
-      spacing: { before: 400, after: 200 },
-      children: [new TextRun({ text: sec.icon + ' ' + sec.name, bold: true, size: 26 })]
-    }));
-    if (text) {
-      text.split('\n').forEach(line => {
-        children.push(new Paragraph({ spacing: { after: 80 }, children: [
-          new TextRun({ text: line, size: 22 })
-        ]}));
+function downloadAsDocx(){
+  if(!currentProgramData)return;
+  const prog=currentProgramData;
+  const{Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType,PageBreak}=docx;
+  const children=[];
+  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:200},children:[new TextRun({text:'РАБОЧАЯ ПРОГРАММА',bold:true,size:32})]}));
+  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`учебной дисциплины ${prog.code} ${prog.title}`,size:28})]}));
+  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`Специальность: ${prog.specialty||''}`,size:22})]}));
+  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}`,size:20})]}));
+  children.push(new Paragraph({children:[new PageBreak()]}));
+  SECTIONS.forEach(sec=>{
+    const text=(prog.sections&&prog.sections[sec.key])||'';
+    children.push(new Paragraph({heading:HeadingLevel.HEADING_2,spacing:{before:400,after:200},children:[new TextRun({text:sec.name,bold:true,size:26})]}));
+    if(text){
+      text.split('\n').forEach(line=>{
+        children.push(new Paragraph({spacing:{after:80},children:[new TextRun({text:line,size:22})]}));
       });
     } else {
-      children.push(new Paragraph({ children: [
-        new TextRun({ text: '(Раздел не заполнен)', italics: true, size: 22, color: '999999' })
-      ]}));
+      children.push(new Paragraph({children:[new TextRun({text:'(Раздел не заполнен)',italics:true,size:22,color:'999999'})]}));
     }
   });
-
-  const doc = new Document({ sections: [{ children }] });
-
-  Packer.toBlob(doc).then(blob => {
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `РП_${prog.code}_${prog.title}.docx`;
-    a.click();
-    URL.revokeObjectURL(url);
+  const doc=new Document({sections:[{children}]});
+  Packer.toBlob(doc).then(blob=>{
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=`РП_${prog.code}_${prog.title}.docx`;a.click();URL.revokeObjectURL(url);
   });
-  toast('📥 DOCX скачивается...');
+  toast('DOCX скачивается...');
 }
 
 // ======================================================================
 // DOWNLOAD PDF
 // ======================================================================
-function downloadAsPdf() {
-  if (!currentProgramData) return;
-  const prog = currentProgramData;
-
-  // Build HTML for PDF
-  let html = `
-    <div style="font-family:'Times New Roman',serif;color:#000;padding:20px">
-      <h1 style="text-align:center;font-size:18px;margin-bottom:4px">РАБОЧАЯ ПРОГРАММА</h1>
-      <h2 style="text-align:center;font-size:16px;font-weight:normal;margin-bottom:8px">
-        учебной дисциплины ${prog.code} ${prog.title}
-      </h2>
-      <p style="text-align:center;font-size:13px;color:#666;margin-bottom:24px">
-        ${prog.specialty || ''} • ${prog.qualification || ''} • ${prog.form || ''} • ${prog.year || ''}
-      </p>
-      <hr style="margin-bottom:24px">`;
-
-  SECTIONS.forEach(sec => {
-    const text = (prog.sections && prog.sections[sec.key]) || '';
-    html += `<h3 style="font-size:14px;margin:20px 0 8px;color:#333">${sec.icon} ${sec.name}</h3>`;
-    if (text) {
-      html += `<div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${escapeHtml(text)}</div>`;
+function downloadAsPdf(){
+  if(!currentProgramData)return;
+  const prog=currentProgramData;
+  let html=`<div style="font-family:'Times New Roman',serif;color:#000;padding:20px">
+    <h1 style="text-align:center;font-size:18px;margin-bottom:4px">РАБОЧАЯ ПРОГРАММА</h1>
+    <h2 style="text-align:center;font-size:16px;font-weight:normal;margin-bottom:8px">учебной дисциплины ${prog.code} ${prog.title}</h2>
+    <p style="text-align:center;font-size:13px;color:#666;margin-bottom:24px">${prog.specialty||''} | ${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}</p>
+    <hr style="margin-bottom:24px">`;
+  SECTIONS.forEach(sec=>{
+    const text=(prog.sections&&prog.sections[sec.key])||'';
+    html+=`<h3 style="font-size:14px;margin:20px 0 8px;color:#333">${sec.name}</h3>`;
+    if(text){
+      html+=`<div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${escapeHtml(text)}</div>`;
     } else {
-      html += `<p style="color:#999;font-style:italic;font-size:12px">(Раздел не заполнен)</p>`;
+      html+=`<p style="color:#999;font-style:italic;font-size:12px">(Раздел не заполнен)</p>`;
     }
   });
-
-  html += '</div>';
-
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = html;
-
+  html+='</div>';
+  const wrapper=document.createElement('div');wrapper.innerHTML=html;
   html2pdf().set({
-    margin: [15, 15, 15, 15],
-    filename: `РП_${prog.code}_${prog.title}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    margin:[15,15,15,15],
+    filename:`РП_${prog.code}_${prog.title}.pdf`,
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
   }).from(wrapper).save();
-
-  toast('📥 PDF скачивается...');
+  toast('PDF скачивается...');
 }
-
-// ======================================================================
-// INIT
-// ======================================================================
-// Check if users need seeding (first run)
-// The auth listener handles everything
-
 </script>
 </body>
 </html>
