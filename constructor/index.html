@@ -3,24 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Конструктор рабочих программ</title>
+<title>Конструктор рабочих программ СПО</title>
 <style>
 :root{--bg:#0a0a0a;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
-.ae{height:1.1em;width:1.1em;vertical-align:-0.15em;display:inline-block;pointer-events:none}
-
 .notif{position:fixed;top:0;left:0;right:0;padding:12px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s ease}
 .notif.show{transform:translateY(0)}
 .notif.success{background:var(--green);color:#fff}
 .notif.error{background:var(--red);color:#fff}
-.notif.info{background:var(--blue);color:#fff}
-
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
-.topbar h1{font-size:17px;font-weight:600;display:flex;align-items:center;gap:6px}
+.topbar h1{font-size:17px;font-weight:600}
 .topbar-r{display:flex;gap:8px;align-items:center}
-.container{max-width:1100px;margin:0 auto;padding:16px}
+.container{max-width:1000px;margin:0 auto;padding:16px}
 .card{background:var(--card);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
 .card h3{font-size:15px;font-weight:600;margin-bottom:6px}
 .card p{font-size:13px;color:var(--t2);line-height:1.5}
@@ -32,51 +28,60 @@ body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;ba
 .btnG{background:var(--green);color:#fff}
 .btnO{background:var(--orange);color:#fff}
 .btnSm{padding:6px 14px;font-size:12px;border-radius:var(--rs)}
-.inp{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.inp{width:100%;padding:12px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .inp:focus{border-color:var(--blue)}
+textarea.inp{min-height:100px;resize:vertical;line-height:1.6}
 label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight:500}
-.fg{margin-bottom:16px}
+.fg{margin-bottom:14px}
 .pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
 .pill.bl{background:rgba(10,132,255,.15);color:var(--blue)}
 .pill.gr{background:rgba(48,209,88,.15);color:var(--green)}
 .pill.og{background:rgba(255,159,10,.15);color:var(--orange)}
-.pill.rd{background:rgba(255,69,58,.15);color:var(--red)}
 .pill.pr{background:rgba(191,90,242,.15);color:var(--purple)}
 .flex-b{display:flex;justify-content:space-between;align-items:center}
 .gap8{display:flex;gap:8px;flex-wrap:wrap}
 .mt8{margin-top:8px}
+.mt16{margin-top:16px}
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
 
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
-.auth-box h2{font-size:22px;margin-bottom:8px}
-.auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
 .auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
 
 .upload-zone{border:2px dashed var(--t4);border-radius:var(--r);padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(10,132,255,.05)}
+.upload-zone:hover{border-color:var(--blue);background:rgba(10,132,255,.05)}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
 
-.doc-wrapper{background:#e8e8e8;border-radius:8px;padding:20px;min-height:500px}
-[data-theme="dark"] .doc-wrapper{background:#333}
-.doc-wrapper .docx-wrapper{background:#fff!important;margin:0 auto!important;box-shadow:0 2px 20px rgba(0,0,0,.2);border-radius:4px}
-.doc-wrapper .docx-wrapper section.docx{padding:40px 50px!important;margin-bottom:20px!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.1)!important}
+/* Section tabs */
+.sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.sec-tab{padding:8px 14px;border-radius:var(--rs);font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s}
+.sec-tab.active{background:var(--purple);color:#fff}
+.sec-tab.filled{border-bottom:2px solid var(--green)}
+.sec-tab:hover{color:var(--text)}
 
-.float-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 12px;display:flex;gap:8px;align-items:center;z-index:150;backdrop-filter:blur(20px);box-shadow:0 4px 20px rgba(0,0,0,.4);transition:opacity .3s,transform .3s}
-.float-bar.hide{opacity:0;transform:translateX(-50%) translateY(20px);pointer-events:none}
-.float-status{font-size:12px;color:var(--t3);padding:0 8px}
+/* Section content */
+.sec-box{background:var(--bg3);border-radius:var(--r);padding:20px;min-height:300px}
+.sec-box h4{font-size:16px;margin-bottom:16px;color:var(--blue)}
 
-.replace-panel{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
-.replace-panel h4{font-size:14px;margin-bottom:12px;color:var(--blue)}
-.replace-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
-.replace-row .inp{flex:1}
-.replace-count{font-size:12px;color:var(--t3);margin-top:4px}
-.replace-history{margin-top:12px;max-height:200px;overflow-y:auto}
-.replace-item{display:flex;justify-content:space-between;align-items:center;padding:8px;background:var(--bg3);border-radius:var(--rs);margin-bottom:4px;font-size:12px}
-.replace-item .old{color:var(--red);text-decoration:line-through}
-.replace-item .new{color:var(--green)}
+/* Editable list items */
+.list-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding:10px;background:var(--bg2);border-radius:var(--rs);border:1px solid var(--t4)}
+.list-item textarea,.list-item input{flex:1}
+.list-item .btn{flex-shrink:0}
 
+/* Editable table */
+.ed-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--bg2);border-radius:var(--rs);overflow:hidden}
+.ed-table th,.ed-table td{border:1px solid var(--t4);padding:8px 10px;text-align:left;font-size:13px;vertical-align:top}
+.ed-table th{background:var(--bg3);font-weight:600;color:var(--t2);font-size:12px}
+.ed-table td input,.ed-table td textarea{width:100%;background:transparent;border:none;color:var(--text);font-size:13px;font-family:inherit;outline:none;resize:vertical}
+.ed-table td input:focus,.ed-table td textarea:focus{background:rgba(10,132,255,.08);border-radius:4px}
+.ed-table td textarea{min-height:40px}
+
+/* Float save button */
+.float-save{position:fixed;bottom:20px;right:20px;z-index:150;display:flex;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 12px;box-shadow:0 4px 20px rgba(0,0,0,.4);backdrop-filter:blur(20px)}
+.float-save.hide{opacity:0;pointer-events:none;transform:translateY(10px)}
+
+/* Sheet */
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
 .sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
@@ -92,15 +97,16 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .spinner{width:40px;height:40px;border:3px solid var(--t4);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-ov p{color:#fff;font-size:14px}
-
 .th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 
+.readonly-field{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--rs);padding:10px;font-size:13px;line-height:1.5;color:var(--text);min-height:40px;white-space:pre-wrap}
+
 @media(max-width:768px){
-  .doc-wrapper .docx-wrapper section.docx{padding:20px!important}
-  .float-bar{bottom:10px;left:10px;right:10px;transform:none;border-radius:14px}
-  .float-bar.hide{transform:translateY(20px)}
-  .replace-row{flex-direction:column}
-  .topbar h1{font-size:14px}
+  .sec-tabs{gap:3px}
+  .sec-tab{font-size:10px;padding:5px 8px}
+  .float-save{bottom:10px;right:10px;left:10px;justify-content:center}
+  .ed-table{font-size:11px}
+  .ed-table th,.ed-table td{padding:5px 6px}
 }
 </style>
 </head>
@@ -112,23 +118,23 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
-    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:12px" alt="">
-    <h2>Конструктор программ</h2>
-    <p>Войдите для работы с рабочими программами</p>
+    <div style="font-size:48px;margin-bottom:12px">📄</div>
+    <h2 style="font-size:22px;margin-bottom:8px">Конструктор программ СПО</h2>
+    <p style="font-size:13px;color:var(--t3);margin-bottom:24px">Войдите для работы с рабочими программами</p>
     <div class="fg"><label>Email</label><input class="inp" id="authEmail" type="email" value="admin@test.ru"></div>
     <div class="fg"><label>Пароль</label><input class="inp" id="authPass" type="password" value="123456"></div>
     <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
     <div class="auth-err" id="authErr"></div>
-    <p style="margin-top:16px;font-size:11px;color:var(--t3)">admin@test.ru / 123456 — редактирование<br>test@test.ru / 123456 — только просмотр</p>
+    <p style="margin-top:16px;font-size:11px;color:var(--t3)">admin@test.ru / 123456 — редактирование<br>test@test.ru / 123456 — просмотр</p>
   </div>
 </div>
 
 <!-- APP -->
 <div id="appMain" class="hidden">
   <div class="topbar">
-    <h1><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:20px;width:20px"> Конструктор программ</h1>
+    <h1>📄 Конструктор программ</h1>
     <div class="topbar-r">
-      <button class="th-tog" onclick="toggleTheme()"><img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px"></button>
+      <button class="th-tog" onclick="toggleTheme()">🌓</button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
       <span id="roleLabel" class="pill bl"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
@@ -139,7 +145,10 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <div class="container" id="pageList">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
-      <button class="btn btnP btnSm hidden" id="btnUpload" onclick="openUploadSheet()">+ Загрузить DOCX</button>
+      <div class="gap8">
+        <button class="btn btnP btnSm hidden" id="btnCreate" onclick="openCreateSheet()">+ Создать</button>
+        <button class="btn btnO btnSm hidden" id="btnUpload" onclick="openUploadSheet()">📤 Загрузить DOCX</button>
+      </div>
     </div>
     <div id="programsList"></div>
   </div>
@@ -149,38 +158,38 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     <div class="flex-b mb12">
       <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
       <div class="gap8">
-        <button class="btn btnSm btnO hidden" id="btnDlOriginal" onclick="downloadOriginalDocx()">Оригинал DOCX</button>
-        <button class="btn btnSm btnS" onclick="downloadPdf()">PDF</button>
+        <button class="btn btnSm btnG" onclick="generateDocx()">📥 Сформировать DOCX</button>
       </div>
     </div>
     <div class="card" style="border-left:4px solid var(--purple)">
-      <div class="flex-b"><h3 id="editorTitle">—</h3><span class="pill pr" id="editorDate"></span></div>
-      <p id="editorMeta"></p>
+      <div class="flex-b"><h3 id="edTitle">—</h3><span class="pill pr" id="edDate"></span></div>
+      <p id="edMeta"></p>
     </div>
-
-    <!-- Replace panel -->
-    <div class="replace-panel hidden" id="replacePanel">
-      <h4>Найти и заменить текст</h4>
-      <div class="replace-row">
-        <input class="inp" id="findText" placeholder="Найти текст...">
-        <input class="inp" id="replaceText" placeholder="Заменить на...">
-        <button class="btn btnSm btnP" onclick="doReplace()">Заменить всё</button>
-      </div>
-      <div class="replace-count" id="replaceCount"></div>
-      <p style="font-size:11px;color:var(--t3);margin-top:4px">Форматирование, таблицы, шрифты, отступы — всё сохраняется. Меняется только текст.</p>
-      <div class="replace-history" id="replaceHistory"></div>
-    </div>
-
-    <div class="doc-wrapper" id="docWrapper">
-      <p style="color:var(--t3);text-align:center;padding:40px">Загрузка документа...</p>
-    </div>
+    <div class="sec-tabs" id="secTabs"></div>
+    <div class="sec-box" id="secBox"><p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел</p></div>
   </div>
 
-  <!-- Float bar -->
-  <div class="float-bar hide" id="floatBar">
-    <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
-    <button class="btn btnSm btnO" onclick="downloadModifiedDocx()">Скачать DOCX</button>
-    <span class="float-status" id="floatStatus">Без изменений</span>
+  <!-- Float save -->
+  <div class="float-save hide" id="floatSave">
+    <button class="btn btnSm btnG" onclick="saveCurrentSection()">💾 Сохранить</button>
+    <button class="btn btnSm btnP" onclick="saveAndNext()">Сохранить и далее →</button>
+  </div>
+</div>
+
+<!-- SHEET: Create -->
+<div class="sheet-ov" id="sheetCreate">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-head"><h2>Новая программа</h2><button class="sh-close" onclick="closeSheet('sheetCreate')">✕</button></div>
+    <div class="sh-body">
+      <div class="fg"><label>Код дисциплины</label><input class="inp" id="crCode" placeholder="ОУП.06"></div>
+      <div class="fg"><label>Название</label><input class="inp" id="crTitle" placeholder="Иностранный язык"></div>
+      <div class="fg"><label>Специальность</label><input class="inp" id="crSpec" placeholder="11.02.06 Техническая эксплуатация..."></div>
+      <div class="fg"><label>Квалификация</label><input class="inp" id="crQual" placeholder="Техник"></div>
+      <div class="fg"><label>Форма обучения</label><input class="inp" id="crForm" value="Очная"></div>
+      <div class="fg"><label>Год</label><input class="inp" id="crYear" type="number" value="2024"></div>
+      <button class="btn btnP" style="width:100%" onclick="createProgram()">Создать</button>
+    </div>
   </div>
 </div>
 
@@ -188,51 +197,37 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <div class="sheet-ov" id="sheetUpload">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-head"><h2>Загрузить программу</h2><button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button></div>
+    <div class="sh-head"><h2>Загрузить DOCX</h2><button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button></div>
     <div class="sh-body">
-      <div class="fg"><label>Название</label><input class="inp" id="uploadTitle" placeholder="ОУП.06 Иностранный язык"></div>
+      <div class="fg"><label>Название</label><input class="inp" id="upTitle" placeholder="Название программы"></div>
       <div class="fg">
         <label>Файл DOCX</label>
-        <div class="upload-zone" id="uploadZone">
-          <input type="file" id="fileInput" accept=".docx" onchange="handleFileSelect(event)">
-          <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e4.png" style="width:48px;height:48px" alt="">
-          <p style="color:var(--t3);font-size:14px;margin-top:8px">Перетащите DOCX или нажмите</p>
+        <div class="upload-zone">
+          <input type="file" id="fileInput" accept=".docx" onchange="onFileSelect(event)">
+          <p style="color:var(--t3);font-size:14px">Перетащите или выберите DOCX</p>
           <p id="fileName" style="color:var(--blue);font-weight:600;margin-top:8px"></p>
         </div>
       </div>
-      <button class="btn btnP" style="width:100%" onclick="uploadProgram()">Загрузить</button>
+      <button class="btn btnP" style="width:100%" onclick="uploadAndParse()">Загрузить и разобрать</button>
     </div>
   </div>
 </div>
 
-<!-- SHEET: Rename -->
-<div class="sheet-ov" id="sheetRename">
-  <div class="sheet">
-    <div class="sh-handle"></div>
-    <div class="sh-head"><h2>Переименовать</h2><button class="sh-close" onclick="closeSheet('sheetRename')">✕</button></div>
-    <div class="sh-body">
-      <div class="fg"><label>Название</label><input class="inp" id="renameTitle"></div>
-      <button class="btn btnP" style="width:100%" onclick="doRename()">Сохранить</button>
-    </div>
-  </div>
-</div>
-
-<!-- JSZip ПЕРВЫМ -->
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
-<!-- docx-preview ПОСЛЕ JSZip -->
-<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.20/dist/docx-preview.min.js"></script>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- html2pdf -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+<!-- JSZip -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
+<!-- Mammoth for parsing -->
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+<!-- docx for generation -->
+<script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
 <script>
 // ======================================================================
 // FIREBASE
 // ======================================================================
-const firebaseConfig={
+var firebaseConfig={
   apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
   authDomain:"my-diary-e223c.firebaseapp.com",
   databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",
@@ -242,120 +237,112 @@ const firebaseConfig={
   appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"
 };
 firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth();
-const db=firebase.database();
-
-// Проверка JSZip
-if(typeof JSZip==='undefined'){
-  console.error('JSZip не загружен!');
-  document.body.innerHTML='<p style="color:red;text-align:center;padding:40px;font-size:18px">Ошибка: JSZip не загружен. Проверьте интернет и обновите страницу.</p>';
-}
+var auth=firebase.auth(),db=firebase.database();
 
 // ======================================================================
-// HELPERS
+// SECTIONS DEFINITION
 // ======================================================================
-function notify(msg,type){
-  type=type||'success';
-  const n=document.getElementById('notif');
-  n.textContent=msg;n.className='notif '+type+' show';
-  setTimeout(function(){n.classList.remove('show')},3000);
-}
-function showLoading(t){document.getElementById('loadingText').textContent=t||'Загрузка...';document.getElementById('loadingOv').classList.add('show')}
-function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
-function openSheet(id){document.getElementById(id).classList.add('open')}
-function closeSheet(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.sheet-ov').forEach(function(ov){ov.addEventListener('click',function(e){if(e.target===ov)ov.classList.remove('open')})});
-function toggleTheme(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
-if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
-
-function arrayBufferToBase64(buffer){
-  var binary='';var bytes=new Uint8Array(buffer);
-  for(var i=0;i<bytes.byteLength;i+=8192){
-    var chunk=bytes.subarray(i,Math.min(i+8192,bytes.byteLength));
-    binary+=String.fromCharCode.apply(null,chunk);
-  }
-  return btoa(binary);
-}
-function base64ToArrayBuffer(b64){
-  var bin=atob(b64);var bytes=new Uint8Array(bin.length);
-  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-  return bytes.buffer;
-}
-function downloadBlob(blob,name){
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download=name;document.body.appendChild(a);a.click();
-  document.body.removeChild(a);URL.revokeObjectURL(a.href);
-}
+var SECTIONS=[
+  {key:'title_page',name:'Титульный лист',fields:[
+    {id:'program_type',label:'Вид программы',type:'text',ph:'Рабочая программа учебного предмета'},
+    {id:'discipline_name',label:'Название дисциплины',type:'text',ph:'ОУП.06 Иностранный язык'},
+    {id:'specialty',label:'Специальность',type:'text',ph:'11.02.06 Техническая эксплуатация...'},
+    {id:'qualification',label:'Квалификация выпускника',type:'text',ph:'Техник'},
+    {id:'study_form',label:'Форма обучения',type:'text',ph:'Очная'},
+    {id:'study_duration',label:'Срок обучения',type:'text',ph:'3 года 10 месяцев'},
+    {id:'start_year',label:'Год начала подготовки',type:'text',ph:'2024'},
+    {id:'plan_numbers',label:'Номера учебных планов',type:'text',ph:'ТЭРО-124, ТЭРО-125'},
+    {id:'developers',label:'Разработчик(и)',type:'textarea',ph:'ФИО, должность'},
+    {id:'cmk_info',label:'Рассмотрена ЦМК',type:'textarea',ph:'ЦМК общеобразовательных дисциплин\nПротокол от ___ 2024 г. № ___'},
+    {id:'basis',label:'Разработана на основе',type:'textarea',ph:'ФГОС СПО, ФГОС СОО, Примерной программы...'}
+  ]},
+  {key:'goals',name:'Цели и задачи',fields:'list',listConfig:{
+    goals:{label:'Цели дисциплины',ph:'Введите цель...'},
+    tasks:{label:'Задачи дисциплины',ph:'Введите задачу...'}
+  }},
+  {key:'place_in_oop',name:'Место в структуре ООП',fields:[
+    {id:'cycle',label:'Место в структуре',type:'textarea',ph:'Учебный предмет является обязательным предметом общеобразовательного цикла...'},
+    {id:'prior_disciplines',label:'Дисциплины, изучаемые ранее',type:'textarea',ph:'Русский язык, Литература...'},
+    {id:'parallel_disciplines',label:'Дисциплины, изучаемые совместно или после',type:'textarea',ph:'Профессиональные модули...'},
+    {id:'interdisciplinary',label:'Межпредметные связи',type:'textarea',ph:'Связи с общеобразовательными и профессиональными дисциплинами...'}
+  ]},
+  {key:'results',name:'Результаты обучения',fields:'competencies'},
+  {key:'structure',name:'Структура и содержание',fields:'structure'},
+  {key:'lectures',name:'Лекционные занятия',fields:'topics',topicType:'lecture'},
+  {key:'practices',name:'Практические занятия',fields:'topics',topicType:'practice'},
+  {key:'labs',name:'Лабораторные работы',fields:'topics',topicType:'lab'},
+  {key:'coursework',name:'Курсовые работы',fields:'topics',topicType:'coursework'},
+  {key:'self_study',name:'Самостоятельная работа',fields:'self_study'},
+  {key:'methodology',name:'Учебно-методическое обесп.',fields:[
+    {id:'main_literature',label:'Основная литература',type:'textarea',ph:'1. Автор. Название. — М.: Издательство, 2023.'},
+    {id:'additional_literature',label:'Дополнительная литература',type:'textarea',ph:'1. Автор. Название. — М.: Издательство, 2022.'},
+    {id:'internet_resources',label:'Интернет-ресурсы',type:'textarea',ph:'1. https://... — Описание'},
+    {id:'software',label:'Программное обеспечение',type:'textarea',ph:'MS Office, браузер...'},
+    {id:'databases',label:'Базы данных и справочные системы',type:'textarea',ph:'Юрайт, Лань...'}
+  ]},
+  {key:'material_tech',name:'Материально-техническое обесп.',fields:[
+    {id:'classroom',label:'Учебные помещения',type:'textarea',ph:'Кабинет «Иностранный язык»'},
+    {id:'equipment',label:'Оборудование',type:'textarea',ph:'Посадочные места, доска, компьютер...'},
+    {id:'technical',label:'Технические средства',type:'textarea',ph:'Проектор, экран, аудио...'}
+  ]},
+  {key:'approval',name:'Рассмотрение и утверждение',fields:[
+    {id:'approval_body',label:'Кем согласовано',type:'text',ph:'Заседание кафедры / ЦМК'},
+    {id:'protocol',label:'Протокол',type:'text',ph:'Протокол от ___ 2024 г. № ___'},
+    {id:'chairman',label:'Председатель',type:'text',ph:'ФИО'},
+    {id:'approved_by',label:'Утверждено',type:'textarea',ph:'Зам. директора по УР: ___'},
+    {id:'changes',label:'Изменения и дополнения',type:'textarea',ph:'Лист регистрации изменений...'}
+  ]}
+];
 
 // ======================================================================
 // STATE
 // ======================================================================
 var currentUser=null,userRole=null;
-var currentProgramId=null,currentProgramData=null;
-var selectedFileArrayBuffer=null;
-var renameId=null;
-var currentDocxArrayBuffer=null;
-var replacements=[];
-var hasChanges=false;
+var currentProgId=null,currentProgData=null,currentSecKey=null;
+var selectedFileBuffer=null;
 
 function isAdmin(){return userRole==='admin'}
+
+// ======================================================================
+// UI HELPERS
+// ======================================================================
+function notify(m,t){var n=document.getElementById('notif');n.textContent=m;n.className='notif '+(t||'success')+' show';setTimeout(function(){n.classList.remove('show')},3000)}
+function showLoading(t){document.getElementById('loadingText').textContent=t||'Загрузка...';document.getElementById('loadingOv').classList.add('show')}
+function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
+function openSheet(id){document.getElementById(id).classList.add('open')}
+function closeSheet(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.sheet-ov').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')})});
+function toggleTheme(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
+if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 // ======================================================================
 // AUTH
 // ======================================================================
 function doLogin(){
-  var email=document.getElementById('authEmail').value.trim();
-  var pass=document.getElementById('authPass').value;
-  var errEl=document.getElementById('authErr');errEl.textContent='';
-  if(!email||!pass){errEl.textContent='Заполните все поля';return}
-  if(pass.length<6){errEl.textContent='Пароль минимум 6 символов';return}
-  auth.signInWithEmailAndPassword(email,pass).catch(function(err){
-    if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'){
-      errEl.textContent='Создаю аккаунт...';
-      auth.createUserWithEmailAndPassword(email,pass).then(function(c){
-        var r=email==='admin@test.ru'?'admin':'viewer';
-        return db.ref('users/'+c.user.uid).set({email:email,role:r,createdAt:Date.now()});
-      }).catch(function(e2){
-        errEl.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message;
-      });
-    } else if(err.code==='auth/wrong-password'){
-      errEl.textContent='Неверный пароль';
-    } else if(err.code==='auth/too-many-requests'){
-      errEl.textContent='Слишком много попыток, подождите';
-    } else {
-      errEl.textContent=err.message;
-    }
+  var e=document.getElementById('authEmail').value.trim(),p=document.getElementById('authPass').value,err=document.getElementById('authErr');
+  err.textContent='';if(!e||!p){err.textContent='Заполните поля';return}
+  auth.signInWithEmailAndPassword(e,p).catch(function(er){
+    if(er.code==='auth/user-not-found'||er.code==='auth/invalid-credential'){
+      auth.createUserWithEmailAndPassword(e,p).then(function(c){
+        return db.ref('users/'+c.user.uid).set({email:e,role:e==='admin@test.ru'?'admin':'viewer',createdAt:Date.now()});
+      }).catch(function(e2){err.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message});
+    } else err.textContent=er.message;
   });
 }
 function doLogout(){auth.signOut()}
-
-auth.onAuthStateChanged(function(user){
-  if(user){
-    currentUser=user;
-    db.ref('users/'+user.uid).once('value',function(s){
-      var d=s.val();
-      if(!d){
-        var r=user.email==='admin@test.ru'?'admin':'viewer';
-        db.ref('users/'+user.uid).set({email:user.email,role:r,createdAt:Date.now()});
-        userRole=r;
-      } else {
-        userRole=d.role||'viewer';
-      }
-      showApp();
-    });
-  } else {
-    currentUser=null;userRole=null;
-    document.getElementById('authScreen').classList.remove('hidden');
-    document.getElementById('appMain').classList.add('hidden');
-  }
+auth.onAuthStateChanged(function(u){
+  if(u){currentUser=u;db.ref('users/'+u.uid).once('value',function(s){
+    var d=s.val();if(!d){var r=u.email==='admin@test.ru'?'admin':'viewer';db.ref('users/'+u.uid).set({email:u.email,role:r,createdAt:Date.now()});userRole=r}
+    else userRole=d.role||'viewer';showApp()});
+  } else {currentUser=null;userRole=null;document.getElementById('authScreen').classList.remove('hidden');document.getElementById('appMain').classList.add('hidden')}
 });
-
 function showApp(){
-  document.getElementById('authScreen').classList.add('hidden');
-  document.getElementById('appMain').classList.remove('hidden');
+  document.getElementById('authScreen').classList.add('hidden');document.getElementById('appMain').classList.remove('hidden');
   document.getElementById('userLabel').textContent=currentUser.email;
   document.getElementById('roleLabel').textContent=isAdmin()?'Редактор':'Просмотр';
   document.getElementById('roleLabel').className='pill '+(isAdmin()?'gr':'bl');
+  document.getElementById('btnCreate').classList.toggle('hidden',!isAdmin());
   document.getElementById('btnUpload').classList.toggle('hidden',!isAdmin());
   loadPrograms();showList();
 }
@@ -363,434 +350,509 @@ function showApp(){
 // ======================================================================
 // NAV
 // ======================================================================
-function showList(){
-  document.getElementById('pageList').classList.remove('hidden');
-  document.getElementById('pageEditor').classList.add('hidden');
-  document.getElementById('floatBar').classList.add('hide');
-  currentProgramId=null;currentProgramData=null;currentDocxArrayBuffer=null;
-  replacements=[];hasChanges=false;
-}
-function backToList(){
-  if(hasChanges&&isAdmin()&&!confirm('Есть несохранённые изменения. Выйти?'))return;
-  showList();
-}
+function showList(){document.getElementById('pageList').classList.remove('hidden');document.getElementById('pageEditor').classList.add('hidden');document.getElementById('floatSave').classList.add('hide');currentProgId=null}
+function backToList(){showList()}
 
 // ======================================================================
 // PROGRAMS LIST
 // ======================================================================
 function loadPrograms(){
   db.ref('programs').on('value',function(snap){
-    var progs=snap.val()||{};
-    var c=document.getElementById('programsList');
-    if(!Object.keys(progs).length){
-      c.innerHTML='<div style="text-align:center;padding:60px 20px">'+
-        '<img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c2.png" style="width:64px;height:64px;margin-bottom:16px" alt="">'+
-        '<p style="color:var(--t3);font-size:15px">Нет программ</p>'+
-        (isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX»</p>':'')+
-        '</div>';return;
-    }
+    var progs=snap.val()||{},c=document.getElementById('programsList');
+    if(!Object.keys(progs).length){c.innerHTML='<div style="text-align:center;padding:60px"><p style="font-size:48px;margin-bottom:16px">📄</p><p style="color:var(--t3)">Нет программ</p></div>';return}
     c.innerHTML='';
-    var sorted=Object.entries(progs).sort(function(a,b){return(b[1].createdAt||0)-(a[1].createdAt||0)});
-    sorted.forEach(function(entry){
-      var id=entry[0],p=entry[1];
-      var d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
-      var u=p.updatedAt&&p.updatedAt!==p.createdAt?new Date(p.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-      var sz=p.docxBase64?Math.round(p.docxBase64.length*0.75/1024):0;
-      var safeTitle=(p.title||'').replace(/'/g,"\\'");
-      c.innerHTML+=
-        '<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram(\''+id+'\')">'+
-          '<div class="flex-b">'+
-            '<h3>'+escHtml(p.title||'Без названия')+'</h3>'+
-            '<span class="pill pr">'+sz+' КБ</span>'+
-          '</div>'+
-          '<p class="mt8" style="font-size:12px;color:var(--t3)">Загружено: '+d+(u?' | Изменено: '+u:'')+'</p>'+
-          (isAdmin()?
-            '<div class="mt8 gap8">'+
-              '<button class="btn btnSm btnS" onclick="event.stopPropagation();openRename(\''+id+'\',\''+safeTitle+'\')">Переименовать</button>'+
-              '<button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram(\''+id+'\')">Удалить</button>'+
-            '</div>':'')+
-        '</div>';
+    Object.entries(progs).sort(function(a,b){return(b[1].createdAt||0)-(a[1].createdAt||0)}).forEach(function(en){
+      var id=en[0],p=en[1];
+      var filled=0;SECTIONS.forEach(function(s){if(p.sections&&p.sections[s.key]&&hasData(p.sections[s.key]))filled++});
+      var d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru'):'';
+      c.innerHTML+='<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram(\''+id+'\')">'+
+        '<div class="flex-b"><h3>'+escHtml(p.code||'')+' '+escHtml(p.title||'')+'</h3><span class="pill '+(filled>=10?'gr':filled>=5?'og':'bl')+'">'+filled+'/'+SECTIONS.length+' разделов</span></div>'+
+        '<p>'+escHtml(p.specialty||'')+'</p><p class="mt8" style="font-size:11px;color:var(--t3)">'+d+'</p>'+
+        (isAdmin()?'<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();delProg(\''+id+'\')">Удалить</button></div>':'')+
+      '</div>';
     });
   });
 }
-
-function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function hasData(obj){if(!obj)return false;if(typeof obj==='string')return obj.trim().length>0;if(Array.isArray(obj))return obj.length>0;if(typeof obj==='object')return Object.values(obj).some(function(v){return hasData(v)});return false}
+function delProg(id){if(confirm('Удалить программу?')){db.ref('programs/'+id).remove();notify('Удалено')}}
 
 // ======================================================================
-// UPLOAD
+// CREATE PROGRAM
 // ======================================================================
-function openUploadSheet(){
-  if(!isAdmin())return;
-  document.getElementById('uploadTitle').value='';
-  document.getElementById('fileName').textContent='';
-  document.getElementById('fileInput').value='';
-  selectedFileArrayBuffer=null;
-  openSheet('sheetUpload');
-}
-function handleFileSelect(e){
-  var f=e.target.files[0];if(!f)return;
-  if(!f.name.endsWith('.docx')){notify('Только .docx','error');return}
-  document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
-  if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
-  var r=new FileReader();
-  r.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
-  r.readAsArrayBuffer(f);
-}
-
-function uploadProgram(){
-  if(!isAdmin())return;
-  var title=document.getElementById('uploadTitle').value.trim();
+function openCreateSheet(){openSheet('sheetCreate')}
+function createProgram(){
+  var code=document.getElementById('crCode').value.trim(),title=document.getElementById('crTitle').value.trim();
   if(!title){notify('Введите название','error');return}
-  if(!selectedFileArrayBuffer){notify('Выберите файл','error');return}
-  showLoading('Загрузка документа...');
-  try{
-    var b64=arrayBufferToBase64(selectedFileArrayBuffer);
-    if(b64.length>9*1024*1024){hideLoading();notify('Файл слишком большой (макс ~7МБ)','error');return}
-    db.ref('programs').push({
-      title:title,docxBase64:b64,
-      createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now()
-    }).then(function(){
-      hideLoading();closeSheet('sheetUpload');notify('Программа загружена');
-      selectedFileArrayBuffer=null;
-    });
-  }catch(e){hideLoading();notify('Ошибка: '+e.message,'error')}
+  var data={code:code,title:title,specialty:document.getElementById('crSpec').value.trim(),
+    qualification:document.getElementById('crQual').value.trim(),form:document.getElementById('crForm').value.trim(),
+    year:document.getElementById('crYear').value.trim(),createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now(),sections:{}};
+  SECTIONS.forEach(function(s){data.sections[s.key]={}});
+  // Pre-fill title page
+  data.sections.title_page={program_type:'Рабочая программа учебного предмета',discipline_name:code+' '+title,
+    specialty:data.specialty,qualification:data.qualification,study_form:data.form,start_year:data.year};
+  db.ref('programs').push(data);closeSheet('sheetCreate');notify('Программа создана');
 }
 
 // ======================================================================
-// DELETE / RENAME
+// UPLOAD DOCX → PARSE INTO SECTIONS
 // ======================================================================
-function deleteProgram(id){
-  if(!isAdmin())return;
-  if(confirm('Удалить программу?')){db.ref('programs/'+id).remove();notify('Удалено')}
+function openUploadSheet(){openSheet('sheetUpload');document.getElementById('fileName').textContent='';selectedFileBuffer=null}
+function onFileSelect(e){var f=e.target.files[0];if(!f)return;document.getElementById('fileName').textContent=f.name;
+  if(!document.getElementById('upTitle').value)document.getElementById('upTitle').value=f.name.replace('.docx','');
+  var r=new FileReader();r.onload=function(ev){selectedFileBuffer=ev.target.result};r.readAsArrayBuffer(f)}
+
+function uploadAndParse(){
+  var title=document.getElementById('upTitle').value.trim();
+  if(!title){notify('Введите название','error');return}
+  if(!selectedFileBuffer){notify('Выберите файл','error');return}
+  showLoading('Разбор документа...');
+  mammoth.extractRawText({arrayBuffer:selectedFileBuffer}).then(function(result){
+    var text=result.value;
+    var parsed=parseDocxText(text);
+    // Also store original docx
+    var b64=arrayBufferToBase64(selectedFileBuffer);
+    var data={code:'',title:title,specialty:'',qualification:'',form:'',year:'',
+      createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now(),
+      sections:parsed,docxOriginal:b64.length<8*1024*1024?b64:''};
+    db.ref('programs').push(data);
+    hideLoading();closeSheet('sheetUpload');notify('Документ загружен и разобран');
+  }).catch(function(e){hideLoading();notify('Ошибка разбора: '+e.message,'error')});
 }
-function openRename(id,t){renameId=id;document.getElementById('renameTitle').value=t;openSheet('sheetRename')}
-function doRename(){
-  if(!renameId)return;
-  var t=document.getElementById('renameTitle').value.trim();
-  if(!t){notify('Введите название','error');return}
-  db.ref('programs/'+renameId).update({title:t,updatedAt:Date.now()});
-  closeSheet('sheetRename');notify('Переименовано');
+
+function arrayBufferToBase64(buf){var b='',u=new Uint8Array(buf);for(var i=0;i<u.byteLength;i+=8192){b+=String.fromCharCode.apply(null,u.subarray(i,Math.min(i+8192,u.byteLength)))}return btoa(b)}
+function base64ToArrayBuffer(b64){var b=atob(b64),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u.buffer}
+
+function parseDocxText(text){
+  // Try to split by known section headers
+  var sections={};
+  var markers=[
+    {key:'title_page',patterns:['рабочая программа','титульный лист']},
+    {key:'goals',patterns:['цели и задачи','цель дисциплины','цели освоения']},
+    {key:'place_in_oop',patterns:['место дисциплины','место учебной','место в структуре']},
+    {key:'results',patterns:['результаты обучения','планируемые результаты','компетенции']},
+    {key:'structure',patterns:['структура и содержание','тематический план','содержание учебной']},
+    {key:'lectures',patterns:['лекционные занятия','лекционных занятий','темы лекций']},
+    {key:'practices',patterns:['практические занятия','практических занятий']},
+    {key:'labs',patterns:['лабораторные работы','лабораторных работ']},
+    {key:'coursework',patterns:['курсовые работы','курсовых работ','курсовые проекты']},
+    {key:'self_study',patterns:['самостоятельная работа','самостоятельной работы']},
+    {key:'methodology',patterns:['учебно-методическое','информационное обеспечение','литература']},
+    {key:'material_tech',patterns:['материально-техническое','материально- техническое']},
+    {key:'approval',patterns:['рассмотрение и утверждение','согласование','утверждение']}
+  ];
+  var lines=text.split('\n');
+  var currentKey='title_page';
+  var currentLines=[];
+
+  lines.forEach(function(line){
+    var lower=line.toLowerCase().trim();
+    var matched=false;
+    markers.forEach(function(m){
+      if(matched)return;
+      m.patterns.forEach(function(p){
+        if(matched)return;
+        if(lower.indexOf(p)!==-1&&lower.length<120){
+          if(currentLines.length>0){
+            sections[currentKey]={raw_text:currentLines.join('\n').trim()};
+          }
+          currentKey=m.key;currentLines=[];matched=true;
+        }
+      });
+    });
+    if(!matched)currentLines.push(line);
+  });
+  if(currentLines.length>0)sections[currentKey]={raw_text:currentLines.join('\n').trim()};
+  return sections;
 }
 
 // ======================================================================
 // OPEN PROGRAM
 // ======================================================================
 function openProgram(id){
-  showLoading('Загрузка документа...');
-  currentProgramId=id;hasChanges=false;replacements=[];
-
+  showLoading('Загрузка...');currentProgId=id;currentSecKey=null;
   db.ref('programs/'+id).once('value').then(function(snap){
-    currentProgramData=snap.val();
-    if(!currentProgramData||!currentProgramData.docxBase64){
-      hideLoading();notify('Документ не найден','error');return;
-    }
-
-    currentDocxArrayBuffer=base64ToArrayBuffer(currentProgramData.docxBase64);
-
+    currentProgData=snap.val();if(!currentProgData){hideLoading();return}
     document.getElementById('pageList').classList.add('hidden');
     document.getElementById('pageEditor').classList.remove('hidden');
-    document.getElementById('editorTitle').textContent=currentProgramData.title||'—';
-    document.getElementById('editorDate').textContent=currentProgramData.updatedAt?new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
-    document.getElementById('editorMeta').textContent='Оригинальный документ';
-
-    document.getElementById('replacePanel').classList.toggle('hidden',!isAdmin());
-    document.getElementById('btnDlOriginal').classList.toggle('hidden',!isAdmin());
-    document.getElementById('replaceHistory').innerHTML='';
-    document.getElementById('replaceCount').textContent='';
-
-    if(isAdmin()){
-      document.getElementById('floatBar').classList.remove('hide');
-      updateFloatStatus();
-    }
-
-    renderDocxPreview(currentDocxArrayBuffer);
+    document.getElementById('edTitle').textContent=(currentProgData.code||'')+' '+(currentProgData.title||'');
+    document.getElementById('edMeta').textContent=[currentProgData.specialty,currentProgData.qualification,currentProgData.form,currentProgData.year].filter(Boolean).join(' • ');
+    document.getElementById('edDate').textContent=currentProgData.updatedAt?new Date(currentProgData.updatedAt).toLocaleDateString('ru'):'';
+    renderSecTabs();hideLoading();
+    if(isAdmin())document.getElementById('floatSave').classList.remove('hide');
   });
 }
 
-// ======================================================================
-// RENDER DOCX PREVIEW
-// ======================================================================
-function renderDocxPreview(arrayBuffer){
-  var container=document.getElementById('docWrapper');
-  container.innerHTML='';
-
-  // docx-preview 0.1.20 API
-  var renderFn=null;
-
-  // Detect API version
-  if(typeof docx!=='undefined'){
-    if(typeof docx.renderAsync==='function'){
-      renderFn=docx.renderAsync;
-    }
-  }
-  if(typeof window.docx!=='undefined'){
-    if(typeof window.docx.renderAsync==='function'){
-      renderFn=window.docx.renderAsync;
-    }
-  }
-
-  if(!renderFn){
-    hideLoading();
-    container.innerHTML='<p style="color:var(--red);text-align:center;padding:40px">Библиотека docx-preview не загружена. Обновите страницу.</p>';
-    return;
-  }
-
-  renderFn(arrayBuffer,container,null,{
-    className:'docx',
-    inWrapper:true,
-    ignoreWidth:false,
-    ignoreHeight:false,
-    ignoreFonts:false,
-    breakPages:true,
-    useBase64URL:true
-  }).then(function(){
-    hideLoading();
-  }).catch(function(e){
-    console.error('Render error:',e);
-    // Fallback — try minimal options
-    renderFn(arrayBuffer,container).then(function(){
-      hideLoading();
-    }).catch(function(e2){
-      hideLoading();
-      container.innerHTML='<p style="color:var(--red);text-align:center;padding:40px">Ошибка отображения: '+e2.message+'<br><br><button class="btn btnSm btnO" onclick="downloadOriginalDocx()">Скачать оригинал DOCX</button></p>';
-    });
+function renderSecTabs(){
+  var el=document.getElementById('secTabs');el.innerHTML='';
+  SECTIONS.forEach(function(s){
+    var filled=currentProgData.sections&&currentProgData.sections[s.key]&&hasData(currentProgData.sections[s.key]);
+    var active=currentSecKey===s.key;
+    el.innerHTML+='<button class="sec-tab'+(active?' active':'')+(filled?' filled':'')+'" onclick="openSection(\''+s.key+'\',this)">'+s.name+'</button>';
   });
 }
 
-// ======================================================================
-// FIND & REPLACE IN DOCX XML
-// ======================================================================
-function applyReplacements(originalBuffer,reps){
-  if(!reps||!reps.length)return Promise.resolve(originalBuffer);
-
-  return JSZip.loadAsync(originalBuffer).then(function(zip){
-    var xmlFiles=['word/document.xml','word/header1.xml','word/header2.xml','word/header3.xml',
-                  'word/footer1.xml','word/footer2.xml','word/footer3.xml'];
-
-    var promises=xmlFiles.map(function(path){
-      var file=zip.file(path);
-      if(!file)return Promise.resolve();
-      return file.async('string').then(function(xml){
-        reps.forEach(function(rep){
-          if(!rep.find)return;
-          // Simple replacement
-          var escaped=rep.find.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-          xml=xml.replace(new RegExp(escaped,'g'),rep.replace||'');
-          // Handle split runs
-          xml=replaceInXmlRuns(xml,rep.find,rep.replace||'');
-        });
-        zip.file(path,xml);
-      });
-    });
-
-    return Promise.all(promises).then(function(){
-      return zip.generateAsync({type:'arraybuffer'});
-    });
-  });
-}
-
-function replaceInXmlRuns(xml,findStr,replaceStr){
-  var pRegex=/<w:p[ >][\s\S]*?<\/w:p>/g;
-
-  return xml.replace(pRegex,function(paragraph){
-    var tRegex=/<w:t[^>]*>([\s\S]*?)<\/w:t>/g;
-    var texts=[];
-    var match;
-    while((match=tRegex.exec(paragraph))!==null){
-      texts.push({full:match[0],text:match[1],index:match.index});
-    }
-    if(!texts.length)return paragraph;
-
-    var fullText=texts.map(function(t){return t.text}).join('');
-    if(fullText.indexOf(findStr)===-1)return paragraph;
-
-    var newText=fullText.split(findStr).join(replaceStr);
-
-    var result=paragraph;
-    for(var i=texts.length-1;i>=0;i--){
-      if(i===0){
-        result=result.substring(0,texts[i].index)+
-          '<w:t xml:space="preserve">'+newText+'</w:t>'+
-          result.substring(texts[i].index+texts[i].full.length);
-      } else {
-        result=result.substring(0,texts[i].index)+
-          '<w:t xml:space="preserve"></w:t>'+
-          result.substring(texts[i].index+texts[i].full.length);
-      }
-    }
-    return result;
-  });
+function openSection(key,el){
+  currentSecKey=key;
+  document.querySelectorAll('.sec-tab').forEach(function(t){t.classList.remove('active')});
+  if(el)el.classList.add('active');
+  renderSection(key);
 }
 
 // ======================================================================
-// DO REPLACE
+// RENDER SECTION
 // ======================================================================
-function doReplace(){
-  if(!isAdmin())return;
-  var find=document.getElementById('findText').value;
-  var replace=document.getElementById('replaceText').value;
-  if(!find){notify('Введите текст для поиска','error');return}
+function renderSection(key){
+  var sec=SECTIONS.find(function(s){return s.key===key});if(!sec)return;
+  var data=(currentProgData.sections&&currentProgData.sections[key])||{};
+  var box=document.getElementById('secBox');
+  var admin=isAdmin();
 
-  showLoading('Применяю замену...');
+  // Check if there's raw_text from parsed DOCX
+  var rawText=data.raw_text||'';
 
-  replacements.push({find:find,replace:replace,date:Date.now()});
-  hasChanges=true;
-
-  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
-    renderDocxPreview(modified);
-
-    // Update history
-    var histEl=document.getElementById('replaceHistory');
-    histEl.innerHTML='';
-    replacements.forEach(function(r,i){
-      histEl.innerHTML+=
-        '<div class="replace-item">'+
-          '<div><span class="old">'+escHtml(r.find)+'</span> → <span class="new">'+escHtml(r.replace)+'</span></div>'+
-          '<button class="btn btnSm btnD" onclick="undoReplace('+i+')" style="padding:3px 8px;font-size:10px">✕</button>'+
-        '</div>';
-    });
-
-    document.getElementById('replaceCount').textContent='Замен: '+replacements.length;
-    document.getElementById('findText').value='';
-    document.getElementById('replaceText').value='';
-
-    updateFloatStatus();
-    notify('Замена применена');
-  }).catch(function(e){
-    hideLoading();
-    notify('Ошибка замены: '+e.message,'error');
-  });
-}
-
-function undoReplace(index){
-  replacements.splice(index,1);
-  hasChanges=replacements.length>0;
-  showLoading('Отменяю...');
-
-  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
-    renderDocxPreview(modified);
-
-    var histEl=document.getElementById('replaceHistory');
-    histEl.innerHTML='';
-    replacements.forEach(function(r,i){
-      histEl.innerHTML+=
-        '<div class="replace-item">'+
-          '<div><span class="old">'+escHtml(r.find)+'</span> → <span class="new">'+escHtml(r.replace)+'</span></div>'+
-          '<button class="btn btnSm btnD" onclick="undoReplace('+i+')" style="padding:3px 8px;font-size:10px">✕</button>'+
-        '</div>';
-    });
-
-    document.getElementById('replaceCount').textContent=replacements.length?'Замен: '+replacements.length:'';
-    updateFloatStatus();
-    notify('Замена отменена');
-  });
-}
-
-function updateFloatStatus(){
-  var s=document.getElementById('floatStatus');
-  if(hasChanges){
-    s.textContent=replacements.length+' замен (не сохранено)';
-    s.style.color='var(--orange)';
+  if(sec.fields==='list'){
+    renderListSection(sec,data,rawText,admin);
+  } else if(sec.fields==='competencies'){
+    renderCompetenciesSection(sec,data,rawText,admin);
+  } else if(sec.fields==='structure'){
+    renderStructureSection(sec,data,rawText,admin);
+  } else if(sec.fields==='topics'){
+    renderTopicsSection(sec,data,rawText,admin);
+  } else if(sec.fields==='self_study'){
+    renderSelfStudySection(sec,data,rawText,admin);
   } else {
-    s.textContent='Без изменений';
-    s.style.color='var(--t3)';
+    // Standard fields
+    renderFieldsSection(sec,data,rawText,admin);
+  }
+}
+
+// ---- STANDARD FIELDS ----
+function renderFieldsSection(sec,data,rawText,admin){
+  var box=document.getElementById('secBox');
+  var h='<h4>'+sec.name+'</h4>';
+  if(rawText&&admin){
+    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из загруженного документа (для копирования):</p><div class="readonly-field" style="max-height:200px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
+  }
+  sec.fields.forEach(function(f){
+    var val=data[f.id]||'';
+    if(admin){
+      if(f.type==='textarea'){
+        h+='<div class="fg"><label>'+f.label+'</label><textarea class="inp" id="field_'+f.id+'" placeholder="'+f.ph+'">'+escHtml(val)+'</textarea></div>';
+      } else {
+        h+='<div class="fg"><label>'+f.label+'</label><input class="inp" id="field_'+f.id+'" value="'+escHtml(val)+'" placeholder="'+f.ph+'"></div>';
+      }
+    } else {
+      h+='<div class="fg"><label>'+f.label+'</label><div class="readonly-field">'+(val?escHtml(val):'<span style="color:var(--t3)">Не заполнено</span>')+'</div></div>';
+    }
+  });
+  box.innerHTML=h;
+}
+
+// ---- LIST (Goals/Tasks) ----
+function renderListSection(sec,data,rawText,admin){
+  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
+  if(rawText&&admin){
+    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
+  }
+  Object.keys(sec.listConfig).forEach(function(listKey){
+    var cfg=sec.listConfig[listKey];
+    var items=data[listKey]||[];
+    if(typeof items==='string')items=[items];
+    h+='<label style="font-size:14px;font-weight:600;margin-bottom:8px;display:block">'+cfg.label+'</label>';
+    h+='<div id="list_'+listKey+'">';
+    items.forEach(function(item,i){
+      if(admin){
+        h+='<div class="list-item"><textarea class="inp" style="min-height:50px" data-list="'+listKey+'" data-idx="'+i+'">'+escHtml(item)+'</textarea><button class="btn btnSm btnD" onclick="removeListItem(\''+listKey+'\','+i+')">✕</button></div>';
+      } else {
+        h+='<div class="list-item"><div style="flex:1;font-size:13px">'+escHtml(item)+'</div></div>';
+      }
+    });
+    h+='</div>';
+    if(admin)h+='<button class="btn btnSm btnP mt8 mb12" onclick="addListItem(\''+listKey+'\')">+ Добавить</button>';
+  });
+  box.innerHTML=h;
+}
+
+// ---- COMPETENCIES ----
+function renderCompetenciesSection(sec,data,rawText,admin){
+  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
+  if(rawText&&admin){
+    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
+  }
+  var comps=data.competencies||[];
+  h+='<table class="ed-table"><thead><tr><th style="width:100px">Код</th><th>Наименование</th><th>Знать</th><th>Уметь</th>'+(admin?'<th style="width:40px"></th>':'')+'</tr></thead><tbody id="compRows">';
+  comps.forEach(function(c,i){
+    if(admin){
+      h+='<tr><td><input value="'+escHtml(c.code||'')+'" data-comp="'+i+'" data-f="code"></td><td><textarea data-comp="'+i+'" data-f="name">'+escHtml(c.name||'')+'</textarea></td><td><textarea data-comp="'+i+'" data-f="know">'+escHtml(c.know||'')+'</textarea></td><td><textarea data-comp="'+i+'" data-f="able">'+escHtml(c.able||'')+'</textarea></td><td><button class="btn btnSm btnD" onclick="removeComp('+i+')">✕</button></td></tr>';
+    } else {
+      h+='<tr><td>'+escHtml(c.code||'')+'</td><td>'+escHtml(c.name||'')+'</td><td>'+escHtml(c.know||'')+'</td><td>'+escHtml(c.able||'')+'</td></tr>';
+    }
+  });
+  h+='</tbody></table>';
+  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addComp()">+ Добавить компетенцию</button>';
+  box.innerHTML=h;
+}
+
+// ---- STRUCTURE (Sections + Themes + Hours) ----
+function renderStructureSection(sec,data,rawText,admin){
+  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
+  if(rawText&&admin){
+    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
+  }
+  // Volume table
+  h+='<label style="font-size:14px;font-weight:600">Объём учебной дисциплины</label>';
+  var vol=data.volume||{};
+  h+='<table class="ed-table"><tr><th>Вид работы</th><th style="width:100px">Часы</th></tr>';
+  var volFields=[{id:'max_hours',label:'Максимальная нагрузка'},{id:'audit_hours',label:'Аудиторная нагрузка'},{id:'lecture_hours',label:'Лекции'},{id:'practice_hours',label:'Практические'},{id:'lab_hours',label:'Лабораторные'},{id:'self_hours',label:'Самостоятельная работа'},{id:'control_hours',label:'Контрольные работы'}];
+  volFields.forEach(function(vf){
+    var val=vol[vf.id]||'';
+    if(admin){
+      h+='<tr><td>'+vf.label+'</td><td><input type="number" value="'+val+'" data-vol="'+vf.id+'"></td></tr>';
+    } else {
+      h+='<tr><td>'+vf.label+'</td><td>'+(val||'—')+'</td></tr>';
+    }
+  });
+  h+='</table>';
+  // Sections + themes
+  h+='<label style="font-size:14px;font-weight:600;margin-top:16px">Разделы и темы</label>';
+  var sects=data.content_sections||[];
+  h+='<div id="structSections">';
+  sects.forEach(function(s,si){
+    h+='<div class="card" style="border-left:3px solid var(--blue);margin-top:8px">';
+    if(admin){
+      h+='<div class="flex-b"><input class="inp" value="'+escHtml(s.name||'')+'" data-struct="'+si+'" data-sf="name" placeholder="Название раздела" style="font-weight:600"><button class="btn btnSm btnD" onclick="removeStructSec('+si+')" style="margin-left:8px">✕</button></div>';
+      h+='<div class="fg mt8"><textarea class="inp" data-struct="'+si+'" data-sf="desc" placeholder="Описание (необязательно)" style="min-height:50px">'+escHtml(s.desc||'')+'</textarea></div>';
+    } else {
+      h+='<h3>'+escHtml(s.name||'')+'</h3>';if(s.desc)h+='<p>'+escHtml(s.desc)+'</p>';
+    }
+    var themes=s.themes||[];
+    themes.forEach(function(t,ti){
+      if(admin){
+        h+='<div class="list-item"><input class="inp" value="'+escHtml(t.name||'')+'" data-struct="'+si+'" data-theme="'+ti+'" data-tf="name" placeholder="Тема" style="flex:2"><input class="inp" type="number" value="'+(t.hours||'')+'" data-struct="'+si+'" data-theme="'+ti+'" data-tf="hours" placeholder="Часы" style="width:70px;flex:none"><button class="btn btnSm btnD" onclick="removeTheme('+si+','+ti+')">✕</button></div>';
+      } else {
+        h+='<div class="list-item"><span style="flex:2;font-size:13px">'+escHtml(t.name||'')+'</span><span class="pill bl">'+(t.hours||'—')+' ч</span></div>';
+      }
+    });
+    if(admin)h+='<button class="btn btnSm btnS mt8" onclick="addTheme('+si+')">+ Тема</button>';
+    h+='</div>';
+  });
+  h+='</div>';
+  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addStructSec()">+ Раздел</button>';
+  box.innerHTML=h;
+}
+
+// ---- TOPICS (Lectures/Practices/Labs/Coursework) ----
+function renderTopicsSection(sec,data,rawText,admin){
+  var box=document.getElementById('secBox');var type=sec.topicType;var h='<h4>'+sec.name+'</h4>';
+  if(rawText&&admin){
+    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
+  }
+  var topics=data.topics||[];
+  h+='<table class="ed-table"><thead><tr><th style="width:40px">№</th><th>Тема</th><th>Раздел дисциплины</th><th style="width:70px">Часы</th>'+(admin?'<th style="width:40px"></th>':'')+'</tr></thead><tbody>';
+  topics.forEach(function(t,i){
+    if(admin){
+      h+='<tr><td>'+(i+1)+'</td><td><textarea data-topic="'+i+'" data-tf="name">'+escHtml(t.name||'')+'</textarea></td><td><input value="'+escHtml(t.section||'')+'" data-topic="'+i+'" data-tf="section"></td><td><input type="number" value="'+(t.hours||'')+'" data-topic="'+i+'" data-tf="hours"></td><td><button class="btn btnSm btnD" onclick="removeTopic('+i+')">✕</button></td></tr>';
+    } else {
+      h+='<tr><td>'+(i+1)+'</td><td>'+escHtml(t.name||'')+'</td><td>'+escHtml(t.section||'')+'</td><td>'+(t.hours||'—')+'</td></tr>';
+    }
+  });
+  h+='</tbody></table>';
+  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addTopic()">+ Добавить</button>';
+  var totalHours=topics.reduce(function(s,t){return s+(parseInt(t.hours)||0)},0);
+  h+='<p class="mt8" style="font-size:12px;color:var(--t3)">Итого: '+totalHours+' ч</p>';
+  box.innerHTML=h;
+}
+
+// ---- SELF STUDY ----
+function renderSelfStudySection(sec,data,rawText,admin){
+  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
+  if(rawText&&admin){
+    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
+  }
+  var items=data.items||[];
+  h+='<table class="ed-table"><thead><tr><th>Раздел/тема</th><th>Вид работы</th><th style="width:70px">Часы</th>'+(admin?'<th style="width:40px"></th>':'')+'</tr></thead><tbody>';
+  items.forEach(function(it,i){
+    if(admin){
+      h+='<tr><td><input value="'+escHtml(it.theme||'')+'" data-ss="'+i+'" data-sf="theme"></td><td><textarea data-ss="'+i+'" data-sf="type">'+escHtml(it.type||'')+'</textarea></td><td><input type="number" value="'+(it.hours||'')+'" data-ss="'+i+'" data-sf="hours"></td><td><button class="btn btnSm btnD" onclick="removeSS('+i+')">✕</button></td></tr>';
+    } else {
+      h+='<tr><td>'+escHtml(it.theme||'')+'</td><td>'+escHtml(it.type||'')+'</td><td>'+(it.hours||'—')+'</td></tr>';
+    }
+  });
+  h+='</tbody></table>';
+  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addSS()">+ Добавить</button>';
+  box.innerHTML=h;
+}
+
+// ======================================================================
+// ADD/REMOVE for dynamic lists
+// ======================================================================
+function addListItem(listKey){collectCurrentSection();var data=getCurrentSecData();if(!data[listKey])data[listKey]=[];data[listKey].push('');saveSecDataLocal(data);renderSection(currentSecKey)}
+function removeListItem(listKey,idx){collectCurrentSection();var data=getCurrentSecData();data[listKey].splice(idx,1);saveSecDataLocal(data);renderSection(currentSecKey)}
+function addComp(){collectCurrentSection();var data=getCurrentSecData();if(!data.competencies)data.competencies=[];data.competencies.push({code:'',name:'',know:'',able:''});saveSecDataLocal(data);renderSection(currentSecKey)}
+function removeComp(i){collectCurrentSection();var data=getCurrentSecData();data.competencies.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
+function addStructSec(){collectCurrentSection();var data=getCurrentSecData();if(!data.content_sections)data.content_sections=[];data.content_sections.push({name:'',desc:'',themes:[]});saveSecDataLocal(data);renderSection(currentSecKey)}
+function removeStructSec(i){collectCurrentSection();var data=getCurrentSecData();data.content_sections.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
+function addTheme(si){collectCurrentSection();var data=getCurrentSecData();data.content_sections[si].themes.push({name:'',hours:''});saveSecDataLocal(data);renderSection(currentSecKey)}
+function removeTheme(si,ti){collectCurrentSection();var data=getCurrentSecData();data.content_sections[si].themes.splice(ti,1);saveSecDataLocal(data);renderSection(currentSecKey)}
+function addTopic(){collectCurrentSection();var data=getCurrentSecData();if(!data.topics)data.topics=[];data.topics.push({name:'',section:'',hours:''});saveSecDataLocal(data);renderSection(currentSecKey)}
+function removeTopic(i){collectCurrentSection();var data=getCurrentSecData();data.topics.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
+function addSS(){collectCurrentSection();var data=getCurrentSecData();if(!data.items)data.items=[];data.items.push({theme:'',type:'',hours:''});saveSecDataLocal(data);renderSection(currentSecKey)}
+function removeSS(i){collectCurrentSection();var data=getCurrentSecData();data.items.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
+
+function getCurrentSecData(){return(currentProgData.sections&&currentProgData.sections[currentSecKey])||{}}
+function saveSecDataLocal(data){if(!currentProgData.sections)currentProgData.sections={};currentProgData.sections[currentSecKey]=data}
+
+// ======================================================================
+// COLLECT DATA FROM CURRENT SECTION DOM
+// ======================================================================
+function collectCurrentSection(){
+  if(!currentSecKey||!isAdmin())return;
+  var sec=SECTIONS.find(function(s){return s.key===currentSecKey});if(!sec)return;
+  var data=getCurrentSecData();
+
+  if(sec.fields==='list'){
+    Object.keys(sec.listConfig).forEach(function(lk){
+      var items=[];document.querySelectorAll('[data-list="'+lk+'"]').forEach(function(el){items.push(el.value)});
+      data[lk]=items;
+    });
+  } else if(sec.fields==='competencies'){
+    var comps=data.competencies||[];
+    document.querySelectorAll('[data-comp]').forEach(function(el){
+      var i=parseInt(el.dataset.comp),f=el.dataset.f;if(!comps[i])comps[i]={};comps[i][f]=el.value;
+    });data.competencies=comps;
+  } else if(sec.fields==='structure'){
+    // Volume
+    var vol=data.volume||{};
+    document.querySelectorAll('[data-vol]').forEach(function(el){vol[el.dataset.vol]=el.value});data.volume=vol;
+    // Sections
+    var sects=data.content_sections||[];
+    document.querySelectorAll('[data-struct]').forEach(function(el){
+      var si=parseInt(el.dataset.struct);if(!sects[si])sects[si]={name:'',desc:'',themes:[]};
+      if(el.dataset.sf)sects[si][el.dataset.sf]=el.value;
+      if(el.dataset.theme!==undefined){
+        var ti=parseInt(el.dataset.theme);if(!sects[si].themes[ti])sects[si].themes[ti]={};
+        sects[si].themes[ti][el.dataset.tf]=el.value;
+      }
+    });data.content_sections=sects;
+  } else if(sec.fields==='topics'){
+    var topics=data.topics||[];
+    document.querySelectorAll('[data-topic]').forEach(function(el){
+      var i=parseInt(el.dataset.topic);if(!topics[i])topics[i]={};topics[i][el.dataset.tf]=el.value;
+    });data.topics=topics;
+  } else if(sec.fields==='self_study'){
+    var items=data.items||[];
+    document.querySelectorAll('[data-ss]').forEach(function(el){
+      var i=parseInt(el.dataset.ss);if(!items[i])items[i]={};items[i][el.dataset.sf]=el.value;
+    });data.items=items;
+  } else if(Array.isArray(sec.fields)){
+    sec.fields.forEach(function(f){
+      var el=document.getElementById('field_'+f.id);if(el)data[f.id]=el.value;
+    });
+  }
+  saveSecDataLocal(data);
+}
+
+// ======================================================================
+// SAVE SECTION TO FIREBASE
+// ======================================================================
+function saveCurrentSection(){
+  if(!isAdmin()||!currentProgId||!currentSecKey)return;
+  collectCurrentSection();
+  var data=getCurrentSecData();
+  showLoading('Сохранение...');
+  db.ref('programs/'+currentProgId+'/sections/'+currentSecKey).set(data).then(function(){
+    db.ref('programs/'+currentProgId+'/updatedAt').set(Date.now());
+    hideLoading();notify('Раздел сохранён');renderSecTabs();
+  }).catch(function(e){hideLoading();notify('Ошибка: '+e.message,'error')});
+}
+
+function saveAndNext(){
+  saveCurrentSection();
+  var idx=SECTIONS.findIndex(function(s){return s.key===currentSecKey});
+  if(idx<SECTIONS.length-1){
+    var nextKey=SECTIONS[idx+1].key;
+    setTimeout(function(){openSection(nextKey,document.querySelectorAll('.sec-tab')[idx+1])},500);
   }
 }
 
 // ======================================================================
-// SAVE
+// GENERATE DOCX
 // ======================================================================
-function saveDocument(){
-  if(!isAdmin()||!currentProgramId)return;
-  showLoading('Сохранение...');
-
-  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
-    var newBase64=arrayBufferToBase64(modified);
-
-    return db.ref('programs/'+currentProgramId).update({
-      docxBase64:newBase64,
-      updatedAt:Date.now()
-    }).then(function(){
-      // Bake in replacements
-      currentDocxArrayBuffer=modified;
-      currentProgramData.docxBase64=newBase64;
-      replacements=[];
-      hasChanges=false;
-
-      document.getElementById('replaceHistory').innerHTML='';
-      document.getElementById('replaceCount').textContent='';
-      updateFloatStatus();
-      document.getElementById('editorMeta').textContent='Документ сохранён';
-      hideLoading();
-      notify('Документ сохранён');
-    });
-  }).catch(function(e){
-    hideLoading();
-    notify('Ошибка сохранения: '+e.message,'error');
-  });
-}
-
-// ======================================================================
-// DOWNLOADS
-// ======================================================================
-function downloadOriginalDocx(){
-  if(!currentDocxArrayBuffer)return;
-  var blob=new Blob([currentDocxArrayBuffer],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-  downloadBlob(blob,(currentProgramData.title||'doc')+'_оригинал.docx');
-  notify('Оригинал скачан');
-}
-
-function downloadModifiedDocx(){
-  if(!currentDocxArrayBuffer)return;
+function generateDocx(){
+  if(!currentProgData)return;
   showLoading('Генерация DOCX...');
-  applyReplacements(currentDocxArrayBuffer,replacements).then(function(modified){
-    var blob=new Blob([modified],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-    downloadBlob(blob,(currentProgramData.title||'doc')+'.docx');
-    hideLoading();
-    notify('DOCX скачан');
-  });
-}
+  var p=currentProgData,ss=p.sections||{};
+  var D=docx;
+  var children=[];
+  var NL=function(t,o){o=o||{};return new D.Paragraph(Object.assign({spacing:{after:100},children:[new D.TextRun({text:t||'',size:o.size||24,bold:o.bold||false,font:'Times New Roman'})]},o.align?{alignment:o.align}:{}))};
+  var H1=function(t){return NL(t,{size:32,bold:true,align:D.AlignmentType.CENTER})};
+  var H2=function(t){return NL(t,{size:28,bold:true})};
+  var BR=function(){return new D.Paragraph({children:[new D.PageBreak()]})};
 
-function downloadPdf(){
-  var wrapper=document.getElementById('docWrapper');
-  if(!wrapper)return;
-  showLoading('Генерация PDF...');
+  // Title
+  children.push(H1('РАБОЧАЯ ПРОГРАММА'));
+  var tp=ss.title_page||{};
+  children.push(NL((tp.program_type||'')));
+  children.push(NL(tp.discipline_name||p.code+' '+p.title,{size:28,bold:true,align:D.AlignmentType.CENTER}));
+  children.push(NL('Специальность: '+(tp.specialty||p.specialty||'')));
+  children.push(NL('Квалификация: '+(tp.qualification||'')+' | Форма: '+(tp.study_form||'')+' | Год: '+(tp.start_year||'')));
+  if(tp.basis)children.push(NL(tp.basis));
+  if(tp.developers)children.push(NL('Разработчик(и): '+tp.developers));
+  children.push(BR());
 
-  var clone=wrapper.cloneNode(true);
-  clone.style.background='#fff';
+  // Each remaining section
+  SECTIONS.slice(1).forEach(function(sec){
+    var data=ss[sec.key]||{};
+    children.push(H2(sec.name));
 
-  html2pdf().set({
-    margin:[10,10,10,10],
-    filename:(currentProgramData.title||'doc')+'.pdf',
-    image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,logging:false,backgroundColor:'#fff'},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-    pagebreak:{mode:['avoid-all','css','legacy']}
-  }).from(clone).save().then(function(){
-    hideLoading();notify('PDF скачан');
-  }).catch(function(){
-    hideLoading();notify('Ошибка PDF','error');
-  });
-}
-
-// ======================================================================
-// DRAG & DROP
-// ======================================================================
-var uz=document.getElementById('uploadZone');
-if(uz){
-  ['dragenter','dragover'].forEach(function(ev){uz.addEventListener(ev,function(e){e.preventDefault();uz.classList.add('drag')})});
-  ['dragleave','drop'].forEach(function(ev){uz.addEventListener(ev,function(e){e.preventDefault();uz.classList.remove('drag')})});
-  uz.addEventListener('drop',function(e){
-    var f=e.dataTransfer.files[0];
-    if(f&&f.name.endsWith('.docx')){
-      document.getElementById('fileName').textContent=f.name+' ('+Math.round(f.size/1024)+' КБ)';
-      if(!document.getElementById('uploadTitle').value)document.getElementById('uploadTitle').value=f.name.replace('.docx','');
-      var r=new FileReader();r.onload=function(ev){selectedFileArrayBuffer=ev.target.result};r.readAsArrayBuffer(f);
+    if(sec.fields==='list'){
+      Object.keys(sec.listConfig).forEach(function(lk){
+        children.push(NL(sec.listConfig[lk].label+':',{bold:true}));
+        (data[lk]||[]).forEach(function(item,i){children.push(NL('  '+(i+1)+'. '+item))});
+      });
+    } else if(sec.fields==='competencies'){
+      (data.competencies||[]).forEach(function(c){
+        children.push(NL((c.code||'')+' — '+(c.name||''),{bold:true}));
+        if(c.know)children.push(NL('Знать: '+c.know));
+        if(c.able)children.push(NL('Уметь: '+c.able));
+      });
+    } else if(sec.fields==='structure'){
+      var vol=data.volume||{};
+      if(vol.max_hours)children.push(NL('Максимальная нагрузка: '+vol.max_hours+' ч'));
+      if(vol.audit_hours)children.push(NL('Аудиторная нагрузка: '+vol.audit_hours+' ч'));
+      if(vol.practice_hours)children.push(NL('Практические: '+vol.practice_hours+' ч'));
+      if(vol.self_hours)children.push(NL('Самостоятельная работа: '+vol.self_hours+' ч'));
+      (data.content_sections||[]).forEach(function(s){
+        children.push(NL(s.name||'',{bold:true}));
+        if(s.desc)children.push(NL(s.desc));
+        (s.themes||[]).forEach(function(t){children.push(NL('  • '+(t.name||'')+' — '+(t.hours||'?')+' ч'))});
+      });
+    } else if(sec.fields==='topics'){
+      (data.topics||[]).forEach(function(t,i){children.push(NL((i+1)+'. '+(t.name||'')+' — '+(t.hours||'?')+' ч'+(t.section?' ('+t.section+')':'')))});
+    } else if(sec.fields==='self_study'){
+      (data.items||[]).forEach(function(it){children.push(NL((it.theme||'')+': '+(it.type||'')+' — '+(it.hours||'?')+' ч'))});
+    } else if(Array.isArray(sec.fields)){
+      sec.fields.forEach(function(f){var v=data[f.id];if(v){children.push(NL(f.label+':',{bold:true}));v.split('\n').forEach(function(line){children.push(NL(line))})}});
     }
+    children.push(NL(''));
+  });
+
+  var doc=new D.Document({sections:[{children:children}]});
+  D.Packer.toBlob(doc).then(function(blob){
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='РП_'+(p.code||'')+'_'+(p.title||'')+'.docx';a.click();URL.revokeObjectURL(a.href);
+    hideLoading();notify('DOCX сформирован');
   });
 }
 
-window.addEventListener('beforeunload',function(e){if(hasChanges&&isAdmin()){e.preventDefault();e.returnValue=''}});
+// ======================================================================
+// DOWNLOAD ORIGINAL DOCX
+// ======================================================================
+function downloadOriginal(){
+  if(!currentProgData||!currentProgData.docxOriginal)return;
+  var ab=base64ToArrayBuffer(currentProgData.docxOriginal);
+  var blob=new Blob([ab],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='оригинал.docx';a.click();
+}
 </script>
 </body>
 </html>
