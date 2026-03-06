@@ -5,15 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Конструктор рабочих программ</title>
 <style>
-:root{--bg:#000;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
+:root{--bg:#0a0a0a;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
-.ae{height:1.2em;width:1.2em;vertical-align:-0.2em;display:inline-block;pointer-events:none}
+.ae{height:1.1em;width:1.1em;vertical-align:-0.15em;display:inline-block;pointer-events:none}
+
+/* Notification bar */
+.notif{position:fixed;top:0;left:0;right:0;padding:10px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s ease}
+.notif.show{transform:translateY(0)}
+.notif.success{background:var(--green);color:#fff}
+.notif.error{background:var(--red);color:#fff}
+.notif.info{background:var(--blue);color:#fff}
+
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
-.topbar h1{font-size:17px;font-weight:600}
+.topbar h1{font-size:17px;font-weight:600;display:flex;align-items:center;gap:6px}
 .topbar-r{display:flex;gap:8px;align-items:center}
-.container{max-width:960px;margin:0 auto;padding:16px}
+.container{max-width:1100px;margin:0 auto;padding:16px}
 .card{background:var(--card);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
 .card h3{font-size:15px;font-weight:600;margin-bottom:6px}
 .card p{font-size:13px;color:var(--t2);line-height:1.5}
@@ -23,6 +31,7 @@ body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;ba
 .btnS{background:transparent;color:var(--text);border:1px solid var(--t4)!important}
 .btnD{background:var(--red);color:#fff}
 .btnG{background:var(--green);color:#fff}
+.btnO{background:var(--orange);color:#fff}
 .btnSm{padding:6px 14px;font-size:12px;border-radius:var(--rs)}
 .inp{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .inp:focus{border-color:var(--blue)}
@@ -38,25 +47,41 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .flex-b{display:flex;justify-content:space-between;align-items:center}
 .gap8{display:flex;gap:8px;flex-wrap:wrap}
 .mt8{margin-top:8px}
-.mt16{margin-top:16px}
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
+
+/* Auth */
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
 .auth-box h2{font-size:22px;margin-bottom:8px}
 .auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
 .auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
-.sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
-.sec-tab{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
-.sec-tab.active{background:var(--purple);color:#fff}
-.sec-tab:hover{color:var(--text)}
-.sec-tab .ae{height:0.9em;width:0.9em;vertical-align:-0.1em}
-.sec-content{background:var(--bg3);border-radius:var(--r);padding:16px;min-height:200px}
-.sec-content h4{font-size:14px;margin-bottom:12px;color:var(--blue);display:flex;align-items:center;gap:6px}
-.readonly-text{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6;white-space:pre-wrap;color:var(--text);min-height:60px}
-.toast{position:fixed;top:20px;right:20px;background:var(--green);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:600;z-index:999;transform:translateX(120%);transition:transform .3s ease}
-.toast.show{transform:translateX(0)}
-.th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+
+/* Upload zone */
+.upload-zone{border:2px dashed var(--t4);border-radius:var(--r);padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(10,132,255,.05)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-zone p{color:var(--t3);font-size:14px;margin-top:8px}
+
+/* Document viewer/editor */
+.doc-frame{background:#fff;color:#000;border-radius:8px;padding:30px 40px;min-height:500px;font-family:'Times New Roman',serif;font-size:14pt;line-height:1.5;overflow-x:auto;box-shadow:0 2px 20px rgba(0,0,0,.3)}
+.doc-frame table{border-collapse:collapse;width:100%}
+.doc-frame table td,.doc-frame table th{border:1px solid #000;padding:4px 8px;vertical-align:top}
+.doc-frame h1,.doc-frame h2,.doc-frame h3,.doc-frame h4{font-family:'Times New Roman',serif}
+.doc-frame p{margin:0 0 6px;font-family:'Times New Roman',serif}
+.doc-frame [contenteditable=true]{outline:none;transition:background .2s}
+.doc-frame [contenteditable=true]:focus{background:rgba(0,122,255,.08);border-radius:2px}
+.doc-frame [contenteditable=true]:hover{background:rgba(0,122,255,.04)}
+
+/* Edit toolbar */
+.edit-bar{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;position:sticky;top:56px;z-index:50}
+.edit-bar .sep{width:1px;height:20px;background:var(--t4);margin:0 4px}
+.ebar-btn{background:var(--bg3);border:none;color:var(--text);padding:6px 10px;border-radius:6px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px;font-weight:500}
+.ebar-btn:hover{background:var(--blue);color:#fff}
+.ebar-btn:active{transform:scale(.95)}
+.ebar-btn.active{background:var(--blue);color:#fff}
+
+/* Sheet */
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
 .sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
@@ -66,31 +91,53 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .sh-head h2{font-size:17px;font-weight:600}
 .sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sh-body{padding:20px}
-@media(max-width:600px){
-  .sec-tabs{gap:3px}
-  .sec-tab{font-size:10px;padding:5px 8px}
+
+/* Loading overlay */
+.loading-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.loading-ov.show{display:flex}
+.spinner{width:40px;height:40px;border:3px solid var(--t4);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-ov p{color:#fff;font-size:14px}
+
+.th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+
+@media(max-width:768px){
+  .doc-frame{padding:15px 12px;font-size:12pt}
   .topbar h1{font-size:14px}
-  .topbar-r{gap:4px}
+  .edit-bar{top:48px}
+  .container{padding:10px}
+}
+@media print{
+  .topbar,.edit-bar,.bnav,.btn,.th-tog,.topbar-r{display:none!important}
+  .doc-frame{box-shadow:none;border-radius:0;padding:0}
+  body{background:#fff}
 }
 </style>
 </head>
 <body>
 
-<div class="toast" id="toast"></div>
+<!-- NOTIFICATION BAR -->
+<div class="notif" id="notif"></div>
 
-<!-- AUTH -->
+<!-- LOADING -->
+<div class="loading-ov" id="loadingOv">
+  <div class="spinner"></div>
+  <p id="loadingText">Загрузка...</p>
+</div>
+
+<!-- ======================== AUTH ======================== -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
     <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:12px" alt="">
     <h2>Конструктор программ</h2>
-    <p>Войдите для работы с рабочими программами техникума</p>
+    <p>Войдите для работы с рабочими программами</p>
     <div class="fg">
       <label>Email</label>
-      <input class="inp" id="authEmail" type="email" placeholder="admin@test.ru">
+      <input class="inp" id="authEmail" type="email" placeholder="admin@test.ru" value="admin@test.ru">
     </div>
     <div class="fg">
       <label>Пароль</label>
-      <input class="inp" id="authPass" type="password" placeholder="123456">
+      <input class="inp" id="authPass" type="password" placeholder="123456" value="123456">
     </div>
     <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
     <div class="auth-err" id="authErr"></div>
@@ -101,80 +148,151 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   </div>
 </div>
 
-<!-- APP -->
+<!-- ======================== APP ======================== -->
 <div id="appMain" class="hidden">
   <div class="topbar">
-    <h1><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:18px;width:18px"> Конструктор программ</h1>
+    <h1>
+      <img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:20px;width:20px">
+      Конструктор программ
+    </h1>
     <div class="topbar-r">
-      <button class="th-tog" onclick="toggleTheme()"><img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px"></button>
+      <button class="th-tog" onclick="toggleTheme()">
+        <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px">
+      </button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
       <span id="roleLabel" class="pill bl" style="font-size:10px"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
     </div>
   </div>
 
-  <!-- LIST -->
-  <div class="container" id="programsListPage">
+  <!-- ===== PAGE: LIST ===== -->
+  <div class="container" id="pageList">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
-      <button class="btn btnP btnSm" id="btnAddProgram" onclick="openAddProgram()">+ Добавить программу</button>
+      <button class="btn btnP btnSm hidden" id="btnUpload" onclick="openUploadSheet()">+ Загрузить DOCX</button>
     </div>
-    <div id="programsList"><p style="color:var(--t3);text-align:center;padding:60px 20px">Загрузка...</p></div>
+    <div id="programsList">
+      <p style="color:var(--t3);text-align:center;padding:60px 20px">Загрузка...</p>
+    </div>
   </div>
 
-  <!-- EDITOR -->
-  <div class="container hidden" id="programEditorPage">
+  <!-- ===== PAGE: EDITOR ===== -->
+  <div class="container hidden" id="pageEditor">
+    <!-- Top controls -->
     <div class="flex-b mb12">
-      <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
-      <div class="gap8">
-        <button class="btn btnSm btnG" onclick="downloadAsDocx()">DOCX</button>
-        <button class="btn btnSm btnS" onclick="downloadAsPdf()">PDF</button>
+      <button class="btn btnSm btnS" onclick="backToList()">← Назад к списку</button>
+      <div class="gap8" id="editorButtons">
+        <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
+        <button class="btn btnSm btnO" onclick="downloadEditedDocx()">Скачать DOCX</button>
+        <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>
       </div>
     </div>
+
+    <!-- Program info card -->
     <div class="card" style="border-left:4px solid var(--purple)">
-      <h3 id="editorTitle"></h3>
+      <div class="flex-b">
+        <h3 id="editorTitle">—</h3>
+        <span class="pill pr" id="editorDate"></span>
+      </div>
       <p id="editorMeta"></p>
     </div>
-    <div class="sec-tabs" id="sectionTabs"></div>
-    <div class="sec-content" id="sectionContent">
-      <p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел</p>
+
+    <!-- Edit toolbar (only for admin) -->
+    <div class="edit-bar hidden" id="editBar">
+      <button class="ebar-btn" onclick="execCmd('bold')"><b>Ж</b></button>
+      <button class="ebar-btn" onclick="execCmd('italic')"><i>К</i></button>
+      <button class="ebar-btn" onclick="execCmd('underline')"><u>П</u></button>
+      <div class="sep"></div>
+      <button class="ebar-btn" onclick="execCmd('justifyLeft')">←</button>
+      <button class="ebar-btn" onclick="execCmd('justifyCenter')">↔</button>
+      <button class="ebar-btn" onclick="execCmd('justifyRight')">→</button>
+      <button class="ebar-btn" onclick="execCmd('justifyFull')">⇔</button>
+      <div class="sep"></div>
+      <button class="ebar-btn" onclick="execCmd('insertUnorderedList')">• Список</button>
+      <button class="ebar-btn" onclick="execCmd('insertOrderedList')">1. Список</button>
+      <div class="sep"></div>
+      <select class="inp" style="width:auto;padding:4px 8px;font-size:12px;background:var(--bg3);border-radius:6px" onchange="execFontSize(this.value)">
+        <option value="">Размер</option>
+        <option value="1">8pt</option>
+        <option value="2">10pt</option>
+        <option value="3">12pt</option>
+        <option value="4">14pt</option>
+        <option value="5">18pt</option>
+        <option value="6">24pt</option>
+        <option value="7">36pt</option>
+      </select>
+      <div class="sep"></div>
+      <span style="font-size:11px;color:var(--t3)">Кликните на текст в документе чтобы редактировать</span>
     </div>
+
+    <!-- Document view -->
+    <div id="docContainer"></div>
   </div>
 </div>
 
-<!-- SHEET: Add Program -->
-<div class="sheet-ov" id="sheetAddProgram">
+<!-- ===== SHEET: Upload ===== -->
+<div class="sheet-ov" id="sheetUpload">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-head">
-      <h2>Новая рабочая программа</h2>
-      <button class="sh-close" onclick="closeSheet('sheetAddProgram')">✕</button>
+      <h2>Загрузить рабочую программу</h2>
+      <button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button>
     </div>
     <div class="sh-body">
-      <div class="fg"><label>Код дисциплины</label><input class="inp" id="newCode" placeholder="ОУП.06"></div>
-      <div class="fg"><label>Название дисциплины</label><input class="inp" id="newTitle" placeholder="Иностранный язык"></div>
-      <div class="fg"><label>Специальность</label><input class="inp" id="newSpecialty" placeholder="11.02.06 Техническая эксплуатация..."></div>
-      <div class="fg"><label>Квалификация выпускника</label><input class="inp" id="newQualification" placeholder="Техник"></div>
-      <div class="fg"><label>Форма обучения</label><input class="inp" id="newForm" value="Очная"></div>
-      <div class="fg"><label>Год начала подготовки</label><input class="inp" id="newYear" type="number" value="2024"></div>
       <div class="fg">
-        <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
-          <input type="checkbox" id="newPrefill">
-          Заполнить данными из рабочей программы ОУП.06
-        </label>
+        <label>Название программы</label>
+        <input class="inp" id="uploadTitle" placeholder="ОУП.06 Иностранный язык">
       </div>
-      <button class="btn btnP" style="width:100%" onclick="saveNewProgram()">Создать программу</button>
+      <div class="fg">
+        <label>Файл DOCX</label>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".docx" onchange="handleFileSelect(event)">
+          <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e4.png" style="width:48px;height:48px" alt="">
+          <p>Перетащите DOCX файл сюда или нажмите для выбора</p>
+          <p id="fileName" style="color:var(--blue);font-weight:600;margin-top:8px"></p>
+        </div>
+      </div>
+      <button class="btn btnP" style="width:100%" onclick="uploadProgram()">Загрузить программу</button>
     </div>
   </div>
 </div>
 
+<!-- ===== SHEET: Rename ===== -->
+<div class="sheet-ov" id="sheetRename">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-head">
+      <h2>Переименовать</h2>
+      <button class="sh-close" onclick="closeSheet('sheetRename')">✕</button>
+    </div>
+    <div class="sh-body">
+      <div class="fg">
+        <label>Новое название</label>
+        <input class="inp" id="renameTitle">
+      </div>
+      <button class="btn btnP" style="width:100%" onclick="doRename()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<!-- Mammoth: DOCX → HTML (сохраняет структуру) -->
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+
+<!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
+
+<!-- html-docx-js: HTML → DOCX -->
+<script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.min.js"></script>
 
 <script>
+// ======================================================================
+// FIREBASE
+// ======================================================================
 const firebaseConfig={
   apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
   authDomain:"my-diary-e223c.firebaseapp.com",
@@ -189,391 +307,29 @@ const auth=firebase.auth();
 const db=firebase.database();
 
 // ======================================================================
-// APPLE EMOJI
+// HELPERS
 // ======================================================================
-const E={
-  doc:'1f4c4',target:'1f3af',building:'1f3d7-fe0f',chart:'1f4ca',
-  ruler:'1f4d0',grad:'1f393',microscope:'1f52c',lab:'1f9ea',
-  pencil:'270f-fe0f',book:'1f4d6',books:'1f4da',office:'1f3e2',
-  check:'2705',save:'1f4be',trash:'1f5d1-fe0f',memo:'1f4dd',
-  warning:'26a0-fe0f',calendar:'1f4c5',wrench:'1f527',eye:'1f441-fe0f'
-};
 function ae(code){return `<img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/${code}.png" alt="">`}
 
-// ======================================================================
-// SECTIONS
-// ======================================================================
-const SECTIONS=[
-  {key:'title_page',name:'Титульный лист',icon:E.doc},
-  {key:'goals',name:'Цели и задачи',icon:E.target},
-  {key:'place_in_oop',name:'Место в структуре ООП',icon:E.building},
-  {key:'results',name:'Результаты обучения',icon:E.chart},
-  {key:'structure',name:'Структура и содержание',icon:E.ruler},
-  {key:'lectures',name:'Лекционные занятия',icon:E.grad},
-  {key:'practices',name:'Практические занятия',icon:E.microscope},
-  {key:'labs',name:'Лабораторные работы',icon:E.lab},
-  {key:'coursework',name:'Курсовые работы',icon:E.pencil},
-  {key:'self_study',name:'Самостоятельная работа',icon:E.book},
-  {key:'methodology',name:'Учебно-методическое обесп.',icon:E.books},
-  {key:'material_tech',name:'Материально-техническое обесп.',icon:E.office},
-  {key:'approval',name:'Рассмотрение и утверждение',icon:E.check}
-];
-
-// ======================================================================
-// PREFILL DATA
-// ======================================================================
-const PREFILL_DATA={
-title_page:`РАБОЧАЯ ПРОГРАММА УЧЕБНОГО ПРЕДМЕТА
-
-ОУП.06 Иностранный язык
-
-программа подготовки специалистов среднего звена
-по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта)
-
-Квалификация выпускника: Техник
-Форма обучения: Очная
-Год начала подготовки: 2024
-
-Рабочая программа учебного предмета разработана на основе:
-— Федерального государственного образовательного стандарта среднего профессионального образования по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта), утверждённого приказом Министерства образования и науки Российской Федерации от 28 июля 2014 г. № 808;
-— Федерального государственного образовательного стандарта среднего общего образования (далее — ФГОС СОО);
-— Примерной программы общеобразовательного учебного предмета «Иностранный язык», утверждённой протоколом ФГАУ «ФИРО» от 30 ноября 2022 г.;
-— Рабочей программы воспитания, утверждённой 2024 г.
-
-Год начала подготовки (по учебному плану): 2024
-Номер(а) учебного(ых) плана: ТЭРО-124, ТЭРО-125
-
-Разработчик(и): (ФИО, должность)
-Рассмотрена цикловой методической комиссией общеобразовательных дисциплин
-Протокол от «___» _________ 2024 г. № ____
-Председатель ЦМК: _______________`,
-
-goals:`1. ЦЕЛИ И ЗАДАЧИ УЧЕБНОГО ПРЕДМЕТА
-
-Содержание программы учебного предмета «Иностранный язык» направлено на достижение следующих целей:
-
-— понимание иностранного языка как средства межличностного и профессионального общения, инструмента познания, самообразования, социализации и самореализации в полиязычном и поликультурном мире;
-— формирование иноязычной коммуникативной компетенции в совокупности её составляющих: речевой, языковой, социокультурной, компенсаторной и учебно-познавательной;
-— развитие национального самосознания, общечеловеческих ценностей, стремления к лучшему пониманию культуры своего народа и народов стран изучаемого языка.
-
-Задачи:
-— формирование и развитие коммуникативных умений (говорение, аудирование, чтение, письмо);
-— формирование и развитие языковых навыков (фонетика, лексика, грамматика);
-— формирование и развитие социокультурных умений и навыков.`,
-
-place_in_oop:`2. МЕСТО УЧЕБНОГО ПРЕДМЕТА В СТРУКТУРЕ ОПОП
-
-Учебный предмет «Иностранный язык» является обязательным учебным предметом общеобразовательного цикла ОПОП-ППССЗ по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта).
-
-Учебный предмет «Иностранный язык» (базовый уровень) изучается в общеобразовательном цикле учебного плана ОПОП-ППССЗ на базе основного общего образования с получением среднего общего образования.
-
-Учебный предмет «Иностранный язык» имеет межпредметные связи с общеобразовательными учебными предметами — Русский язык, Литература, История, а также с дисциплинами и профессиональными модулями ОПОП.`,
-
-results:`3. РЕЗУЛЬТАТЫ ОБУЧЕНИЯ (ОСВОЕНИЯ) УЧЕБНОГО ПРЕДМЕТА
-
-Освоение содержания учебного предмета «Иностранный язык» обеспечивает достижение обучающимися следующих результатов:
-
-ЛИЧНОСТНЫЕ РЕЗУЛЬТАТЫ:
-ЛР 01 — Сформированность российской гражданской идентичности, патриотизма, уважения к своему народу
-ЛР 02 — Гражданская позиция как активного и ответственного члена российского общества
-ЛР 04 — Сформированность мировоззрения, соответствующего современному уровню развития науки
-ЛР 05 — Сформированность основ саморазвития и самовоспитания
-ЛР 06 — Толерантное сознание и поведение в поликультурном мире
-ЛР 07 — Навыки сотрудничества со сверстниками
-ЛР 08 — Нравственное сознание и поведение на основе усвоения общечеловеческих ценностей
-ЛР 09 — Готовность и способность к образованию, в том числе самообразованию
-ЛР 10 — Эстетическое отношение к миру
-ЛР 13 — Осознанный выбор будущей профессии
-
-МЕТАПРЕДМЕТНЫЕ РЕЗУЛЬТАТЫ:
-МР 01 — Умение самостоятельно определять цели деятельности
-МР 02 — Умение продуктивно общаться и взаимодействовать
-МР 03 — Владение навыками познавательной, учебно-исследовательской и проектной деятельности
-МР 04 — Готовность к самостоятельной информационно-познавательной деятельности
-МР 05 — Умение использовать средства ИКТ
-МР 07 — Умение самостоятельно оценивать и принимать решения
-МР 08 — Владение языковыми средствами
-МР 09 — Владение навыками познавательной рефлексии
-
-ПРЕДМЕТНЫЕ РЕЗУЛЬТАТЫ:
-ПРб 01 — Сформированность коммуникативной иноязычной компетенции
-ПРб 02 — Владение знаниями о социокультурной специфике страны/стран изучаемого языка
-ПРб 03 — Достижение уровня владения иностранным языком, превышающего пороговый (B1)
-ПРб 04 — Сформированность умения использовать иностранный язык как средство для получения информации
-
-ОБЩИЕ КОМПЕТЕНЦИИ:
-ОК 01 — Выбирать способы решения задач профессиональной деятельности
-ОК 02 — Использовать современные средства поиска, анализа и интерпретации информации
-ОК 04 — Эффективно взаимодействовать и работать в коллективе и команде
-ОК 09 — Пользоваться профессиональной документацией на государственном и иностранном языках
-
-ПРОФЕССИОНАЛЬНЫЕ КОМПЕТЕНЦИИ:
-ПК 4.3 — Составлять и оформлять техническую и технологическую документацию`,
-
-structure:`4. СТРУКТУРА И СОДЕРЖАНИЕ УЧЕБНОГО ПРЕДМЕТА
-
-4.1. Объём учебного предмета и виды учебной работы:
-
-Максимальная учебная нагрузка (всего): 117 часов
-Обязательная аудиторная нагрузка (всего): 78 часов
-   в том числе:
-   теоретическое обучение: —
-   практические занятия: 78 часов
-   контрольные работы: 4 часа
-Самостоятельная работа обучающегося (всего): 39 часов
-Промежуточная аттестация — дифференцированный зачёт
-
-4.2. Тематический план и содержание:
-
-РАЗДЕЛ 1. Иностранный язык для общих целей
-
-Тема 1.1. Повседневная жизнь семьи. Внешность и характер членов семьи (6ч)
-Практические занятия:
-1. Приветствие, прощание. Представление себя и других людей (2ч)
-2. Отношение поколений в семье. Описание внешности человека (2ч)
-3. Описание характера личности. Семейные традиции (2ч)
-Самостоятельная работа: Лексический словарь (2ч), Эссе «Моя семья» (1ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.2. Молодёжь в современном обществе. Досуг молодёжи (6ч)
-Практические занятия:
-1. Рабочий день. Досуг. Активный и пассивный отдых (2ч)
-2. Молодёжные субкультуры. Хобби и увлечения (2ч)
-3. Волонтёрство в современном мире (2ч)
-Самостоятельная работа: Рассказ о хобби (2ч), Презентация «Молодёжные движения» (1ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.3. Условия проживания в городской и сельской местности (6ч)
-Практические занятия:
-1. Описание жилища и учебного заведения (2ч)
-2. Городская и сельская инфраструктура (2ч)
-3. Особенности проживания в городе и деревне (2ч)
-Самостоятельная работа: Описание дома/квартиры (2ч), Таблица «Город vs село» (1ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.4. Покупки: одежда, обувь и продукты питания (6ч)
-Практические занятия:
-1. Виды магазинов. Ассортимент товаров (2ч)
-2. Совершение покупок. Диалоги в магазине (2ч)
-3. Национальная кухня. Еда и способы приготовления пищи (2ч)
-Самостоятельная работа: Диалог «В магазине» (2ч), Рецепт блюда (1ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.5. Здоровый образ жизни и забота о здоровье. Спорт (8ч)
-Практические занятия:
-1. Физическая культура и спорт. Виды спорта (2ч)
-2. Здоровый образ жизни. Правильное питание (2ч)
-3. Вредные привычки. Отказ от вредных привычек (2ч)
-4. Посещение врача. У стоматолога. В аптеке (2ч)
-Самостоятельная работа: Презентация «Спорт в моей жизни» (2ч), Памятка «ЗОЖ» (2ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.6. Туризм. Виды отдыха (4ч)
-Практические занятия:
-1. Экотуризм. Путешествия по России (2ч)
-2. Путешествие за рубеж. В аэропорту, на вокзале. В гостинице (2ч)
-Самостоятельная работа: Маршрут путешествия (2ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.7. Страна/страны изучаемого языка (6ч)
-Практические занятия:
-1. Географическое положение, климат, население (2ч)
-2. Национальные символы. Политическое и экономическое устройство (2ч)
-3. Достопримечательности. Традиции и обычаи (2ч)
-Самостоятельная работа: Доклад о стране (2ч), Презентация «Достопримечательности» (1ч)
-Компетенции: ОК01, ОК02, ОК04
-
-Тема 1.8. Россия (8ч)
-Практические занятия:
-1. Географическое положение, климат, население России (2ч)
-2. Национальные символы России. Государственное и политическое устройство (2ч)
-3. Москва — столица России. Достопримечательности Москвы (2ч)
-4. Традиции народов России. Мой родной город (2ч)
-Самостоятельная работа: Презентация «Мой родной город» (2ч), Эссе «Почему я горжусь Россией» (2ч)
-Компетенции: ОК01, ОК02, ОК04
-Контрольная работа №1 (2ч)
-
-РАЗДЕЛ 2. Иностранный язык для специальных целей
-
-Тема 2.1. Современный мир профессий. Роль иностранного языка (4ч)
-Практические занятия:
-1. Мир профессий. Выбор профессии (2ч)
-2. Роль иностранного языка в профессиональной деятельности (2ч)
-Самостоятельная работа: Эссе «Моя будущая профессия» (2ч)
-Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
-
-Тема 2.2. Промышленные технологии (4ч)
-Практические занятия:
-1. Машины и механизмы. Промышленное оборудование (2ч)
-2. Работа на производстве. Техника безопасности (2ч)
-Самостоятельная работа: Глоссарий технических терминов (2ч)
-Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
-
-Тема 2.3. Технический прогресс. Современные средства связи (4ч)
-Практические занятия:
-1. Достижения науки и техники. Изобретения (2ч)
-2. Современные информационные технологии. Интернет (2ч)
-Самостоятельная работа: Презентация «Изобретение, изменившее мир» (2ч)
-Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
-
-Тема 2.4. Выдающиеся люди родной страны и стран изучаемого языка (4ч)
-Практические занятия:
-1. Известные учёные и их открытия (2ч)
-2. Деятели культуры и искусства (2ч)
-Самостоятельная работа: Биография выдающейся личности (2ч)
-Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
-
-Тема 2.5. Профессиональные требования (4ч)
-Практические занятия:
-1. Написание резюме и сопроводительного письма (2ч)
-2. Собеседование. Деловая переписка (2ч)
-Самостоятельная работа: Составление резюме на иностранном языке (2ч)
-Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
-Контрольная работа №2 (2ч)
-Дифференцированный зачёт (2ч)`,
-
-lectures:`5. ЛЕКЦИОННЫЕ ЗАНЯТИЯ
-
-Лекционные занятия учебным планом не предусмотрены.
-По учебному предмету «Иностранный язык» все аудиторные часы отведены на практические занятия.`,
-
-practices:`6. ПРАКТИЧЕСКИЕ ЗАНЯТИЯ
-
-Перечень практических занятий:
-
-1. Приветствие, прощание. Представление себя и других людей — 2ч
-2. Отношение поколений в семье. Описание внешности человека — 2ч
-3. Описание характера личности. Семейные традиции — 2ч
-4. Рабочий день. Досуг. Активный и пассивный отдых — 2ч
-5. Молодёжные субкультуры. Хобби и увлечения — 2ч
-6. Волонтёрство в современном мире — 2ч
-7. Описание жилища и учебного заведения — 2ч
-8. Городская и сельская инфраструктура — 2ч
-9. Особенности проживания в городе и деревне — 2ч
-10. Виды магазинов. Ассортимент товаров — 2ч
-11. Совершение покупок. Диалоги в магазине — 2ч
-12. Национальная кухня. Еда и способы приготовления пищи — 2ч
-13. Физическая культура и спорт. Виды спорта — 2ч
-14. Здоровый образ жизни. Правильное питание — 2ч
-15. Вредные привычки. Отказ от вредных привычек — 2ч
-16. Посещение врача. У стоматолога. В аптеке — 2ч
-17. Экотуризм. Путешествия по России — 2ч
-18. Путешествие за рубеж. В аэропорту, на вокзале — 2ч
-19. Географическое положение, климат, население (страна изуч. языка) — 2ч
-20. Национальные символы. Политическое и экономическое устройство — 2ч
-21. Достопримечательности. Традиции и обычаи — 2ч
-22. Географическое положение, климат, население России — 2ч
-23. Национальные символы России. Государственное устройство — 2ч
-24. Москва — столица России. Достопримечательности — 2ч
-25. Традиции народов России. Мой родной город — 2ч
-26. Контрольная работа №1 — 2ч
-27. Мир профессий. Выбор профессии — 2ч
-28. Роль иностранного языка в профессиональной деятельности — 2ч
-29. Машины и механизмы. Промышленное оборудование — 2ч
-30. Работа на производстве. Техника безопасности — 2ч
-31. Достижения науки и техники. Изобретения — 2ч
-32. Современные информационные технологии. Интернет — 2ч
-33. Известные учёные и их открытия — 2ч
-34. Деятели культуры и искусства — 2ч
-35. Написание резюме и сопроводительного письма — 2ч
-36. Собеседование. Деловая переписка — 2ч
-37. Контрольная работа №2 — 2ч
-38. Дифференцированный зачёт — 2ч
-
-Итого: 78 часов`,
-
-labs:`7. ЛАБОРАТОРНЫЕ РАБОТЫ
-
-Лабораторные работы учебным планом не предусмотрены.`,
-
-coursework:`8. КУРСОВЫЕ РАБОТЫ (ПРОЕКТЫ)
-
-Курсовые работы (проекты) учебным планом не предусмотрены.`,
-
-self_study:`9. САМОСТОЯТЕЛЬНАЯ РАБОТА ОБУЧАЮЩИХСЯ
-
-Тема 1.1 — Составление лексического словаря по теме (2ч), Эссе «Моя семья» (1ч)
-Тема 1.2 — Написание рассказа о своём хобби (2ч), Презентация «Молодёжные движения» (1ч)
-Тема 1.3 — Составление описания дома/квартиры (2ч), Сравнительная таблица «Город vs село» (1ч)
-Тема 1.4 — Составление диалога «В магазине» (2ч), Рецепт национального блюда (1ч)
-Тема 1.5 — Презентация «Спорт в моей жизни» (2ч), Памятка «Здоровый образ жизни» (2ч)
-Тема 1.6 — Составление маршрута путешествия (2ч)
-Тема 1.7 — Доклад о стране изучаемого языка (2ч), Презентация «Достопримечательности» (1ч)
-Тема 1.8 — Презентация «Мой родной город» (2ч), Эссе «Почему я горжусь Россией» (2ч)
-Тема 2.1 — Эссе «Моя будущая профессия» (2ч)
-Тема 2.2 — Составление глоссария технических терминов (2ч)
-Тема 2.3 — Презентация «Изобретение, изменившее мир» (2ч)
-Тема 2.4 — Биография выдающейся личности (2ч)
-Тема 2.5 — Составление резюме на иностранном языке (2ч)
-
-Итого: 39 часов`,
-
-methodology:`10. УЧЕБНО-МЕТОДИЧЕСКОЕ И ИНФОРМАЦИОННОЕ ОБЕСПЕЧЕНИЕ
-
-Основные источники:
-1. Афанасьева О.В., Дули Д., Михеева И.В. и др. Английский язык. 10 класс (базовый уровень). — М.: Просвещение, 2023.
-2. Афанасьева О.В., Дули Д., Михеева И.В. и др. Английский язык. 11 класс (базовый уровень). — М.: Просвещение, 2023.
-3. Безкоровайная Г.Т., Койранская Е.А. и др. Planet of English: учебник английского языка для учреждений СПО. — М.: Академия, 2022.
-
-Дополнительные источники:
-1. Голубев А.П., Балюк Н.В., Смирнова И.Б. Английский язык: учебник для студ. учреждений СПО. — М.: Академия, 2022.
-2. Карпова Т.А. English for Colleges = Английский язык для колледжей: учебное пособие. — М.: КНОРУС, 2022.
-
-Интернет-ресурсы:
-1. https://www.bbc.co.uk/learningenglish — BBC Learning English
-2. https://www.britishcouncil.org — British Council
-3. https://resh.edu.ru — Российская электронная школа
-4. https://www.duolingo.com — Duolingo
-5. https://www.ted.com — TED Talks`,
-
-material_tech:`11. МАТЕРИАЛЬНО-ТЕХНИЧЕСКОЕ ОБЕСПЕЧЕНИЕ
-
-Для реализации программы учебного предмета предусмотрен кабинет «Иностранный язык».
-
-Оборудование учебного кабинета:
-— посадочные места по количеству обучающихся;
-— рабочее место преподавателя;
-— учебная доска;
-— наглядные пособия (комплекты учебных таблиц, плакатов, портретов выдающихся учёных, карт на иностранном языке);
-— учебники и учебные пособия;
-— дидактические материалы;
-— контрольно-измерительные материалы.
-
-Технические средства обучения:
-— компьютер с лицензионным программным обеспечением;
-— мультимедийный проектор;
-— экран (интерактивная доска);
-— аудио- и видеооборудование;
-— лингафонное оборудование (при наличии);
-— доступ к сети Интернет.`,
-
-approval:`12. РАССМОТРЕНИЕ И УТВЕРЖДЕНИЕ РАБОЧЕЙ ПРОГРАММЫ
-
-Рабочая программа учебного предмета ОУП.06 Иностранный язык
-
-Рассмотрена цикловой методической комиссией общеобразовательных дисциплин.
-
-Протокол от «___» ____________ 2024 г. № ____
-
-Председатель ЦМК: _______________ / _______________ /
-
-Утверждена заместителем директора по учебной работе:
-
-«___» ____________ 2024 г.
-
-Заместитель директора по УР: _______________ / _______________ /
-
-Согласовано:
-Заведующий отделением: _______________ / _______________ /
-Методист: _______________ / _______________ /
-
-Изменения и дополнения к рабочей программе:
-
-№ п/п | Дата | Содержание изменения | Основание | Подпись
-1     |      |                      |           |
-2     |      |                      |           |
-3     |      |                      |           |`
-};
+function notify(msg,type='success'){
+  const n=document.getElementById('notif');
+  n.textContent=msg;
+  n.className='notif '+type+' show';
+  setTimeout(()=>n.classList.remove('show'),3000);
+}
+
+function showLoading(text){
+  document.getElementById('loadingText').textContent=text||'Загрузка...';
+  document.getElementById('loadingOv').classList.add('show');
+}
+function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
+
+function openSheet(id){document.getElementById(id).classList.add('open')}
+function closeSheet(id){document.getElementById(id).classList.remove('open')}
+document.querySelectorAll('.sheet-ov').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')})});
+
+function toggleTheme(){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
+if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
 
 // ======================================================================
 // STATE
@@ -582,25 +338,12 @@ let currentUser=null;
 let userRole=null;
 let currentProgramId=null;
 let currentProgramData=null;
-let currentSectionKey=null;
+let selectedFile=null;
+let selectedFileArrayBuffer=null;
+let renameId=null;
+let hasUnsavedChanges=false;
 
-// ======================================================================
-// THEME
-// ======================================================================
-function toggleTheme(){const h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
-if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
-
-// ======================================================================
-// TOAST
-// ======================================================================
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
-
-// ======================================================================
-// SHEETS
-// ======================================================================
-function openSheet(id){document.getElementById(id).classList.add('open')}
-function closeSheet(id){document.getElementById(id).classList.remove('open')}
-document.querySelectorAll('.sheet-ov').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')})});
+function isAdmin(){return userRole==='admin'}
 
 // ======================================================================
 // AUTH
@@ -614,9 +357,8 @@ function doLogin(){
   if(pass.length<6){errEl.textContent='Пароль минимум 6 символов';return}
 
   auth.signInWithEmailAndPassword(email,pass)
-    .then(()=>{errEl.textContent=''})
+    .then(()=>errEl.textContent='')
     .catch(err=>{
-      console.log('Login error:',err.code);
       if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'){
         errEl.textContent='Создаю аккаунт...';
         auth.createUserWithEmailAndPassword(email,pass)
@@ -624,20 +366,16 @@ function doLogin(){
             const role=(email==='admin@test.ru')?'admin':'viewer';
             return db.ref('users/'+cred.user.uid).set({email,role,createdAt:Date.now()});
           })
-          .then(()=>{errEl.textContent=''})
+          .then(()=>errEl.textContent='')
           .catch(e2=>{
-            if(e2.code==='auth/email-already-in-use'){
-              errEl.textContent='Неверный пароль. Попробуйте снова.';
-            } else {
-              errEl.textContent='Ошибка: '+e2.message;
-            }
+            errEl.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message;
           });
       } else if(err.code==='auth/wrong-password'){
         errEl.textContent='Неверный пароль';
       } else if(err.code==='auth/too-many-requests'){
-        errEl.textContent='Слишком много попыток. Подождите минуту.';
+        errEl.textContent='Слишком много попыток, подождите';
       } else {
-        errEl.textContent='Ошибка: '+err.message;
+        errEl.textContent=err.message;
       }
     });
 }
@@ -669,244 +407,505 @@ function showApp(){
   document.getElementById('authScreen').classList.add('hidden');
   document.getElementById('appMain').classList.remove('hidden');
   document.getElementById('userLabel').textContent=currentUser.email;
-  document.getElementById('roleLabel').innerHTML=userRole==='admin'?ae(E.wrench)+' Редактор':ae(E.eye)+' Просмотр';
-  document.getElementById('roleLabel').className='pill '+(userRole==='admin'?'gr':'bl');
-  document.getElementById('btnAddProgram').classList.toggle('hidden',userRole!=='admin');
-  loadPrograms();showProgramsList();
+  const rl=document.getElementById('roleLabel');
+  if(isAdmin()){
+    rl.innerHTML='Редактор';
+    rl.className='pill gr';
+  } else {
+    rl.innerHTML='Просмотр';
+    rl.className='pill bl';
+  }
+  document.getElementById('btnUpload').classList.toggle('hidden',!isAdmin());
+  loadPrograms();
+  showList();
 }
 
-function isAdmin(){return userRole==='admin'}
+// ======================================================================
+// NAVIGATION
+// ======================================================================
+function showList(){
+  document.getElementById('pageList').classList.remove('hidden');
+  document.getElementById('pageEditor').classList.add('hidden');
+  currentProgramId=null;
+  currentProgramData=null;
+  hasUnsavedChanges=false;
+}
+
+function backToList(){
+  if(hasUnsavedChanges&&isAdmin()){
+    if(!confirm('Есть несохранённые изменения. Вернуться без сохранения?'))return;
+  }
+  showList();
+}
 
 // ======================================================================
 // PROGRAMS LIST
 // ======================================================================
-function showProgramsList(){
-  document.getElementById('programsListPage').classList.remove('hidden');
-  document.getElementById('programEditorPage').classList.add('hidden');
-  currentProgramId=null;
-}
-function backToList(){
-  if(currentProgramId)db.ref('programs/'+currentProgramId).off('value');
-  showProgramsList();
-}
-
-let programsListener=null;
 function loadPrograms(){
-  if(programsListener)db.ref('programs').off('value',programsListener);
-  programsListener=db.ref('programs').on('value',snap=>{
+  db.ref('programs').on('value',snap=>{
     const programs=snap.val()||{};
     const container=document.getElementById('programsList');
     if(Object.keys(programs).length===0){
       container.innerHTML=`<div style="text-align:center;padding:60px 20px">
-        <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:16px" alt="">
-        <p style="color:var(--t3);font-size:15px">Нет рабочих программ</p>
-        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Добавить программу»</p>':'<p style="color:var(--t3);font-size:13px;margin-top:8px">Администратор ещё не добавил программы</p>'}
+        <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c2.png" style="width:64px;height:64px;margin-bottom:16px" alt="">
+        <p style="color:var(--t3);font-size:15px">Нет загруженных программ</p>
+        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Загрузить DOCX» чтобы добавить</p>':''}
       </div>`;
       return;
     }
     container.innerHTML='';
-    Object.entries(programs).forEach(([id,prog])=>{
-      const sc=prog.sections?Object.keys(prog.sections).filter(k=>prog.sections[k]&&prog.sections[k].trim()).length:0;
-      const total=SECTIONS.length;
-      const pct=Math.round((sc/total)*100);
-      const dateStr=prog.createdAt?new Date(prog.createdAt).toLocaleDateString('ru'):'';
-      const updStr=prog.updatedAt?new Date(prog.updatedAt).toLocaleDateString('ru'):'';
+    // Sort by date desc
+    const sorted=Object.entries(programs).sort((a,b)=>(b[1].createdAt||0)-(a[1].createdAt||0));
+    sorted.forEach(([id,prog])=>{
+      const dateStr=prog.createdAt?new Date(prog.createdAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
+      const updStr=prog.updatedAt?new Date(prog.updatedAt).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+      const sizeKb=prog.docxBase64?Math.round(prog.docxBase64.length*0.75/1024):0;
       container.innerHTML+=`
         <div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram('${id}')">
           <div class="flex-b">
-            <div><span class="pill pr">${prog.code||''}</span> <span class="pill bl">${prog.year||''}</span></div>
-            <span class="pill ${pct>=80?'gr':pct>=40?'og':'rd'}">${sc}/${total} разделов</span>
+            <h3>${ae('1f4c4')} ${prog.title||'Без названия'}</h3>
+            <span class="pill pr">${sizeKb?sizeKb+' КБ':'—'}</span>
           </div>
-          <h3 class="mt8">${prog.title||'Без названия'}</h3>
-          <p>${prog.specialty||''}</p>
-          <p class="mt8" style="font-size:11px;color:var(--t3)">${ae(E.calendar)} Создано: ${dateStr}${updStr?' | Обновлено: '+updStr:''}</p>
-          ${isAdmin()?`<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">${ae(E.trash)} Удалить</button></div>`:''}
+          <p class="mt8" style="font-size:12px;color:var(--t3)">
+            Загружено: ${dateStr}${updStr?' | Изменено: '+updStr:''}
+          </p>
+          ${isAdmin()?`<div class="mt8 gap8">
+            <button class="btn btnSm btnS" onclick="event.stopPropagation();openRename('${id}','${(prog.title||'').replace(/'/g,"\\'")}')">Переименовать</button>
+            <button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">Удалить</button>
+            <button class="btn btnSm btnO" onclick="event.stopPropagation();reuploadDocx('${id}')">Перезагрузить DOCX</button>
+          </div>`:''}
         </div>`;
     });
   });
 }
 
 // ======================================================================
-// ADD PROGRAM
+// UPLOAD DOCX
 // ======================================================================
-function openAddProgram(){
+function openUploadSheet(){
   if(!isAdmin())return;
-  document.getElementById('newCode').value='';
-  document.getElementById('newTitle').value='';
-  document.getElementById('newSpecialty').value='';
-  document.getElementById('newQualification').value='';
-  document.getElementById('newForm').value='Очная';
-  document.getElementById('newYear').value=new Date().getFullYear();
-  document.getElementById('newPrefill').checked=false;
-  openSheet('sheetAddProgram');
+  document.getElementById('uploadTitle').value='';
+  document.getElementById('fileName').textContent='';
+  document.getElementById('fileInput').value='';
+  selectedFile=null;
+  selectedFileArrayBuffer=null;
+  openSheet('sheetUpload');
 }
 
-function saveNewProgram(){
+function handleFileSelect(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  if(!file.name.endsWith('.docx')){
+    notify('Только файлы .docx','error');
+    return;
+  }
+  selectedFile=file;
+  document.getElementById('fileName').textContent=file.name+' ('+Math.round(file.size/1024)+' КБ)';
+  // Auto-fill title from filename
+  if(!document.getElementById('uploadTitle').value){
+    document.getElementById('uploadTitle').value=file.name.replace('.docx','');
+  }
+  // Read as ArrayBuffer
+  const reader=new FileReader();
+  reader.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
+  reader.readAsArrayBuffer(file);
+}
+
+async function uploadProgram(){
   if(!isAdmin())return;
-  const code=document.getElementById('newCode').value.trim();
-  const title=document.getElementById('newTitle').value.trim();
-  if(!code||!title){alert('Заполните код и название');return}
-  const prefill=document.getElementById('newPrefill').checked;
-  const data={
-    code,title,
-    specialty:document.getElementById('newSpecialty').value.trim(),
-    qualification:document.getElementById('newQualification').value.trim(),
-    form:document.getElementById('newForm').value.trim(),
-    year:document.getElementById('newYear').value.trim(),
-    createdBy:currentUser.uid,
-    createdAt:Date.now(),
-    updatedAt:Date.now(),
-    sections:{}
+  const title=document.getElementById('uploadTitle').value.trim();
+  if(!title){notify('Введите название','error');return}
+  if(!selectedFileArrayBuffer){notify('Выберите DOCX файл','error');return}
+
+  showLoading('Обработка документа...');
+
+  try{
+    // 1. Convert DOCX to HTML with Mammoth (preserves structure)
+    const result=await mammoth.convertToHtml(
+      {arrayBuffer:selectedFileArrayBuffer},
+      {
+        styleMap:[
+          "p[style-name='Heading 1'] => h1:fresh",
+          "p[style-name='Heading 2'] => h2:fresh",
+          "p[style-name='Heading 3'] => h3:fresh",
+          "p[style-name='Normal'] => p:fresh"
+        ],
+        convertImage: mammoth.images.inline(function(element){
+          return element.read("base64").then(function(imageBuffer){
+            return {src:"data:"+element.contentType+";base64,"+imageBuffer};
+          });
+        })
+      }
+    );
+
+    const htmlContent=result.value;
+    if(result.messages.length>0){
+      console.log('Mammoth messages:',result.messages);
+    }
+
+    // 2. Convert ArrayBuffer to base64 for storage (original DOCX)
+    const base64=arrayBufferToBase64(selectedFileArrayBuffer);
+
+    // 3. Check size — Firebase limit ~10MB per node
+    const sizeBytes=base64.length;
+    if(sizeBytes>9*1024*1024){
+      hideLoading();
+      notify('Файл слишком большой (макс ~7МБ). Удалите изображения из документа.','error');
+      return;
+    }
+
+    // 4. Save to Firebase
+    const programData={
+      title:title,
+      htmlContent:htmlContent,
+      docxBase64:base64,
+      createdBy:currentUser.uid,
+      createdAt:Date.now(),
+      updatedAt:Date.now()
+    };
+
+    await db.ref('programs').push(programData);
+
+    hideLoading();
+    closeSheet('sheetUpload');
+    notify('Программа загружена');
+    selectedFile=null;
+    selectedFileArrayBuffer=null;
+
+  } catch(err){
+    hideLoading();
+    console.error(err);
+    notify('Ошибка обработки: '+err.message,'error');
+  }
+}
+
+function arrayBufferToBase64(buffer){
+  let binary='';
+  const bytes=new Uint8Array(buffer);
+  const len=bytes.byteLength;
+  // Process in chunks to avoid call stack overflow
+  const chunkSize=8192;
+  for(let i=0;i<len;i+=chunkSize){
+    const chunk=bytes.subarray(i,Math.min(i+chunkSize,len));
+    binary+=String.fromCharCode.apply(null,chunk);
+  }
+  return btoa(binary);
+}
+
+function base64ToArrayBuffer(base64){
+  const binary=atob(base64);
+  const len=binary.length;
+  const bytes=new Uint8Array(len);
+  for(let i=0;i<len;i++){
+    bytes[i]=binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+// ======================================================================
+// REUPLOAD
+// ======================================================================
+let reuploadTargetId=null;
+function reuploadDocx(id){
+  reuploadTargetId=id;
+  const inp=document.createElement('input');
+  inp.type='file';
+  inp.accept='.docx';
+  inp.onchange=async function(e){
+    const file=e.target.files[0];
+    if(!file||!file.name.endsWith('.docx'))return;
+    showLoading('Перезагрузка документа...');
+    try{
+      const ab=await file.arrayBuffer();
+      const result=await mammoth.convertToHtml({arrayBuffer:ab},{
+        convertImage:mammoth.images.inline(function(el){
+          return el.read("base64").then(function(buf){
+            return{src:"data:"+el.contentType+";base64,"+buf};
+          });
+        })
+      });
+      const base64=arrayBufferToBase64(ab);
+      await db.ref('programs/'+reuploadTargetId).update({
+        htmlContent:result.value,
+        docxBase64:base64,
+        updatedAt:Date.now()
+      });
+      hideLoading();
+      notify('Документ перезагружен');
+    }catch(err){
+      hideLoading();
+      notify('Ошибка: '+err.message,'error');
+    }
   };
-  SECTIONS.forEach(s=>{data.sections[s.key]=prefill?(PREFILL_DATA[s.key]||''):'';});
-  db.ref('programs').push(data);
-  closeSheet('sheetAddProgram');
-  toast('Программа создана');
+  inp.click();
 }
 
+// ======================================================================
+// DELETE / RENAME
+// ======================================================================
 function deleteProgram(id){
   if(!isAdmin())return;
-  if(confirm('Удалить эту рабочую программу? Действие необратимо.')){
+  if(confirm('Удалить программу? Действие необратимо.')){
     db.ref('programs/'+id).remove();
-    toast('Программа удалена');
+    notify('Программа удалена');
   }
 }
 
+function openRename(id,currentTitle){
+  renameId=id;
+  document.getElementById('renameTitle').value=currentTitle;
+  openSheet('sheetRename');
+}
+
+function doRename(){
+  if(!renameId)return;
+  const newTitle=document.getElementById('renameTitle').value.trim();
+  if(!newTitle){notify('Введите название','error');return}
+  db.ref('programs/'+renameId+'/title').set(newTitle);
+  db.ref('programs/'+renameId+'/updatedAt').set(Date.now());
+  closeSheet('sheetRename');
+  notify('Переименовано');
+}
+
 // ======================================================================
-// OPEN PROGRAM
+// OPEN PROGRAM (EDITOR)
 // ======================================================================
-function openProgram(id){
-  currentProgramId=id;currentSectionKey=null;
-  document.getElementById('programsListPage').classList.add('hidden');
-  document.getElementById('programEditorPage').classList.remove('hidden');
-  db.ref('programs/'+id).on('value',snap=>{
-    currentProgramData=snap.val();
-    if(!currentProgramData){backToList();return}
-    renderEditor();
-  });
-}
+async function openProgram(id){
+  showLoading('Загрузка документа...');
+  currentProgramId=id;
+  hasUnsavedChanges=false;
 
-function renderEditor(){
-  const prog=currentProgramData;
-  document.getElementById('editorTitle').textContent=prog.code+' — '+prog.title;
-  document.getElementById('editorMeta').innerHTML=`${prog.specialty||''} &bull; ${prog.qualification||''} &bull; ${prog.form||''} &bull; ${prog.year||''}`;
-  const tabsEl=document.getElementById('sectionTabs');
-  tabsEl.innerHTML='';
-  SECTIONS.forEach(s=>{
-    const has=prog.sections&&prog.sections[s.key]&&prog.sections[s.key].trim();
-    const active=currentSectionKey===s.key;
-    tabsEl.innerHTML+=`<button class="sec-tab ${active?'active':''}" onclick="selectSection('${s.key}',this)">${ae(s.icon)} ${s.name} ${has?ae(E.check):''}</button>`;
-  });
-  if(currentSectionKey)renderSection(currentSectionKey);
-}
+  const snap=await db.ref('programs/'+id).once('value');
+  currentProgramData=snap.val();
+  if(!currentProgramData){hideLoading();backToList();return}
 
-function selectSection(key,el){
-  currentSectionKey=key;
-  document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  renderSection(key);
-}
+  // Show editor page
+  document.getElementById('pageList').classList.add('hidden');
+  document.getElementById('pageEditor').classList.remove('hidden');
 
-function renderSection(key){
-  const sec=SECTIONS.find(s=>s.key===key);
-  if(!sec)return;
-  const content=(currentProgramData.sections&&currentProgramData.sections[key])||'';
-  const container=document.getElementById('sectionContent');
+  // Header
+  document.getElementById('editorTitle').textContent=currentProgramData.title||'Без названия';
+  document.getElementById('editorDate').textContent=currentProgramData.updatedAt?'Обновлено: '+new Date(currentProgramData.updatedAt).toLocaleDateString('ru'):'';
+  document.getElementById('editorMeta').textContent='Загружен пользователем: '+currentUser.email;
+
+  // Show/hide edit controls
+  const editBar=document.getElementById('editBar');
+  const editorBtns=document.getElementById('editorButtons');
   if(isAdmin()){
-    container.innerHTML=`
-      <h4>${ae(sec.icon)} ${sec.name}</h4>
-      <div class="fg">
-        <label>Содержимое раздела</label>
-        <textarea class="inp" id="sectionTextarea" style="min-height:350px;font-size:14px;line-height:1.7"
-                  placeholder="Введите содержимое раздела..."
-                  oninput="markUnsaved()">${escapeHtml(content)}</textarea>
-      </div>
-      <div class="gap8">
-        <button class="btn btnP" onclick="saveSection()">${ae(E.save)} Сохранить</button>
-        <button class="btn btnSm btnS" onclick="clearSection()">${ae(E.trash)} Очистить</button>
-      </div>
-      <div id="saveStatus" class="mt8" style="font-size:12px;color:var(--t3)">
-        ${content?ae(E.check)+' Сохранено':ae(E.memo)+' Раздел пуст'}
-      </div>`;
+    editBar.classList.remove('hidden');
+    editorBtns.innerHTML=`
+      <button class="btn btnSm btnG" onclick="saveDocument()">Сохранить</button>
+      <button class="btn btnSm btnO" onclick="downloadEditedDocx()">Скачать DOCX</button>
+      <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>`;
   } else {
-    container.innerHTML=`
-      <h4>${ae(sec.icon)} ${sec.name}</h4>
-      ${content?`<div class="readonly-text">${escapeHtml(content)}</div>`:`<p style="color:var(--t3);padding:20px;text-align:center">Раздел не заполнен</p>`}`;
+    editBar.classList.add('hidden');
+    editorBtns.innerHTML=`
+      <button class="btn btnSm btnO" onclick="downloadOriginalDocx()">Скачать DOCX (оригинал)</button>
+      <button class="btn btnSm btnS" onclick="downloadPdf()">Скачать PDF</button>`;
+  }
+
+  // Render document
+  renderDocument(currentProgramData.htmlContent);
+  hideLoading();
+}
+
+function renderDocument(html){
+  const container=document.getElementById('docContainer');
+  const editable=isAdmin();
+
+  // Wrap in doc-frame with proper styling
+  container.innerHTML=`
+    <div class="doc-frame" id="docFrame">
+      <div id="docContent" ${editable?'contenteditable="true"':''} 
+           style="outline:none;min-height:400px"
+           ${editable?'oninput="onDocEdit()"':''}>${html}</div>
+    </div>`;
+
+  // Apply Times New Roman and proper sizing to all elements inside
+  const frame=document.getElementById('docContent');
+  if(frame){
+    // Ensure all paragraphs and text have proper font
+    const allEls=frame.querySelectorAll('*');
+    allEls.forEach(el=>{
+      if(!el.style.fontFamily){
+        el.style.fontFamily="'Times New Roman', serif";
+      }
+    });
   }
 }
 
-function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML}
-function markUnsaved(){const s=document.getElementById('saveStatus');if(s)s.innerHTML=`<span style="color:var(--orange)">${ae(E.warning)} Несохранённые изменения</span>`}
-
-function saveSection(){
-  if(!isAdmin()||!currentProgramId||!currentSectionKey)return;
-  const text=document.getElementById('sectionTextarea').value;
-  db.ref('programs/'+currentProgramId+'/sections/'+currentSectionKey).set(text);
-  db.ref('programs/'+currentProgramId+'/updatedAt').set(Date.now());
-  const s=document.getElementById('saveStatus');
-  if(s)s.innerHTML=`<span style="color:var(--green)">${ae(E.check)} Сохранено</span>`;
-  toast('Раздел сохранён');
+function onDocEdit(){
+  hasUnsavedChanges=true;
 }
 
-function clearSection(){
-  if(!isAdmin())return;
-  if(confirm('Очистить раздел?')){
-    document.getElementById('sectionTextarea').value='';
-    saveSection();
+// ======================================================================
+// EDIT TOOLBAR COMMANDS
+// ======================================================================
+function execCmd(cmd){
+  document.execCommand(cmd,false,null);
+  document.getElementById('docContent').focus();
+}
+function execFontSize(size){
+  if(size)document.execCommand('fontSize',false,size);
+  document.getElementById('docContent').focus();
+}
+
+// ======================================================================
+// SAVE DOCUMENT
+// ======================================================================
+async function saveDocument(){
+  if(!isAdmin()||!currentProgramId)return;
+  showLoading('Сохранение...');
+  const content=document.getElementById('docContent');
+  if(!content){hideLoading();return}
+
+  const newHtml=content.innerHTML;
+  await db.ref('programs/'+currentProgramId).update({
+    htmlContent:newHtml,
+    updatedAt:Date.now()
+  });
+
+  currentProgramData.htmlContent=newHtml;
+  hasUnsavedChanges=false;
+  hideLoading();
+  notify('Документ сохранён');
+}
+
+// ======================================================================
+// DOWNLOAD ORIGINAL DOCX (from stored base64)
+// ======================================================================
+function downloadOriginalDocx(){
+  if(!currentProgramData||!currentProgramData.docxBase64){
+    notify('Оригинальный DOCX не найден','error');
+    return;
+  }
+  const ab=base64ToArrayBuffer(currentProgramData.docxBase64);
+  const blob=new Blob([ab],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  downloadBlob(blob,(currentProgramData.title||'document')+'.docx');
+  notify('DOCX скачан (оригинал)');
+}
+
+// ======================================================================
+// DOWNLOAD EDITED DOCX (HTML → DOCX)
+// ======================================================================
+function downloadEditedDocx(){
+  const content=document.getElementById('docContent');
+  if(!content)return;
+  showLoading('Генерация DOCX...');
+
+  try{
+    // Build full HTML document with styles for html-docx-js
+    const fullHtml=`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body{font-family:'Times New Roman',serif;font-size:14pt;line-height:1.5;margin:2cm}
+          table{border-collapse:collapse;width:100%}
+          td,th{border:1px solid #000;padding:4px 8px;vertical-align:top;font-family:'Times New Roman',serif;font-size:12pt}
+          h1{font-size:16pt;text-align:center;font-family:'Times New Roman',serif}
+          h2{font-size:14pt;font-family:'Times New Roman',serif}
+          h3{font-size:13pt;font-family:'Times New Roman',serif}
+          p{font-family:'Times New Roman',serif;font-size:14pt;margin:0 0 6px}
+          ul,ol{font-family:'Times New Roman',serif;font-size:14pt}
+        </style>
+      </head>
+      <body>${content.innerHTML}</body>
+      </html>`;
+
+    const blob=htmlDocx.asBlob(fullHtml,{
+      orientation:'portrait',
+      margins:{top:1134,right:1134,bottom:1134,left:1701}
+    });
+
+    downloadBlob(blob,(currentProgramData.title||'document')+'_edited.docx');
+    hideLoading();
+    notify('DOCX скачан (отредактированный)');
+  }catch(err){
+    hideLoading();
+    console.error(err);
+    notify('Ошибка генерации DOCX: '+err.message,'error');
   }
 }
 
 // ======================================================================
-// DOCX
+// DOWNLOAD PDF
 // ======================================================================
-function downloadAsDocx(){
-  if(!currentProgramData)return;
-  const prog=currentProgramData;
-  const{Document,Packer,Paragraph,TextRun,HeadingLevel,AlignmentType,PageBreak}=docx;
-  const children=[];
-  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:200},children:[new TextRun({text:'РАБОЧАЯ ПРОГРАММА',bold:true,size:32})]}));
-  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`учебной дисциплины ${prog.code} ${prog.title}`,size:28})]}));
-  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`${prog.specialty||''}`,size:22})]}));
-  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}`,size:20})]}));
-  children.push(new Paragraph({children:[new PageBreak()]}));
-  SECTIONS.forEach(sec=>{
-    const text=(prog.sections&&prog.sections[sec.key])||'';
-    children.push(new Paragraph({heading:HeadingLevel.HEADING_2,spacing:{before:400,after:200},children:[new TextRun({text:sec.name,bold:true,size:26})]}));
-    if(text){
-      text.split('\n').forEach(line=>{
-        children.push(new Paragraph({spacing:{after:80},children:[new TextRun({text:line,size:22})]}));
-      });
-    } else {
-      children.push(new Paragraph({children:[new TextRun({text:'(Раздел не заполнен)',italics:true,size:22,color:'999999'})]}));
+function downloadPdf(){
+  const content=document.getElementById('docContent');
+  if(!content)return;
+  showLoading('Генерация PDF...');
+
+  const wrapper=document.createElement('div');
+  wrapper.style.cssText="font-family:'Times New Roman',serif;font-size:14pt;line-height:1.5;color:#000;padding:10px";
+  wrapper.innerHTML=content.innerHTML;
+
+  html2pdf().set({
+    margin:[15,15,15,20],
+    filename:(currentProgramData.title||'document')+'.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,logging:false},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['avoid-all','css','legacy']}
+  }).from(wrapper).save().then(()=>{
+    hideLoading();
+    notify('PDF скачан');
+  }).catch(err=>{
+    hideLoading();
+    notify('Ошибка PDF: '+err.message,'error');
+  });
+}
+
+// ======================================================================
+// HELPER
+// ======================================================================
+function downloadBlob(blob,filename){
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ======================================================================
+// DRAG & DROP
+// ======================================================================
+const uploadZone=document.getElementById('uploadZone');
+if(uploadZone){
+  ['dragenter','dragover'].forEach(ev=>{
+    uploadZone.addEventListener(ev,e=>{e.preventDefault();uploadZone.classList.add('drag')});
+  });
+  ['dragleave','drop'].forEach(ev=>{
+    uploadZone.addEventListener(ev,e=>{e.preventDefault();uploadZone.classList.remove('drag')});
+  });
+  uploadZone.addEventListener('drop',e=>{
+    const file=e.dataTransfer.files[0];
+    if(file&&file.name.endsWith('.docx')){
+      selectedFile=file;
+      document.getElementById('fileName').textContent=file.name+' ('+Math.round(file.size/1024)+' КБ)';
+      if(!document.getElementById('uploadTitle').value){
+        document.getElementById('uploadTitle').value=file.name.replace('.docx','');
+      }
+      const reader=new FileReader();
+      reader.onload=function(ev){selectedFileArrayBuffer=ev.target.result};
+      reader.readAsArrayBuffer(file);
     }
   });
-  const doc=new Document({sections:[{children}]});
-  Packer.toBlob(doc).then(blob=>{
-    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`РП_${prog.code}_${prog.title}.docx`;a.click();URL.revokeObjectURL(url);
-  });
-  toast('DOCX скачивается...');
 }
 
 // ======================================================================
-// PDF
+// WARN ON CLOSE
 // ======================================================================
-function downloadAsPdf(){
-  if(!currentProgramData)return;
-  const prog=currentProgramData;
-  let html=`<div style="font-family:'Times New Roman',serif;color:#000;padding:20px">
-    <h1 style="text-align:center;font-size:18px;margin-bottom:4px">РАБОЧАЯ ПРОГРАММА</h1>
-    <h2 style="text-align:center;font-size:16px;font-weight:normal;margin-bottom:8px">учебной дисциплины ${prog.code} ${prog.title}</h2>
-    <p style="text-align:center;font-size:13px;color:#666;margin-bottom:24px">${prog.specialty||''} | ${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}</p><hr style="margin-bottom:24px">`;
-  SECTIONS.forEach(sec=>{
-    const text=(prog.sections&&prog.sections[sec.key])||'';
-    html+=`<h3 style="font-size:14px;margin:20px 0 8px;color:#333">${sec.name}</h3>`;
-    html+=text?`<div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${escapeHtml(text)}</div>`:`<p style="color:#999;font-style:italic;font-size:12px">(Раздел не заполнен)</p>`;
-  });
-  html+='</div>';
-  const wrapper=document.createElement('div');wrapper.innerHTML=html;
-  html2pdf().set({margin:[15,15,15,15],filename:`РП_${prog.code}_${prog.title}.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save();
-  toast('PDF скачивается...');
-}
+window.addEventListener('beforeunload',e=>{
+  if(hasUnsavedChanges&&isAdmin()){
+    e.preventDefault();
+    e.returnValue='';
+  }
+});
 </script>
 </body>
 </html>
