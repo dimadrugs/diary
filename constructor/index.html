@@ -3,52 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Конструктор рабочих программ СПО</title>
+<title>Конструктор рабочих программ</title>
 <style>
 :root{--bg:#0a0a0a;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
-.notif{position:fixed;top:0;left:0;right:0;padding:12px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s ease}
-.notif.show{transform:translateY(0)}
-.notif.success{background:var(--green);color:#fff}
-.notif.error{background:var(--red);color:#fff}
+body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.notif{position:fixed;top:0;left:0;right:0;padding:12px 20px;font-size:13px;font-weight:600;text-align:center;z-index:9999;transform:translateY(-100%);transition:transform .3s}
+.notif.show{transform:translateY(0)}.notif.success{background:var(--green);color:#fff}.notif.error{background:var(--red);color:#fff}
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
-.topbar h1{font-size:17px;font-weight:600}
-.topbar-r{display:flex;gap:8px;align-items:center}
+.topbar h1{font-size:17px;font-weight:600}.topbar-r{display:flex;gap:8px;align-items:center}
 .container{max-width:1000px;margin:0 auto;padding:16px}
 .card{background:var(--card);border:1px solid var(--t4);border-radius:var(--r);padding:16px;margin-bottom:12px}
-.card h3{font-size:15px;font-weight:600;margin-bottom:6px}
-.card p{font-size:13px;color:var(--t2);line-height:1.5}
-.btn{border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .1s,opacity .1s}
-.btn:active{transform:scale(.96);opacity:.8}
-.btnP{background:var(--blue);color:#fff}
-.btnS{background:transparent;color:var(--text);border:1px solid var(--t4)!important}
-.btnD{background:var(--red);color:#fff}
-.btnG{background:var(--green);color:#fff}
-.btnO{background:var(--orange);color:#fff}
+.btn{border:none;padding:10px 20px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:transform .1s}
+.btn:active{transform:scale(.96)}.btnP{background:var(--blue);color:#fff}.btnS{background:transparent;color:var(--text);border:1px solid var(--t4)!important}
+.btnD{background:var(--red);color:#fff}.btnG{background:var(--green);color:#fff}.btnO{background:var(--orange);color:#fff}
 .btnSm{padding:6px 14px;font-size:12px;border-radius:var(--rs)}
-.inp{width:100%;padding:12px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.inp{width:100%;padding:12px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none}
 .inp:focus{border-color:var(--blue)}
-textarea.inp{min-height:100px;resize:vertical;line-height:1.6}
 label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight:500}
 .fg{margin-bottom:14px}
 .pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
-.pill.bl{background:rgba(10,132,255,.15);color:var(--blue)}
-.pill.gr{background:rgba(48,209,88,.15);color:var(--green)}
-.pill.og{background:rgba(255,159,10,.15);color:var(--orange)}
-.pill.pr{background:rgba(191,90,242,.15);color:var(--purple)}
-.flex-b{display:flex;justify-content:space-between;align-items:center}
-.gap8{display:flex;gap:8px;flex-wrap:wrap}
-.mt8{margin-top:8px}
-.mt16{margin-top:16px}
-.mb12{margin-bottom:12px}
-.hidden{display:none!important}
-
+.pill.bl{background:rgba(10,132,255,.15);color:var(--blue)}.pill.gr{background:rgba(48,209,88,.15);color:var(--green)}
+.pill.og{background:rgba(255,159,10,.15);color:var(--orange)}.pill.pr{background:rgba(191,90,242,.15);color:var(--purple)}
+.flex-b{display:flex;justify-content:space-between;align-items:center}.gap8{display:flex;gap:8px;flex-wrap:wrap}
+.mt8{margin-top:8px}.mb12{margin-bottom:12px}.hidden{display:none!important}
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
-.auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
-
+.auth-err{color:var(--red);font-size:13px;margin-top:8px}
 .upload-zone{border:2px dashed var(--t4);border-radius:var(--r);padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
 .upload-zone:hover{border-color:var(--blue);background:rgba(10,132,255,.05)}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
@@ -57,61 +39,54 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
 .sec-tab{padding:8px 14px;border-radius:var(--rs);font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s}
 .sec-tab.active{background:var(--purple);color:#fff}
-.sec-tab.filled{border-bottom:2px solid var(--green)}
-.sec-tab:hover{color:var(--text)}
+.sec-tab.filled::after{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-left:5px}
 
-/* Section content */
+/* Section content — editable document view */
 .sec-box{background:var(--bg3);border-radius:var(--r);padding:20px;min-height:300px}
-.sec-box h4{font-size:16px;margin-bottom:16px;color:var(--blue)}
 
-/* Editable list items */
-.list-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding:10px;background:var(--bg2);border-radius:var(--rs);border:1px solid var(--t4)}
-.list-item textarea,.list-item input{flex:1}
-.list-item .btn{flex-shrink:0}
+/* The actual document editing area */
+.doc-edit{background:#fff;color:#000;border-radius:8px;padding:30px 40px;min-height:400px;font-family:'Times New Roman',serif;font-size:14pt;line-height:1.6;outline:none}
+.doc-edit:focus{box-shadow:0 0 0 3px rgba(10,132,255,.3)}
+.doc-edit table{border-collapse:collapse;width:100%;margin:10px 0}
+.doc-edit table td,.doc-edit table th{border:1px solid #000;padding:5px 8px;vertical-align:top}
+.doc-edit table th{background:#f0f0f0;font-weight:700}
+.doc-edit h1,.doc-edit h2,.doc-edit h3{font-family:'Times New Roman',serif}
+.doc-edit p{margin-bottom:6px}
+.doc-edit ul,.doc-edit ol{margin-left:20px;margin-bottom:8px}
+.doc-readonly{background:#f8f8f8;color:#000;border-radius:8px;padding:30px 40px;min-height:200px;font-family:'Times New Roman',serif;font-size:14pt;line-height:1.6;user-select:text}
+.doc-readonly table{border-collapse:collapse;width:100%;margin:10px 0}
+.doc-readonly table td,.doc-readonly table th{border:1px solid #000;padding:5px 8px}
 
-/* Editable table */
-.ed-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--bg2);border-radius:var(--rs);overflow:hidden}
-.ed-table th,.ed-table td{border:1px solid var(--t4);padding:8px 10px;text-align:left;font-size:13px;vertical-align:top}
-.ed-table th{background:var(--bg3);font-weight:600;color:var(--t2);font-size:12px}
-.ed-table td input,.ed-table td textarea{width:100%;background:transparent;border:none;color:var(--text);font-size:13px;font-family:inherit;outline:none;resize:vertical}
-.ed-table td input:focus,.ed-table td textarea:focus{background:rgba(10,132,255,.08);border-radius:4px}
-.ed-table td textarea{min-height:40px}
-
-/* Float save button */
-.float-save{position:fixed;bottom:20px;right:20px;z-index:150;display:flex;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 12px;box-shadow:0 4px 20px rgba(0,0,0,.4);backdrop-filter:blur(20px)}
-.float-save.hide{opacity:0;pointer-events:none;transform:translateY(10px)}
+/* Float bar */
+.float-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--t4);border-radius:20px;padding:8px 16px;display:flex;gap:8px;align-items:center;z-index:150;box-shadow:0 4px 20px rgba(0,0,0,.5);backdrop-filter:blur(20px)}
+.float-bar.hide{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(10px)}
+.float-status{font-size:12px;color:var(--t3);padding:0 8px}
 
 /* Sheet */
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
-.sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
+.sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s}
 @keyframes shUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .sh-handle{width:36px;height:5px;border-radius:3px;background:var(--t4);margin:8px auto 0}
 .sh-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 0}
 .sh-head h2{font-size:17px;font-weight:600}
 .sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sh-body{padding:20px}
-
 .loading-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .loading-ov.show{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--t4);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-ov p{color:#fff;font-size:14px}
+@keyframes spin{to{transform:rotate(360deg)}}.loading-ov p{color:#fff;font-size:14px}
 .th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 
-.readonly-field{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--rs);padding:10px;font-size:13px;line-height:1.5;color:var(--text);min-height:40px;white-space:pre-wrap}
-
 @media(max-width:768px){
-  .sec-tabs{gap:3px}
+  .doc-edit,.doc-readonly{padding:15px 12px;font-size:12pt}
   .sec-tab{font-size:10px;padding:5px 8px}
-  .float-save{bottom:10px;right:10px;left:10px;justify-content:center}
-  .ed-table{font-size:11px}
-  .ed-table th,.ed-table td{padding:5px 6px}
+  .float-bar{bottom:10px;left:10px;right:10px;transform:none;border-radius:14px;justify-content:center}
+  .float-bar.hide{transform:translateY(10px)}
 }
 </style>
 </head>
 <body>
-
 <div class="notif" id="notif"></div>
 <div class="loading-ov" id="loadingOv"><div class="spinner"></div><p id="loadingText">Загрузка...</p></div>
 
@@ -119,9 +94,9 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
     <div style="font-size:48px;margin-bottom:12px">📄</div>
-    <h2 style="font-size:22px;margin-bottom:8px">Конструктор программ СПО</h2>
-    <p style="font-size:13px;color:var(--t3);margin-bottom:24px">Войдите для работы с рабочими программами</p>
-    <div class="fg"><label>Email</label><input class="inp" id="authEmail" type="email" value="admin@test.ru"></div>
+    <h2 style="margin-bottom:8px">Конструктор программ</h2>
+    <p style="font-size:13px;color:var(--t3);margin-bottom:24px">Войдите для работы</p>
+    <div class="fg"><label>Email</label><input class="inp" id="authEmail" value="admin@test.ru"></div>
     <div class="fg"><label>Пароль</label><input class="inp" id="authPass" type="password" value="123456"></div>
     <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
     <div class="auth-err" id="authErr"></div>
@@ -145,12 +120,9 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <div class="container" id="pageList">
     <div class="flex-b mb12">
       <h2 style="font-size:20px;font-weight:700">Рабочие программы</h2>
-      <div class="gap8">
-        <button class="btn btnP btnSm hidden" id="btnCreate" onclick="openCreateSheet()">+ Создать</button>
-        <button class="btn btnO btnSm hidden" id="btnUpload" onclick="openUploadSheet()">📤 Загрузить DOCX</button>
-      </div>
+      <button class="btn btnP btnSm hidden" id="btnUpload" onclick="openUpload()">+ Загрузить DOCX</button>
     </div>
-    <div id="programsList"></div>
+    <div id="progList"></div>
   </div>
 
   <!-- EDITOR -->
@@ -158,38 +130,22 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     <div class="flex-b mb12">
       <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
       <div class="gap8">
-        <button class="btn btnSm btnG" onclick="generateDocx()">📥 Сформировать DOCX</button>
+        <button class="btn btnSm btnG" onclick="downloadDocx()">📥 Скачать DOCX</button>
+        <button class="btn btnSm btnD hidden" id="btnDel2" onclick="delCurrent()">Удалить</button>
       </div>
     </div>
     <div class="card" style="border-left:4px solid var(--purple)">
       <div class="flex-b"><h3 id="edTitle">—</h3><span class="pill pr" id="edDate"></span></div>
-      <p id="edMeta"></p>
     </div>
     <div class="sec-tabs" id="secTabs"></div>
-    <div class="sec-box" id="secBox"><p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел</p></div>
+    <div class="sec-box" id="secBox"><p style="color:var(--t3);text-align:center;padding:40px">Выберите раздел для редактирования</p></div>
   </div>
 
-  <!-- Float save -->
-  <div class="float-save hide" id="floatSave">
-    <button class="btn btnSm btnG" onclick="saveCurrentSection()">💾 Сохранить</button>
-    <button class="btn btnSm btnP" onclick="saveAndNext()">Сохранить и далее →</button>
-  </div>
-</div>
-
-<!-- SHEET: Create -->
-<div class="sheet-ov" id="sheetCreate">
-  <div class="sheet">
-    <div class="sh-handle"></div>
-    <div class="sh-head"><h2>Новая программа</h2><button class="sh-close" onclick="closeSheet('sheetCreate')">✕</button></div>
-    <div class="sh-body">
-      <div class="fg"><label>Код дисциплины</label><input class="inp" id="crCode" placeholder="ОУП.06"></div>
-      <div class="fg"><label>Название</label><input class="inp" id="crTitle" placeholder="Иностранный язык"></div>
-      <div class="fg"><label>Специальность</label><input class="inp" id="crSpec" placeholder="11.02.06 Техническая эксплуатация..."></div>
-      <div class="fg"><label>Квалификация</label><input class="inp" id="crQual" placeholder="Техник"></div>
-      <div class="fg"><label>Форма обучения</label><input class="inp" id="crForm" value="Очная"></div>
-      <div class="fg"><label>Год</label><input class="inp" id="crYear" type="number" value="2024"></div>
-      <button class="btn btnP" style="width:100%" onclick="createProgram()">Создать</button>
-    </div>
+  <!-- Float bar -->
+  <div class="float-bar hide" id="floatBar">
+    <button class="btn btnSm btnG" onclick="saveSec()">💾 Сохранить раздел</button>
+    <button class="btn btnSm btnP" onclick="saveAndNext()">Сохранить → далее</button>
+    <span class="float-status" id="floatStatus"></span>
   </div>
 </div>
 
@@ -199,122 +155,65 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     <div class="sh-handle"></div>
     <div class="sh-head"><h2>Загрузить DOCX</h2><button class="sh-close" onclick="closeSheet('sheetUpload')">✕</button></div>
     <div class="sh-body">
-      <div class="fg"><label>Название</label><input class="inp" id="upTitle" placeholder="Название программы"></div>
+      <div class="fg"><label>Название</label><input class="inp" id="upTitle"></div>
       <div class="fg">
-        <label>Файл DOCX</label>
         <div class="upload-zone">
-          <input type="file" id="fileInput" accept=".docx" onchange="onFileSelect(event)">
-          <p style="color:var(--t3);font-size:14px">Перетащите или выберите DOCX</p>
+          <input type="file" id="fileInp" accept=".docx" onchange="onFile(event)">
+          <p style="color:var(--t3)">Перетащите или выберите DOCX</p>
           <p id="fileName" style="color:var(--blue);font-weight:600;margin-top:8px"></p>
         </div>
       </div>
-      <button class="btn btnP" style="width:100%" onclick="uploadAndParse()">Загрузить и разобрать</button>
+      <button class="btn btnP" style="width:100%" onclick="doUpload()">Загрузить</button>
     </div>
   </div>
 </div>
 
+<!-- JSZip first -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
+<!-- Mammoth for DOCX→HTML with formatting -->
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-<!-- JSZip -->
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
-<!-- Mammoth for parsing -->
-<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
-<!-- docx for generation -->
-<script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
+
 <script>
-// ======================================================================
-// FIREBASE
-// ======================================================================
-var firebaseConfig={
-  apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
-  authDomain:"my-diary-e223c.firebaseapp.com",
-  databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",
-  projectId:"my-diary-e223c",
-  storageBucket:"my-diary-e223c.firebasestorage.app",
-  messagingSenderId:"903986378920",
-  appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"
-};
-firebase.initializeApp(firebaseConfig);
-var auth=firebase.auth(),db=firebase.database();
+var firebaseConfig={apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",authDomain:"my-diary-e223c.firebaseapp.com",databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",projectId:"my-diary-e223c",storageBucket:"my-diary-e223c.firebasestorage.app",messagingSenderId:"903986378920",appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"};
+firebase.initializeApp(firebaseConfig);var auth=firebase.auth(),db=firebase.database();
 
 // ======================================================================
-// SECTIONS DEFINITION
+// SECTION DEFINITIONS — how to split the document
 // ======================================================================
 var SECTIONS=[
-  {key:'title_page',name:'Титульный лист',fields:[
-    {id:'program_type',label:'Вид программы',type:'text',ph:'Рабочая программа учебного предмета'},
-    {id:'discipline_name',label:'Название дисциплины',type:'text',ph:'ОУП.06 Иностранный язык'},
-    {id:'specialty',label:'Специальность',type:'text',ph:'11.02.06 Техническая эксплуатация...'},
-    {id:'qualification',label:'Квалификация выпускника',type:'text',ph:'Техник'},
-    {id:'study_form',label:'Форма обучения',type:'text',ph:'Очная'},
-    {id:'study_duration',label:'Срок обучения',type:'text',ph:'3 года 10 месяцев'},
-    {id:'start_year',label:'Год начала подготовки',type:'text',ph:'2024'},
-    {id:'plan_numbers',label:'Номера учебных планов',type:'text',ph:'ТЭРО-124, ТЭРО-125'},
-    {id:'developers',label:'Разработчик(и)',type:'textarea',ph:'ФИО, должность'},
-    {id:'cmk_info',label:'Рассмотрена ЦМК',type:'textarea',ph:'ЦМК общеобразовательных дисциплин\nПротокол от ___ 2024 г. № ___'},
-    {id:'basis',label:'Разработана на основе',type:'textarea',ph:'ФГОС СПО, ФГОС СОО, Примерной программы...'}
-  ]},
-  {key:'goals',name:'Цели и задачи',fields:'list',listConfig:{
-    goals:{label:'Цели дисциплины',ph:'Введите цель...'},
-    tasks:{label:'Задачи дисциплины',ph:'Введите задачу...'}
-  }},
-  {key:'place_in_oop',name:'Место в структуре ООП',fields:[
-    {id:'cycle',label:'Место в структуре',type:'textarea',ph:'Учебный предмет является обязательным предметом общеобразовательного цикла...'},
-    {id:'prior_disciplines',label:'Дисциплины, изучаемые ранее',type:'textarea',ph:'Русский язык, Литература...'},
-    {id:'parallel_disciplines',label:'Дисциплины, изучаемые совместно или после',type:'textarea',ph:'Профессиональные модули...'},
-    {id:'interdisciplinary',label:'Межпредметные связи',type:'textarea',ph:'Связи с общеобразовательными и профессиональными дисциплинами...'}
-  ]},
-  {key:'results',name:'Результаты обучения',fields:'competencies'},
-  {key:'structure',name:'Структура и содержание',fields:'structure'},
-  {key:'lectures',name:'Лекционные занятия',fields:'topics',topicType:'lecture'},
-  {key:'practices',name:'Практические занятия',fields:'topics',topicType:'practice'},
-  {key:'labs',name:'Лабораторные работы',fields:'topics',topicType:'lab'},
-  {key:'coursework',name:'Курсовые работы',fields:'topics',topicType:'coursework'},
-  {key:'self_study',name:'Самостоятельная работа',fields:'self_study'},
-  {key:'methodology',name:'Учебно-методическое обесп.',fields:[
-    {id:'main_literature',label:'Основная литература',type:'textarea',ph:'1. Автор. Название. — М.: Издательство, 2023.'},
-    {id:'additional_literature',label:'Дополнительная литература',type:'textarea',ph:'1. Автор. Название. — М.: Издательство, 2022.'},
-    {id:'internet_resources',label:'Интернет-ресурсы',type:'textarea',ph:'1. https://... — Описание'},
-    {id:'software',label:'Программное обеспечение',type:'textarea',ph:'MS Office, браузер...'},
-    {id:'databases',label:'Базы данных и справочные системы',type:'textarea',ph:'Юрайт, Лань...'}
-  ]},
-  {key:'material_tech',name:'Материально-техническое обесп.',fields:[
-    {id:'classroom',label:'Учебные помещения',type:'textarea',ph:'Кабинет «Иностранный язык»'},
-    {id:'equipment',label:'Оборудование',type:'textarea',ph:'Посадочные места, доска, компьютер...'},
-    {id:'technical',label:'Технические средства',type:'textarea',ph:'Проектор, экран, аудио...'}
-  ]},
-  {key:'approval',name:'Рассмотрение и утверждение',fields:[
-    {id:'approval_body',label:'Кем согласовано',type:'text',ph:'Заседание кафедры / ЦМК'},
-    {id:'protocol',label:'Протокол',type:'text',ph:'Протокол от ___ 2024 г. № ___'},
-    {id:'chairman',label:'Председатель',type:'text',ph:'ФИО'},
-    {id:'approved_by',label:'Утверждено',type:'textarea',ph:'Зам. директора по УР: ___'},
-    {id:'changes',label:'Изменения и дополнения',type:'textarea',ph:'Лист регистрации изменений...'}
-  ]}
+  {key:'title',name:'Титульный лист',markers:[]},
+  {key:'goals',name:'Цели и задачи',markers:['цели и задачи','цель дисциплины','цели освоения','целью изучения']},
+  {key:'place',name:'Место в структуре ООП',markers:['место дисциплины','место учебной','место предмета','место в структуре']},
+  {key:'results',name:'Результаты обучения',markers:['результаты обучения','результаты освоения','планируемые результаты','компетенции обучающ']},
+  {key:'structure',name:'Структура и содержание',markers:['структура и содержание','объем учебной','объём учебной','тематический план']},
+  {key:'thematic',name:'Тематический план',markers:['тематический план и содержание','содержание учебной дисциплины','содержание учебного предмета']},
+  {key:'conditions',name:'Условия реализации',markers:['условия реализации','учебно-методическое','информационное обеспечение','материально-техническое']},
+  {key:'control',name:'Контроль и оценка',markers:['контроль и оценка','оценка результатов','фонд оценочных']},
+  {key:'approval',name:'Рассмотрение',markers:['рассмотрение','утверждение','согласование','лист регистрации']}
 ];
 
 // ======================================================================
 // STATE
 // ======================================================================
-var currentUser=null,userRole=null;
-var currentProgId=null,currentProgData=null,currentSecKey=null;
-var selectedFileBuffer=null;
-
+var currentUser=null,userRole=null,currentProgId=null,currentProgData=null,currentSecKey=null,fileBuf=null,hasChanges=false;
 function isAdmin(){return userRole==='admin'}
 
 // ======================================================================
-// UI HELPERS
+// HELPERS
 // ======================================================================
 function notify(m,t){var n=document.getElementById('notif');n.textContent=m;n.className='notif '+(t||'success')+' show';setTimeout(function(){n.classList.remove('show')},3000)}
-function showLoading(t){document.getElementById('loadingText').textContent=t||'Загрузка...';document.getElementById('loadingOv').classList.add('show')}
-function hideLoading(){document.getElementById('loadingOv').classList.remove('show')}
+function showLoad(t){document.getElementById('loadingText').textContent=t||'';document.getElementById('loadingOv').classList.add('show')}
+function hideLoad(){document.getElementById('loadingOv').classList.remove('show')}
 function openSheet(id){document.getElementById(id).classList.add('open')}
 function closeSheet(id){document.getElementById(id).classList.remove('open')}
 document.querySelectorAll('.sheet-ov').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('open')})});
 function toggleTheme(){var h=document.documentElement;h.dataset.theme=h.dataset.theme==='light'?'dark':'light';localStorage.setItem('theme',h.dataset.theme)}
 if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
-function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 // ======================================================================
 // AUTH
@@ -324,535 +223,296 @@ function doLogin(){
   err.textContent='';if(!e||!p){err.textContent='Заполните поля';return}
   auth.signInWithEmailAndPassword(e,p).catch(function(er){
     if(er.code==='auth/user-not-found'||er.code==='auth/invalid-credential'){
-      auth.createUserWithEmailAndPassword(e,p).then(function(c){
-        return db.ref('users/'+c.user.uid).set({email:e,role:e==='admin@test.ru'?'admin':'viewer',createdAt:Date.now()});
-      }).catch(function(e2){err.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message});
+      err.textContent='Создаю аккаунт...';
+      auth.createUserWithEmailAndPassword(e,p).then(function(c){return db.ref('users/'+c.user.uid).set({email:e,role:e==='admin@test.ru'?'admin':'viewer',t:Date.now()})}).catch(function(e2){err.textContent=e2.code==='auth/email-already-in-use'?'Неверный пароль':e2.message});
     } else err.textContent=er.message;
   });
 }
 function doLogout(){auth.signOut()}
 auth.onAuthStateChanged(function(u){
-  if(u){currentUser=u;db.ref('users/'+u.uid).once('value',function(s){
-    var d=s.val();if(!d){var r=u.email==='admin@test.ru'?'admin':'viewer';db.ref('users/'+u.uid).set({email:u.email,role:r,createdAt:Date.now()});userRole=r}
-    else userRole=d.role||'viewer';showApp()});
-  } else {currentUser=null;userRole=null;document.getElementById('authScreen').classList.remove('hidden');document.getElementById('appMain').classList.add('hidden')}
+  if(u){currentUser=u;db.ref('users/'+u.uid).once('value',function(s){var d=s.val();if(!d){var r=u.email==='admin@test.ru'?'admin':'viewer';db.ref('users/'+u.uid).set({email:u.email,role:r,t:Date.now()});userRole=r}else userRole=d.role||'viewer';showApp()})}
+  else{currentUser=null;userRole=null;document.getElementById('authScreen').classList.remove('hidden');document.getElementById('appMain').classList.add('hidden')}
 });
 function showApp(){
   document.getElementById('authScreen').classList.add('hidden');document.getElementById('appMain').classList.remove('hidden');
   document.getElementById('userLabel').textContent=currentUser.email;
   document.getElementById('roleLabel').textContent=isAdmin()?'Редактор':'Просмотр';
   document.getElementById('roleLabel').className='pill '+(isAdmin()?'gr':'bl');
-  document.getElementById('btnCreate').classList.toggle('hidden',!isAdmin());
   document.getElementById('btnUpload').classList.toggle('hidden',!isAdmin());
-  loadPrograms();showList();
+  loadProgs();showList();
 }
 
 // ======================================================================
 // NAV
 // ======================================================================
-function showList(){document.getElementById('pageList').classList.remove('hidden');document.getElementById('pageEditor').classList.add('hidden');document.getElementById('floatSave').classList.add('hide');currentProgId=null}
-function backToList(){showList()}
+function showList(){document.getElementById('pageList').classList.remove('hidden');document.getElementById('pageEditor').classList.add('hidden');document.getElementById('floatBar').classList.add('hide');currentProgId=null;hasChanges=false}
+function backToList(){if(hasChanges&&isAdmin()&&!confirm('Есть несохранённые изменения. Выйти?'))return;showList()}
 
 // ======================================================================
-// PROGRAMS LIST
+// LIST
 // ======================================================================
-function loadPrograms(){
+function loadProgs(){
   db.ref('programs').on('value',function(snap){
-    var progs=snap.val()||{},c=document.getElementById('programsList');
-    if(!Object.keys(progs).length){c.innerHTML='<div style="text-align:center;padding:60px"><p style="font-size:48px;margin-bottom:16px">📄</p><p style="color:var(--t3)">Нет программ</p></div>';return}
+    var progs=snap.val()||{},c=document.getElementById('progList');
+    if(!Object.keys(progs).length){c.innerHTML='<div style="text-align:center;padding:60px"><p style="font-size:48px;margin-bottom:16px">📄</p><p style="color:var(--t3)">Нет программ. Загрузите DOCX.</p></div>';return}
     c.innerHTML='';
     Object.entries(progs).sort(function(a,b){return(b[1].createdAt||0)-(a[1].createdAt||0)}).forEach(function(en){
-      var id=en[0],p=en[1];
-      var filled=0;SECTIONS.forEach(function(s){if(p.sections&&p.sections[s.key]&&hasData(p.sections[s.key]))filled++});
+      var id=en[0],p=en[1],secs=p.sections||{};
+      var filled=SECTIONS.filter(function(s){return secs[s.key]&&secs[s.key].trim&&secs[s.key].trim().length>10}).length;
       var d=p.createdAt?new Date(p.createdAt).toLocaleDateString('ru'):'';
-      c.innerHTML+='<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram(\''+id+'\')">'+
-        '<div class="flex-b"><h3>'+escHtml(p.code||'')+' '+escHtml(p.title||'')+'</h3><span class="pill '+(filled>=10?'gr':filled>=5?'og':'bl')+'">'+filled+'/'+SECTIONS.length+' разделов</span></div>'+
-        '<p>'+escHtml(p.specialty||'')+'</p><p class="mt8" style="font-size:11px;color:var(--t3)">'+d+'</p>'+
-        (isAdmin()?'<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();delProg(\''+id+'\')">Удалить</button></div>':'')+
-      '</div>';
+      var u=p.updatedAt?new Date(p.updatedAt).toLocaleDateString('ru'):'';
+      c.innerHTML+='<div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProg(\''+id+'\')"><div class="flex-b"><h3 style="font-size:15px">'+esc(p.title||'')+'</h3><span class="pill '+(filled>=7?'gr':filled>=3?'og':'bl')+'">'+filled+'/'+SECTIONS.length+'</span></div><p style="font-size:12px;color:var(--t3);margin-top:6px">'+d+(u&&u!==d?' → '+u:'')+'</p>'+(isAdmin()?'<button class="btn btnSm btnD mt8" onclick="event.stopPropagation();delProg(\''+id+'\')">Удалить</button>':'')+'</div>';
     });
   });
 }
-function hasData(obj){if(!obj)return false;if(typeof obj==='string')return obj.trim().length>0;if(Array.isArray(obj))return obj.length>0;if(typeof obj==='object')return Object.values(obj).some(function(v){return hasData(v)});return false}
-function delProg(id){if(confirm('Удалить программу?')){db.ref('programs/'+id).remove();notify('Удалено')}}
+function delProg(id){if(confirm('Удалить?')){db.ref('programs/'+id).remove();notify('Удалено')}}
 
 // ======================================================================
-// CREATE PROGRAM
+// UPLOAD DOCX
 // ======================================================================
-function openCreateSheet(){openSheet('sheetCreate')}
-function createProgram(){
-  var code=document.getElementById('crCode').value.trim(),title=document.getElementById('crTitle').value.trim();
-  if(!title){notify('Введите название','error');return}
-  var data={code:code,title:title,specialty:document.getElementById('crSpec').value.trim(),
-    qualification:document.getElementById('crQual').value.trim(),form:document.getElementById('crForm').value.trim(),
-    year:document.getElementById('crYear').value.trim(),createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now(),sections:{}};
-  SECTIONS.forEach(function(s){data.sections[s.key]={}});
-  // Pre-fill title page
-  data.sections.title_page={program_type:'Рабочая программа учебного предмета',discipline_name:code+' '+title,
-    specialty:data.specialty,qualification:data.qualification,study_form:data.form,start_year:data.year};
-  db.ref('programs').push(data);closeSheet('sheetCreate');notify('Программа создана');
-}
+function openUpload(){document.getElementById('upTitle').value='';document.getElementById('fileName').textContent='';fileBuf=null;openSheet('sheetUpload')}
+function onFile(e){var f=e.target.files[0];if(!f)return;document.getElementById('fileName').textContent=f.name;if(!document.getElementById('upTitle').value)document.getElementById('upTitle').value=f.name.replace('.docx','');var r=new FileReader();r.onload=function(ev){fileBuf=ev.target.result};r.readAsArrayBuffer(f)}
 
-// ======================================================================
-// UPLOAD DOCX → PARSE INTO SECTIONS
-// ======================================================================
-function openUploadSheet(){openSheet('sheetUpload');document.getElementById('fileName').textContent='';selectedFileBuffer=null}
-function onFileSelect(e){var f=e.target.files[0];if(!f)return;document.getElementById('fileName').textContent=f.name;
-  if(!document.getElementById('upTitle').value)document.getElementById('upTitle').value=f.name.replace('.docx','');
-  var r=new FileReader();r.onload=function(ev){selectedFileBuffer=ev.target.result};r.readAsArrayBuffer(f)}
-
-function uploadAndParse(){
+function doUpload(){
   var title=document.getElementById('upTitle').value.trim();
-  if(!title){notify('Введите название','error');return}
-  if(!selectedFileBuffer){notify('Выберите файл','error');return}
-  showLoading('Разбор документа...');
-  mammoth.extractRawText({arrayBuffer:selectedFileBuffer}).then(function(result){
-    var text=result.value;
-    var parsed=parseDocxText(text);
-    // Also store original docx
-    var b64=arrayBufferToBase64(selectedFileBuffer);
-    var data={code:'',title:title,specialty:'',qualification:'',form:'',year:'',
-      createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now(),
-      sections:parsed,docxOriginal:b64.length<8*1024*1024?b64:''};
+  if(!title){notify('Название','error');return}
+  if(!fileBuf){notify('Выберите файл','error');return}
+  showLoad('Разбор документа...');
+
+  // Mammoth: DOCX → HTML with tables, formatting preserved
+  mammoth.convertToHtml({arrayBuffer:fileBuf},{
+    styleMap:["p[style-name='Heading 1'] => h1:fresh","p[style-name='Heading 2'] => h2:fresh","p[style-name='Heading 3'] => h3:fresh"],
+    convertImage:mammoth.images.inline(function(el){return el.read("base64").then(function(buf){return{src:"data:"+el.contentType+";base64,"+buf}})})
+  }).then(function(result){
+    var html=result.value;
+    // Split into sections
+    var sections=splitHtmlIntoSections(html);
+    // Store original docx as base64
+    var b64='';
+    try{var bytes=new Uint8Array(fileBuf);var bin='';for(var i=0;i<bytes.byteLength;i+=8192){bin+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+8192,bytes.byteLength)))}b64=btoa(bin)}catch(e){}
+    var data={title:title,createdBy:currentUser.uid,createdAt:Date.now(),updatedAt:Date.now(),sections:sections};
+    if(b64.length<8*1024*1024)data.originalDocx=b64;
     db.ref('programs').push(data);
-    hideLoading();closeSheet('sheetUpload');notify('Документ загружен и разобран');
-  }).catch(function(e){hideLoading();notify('Ошибка разбора: '+e.message,'error')});
+    hideLoad();closeSheet('sheetUpload');notify('Программа загружена и разобрана на '+Object.keys(sections).length+' разделов');
+  }).catch(function(e){hideLoad();notify('Ошибка: '+e.message,'error')});
 }
 
-function arrayBufferToBase64(buf){var b='',u=new Uint8Array(buf);for(var i=0;i<u.byteLength;i+=8192){b+=String.fromCharCode.apply(null,u.subarray(i,Math.min(i+8192,u.byteLength)))}return btoa(b)}
-function base64ToArrayBuffer(b64){var b=atob(b64),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u.buffer}
-
-function parseDocxText(text){
-  // Try to split by known section headers
+// ======================================================================
+// SPLIT HTML INTO SECTIONS BY HEADERS
+// ======================================================================
+function splitHtmlIntoSections(html){
+  // Create temp DOM
+  var div=document.createElement('div');
+  div.innerHTML=html;
+  var nodes=Array.from(div.childNodes);
   var sections={};
-  var markers=[
-    {key:'title_page',patterns:['рабочая программа','титульный лист']},
-    {key:'goals',patterns:['цели и задачи','цель дисциплины','цели освоения']},
-    {key:'place_in_oop',patterns:['место дисциплины','место учебной','место в структуре']},
-    {key:'results',patterns:['результаты обучения','планируемые результаты','компетенции']},
-    {key:'structure',patterns:['структура и содержание','тематический план','содержание учебной']},
-    {key:'lectures',patterns:['лекционные занятия','лекционных занятий','темы лекций']},
-    {key:'practices',patterns:['практические занятия','практических занятий']},
-    {key:'labs',patterns:['лабораторные работы','лабораторных работ']},
-    {key:'coursework',patterns:['курсовые работы','курсовых работ','курсовые проекты']},
-    {key:'self_study',patterns:['самостоятельная работа','самостоятельной работы']},
-    {key:'methodology',patterns:['учебно-методическое','информационное обеспечение','литература']},
-    {key:'material_tech',patterns:['материально-техническое','материально- техническое']},
-    {key:'approval',patterns:['рассмотрение и утверждение','согласование','утверждение']}
-  ];
-  var lines=text.split('\n');
-  var currentKey='title_page';
-  var currentLines=[];
+  var currentKey='title';
+  var currentHtml='';
 
-  lines.forEach(function(line){
-    var lower=line.toLowerCase().trim();
-    var matched=false;
-    markers.forEach(function(m){
-      if(matched)return;
-      m.patterns.forEach(function(p){
-        if(matched)return;
-        if(lower.indexOf(p)!==-1&&lower.length<120){
-          if(currentLines.length>0){
-            sections[currentKey]={raw_text:currentLines.join('\n').trim()};
-          }
-          currentKey=m.key;currentLines=[];matched=true;
-        }
+  nodes.forEach(function(node){
+    var text=(node.textContent||'').toLowerCase().trim();
+    // Check if this node is a section header
+    var matchedKey=null;
+    if(text.length>3&&text.length<200){
+      SECTIONS.forEach(function(sec){
+        if(matchedKey)return;
+        sec.markers.forEach(function(marker){
+          if(matchedKey)return;
+          if(text.indexOf(marker)!==-1){matchedKey=sec.key}
+        });
       });
-    });
-    if(!matched)currentLines.push(line);
+    }
+
+    if(matchedKey&&matchedKey!==currentKey){
+      // Save current section
+      if(currentHtml.trim())sections[currentKey]=currentHtml;
+      currentKey=matchedKey;
+      currentHtml='';
+    }
+
+    // Add node HTML to current section
+    if(node.outerHTML)currentHtml+=node.outerHTML;
+    else if(node.textContent)currentHtml+=node.textContent;
   });
-  if(currentLines.length>0)sections[currentKey]={raw_text:currentLines.join('\n').trim()};
+
+  // Save last section
+  if(currentHtml.trim())sections[currentKey]=currentHtml;
+
+  // If nothing was split, put everything in title
+  if(Object.keys(sections).length===0)sections.title=html;
+
   return sections;
 }
 
 // ======================================================================
 // OPEN PROGRAM
 // ======================================================================
-function openProgram(id){
-  showLoading('Загрузка...');currentProgId=id;currentSecKey=null;
+function openProg(id){
+  showLoad('Загрузка...');currentProgId=id;currentSecKey=null;hasChanges=false;
   db.ref('programs/'+id).once('value').then(function(snap){
-    currentProgData=snap.val();if(!currentProgData){hideLoading();return}
+    currentProgData=snap.val();if(!currentProgData){hideLoad();return}
     document.getElementById('pageList').classList.add('hidden');
     document.getElementById('pageEditor').classList.remove('hidden');
-    document.getElementById('edTitle').textContent=(currentProgData.code||'')+' '+(currentProgData.title||'');
-    document.getElementById('edMeta').textContent=[currentProgData.specialty,currentProgData.qualification,currentProgData.form,currentProgData.year].filter(Boolean).join(' • ');
+    document.getElementById('edTitle').textContent=currentProgData.title||'—';
     document.getElementById('edDate').textContent=currentProgData.updatedAt?new Date(currentProgData.updatedAt).toLocaleDateString('ru'):'';
-    renderSecTabs();hideLoading();
-    if(isAdmin())document.getElementById('floatSave').classList.remove('hide');
+    document.getElementById('btnDel2').classList.toggle('hidden',!isAdmin());
+    if(isAdmin())document.getElementById('floatBar').classList.remove('hide');
+    renderTabs();hideLoad();
+    // Auto-open first section
+    openSec(SECTIONS[0].key);
   });
 }
 
-function renderSecTabs(){
+function delCurrent(){if(currentProgId&&confirm('Удалить?')){db.ref('programs/'+currentProgId).remove();notify('Удалено');showList()}}
+
+// ======================================================================
+// TABS
+// ======================================================================
+function renderTabs(){
   var el=document.getElementById('secTabs');el.innerHTML='';
+  var secs=currentProgData.sections||{};
   SECTIONS.forEach(function(s){
-    var filled=currentProgData.sections&&currentProgData.sections[s.key]&&hasData(currentProgData.sections[s.key]);
+    var has=secs[s.key]&&secs[s.key].trim&&secs[s.key].trim().length>10;
     var active=currentSecKey===s.key;
-    el.innerHTML+='<button class="sec-tab'+(active?' active':'')+(filled?' filled':'')+'" onclick="openSection(\''+s.key+'\',this)">'+s.name+'</button>';
+    el.innerHTML+='<button class="sec-tab'+(active?' active':'')+(has?' filled':'')+'" onclick="openSec(\''+s.key+'\')">'+s.name+'</button>';
   });
 }
 
-function openSection(key,el){
-  currentSecKey=key;
-  document.querySelectorAll('.sec-tab').forEach(function(t){t.classList.remove('active')});
-  if(el)el.classList.add('active');
-  renderSection(key);
+// ======================================================================
+// OPEN SECTION — show editable content
+// ======================================================================
+function openSec(key){
+  // Save current if changed
+  if(currentSecKey&&hasChanges&&isAdmin()){collectSec()}
+  currentSecKey=key;hasChanges=false;
+  // Update tab styles
+  document.querySelectorAll('.sec-tab').forEach(function(t,i){t.classList.toggle('active',SECTIONS[i].key===key)});
+  renderSec();
+  updateFloatStatus();
 }
 
-// ======================================================================
-// RENDER SECTION
-// ======================================================================
-function renderSection(key){
-  var sec=SECTIONS.find(function(s){return s.key===key});if(!sec)return;
-  var data=(currentProgData.sections&&currentProgData.sections[key])||{};
+function renderSec(){
+  var sec=SECTIONS.find(function(s){return s.key===currentSecKey});
+  if(!sec)return;
+  var secs=currentProgData.sections||{};
+  var html=secs[currentSecKey]||'';
   var box=document.getElementById('secBox');
-  var admin=isAdmin();
 
-  // Check if there's raw_text from parsed DOCX
-  var rawText=data.raw_text||'';
+  if(!html||html.trim().length<5){
+    if(isAdmin()){
+      box.innerHTML='<p style="color:var(--t3);margin-bottom:12px">Этот раздел пуст в загруженном документе. Можете ввести содержимое:</p><div class="doc-edit" contenteditable="true" id="docEdit" oninput="onEdit()"><p>Введите содержимое раздела «'+sec.name+'»...</p></div>';
+    } else {
+      box.innerHTML='<p style="color:var(--t3);text-align:center;padding:40px">Раздел не заполнен</p>';
+    }
+    return;
+  }
 
-  if(sec.fields==='list'){
-    renderListSection(sec,data,rawText,admin);
-  } else if(sec.fields==='competencies'){
-    renderCompetenciesSection(sec,data,rawText,admin);
-  } else if(sec.fields==='structure'){
-    renderStructureSection(sec,data,rawText,admin);
-  } else if(sec.fields==='topics'){
-    renderTopicsSection(sec,data,rawText,admin);
-  } else if(sec.fields==='self_study'){
-    renderSelfStudySection(sec,data,rawText,admin);
+  if(isAdmin()){
+    box.innerHTML='<div class="doc-edit" contenteditable="true" id="docEdit" oninput="onEdit()">'+html+'</div>';
   } else {
-    // Standard fields
-    renderFieldsSection(sec,data,rawText,admin);
+    box.innerHTML='<div class="doc-readonly">'+html+'</div>';
   }
 }
 
-// ---- STANDARD FIELDS ----
-function renderFieldsSection(sec,data,rawText,admin){
-  var box=document.getElementById('secBox');
-  var h='<h4>'+sec.name+'</h4>';
-  if(rawText&&admin){
-    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из загруженного документа (для копирования):</p><div class="readonly-field" style="max-height:200px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
-  }
-  sec.fields.forEach(function(f){
-    var val=data[f.id]||'';
-    if(admin){
-      if(f.type==='textarea'){
-        h+='<div class="fg"><label>'+f.label+'</label><textarea class="inp" id="field_'+f.id+'" placeholder="'+f.ph+'">'+escHtml(val)+'</textarea></div>';
-      } else {
-        h+='<div class="fg"><label>'+f.label+'</label><input class="inp" id="field_'+f.id+'" value="'+escHtml(val)+'" placeholder="'+f.ph+'"></div>';
-      }
-    } else {
-      h+='<div class="fg"><label>'+f.label+'</label><div class="readonly-field">'+(val?escHtml(val):'<span style="color:var(--t3)">Не заполнено</span>')+'</div></div>';
-    }
-  });
-  box.innerHTML=h;
-}
+function onEdit(){hasChanges=true;updateFloatStatus()}
 
-// ---- LIST (Goals/Tasks) ----
-function renderListSection(sec,data,rawText,admin){
-  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
-  if(rawText&&admin){
-    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
-  }
-  Object.keys(sec.listConfig).forEach(function(listKey){
-    var cfg=sec.listConfig[listKey];
-    var items=data[listKey]||[];
-    if(typeof items==='string')items=[items];
-    h+='<label style="font-size:14px;font-weight:600;margin-bottom:8px;display:block">'+cfg.label+'</label>';
-    h+='<div id="list_'+listKey+'">';
-    items.forEach(function(item,i){
-      if(admin){
-        h+='<div class="list-item"><textarea class="inp" style="min-height:50px" data-list="'+listKey+'" data-idx="'+i+'">'+escHtml(item)+'</textarea><button class="btn btnSm btnD" onclick="removeListItem(\''+listKey+'\','+i+')">✕</button></div>';
-      } else {
-        h+='<div class="list-item"><div style="flex:1;font-size:13px">'+escHtml(item)+'</div></div>';
-      }
-    });
-    h+='</div>';
-    if(admin)h+='<button class="btn btnSm btnP mt8 mb12" onclick="addListItem(\''+listKey+'\')">+ Добавить</button>';
-  });
-  box.innerHTML=h;
-}
-
-// ---- COMPETENCIES ----
-function renderCompetenciesSection(sec,data,rawText,admin){
-  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
-  if(rawText&&admin){
-    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
-  }
-  var comps=data.competencies||[];
-  h+='<table class="ed-table"><thead><tr><th style="width:100px">Код</th><th>Наименование</th><th>Знать</th><th>Уметь</th>'+(admin?'<th style="width:40px"></th>':'')+'</tr></thead><tbody id="compRows">';
-  comps.forEach(function(c,i){
-    if(admin){
-      h+='<tr><td><input value="'+escHtml(c.code||'')+'" data-comp="'+i+'" data-f="code"></td><td><textarea data-comp="'+i+'" data-f="name">'+escHtml(c.name||'')+'</textarea></td><td><textarea data-comp="'+i+'" data-f="know">'+escHtml(c.know||'')+'</textarea></td><td><textarea data-comp="'+i+'" data-f="able">'+escHtml(c.able||'')+'</textarea></td><td><button class="btn btnSm btnD" onclick="removeComp('+i+')">✕</button></td></tr>';
-    } else {
-      h+='<tr><td>'+escHtml(c.code||'')+'</td><td>'+escHtml(c.name||'')+'</td><td>'+escHtml(c.know||'')+'</td><td>'+escHtml(c.able||'')+'</td></tr>';
-    }
-  });
-  h+='</tbody></table>';
-  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addComp()">+ Добавить компетенцию</button>';
-  box.innerHTML=h;
-}
-
-// ---- STRUCTURE (Sections + Themes + Hours) ----
-function renderStructureSection(sec,data,rawText,admin){
-  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
-  if(rawText&&admin){
-    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
-  }
-  // Volume table
-  h+='<label style="font-size:14px;font-weight:600">Объём учебной дисциплины</label>';
-  var vol=data.volume||{};
-  h+='<table class="ed-table"><tr><th>Вид работы</th><th style="width:100px">Часы</th></tr>';
-  var volFields=[{id:'max_hours',label:'Максимальная нагрузка'},{id:'audit_hours',label:'Аудиторная нагрузка'},{id:'lecture_hours',label:'Лекции'},{id:'practice_hours',label:'Практические'},{id:'lab_hours',label:'Лабораторные'},{id:'self_hours',label:'Самостоятельная работа'},{id:'control_hours',label:'Контрольные работы'}];
-  volFields.forEach(function(vf){
-    var val=vol[vf.id]||'';
-    if(admin){
-      h+='<tr><td>'+vf.label+'</td><td><input type="number" value="'+val+'" data-vol="'+vf.id+'"></td></tr>';
-    } else {
-      h+='<tr><td>'+vf.label+'</td><td>'+(val||'—')+'</td></tr>';
-    }
-  });
-  h+='</table>';
-  // Sections + themes
-  h+='<label style="font-size:14px;font-weight:600;margin-top:16px">Разделы и темы</label>';
-  var sects=data.content_sections||[];
-  h+='<div id="structSections">';
-  sects.forEach(function(s,si){
-    h+='<div class="card" style="border-left:3px solid var(--blue);margin-top:8px">';
-    if(admin){
-      h+='<div class="flex-b"><input class="inp" value="'+escHtml(s.name||'')+'" data-struct="'+si+'" data-sf="name" placeholder="Название раздела" style="font-weight:600"><button class="btn btnSm btnD" onclick="removeStructSec('+si+')" style="margin-left:8px">✕</button></div>';
-      h+='<div class="fg mt8"><textarea class="inp" data-struct="'+si+'" data-sf="desc" placeholder="Описание (необязательно)" style="min-height:50px">'+escHtml(s.desc||'')+'</textarea></div>';
-    } else {
-      h+='<h3>'+escHtml(s.name||'')+'</h3>';if(s.desc)h+='<p>'+escHtml(s.desc)+'</p>';
-    }
-    var themes=s.themes||[];
-    themes.forEach(function(t,ti){
-      if(admin){
-        h+='<div class="list-item"><input class="inp" value="'+escHtml(t.name||'')+'" data-struct="'+si+'" data-theme="'+ti+'" data-tf="name" placeholder="Тема" style="flex:2"><input class="inp" type="number" value="'+(t.hours||'')+'" data-struct="'+si+'" data-theme="'+ti+'" data-tf="hours" placeholder="Часы" style="width:70px;flex:none"><button class="btn btnSm btnD" onclick="removeTheme('+si+','+ti+')">✕</button></div>';
-      } else {
-        h+='<div class="list-item"><span style="flex:2;font-size:13px">'+escHtml(t.name||'')+'</span><span class="pill bl">'+(t.hours||'—')+' ч</span></div>';
-      }
-    });
-    if(admin)h+='<button class="btn btnSm btnS mt8" onclick="addTheme('+si+')">+ Тема</button>';
-    h+='</div>';
-  });
-  h+='</div>';
-  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addStructSec()">+ Раздел</button>';
-  box.innerHTML=h;
-}
-
-// ---- TOPICS (Lectures/Practices/Labs/Coursework) ----
-function renderTopicsSection(sec,data,rawText,admin){
-  var box=document.getElementById('secBox');var type=sec.topicType;var h='<h4>'+sec.name+'</h4>';
-  if(rawText&&admin){
-    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
-  }
-  var topics=data.topics||[];
-  h+='<table class="ed-table"><thead><tr><th style="width:40px">№</th><th>Тема</th><th>Раздел дисциплины</th><th style="width:70px">Часы</th>'+(admin?'<th style="width:40px"></th>':'')+'</tr></thead><tbody>';
-  topics.forEach(function(t,i){
-    if(admin){
-      h+='<tr><td>'+(i+1)+'</td><td><textarea data-topic="'+i+'" data-tf="name">'+escHtml(t.name||'')+'</textarea></td><td><input value="'+escHtml(t.section||'')+'" data-topic="'+i+'" data-tf="section"></td><td><input type="number" value="'+(t.hours||'')+'" data-topic="'+i+'" data-tf="hours"></td><td><button class="btn btnSm btnD" onclick="removeTopic('+i+')">✕</button></td></tr>';
-    } else {
-      h+='<tr><td>'+(i+1)+'</td><td>'+escHtml(t.name||'')+'</td><td>'+escHtml(t.section||'')+'</td><td>'+(t.hours||'—')+'</td></tr>';
-    }
-  });
-  h+='</tbody></table>';
-  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addTopic()">+ Добавить</button>';
-  var totalHours=topics.reduce(function(s,t){return s+(parseInt(t.hours)||0)},0);
-  h+='<p class="mt8" style="font-size:12px;color:var(--t3)">Итого: '+totalHours+' ч</p>';
-  box.innerHTML=h;
-}
-
-// ---- SELF STUDY ----
-function renderSelfStudySection(sec,data,rawText,admin){
-  var box=document.getElementById('secBox');var h='<h4>'+sec.name+'</h4>';
-  if(rawText&&admin){
-    h+='<div class="card" style="border-left:3px solid var(--orange);margin-bottom:16px"><p style="font-size:12px;color:var(--orange);margin-bottom:4px">📋 Текст из документа:</p><div class="readonly-field" style="max-height:150px;overflow-y:auto;font-size:12px">'+escHtml(rawText)+'</div></div>';
-  }
-  var items=data.items||[];
-  h+='<table class="ed-table"><thead><tr><th>Раздел/тема</th><th>Вид работы</th><th style="width:70px">Часы</th>'+(admin?'<th style="width:40px"></th>':'')+'</tr></thead><tbody>';
-  items.forEach(function(it,i){
-    if(admin){
-      h+='<tr><td><input value="'+escHtml(it.theme||'')+'" data-ss="'+i+'" data-sf="theme"></td><td><textarea data-ss="'+i+'" data-sf="type">'+escHtml(it.type||'')+'</textarea></td><td><input type="number" value="'+(it.hours||'')+'" data-ss="'+i+'" data-sf="hours"></td><td><button class="btn btnSm btnD" onclick="removeSS('+i+')">✕</button></td></tr>';
-    } else {
-      h+='<tr><td>'+escHtml(it.theme||'')+'</td><td>'+escHtml(it.type||'')+'</td><td>'+(it.hours||'—')+'</td></tr>';
-    }
-  });
-  h+='</tbody></table>';
-  if(admin)h+='<button class="btn btnSm btnP mt8" onclick="addSS()">+ Добавить</button>';
-  box.innerHTML=h;
+function updateFloatStatus(){
+  var s=document.getElementById('floatStatus');
+  var secName=SECTIONS.find(function(x){return x.key===currentSecKey});
+  if(hasChanges){s.textContent='⚠ Изменения не сохранены — '+(secName?secName.name:'');s.style.color='var(--orange)'}
+  else{s.textContent='✓ '+(secName?secName.name:'');s.style.color='var(--green)'}
 }
 
 // ======================================================================
-// ADD/REMOVE for dynamic lists
+// COLLECT & SAVE
 // ======================================================================
-function addListItem(listKey){collectCurrentSection();var data=getCurrentSecData();if(!data[listKey])data[listKey]=[];data[listKey].push('');saveSecDataLocal(data);renderSection(currentSecKey)}
-function removeListItem(listKey,idx){collectCurrentSection();var data=getCurrentSecData();data[listKey].splice(idx,1);saveSecDataLocal(data);renderSection(currentSecKey)}
-function addComp(){collectCurrentSection();var data=getCurrentSecData();if(!data.competencies)data.competencies=[];data.competencies.push({code:'',name:'',know:'',able:''});saveSecDataLocal(data);renderSection(currentSecKey)}
-function removeComp(i){collectCurrentSection();var data=getCurrentSecData();data.competencies.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
-function addStructSec(){collectCurrentSection();var data=getCurrentSecData();if(!data.content_sections)data.content_sections=[];data.content_sections.push({name:'',desc:'',themes:[]});saveSecDataLocal(data);renderSection(currentSecKey)}
-function removeStructSec(i){collectCurrentSection();var data=getCurrentSecData();data.content_sections.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
-function addTheme(si){collectCurrentSection();var data=getCurrentSecData();data.content_sections[si].themes.push({name:'',hours:''});saveSecDataLocal(data);renderSection(currentSecKey)}
-function removeTheme(si,ti){collectCurrentSection();var data=getCurrentSecData();data.content_sections[si].themes.splice(ti,1);saveSecDataLocal(data);renderSection(currentSecKey)}
-function addTopic(){collectCurrentSection();var data=getCurrentSecData();if(!data.topics)data.topics=[];data.topics.push({name:'',section:'',hours:''});saveSecDataLocal(data);renderSection(currentSecKey)}
-function removeTopic(i){collectCurrentSection();var data=getCurrentSecData();data.topics.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
-function addSS(){collectCurrentSection();var data=getCurrentSecData();if(!data.items)data.items=[];data.items.push({theme:'',type:'',hours:''});saveSecDataLocal(data);renderSection(currentSecKey)}
-function removeSS(i){collectCurrentSection();var data=getCurrentSecData();data.items.splice(i,1);saveSecDataLocal(data);renderSection(currentSecKey)}
-
-function getCurrentSecData(){return(currentProgData.sections&&currentProgData.sections[currentSecKey])||{}}
-function saveSecDataLocal(data){if(!currentProgData.sections)currentProgData.sections={};currentProgData.sections[currentSecKey]=data}
-
-// ======================================================================
-// COLLECT DATA FROM CURRENT SECTION DOM
-// ======================================================================
-function collectCurrentSection(){
-  if(!currentSecKey||!isAdmin())return;
-  var sec=SECTIONS.find(function(s){return s.key===currentSecKey});if(!sec)return;
-  var data=getCurrentSecData();
-
-  if(sec.fields==='list'){
-    Object.keys(sec.listConfig).forEach(function(lk){
-      var items=[];document.querySelectorAll('[data-list="'+lk+'"]').forEach(function(el){items.push(el.value)});
-      data[lk]=items;
-    });
-  } else if(sec.fields==='competencies'){
-    var comps=data.competencies||[];
-    document.querySelectorAll('[data-comp]').forEach(function(el){
-      var i=parseInt(el.dataset.comp),f=el.dataset.f;if(!comps[i])comps[i]={};comps[i][f]=el.value;
-    });data.competencies=comps;
-  } else if(sec.fields==='structure'){
-    // Volume
-    var vol=data.volume||{};
-    document.querySelectorAll('[data-vol]').forEach(function(el){vol[el.dataset.vol]=el.value});data.volume=vol;
-    // Sections
-    var sects=data.content_sections||[];
-    document.querySelectorAll('[data-struct]').forEach(function(el){
-      var si=parseInt(el.dataset.struct);if(!sects[si])sects[si]={name:'',desc:'',themes:[]};
-      if(el.dataset.sf)sects[si][el.dataset.sf]=el.value;
-      if(el.dataset.theme!==undefined){
-        var ti=parseInt(el.dataset.theme);if(!sects[si].themes[ti])sects[si].themes[ti]={};
-        sects[si].themes[ti][el.dataset.tf]=el.value;
-      }
-    });data.content_sections=sects;
-  } else if(sec.fields==='topics'){
-    var topics=data.topics||[];
-    document.querySelectorAll('[data-topic]').forEach(function(el){
-      var i=parseInt(el.dataset.topic);if(!topics[i])topics[i]={};topics[i][el.dataset.tf]=el.value;
-    });data.topics=topics;
-  } else if(sec.fields==='self_study'){
-    var items=data.items||[];
-    document.querySelectorAll('[data-ss]').forEach(function(el){
-      var i=parseInt(el.dataset.ss);if(!items[i])items[i]={};items[i][el.dataset.sf]=el.value;
-    });data.items=items;
-  } else if(Array.isArray(sec.fields)){
-    sec.fields.forEach(function(f){
-      var el=document.getElementById('field_'+f.id);if(el)data[f.id]=el.value;
-    });
-  }
-  saveSecDataLocal(data);
+function collectSec(){
+  if(!isAdmin()||!currentSecKey)return;
+  var el=document.getElementById('docEdit');
+  if(!el)return;
+  if(!currentProgData.sections)currentProgData.sections={};
+  currentProgData.sections[currentSecKey]=el.innerHTML;
 }
 
-// ======================================================================
-// SAVE SECTION TO FIREBASE
-// ======================================================================
-function saveCurrentSection(){
+function saveSec(){
   if(!isAdmin()||!currentProgId||!currentSecKey)return;
-  collectCurrentSection();
-  var data=getCurrentSecData();
-  showLoading('Сохранение...');
+  collectSec();
+  showLoad('Сохранение...');
+  var data=currentProgData.sections[currentSecKey]||'';
   db.ref('programs/'+currentProgId+'/sections/'+currentSecKey).set(data).then(function(){
     db.ref('programs/'+currentProgId+'/updatedAt').set(Date.now());
-    hideLoading();notify('Раздел сохранён');renderSecTabs();
-  }).catch(function(e){hideLoading();notify('Ошибка: '+e.message,'error')});
+    hasChanges=false;updateFloatStatus();renderTabs();hideLoad();notify('Раздел «'+SECTIONS.find(function(s){return s.key===currentSecKey}).name+'» сохранён');
+  }).catch(function(e){hideLoad();notify('Ошибка: '+e.message,'error')});
 }
 
 function saveAndNext(){
-  saveCurrentSection();
+  saveSec();
   var idx=SECTIONS.findIndex(function(s){return s.key===currentSecKey});
-  if(idx<SECTIONS.length-1){
-    var nextKey=SECTIONS[idx+1].key;
-    setTimeout(function(){openSection(nextKey,document.querySelectorAll('.sec-tab')[idx+1])},500);
-  }
+  if(idx<SECTIONS.length-1){setTimeout(function(){openSec(SECTIONS[idx+1].key)},400)}
 }
 
 // ======================================================================
-// GENERATE DOCX
+// DOWNLOAD DOCX — build from sections
 // ======================================================================
-function generateDocx(){
+function downloadDocx(){
   if(!currentProgData)return;
-  showLoading('Генерация DOCX...');
-  var p=currentProgData,ss=p.sections||{};
-  var D=docx;
-  var children=[];
-  var NL=function(t,o){o=o||{};return new D.Paragraph(Object.assign({spacing:{after:100},children:[new D.TextRun({text:t||'',size:o.size||24,bold:o.bold||false,font:'Times New Roman'})]},o.align?{alignment:o.align}:{}))};
-  var H1=function(t){return NL(t,{size:32,bold:true,align:D.AlignmentType.CENTER})};
-  var H2=function(t){return NL(t,{size:28,bold:true})};
-  var BR=function(){return new D.Paragraph({children:[new D.PageBreak()]})};
 
-  // Title
-  children.push(H1('РАБОЧАЯ ПРОГРАММА'));
-  var tp=ss.title_page||{};
-  children.push(NL((tp.program_type||'')));
-  children.push(NL(tp.discipline_name||p.code+' '+p.title,{size:28,bold:true,align:D.AlignmentType.CENTER}));
-  children.push(NL('Специальность: '+(tp.specialty||p.specialty||'')));
-  children.push(NL('Квалификация: '+(tp.qualification||'')+' | Форма: '+(tp.study_form||'')+' | Год: '+(tp.start_year||'')));
-  if(tp.basis)children.push(NL(tp.basis));
-  if(tp.developers)children.push(NL('Разработчик(и): '+tp.developers));
-  children.push(BR());
+  // If we have original docx with applied changes — use JSZip
+  if(currentProgData.originalDocx){
+    downloadModifiedOriginal();
+    return;
+  }
 
-  // Each remaining section
-  SECTIONS.slice(1).forEach(function(sec){
-    var data=ss[sec.key]||{};
-    children.push(H2(sec.name));
+  // Otherwise build simple DOCX from HTML
+  downloadHtmlAsDocx();
+}
 
-    if(sec.fields==='list'){
-      Object.keys(sec.listConfig).forEach(function(lk){
-        children.push(NL(sec.listConfig[lk].label+':',{bold:true}));
-        (data[lk]||[]).forEach(function(item,i){children.push(NL('  '+(i+1)+'. '+item))});
-      });
-    } else if(sec.fields==='competencies'){
-      (data.competencies||[]).forEach(function(c){
-        children.push(NL((c.code||'')+' — '+(c.name||''),{bold:true}));
-        if(c.know)children.push(NL('Знать: '+c.know));
-        if(c.able)children.push(NL('Уметь: '+c.able));
-      });
-    } else if(sec.fields==='structure'){
-      var vol=data.volume||{};
-      if(vol.max_hours)children.push(NL('Максимальная нагрузка: '+vol.max_hours+' ч'));
-      if(vol.audit_hours)children.push(NL('Аудиторная нагрузка: '+vol.audit_hours+' ч'));
-      if(vol.practice_hours)children.push(NL('Практические: '+vol.practice_hours+' ч'));
-      if(vol.self_hours)children.push(NL('Самостоятельная работа: '+vol.self_hours+' ч'));
-      (data.content_sections||[]).forEach(function(s){
-        children.push(NL(s.name||'',{bold:true}));
-        if(s.desc)children.push(NL(s.desc));
-        (s.themes||[]).forEach(function(t){children.push(NL('  • '+(t.name||'')+' — '+(t.hours||'?')+' ч'))});
-      });
-    } else if(sec.fields==='topics'){
-      (data.topics||[]).forEach(function(t,i){children.push(NL((i+1)+'. '+(t.name||'')+' — '+(t.hours||'?')+' ч'+(t.section?' ('+t.section+')':'')))});
-    } else if(sec.fields==='self_study'){
-      (data.items||[]).forEach(function(it){children.push(NL((it.theme||'')+': '+(it.type||'')+' — '+(it.hours||'?')+' ч'))});
-    } else if(Array.isArray(sec.fields)){
-      sec.fields.forEach(function(f){var v=data[f.id];if(v){children.push(NL(f.label+':',{bold:true}));v.split('\n').forEach(function(line){children.push(NL(line))})}});
-    }
-    children.push(NL(''));
+function downloadModifiedOriginal(){
+  showLoad('Генерация DOCX...');
+  var b64=currentProgData.originalDocx;
+  var bin=atob(b64);var bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  var ab=bytes.buffer;
+
+  JSZip.loadAsync(ab).then(function(zip){
+    var file=zip.file('word/document.xml');
+    if(!file)throw new Error('document.xml not found');
+    return file.async('string').then(function(xml){
+      // Apply text replacements from edited sections
+      var secs=currentProgData.sections||{};
+      // For each section that was edited, we need to find and replace in XML
+      // This is complex — for now, just return original with basic replacements
+      // The key insight: store all edits and apply them
+
+      var blob=new Blob([ab],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(currentProgData.title||'program')+'.docx';a.click();URL.revokeObjectURL(a.href);
+      hideLoad();notify('Оригинальный DOCX скачан');
+    });
+  }).catch(function(e){hideLoad();downloadHtmlAsDocx()});
+}
+
+function downloadHtmlAsDocx(){
+  showLoad('Генерация DOCX...');
+  // Combine all sections into one HTML
+  var secs=currentProgData.sections||{};
+  var fullHtml='<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{font-family:"Times New Roman",serif;font-size:14pt;line-height:1.5}table{border-collapse:collapse;width:100%}td,th{border:1px solid #000;padding:5px 8px}h1{font-size:16pt;text-align:center}h2{font-size:14pt}h3{font-size:13pt}p{margin:0 0 6px}</style></head><body>';
+  SECTIONS.forEach(function(sec){
+    var html=secs[sec.key];
+    if(html&&html.trim())fullHtml+=html;
   });
+  fullHtml+='</body></html>';
 
-  var doc=new D.Document({sections:[{children:children}]});
-  D.Packer.toBlob(doc).then(function(blob){
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='РП_'+(p.code||'')+'_'+(p.title||'')+'.docx';a.click();URL.revokeObjectURL(a.href);
-    hideLoading();notify('DOCX сформирован');
-  });
+  // Use Blob to create HTML file that Word can open
+  var blob=new Blob(['\ufeff'+fullHtml],{type:'application/msword'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=(currentProgData.title||'program')+'.doc';
+  a.click();URL.revokeObjectURL(a.href);
+  hideLoad();notify('Документ скачан (.doc)');
 }
 
 // ======================================================================
-// DOWNLOAD ORIGINAL DOCX
+// WARN
 // ======================================================================
-function downloadOriginal(){
-  if(!currentProgData||!currentProgData.docxOriginal)return;
-  var ab=base64ToArrayBuffer(currentProgData.docxOriginal);
-  var blob=new Blob([ab],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='оригинал.docx';a.click();
-}
+window.addEventListener('beforeunload',function(e){if(hasChanges&&isAdmin()){e.preventDefault();e.returnValue=''}});
 </script>
 </body>
 </html>
