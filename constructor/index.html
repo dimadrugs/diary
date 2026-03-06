@@ -9,13 +9,7 @@
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
-
-/* Apple emoji */
 .ae{height:1.2em;width:1.2em;vertical-align:-0.2em;display:inline-block;pointer-events:none}
-.ae-lg{height:1.5em;width:1.5em}
-.ae-xl{height:2em;width:2em}
-.ae-title{height:1em;width:1em;vertical-align:-0.15em}
-
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px)}
 .topbar h1{font-size:17px;font-weight:600}
 .topbar-r{display:flex;gap:8px;align-items:center}
@@ -33,7 +27,6 @@ body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;ba
 .inp{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--t4);background:var(--bg2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
 .inp:focus{border-color:var(--blue)}
 textarea.inp{min-height:120px;resize:vertical;line-height:1.6}
-select.inp{appearance:none;-webkit-appearance:none}
 label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight:500}
 .fg{margin-bottom:16px}
 .pill{display:inline-block;padding:3px 10px;border-radius:16px;font-size:11px;font-weight:600}
@@ -48,29 +41,22 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .mt16{margin-top:16px}
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
-
 .auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-box{background:var(--card);border:1px solid var(--t4);border-radius:20px;padding:32px;width:100%;max-width:380px;text-align:center}
 .auth-box h2{font-size:22px;margin-bottom:8px}
 .auth-box p{font-size:13px;color:var(--t3);margin-bottom:24px}
 .auth-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
-
 .sec-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
 .sec-tab{padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--t3);border:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
 .sec-tab.active{background:var(--purple);color:#fff}
 .sec-tab:hover{color:var(--text)}
 .sec-tab .ae{height:0.9em;width:0.9em;vertical-align:-0.1em}
-
 .sec-content{background:var(--bg3);border-radius:var(--r);padding:16px;min-height:200px}
 .sec-content h4{font-size:14px;margin-bottom:12px;color:var(--blue);display:flex;align-items:center;gap:6px}
-
 .readonly-text{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6;white-space:pre-wrap;color:var(--text);min-height:60px}
-
 .toast{position:fixed;top:20px;right:20px;background:var(--green);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:600;z-index:999;transform:translateX(120%);transition:transform .3s ease}
 .toast.show{transform:translateX(0)}
-
 .th-tog{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-
 .sheet-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-ov.open{display:flex}
 .sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:92vh;overflow-y:auto;animation:shUp .3s ease}
@@ -80,12 +66,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .sh-head h2{font-size:17px;font-weight:600}
 .sh-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .sh-body{padding:20px}
-
-/* Filled data preview card */
-.data-card{background:var(--bg2);border:1px solid var(--t4);border-radius:var(--rs);padding:12px;margin-bottom:8px}
-.data-card .data-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
-.data-card .data-value{font-size:14px;color:var(--text);line-height:1.5}
-
 @media(max-width:600px){
   .sec-tabs{gap:3px}
   .sec-tab{font-size:10px;padding:5px 8px}
@@ -98,10 +78,10 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 
 <div class="toast" id="toast"></div>
 
-<!-- ======================== AUTH ======================== -->
+<!-- AUTH -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
-    <img class="ae-xl" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="doc" style="height:64px;width:64px;margin-bottom:12px">
+    <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:12px" alt="">
     <h2>Конструктор программ</h2>
     <p>Войдите для работы с рабочими программами техникума</p>
     <div class="fg">
@@ -110,23 +90,23 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     </div>
     <div class="fg">
       <label>Пароль</label>
-      <input class="inp" id="authPass" type="password" placeholder="test">
+      <input class="inp" id="authPass" type="password" placeholder="123456">
     </div>
     <button class="btn btnP" style="width:100%" onclick="doLogin()">Войти</button>
     <div class="auth-err" id="authErr"></div>
     <p style="margin-top:16px;font-size:11px;color:var(--t3)">
-      admin@test.ru / test — редактирование<br>
-      test@test.ru / test — только просмотр
+      admin@test.ru / 123456 — редактирование<br>
+      test@test.ru / 123456 — только просмотр
     </p>
   </div>
 </div>
 
-<!-- ======================== APP ======================== -->
+<!-- APP -->
 <div id="appMain" class="hidden">
   <div class="topbar">
-    <h1><img class="ae-title" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt=""> Конструктор программ</h1>
+    <h1><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:18px;width:18px"> Конструктор программ</h1>
     <div class="topbar-r">
-      <button class="th-tog" onclick="toggleTheme()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="theme" style="height:18px;width:18px"></button>
+      <button class="th-tog" onclick="toggleTheme()"><img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f313.png" alt="" style="height:18px;width:18px"></button>
       <span id="userLabel" style="font-size:12px;color:var(--t2)"></span>
       <span id="roleLabel" class="pill bl" style="font-size:10px"></span>
       <button class="btn btnSm btnS" onclick="doLogout()">Выйти</button>
@@ -145,13 +125,13 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <!-- EDITOR -->
   <div class="container hidden" id="programEditorPage">
     <div class="flex-b mb12">
-      <button class="btn btnSm btnS" onclick="backToList()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/2b05-fe0f.png" alt="" style="height:12px;width:12px"> Назад</button>
+      <button class="btn btnSm btnS" onclick="backToList()">← Назад</button>
       <div class="gap8">
-        <button class="btn btnSm btnG" onclick="downloadAsDocx()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e5.png" alt="" style="height:14px;width:14px"> DOCX</button>
-        <button class="btn btnSm btnS" onclick="downloadAsPdf()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4e5.png" alt="" style="height:14px;width:14px"> PDF</button>
+        <button class="btn btnSm btnG" onclick="downloadAsDocx()">DOCX</button>
+        <button class="btn btnSm btnS" onclick="downloadAsPdf()">PDF</button>
       </div>
     </div>
-    <div class="card" id="programHeader" style="border-left:4px solid var(--purple)">
+    <div class="card" style="border-left:4px solid var(--purple)">
       <h3 id="editorTitle"></h3>
       <p id="editorMeta"></p>
     </div>
@@ -175,20 +155,19 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
       <div class="fg"><label>Название дисциплины</label><input class="inp" id="newTitle" placeholder="Иностранный язык"></div>
       <div class="fg"><label>Специальность</label><input class="inp" id="newSpecialty" placeholder="11.02.06 Техническая эксплуатация..."></div>
       <div class="fg"><label>Квалификация выпускника</label><input class="inp" id="newQualification" placeholder="Техник"></div>
-      <div class="fg"><label>Форма обучения</label><input class="inp" id="newForm" placeholder="Очная" value="Очная"></div>
-      <div class="fg"><label>Год начала подготовки</label><input class="inp" id="newYear" type="number" placeholder="2024" value="2024"></div>
+      <div class="fg"><label>Форма обучения</label><input class="inp" id="newForm" value="Очная"></div>
+      <div class="fg"><label>Год начала подготовки</label><input class="inp" id="newYear" type="number" value="2024"></div>
       <div class="fg">
-        <label style="display:flex;align-items:center;gap:6px">
-          <input type="checkbox" id="newPrefill" checked>
-          Заполнить данными из рабочей программы ОУП.06 (документ)
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer">
+          <input type="checkbox" id="newPrefill">
+          Заполнить данными из рабочей программы ОУП.06
         </label>
       </div>
-      <button class="btn btnP" style="width:100%" onclick="saveNewProgram()"><img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" alt="" style="height:16px;width:16px"> Создать программу</button>
+      <button class="btn btnP" style="width:100%" onclick="saveNewProgram()">Создать программу</button>
     </div>
   </div>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -196,66 +175,55 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
 
 <script>
-// ======================================================================
-// FIREBASE
-// ======================================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
-  authDomain: "my-diary-e223c.firebaseapp.com",
-  databaseURL: "https://my-diary-e223c-default-rtdb.firebaseio.com",
-  projectId: "my-diary-e223c",
-  storageBucket: "my-diary-e223c.firebasestorage.app",
-  messagingSenderId: "903986378920",
-  appId: "1:903986378920:web:b6ebc6691f6d767f78aa9d"
+const firebaseConfig={
+  apiKey:"AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
+  authDomain:"my-diary-e223c.firebaseapp.com",
+  databaseURL:"https://my-diary-e223c-default-rtdb.firebaseio.com",
+  projectId:"my-diary-e223c",
+  storageBucket:"my-diary-e223c.firebasestorage.app",
+  messagingSenderId:"903986378920",
+  appId:"1:903986378920:web:b6ebc6691f6d767f78aa9d"
 };
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
+const auth=firebase.auth();
+const db=firebase.database();
 
 // ======================================================================
-// APPLE EMOJI HELPER
+// APPLE EMOJI
 // ======================================================================
-const E = {
-  doc:'1f4c4', target:'1f3af', building:'1f3d7-fe0f', chart:'1f4ca',
-  ruler:'1f4d0', grad:'1f393', microscope:'1f52c', lab:'1f9ea',
-  pencil:'270f-fe0f', book:'1f4d6', books:'1f4da', office:'1f3e2',
-  check:'2705', clipboard:'1f4cb', gear:'2699-fe0f', eye:'1f441-fe0f',
-  save:'1f4be', trash:'1f5d1-fe0f', edit:'270f-fe0f', download:'1f4e5',
-  plus:'2795', back:'2b05-fe0f', fire:'1f525', star:'2b50',
-  warning:'26a0-fe0f', ok:'1f44d', folder:'1f4c1', calendar:'1f4c5',
-  person:'1f464', group:'1f465', lock:'1f512', unlock:'1f513',
-  memo:'1f4dd', pin:'1f4cc', link:'1f517', bulb:'1f4a1',
-  wrench:'1f527', medal:'1f3c5', trophy:'1f3c6', rocket:'1f680'
+const E={
+  doc:'1f4c4',target:'1f3af',building:'1f3d7-fe0f',chart:'1f4ca',
+  ruler:'1f4d0',grad:'1f393',microscope:'1f52c',lab:'1f9ea',
+  pencil:'270f-fe0f',book:'1f4d6',books:'1f4da',office:'1f3e2',
+  check:'2705',save:'1f4be',trash:'1f5d1-fe0f',memo:'1f4dd',
+  warning:'26a0-fe0f',calendar:'1f4c5',wrench:'1f527',eye:'1f441-fe0f'
 };
-function ae(code, cls){
-  cls = cls || '';
-  return `<img class="ae ${cls}" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/${code}.png" alt="">`;
-}
+function ae(code){return `<img class="ae" src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/${code}.png" alt="">`}
 
 // ======================================================================
 // SECTIONS
 // ======================================================================
-const SECTIONS = [
-  { key:'title_page',    name:'Титульный лист',              icon:E.doc },
-  { key:'goals',         name:'Цели и задачи',               icon:E.target },
-  { key:'place_in_oop',  name:'Место в структуре ООП',       icon:E.building },
-  { key:'results',       name:'Результаты обучения',         icon:E.chart },
-  { key:'structure',     name:'Структура и содержание',      icon:E.ruler },
-  { key:'lectures',      name:'Лекционные занятия',          icon:E.grad },
-  { key:'practices',     name:'Практические занятия',        icon:E.microscope },
-  { key:'labs',          name:'Лабораторные работы',          icon:E.lab },
-  { key:'coursework',    name:'Курсовые работы',             icon:E.pencil },
-  { key:'self_study',    name:'Самостоятельная работа',       icon:E.book },
-  { key:'methodology',   name:'Учебно-методическое обесп.',  icon:E.books },
-  { key:'material_tech', name:'Материально-техническое обесп.', icon:E.office },
-  { key:'approval',      name:'Рассмотрение и утверждение',  icon:E.check }
+const SECTIONS=[
+  {key:'title_page',name:'Титульный лист',icon:E.doc},
+  {key:'goals',name:'Цели и задачи',icon:E.target},
+  {key:'place_in_oop',name:'Место в структуре ООП',icon:E.building},
+  {key:'results',name:'Результаты обучения',icon:E.chart},
+  {key:'structure',name:'Структура и содержание',icon:E.ruler},
+  {key:'lectures',name:'Лекционные занятия',icon:E.grad},
+  {key:'practices',name:'Практические занятия',icon:E.microscope},
+  {key:'labs',name:'Лабораторные работы',icon:E.lab},
+  {key:'coursework',name:'Курсовые работы',icon:E.pencil},
+  {key:'self_study',name:'Самостоятельная работа',icon:E.book},
+  {key:'methodology',name:'Учебно-методическое обесп.',icon:E.books},
+  {key:'material_tech',name:'Материально-техническое обесп.',icon:E.office},
+  {key:'approval',name:'Рассмотрение и утверждение',icon:E.check}
 ];
 
 // ======================================================================
-// PREFILLED DATA FROM DOCUMENT
+// PREFILL DATA
 // ======================================================================
-const PREFILL_DATA = {
-  title_page: `РАБОЧАЯ ПРОГРАММА УЧЕБНОГО ПРЕДМЕТА
+const PREFILL_DATA={
+title_page:`РАБОЧАЯ ПРОГРАММА УЧЕБНОГО ПРЕДМЕТА
 
 ОУП.06 Иностранный язык
 
@@ -280,7 +248,7 @@ const PREFILL_DATA = {
 Протокол от «___» _________ 2024 г. № ____
 Председатель ЦМК: _______________`,
 
-  goals: `1. ЦЕЛИ И ЗАДАЧИ УЧЕБНОГО ПРЕДМЕТА
+goals:`1. ЦЕЛИ И ЗАДАЧИ УЧЕБНОГО ПРЕДМЕТА
 
 Содержание программы учебного предмета «Иностранный язык» направлено на достижение следующих целей:
 
@@ -293,7 +261,7 @@ const PREFILL_DATA = {
 — формирование и развитие языковых навыков (фонетика, лексика, грамматика);
 — формирование и развитие социокультурных умений и навыков.`,
 
-  place_in_oop: `2. МЕСТО УЧЕБНОГО ПРЕДМЕТА В СТРУКТУРЕ ОПОП
+place_in_oop:`2. МЕСТО УЧЕБНОГО ПРЕДМЕТА В СТРУКТУРЕ ОПОП
 
 Учебный предмет «Иностранный язык» является обязательным учебным предметом общеобразовательного цикла ОПОП-ППССЗ по специальности 11.02.06 Техническая эксплуатация транспортного радиоэлектронного оборудования (по видам транспорта).
 
@@ -301,41 +269,40 @@ const PREFILL_DATA = {
 
 Учебный предмет «Иностранный язык» имеет межпредметные связи с общеобразовательными учебными предметами — Русский язык, Литература, История, а также с дисциплинами и профессиональными модулями ОПОП.`,
 
-  results: `3. РЕЗУЛЬТАТЫ ОБУЧЕНИЯ (ОСВОЕНИЯ) УЧЕБНОГО ПРЕДМЕТА
+results:`3. РЕЗУЛЬТАТЫ ОБУЧЕНИЯ (ОСВОЕНИЯ) УЧЕБНОГО ПРЕДМЕТА
 
 Освоение содержания учебного предмета «Иностранный язык» обеспечивает достижение обучающимися следующих результатов:
 
 ЛИЧНОСТНЫЕ РЕЗУЛЬТАТЫ:
-Код ЛР ФГОС СОО / Формулировка:
-ЛР 01 — Сформированность российской гражданской идентичности, патриотизма, уважения к своему народу, чувства ответственности перед Родиной, гордости за свой край
+ЛР 01 — Сформированность российской гражданской идентичности, патриотизма, уважения к своему народу
 ЛР 02 — Гражданская позиция как активного и ответственного члена российского общества
-ЛР 04 — Сформированность мировоззрения, соответствующего современному уровню развития науки и общественной практики
+ЛР 04 — Сформированность мировоззрения, соответствующего современному уровню развития науки
 ЛР 05 — Сформированность основ саморазвития и самовоспитания
 ЛР 06 — Толерантное сознание и поведение в поликультурном мире
 ЛР 07 — Навыки сотрудничества со сверстниками
 ЛР 08 — Нравственное сознание и поведение на основе усвоения общечеловеческих ценностей
 ЛР 09 — Готовность и способность к образованию, в том числе самообразованию
 ЛР 10 — Эстетическое отношение к миру
-ЛР 13 — Осознанный выбор будущей профессии и возможностей реализации собственных жизненных планов
+ЛР 13 — Осознанный выбор будущей профессии
 
 МЕТАПРЕДМЕТНЫЕ РЕЗУЛЬТАТЫ:
-МР 01 — Умение самостоятельно определять цели деятельности и составлять планы деятельности
-МР 02 — Умение продуктивно общаться и взаимодействовать в процессе совместной деятельности
+МР 01 — Умение самостоятельно определять цели деятельности
+МР 02 — Умение продуктивно общаться и взаимодействовать
 МР 03 — Владение навыками познавательной, учебно-исследовательской и проектной деятельности
-МР 04 — Готовность и способность к самостоятельной информационно-познавательной деятельности
-МР 05 — Умение использовать средства информационных и коммуникационных технологий
+МР 04 — Готовность к самостоятельной информационно-познавательной деятельности
+МР 05 — Умение использовать средства ИКТ
 МР 07 — Умение самостоятельно оценивать и принимать решения
-МР 08 — Владение языковыми средствами — умение ясно, логично и точно излагать свою точку зрения
+МР 08 — Владение языковыми средствами
 МР 09 — Владение навыками познавательной рефлексии
 
 ПРЕДМЕТНЫЕ РЕЗУЛЬТАТЫ:
-ПРб 01 — Сформированность коммуникативной иноязычной компетенции, необходимой для успешной социализации и самореализации
+ПРб 01 — Сформированность коммуникативной иноязычной компетенции
 ПРб 02 — Владение знаниями о социокультурной специфике страны/стран изучаемого языка
 ПРб 03 — Достижение уровня владения иностранным языком, превышающего пороговый (B1)
-ПРб 04 — Сформированность умения использовать иностранный язык как средство для получения информации из иноязычных источников
+ПРб 04 — Сформированность умения использовать иностранный язык как средство для получения информации
 
 ОБЩИЕ КОМПЕТЕНЦИИ:
-ОК 01 — Выбирать способы решения задач профессиональной деятельности применительно к различным контекстам
+ОК 01 — Выбирать способы решения задач профессиональной деятельности
 ОК 02 — Использовать современные средства поиска, анализа и интерпретации информации
 ОК 04 — Эффективно взаимодействовать и работать в коллективе и команде
 ОК 09 — Пользоваться профессиональной документацией на государственном и иностранном языках
@@ -343,81 +310,80 @@ const PREFILL_DATA = {
 ПРОФЕССИОНАЛЬНЫЕ КОМПЕТЕНЦИИ:
 ПК 4.3 — Составлять и оформлять техническую и технологическую документацию`,
 
-  structure: `4. СТРУКТУРА И СОДЕРЖАНИЕ УЧЕБНОГО ПРЕДМЕТА
+structure:`4. СТРУКТУРА И СОДЕРЖАНИЕ УЧЕБНОГО ПРЕДМЕТА
 
 4.1. Объём учебного предмета и виды учебной работы:
 
-Вид учебной работы | Объём в часах
-Максимальная учебная нагрузка (всего) | 117
-Обязательная аудиторная нагрузка (всего) | 78
+Максимальная учебная нагрузка (всего): 117 часов
+Обязательная аудиторная нагрузка (всего): 78 часов
    в том числе:
-   теоретическое обучение | —
-   практические занятия | 78
-   контрольные работы | 4
-Самостоятельная работа обучающегося (всего) | 39
+   теоретическое обучение: —
+   практические занятия: 78 часов
+   контрольные работы: 4 часа
+Самостоятельная работа обучающегося (всего): 39 часов
 Промежуточная аттестация — дифференцированный зачёт
 
 4.2. Тематический план и содержание:
 
 РАЗДЕЛ 1. Иностранный язык для общих целей
 
-Тема 1.1. Повседневная жизнь семьи. Внешность и характер членов семьи (6 часов)
+Тема 1.1. Повседневная жизнь семьи. Внешность и характер членов семьи (6ч)
 Практические занятия:
-1. Приветствие, прощание. Представление себя и других людей в официальной и неофициальной обстановке (2ч)
+1. Приветствие, прощание. Представление себя и других людей (2ч)
 2. Отношение поколений в семье. Описание внешности человека (2ч)
 3. Описание характера личности. Семейные традиции (2ч)
-Самостоятельная работа: Составление лексического словаря по теме (2ч), Эссе «Моя семья» (1ч)
+Самостоятельная работа: Лексический словарь (2ч), Эссе «Моя семья» (1ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.2. Молодёжь в современном обществе. Досуг молодёжи: увлечения и интересы (6 часов)
+Тема 1.2. Молодёжь в современном обществе. Досуг молодёжи (6ч)
 Практические занятия:
 1. Рабочий день. Досуг. Активный и пассивный отдых (2ч)
 2. Молодёжные субкультуры. Хобби и увлечения (2ч)
 3. Волонтёрство в современном мире (2ч)
-Самостоятельная работа: Написание рассказа о своём хобби (2ч), Презентация «Молодёжные движения» (1ч)
+Самостоятельная работа: Рассказ о хобби (2ч), Презентация «Молодёжные движения» (1ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.3. Условия проживания в городской и сельской местности (6 часов)
+Тема 1.3. Условия проживания в городской и сельской местности (6ч)
 Практические занятия:
 1. Описание жилища и учебного заведения (2ч)
 2. Городская и сельская инфраструктура (2ч)
-3. Особенности проживания в городе и деревне. Преимущества и недостатки (2ч)
-Самостоятельная работа: Составление описания дома/квартиры (2ч), Сравнительная таблица «Город vs село» (1ч)
+3. Особенности проживания в городе и деревне (2ч)
+Самостоятельная работа: Описание дома/квартиры (2ч), Таблица «Город vs село» (1ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.4. Покупки: одежда, обувь и продукты питания (6 часов)
+Тема 1.4. Покупки: одежда, обувь и продукты питания (6ч)
 Практические занятия:
 1. Виды магазинов. Ассортимент товаров (2ч)
 2. Совершение покупок. Диалоги в магазине (2ч)
 3. Национальная кухня. Еда и способы приготовления пищи (2ч)
-Самостоятельная работа: Составление диалога «В магазине» (2ч), Рецепт национального блюда на иностранном языке (1ч)
+Самостоятельная работа: Диалог «В магазине» (2ч), Рецепт блюда (1ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.5. Здоровый образ жизни и забота о здоровье: режим труда и отдыха, спорт, фитнес, диета (8 часов)
+Тема 1.5. Здоровый образ жизни и забота о здоровье. Спорт (8ч)
 Практические занятия:
 1. Физическая культура и спорт. Виды спорта (2ч)
 2. Здоровый образ жизни. Правильное питание (2ч)
 3. Вредные привычки. Отказ от вредных привычек (2ч)
 4. Посещение врача. У стоматолога. В аптеке (2ч)
-Самостоятельная работа: Презентация «Спорт в моей жизни» (2ч), Памятка «Здоровый образ жизни» (2ч)
+Самостоятельная работа: Презентация «Спорт в моей жизни» (2ч), Памятка «ЗОЖ» (2ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.6. Туризм. Виды отдыха (4 часа)
+Тема 1.6. Туризм. Виды отдыха (4ч)
 Практические занятия:
 1. Экотуризм. Путешествия по России (2ч)
 2. Путешествие за рубеж. В аэропорту, на вокзале. В гостинице (2ч)
 Самостоятельная работа: Маршрут путешествия (2ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.7. Страна/страны изучаемого языка (6 часов)
+Тема 1.7. Страна/страны изучаемого языка (6ч)
 Практические занятия:
 1. Географическое положение, климат, население (2ч)
 2. Национальные символы. Политическое и экономическое устройство (2ч)
 3. Достопримечательности. Традиции и обычаи (2ч)
-Самостоятельная работа: Доклад о стране изучаемого языка (2ч), Презентация «Достопримечательности» (1ч)
+Самостоятельная работа: Доклад о стране (2ч), Презентация «Достопримечательности» (1ч)
 Компетенции: ОК01, ОК02, ОК04
 
-Тема 1.8. Россия (8 часов)
+Тема 1.8. Россия (8ч)
 Практические занятия:
 1. Географическое положение, климат, население России (2ч)
 2. Национальные символы России. Государственное и политическое устройство (2ч)
@@ -429,35 +395,35 @@ const PREFILL_DATA = {
 
 РАЗДЕЛ 2. Иностранный язык для специальных целей
 
-Тема 2.1. Современный мир профессий. Проблемы выбора профессии. Роль иностранного языка в вашей профессии (4 часа)
+Тема 2.1. Современный мир профессий. Роль иностранного языка (4ч)
 Практические занятия:
 1. Мир профессий. Выбор профессии (2ч)
-2. Роль иностранного языка в современном мире и в профессиональной деятельности (2ч)
+2. Роль иностранного языка в профессиональной деятельности (2ч)
 Самостоятельная работа: Эссе «Моя будущая профессия» (2ч)
 Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
 
-Тема 2.2. Промышленные технологии (4 часа)
+Тема 2.2. Промышленные технологии (4ч)
 Практические занятия:
 1. Машины и механизмы. Промышленное оборудование (2ч)
 2. Работа на производстве. Техника безопасности (2ч)
-Самостоятельная работа: Составление глоссария технических терминов (2ч)
+Самостоятельная работа: Глоссарий технических терминов (2ч)
 Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
 
-Тема 2.3. Технический прогресс: перспективы и последствия. Современные средства связи (4 часа)
+Тема 2.3. Технический прогресс. Современные средства связи (4ч)
 Практические занятия:
 1. Достижения науки и техники. Изобретения (2ч)
-2. Современные информационные технологии. Интернет. Средства связи (2ч)
+2. Современные информационные технологии. Интернет (2ч)
 Самостоятельная работа: Презентация «Изобретение, изменившее мир» (2ч)
 Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
 
-Тема 2.4. Выдающиеся люди родной страны и стран изучаемого языка, их вклад в науку и мировую культуру (4 часа)
+Тема 2.4. Выдающиеся люди родной страны и стран изучаемого языка (4ч)
 Практические занятия:
 1. Известные учёные и их открытия (2ч)
 2. Деятели культуры и искусства (2ч)
 Самостоятельная работа: Биография выдающейся личности (2ч)
 Компетенции: ОК01, ОК02, ОК04, ОК09, ПК4.3
 
-Тема 2.5. Профессиональные требования (4 часа)
+Тема 2.5. Профессиональные требования (4ч)
 Практические занятия:
 1. Написание резюме и сопроводительного письма (2ч)
 2. Собеседование. Деловая переписка (2ч)
@@ -466,74 +432,70 @@ const PREFILL_DATA = {
 Контрольная работа №2 (2ч)
 Дифференцированный зачёт (2ч)`,
 
-  lectures: `5. ЛЕКЦИОННЫЕ ЗАНЯТИЯ
+lectures:`5. ЛЕКЦИОННЫЕ ЗАНЯТИЯ
 
 Лекционные занятия учебным планом не предусмотрены.
-
 По учебному предмету «Иностранный язык» все аудиторные часы отведены на практические занятия.`,
 
-  practices: `6. ПРАКТИЧЕСКИЕ ЗАНЯТИЯ
+practices:`6. ПРАКТИЧЕСКИЕ ЗАНЯТИЯ
 
 Перечень практических занятий:
 
-№ п/п | Тема | Часы
-1 | Приветствие, прощание. Представление себя и других людей | 2
-2 | Отношение поколений в семье. Описание внешности человека | 2
-3 | Описание характера личности. Семейные традиции | 2
-4 | Рабочий день. Досуг. Активный и пассивный отдых | 2
-5 | Молодёжные субкультуры. Хобби и увлечения | 2
-6 | Волонтёрство в современном мире | 2
-7 | Описание жилища и учебного заведения | 2
-8 | Городская и сельская инфраструктура | 2
-9 | Особенности проживания в городе и деревне | 2
-10 | Виды магазинов. Ассортимент товаров | 2
-11 | Совершение покупок. Диалоги в магазине | 2
-12 | Национальная кухня. Еда и способы приготовления пищи | 2
-13 | Физическая культура и спорт. Виды спорта | 2
-14 | Здоровый образ жизни. Правильное питание | 2
-15 | Вредные привычки. Отказ от вредных привычек | 2
-16 | Посещение врача. У стоматолога. В аптеке | 2
-17 | Экотуризм. Путешествия по России | 2
-18 | Путешествие за рубеж. В аэропорту, на вокзале | 2
-19 | Географическое положение, климат, население (страна изуч. языка) | 2
-20 | Национальные символы. Политическое и экономическое устройство | 2
-21 | Достопримечательности. Традиции и обычаи | 2
-22 | Географическое положение, климат, население России | 2
-23 | Национальные символы России. Государственное устройство | 2
-24 | Москва — столица России. Достопримечательности | 2
-25 | Традиции народов России. Мой родной город | 2
-26 | Контрольная работа №1 | 2
-27 | Мир профессий. Выбор профессии | 2
-28 | Роль иностранного языка в профессиональной деятельности | 2
-29 | Машины и механизмы. Промышленное оборудование | 2
-30 | Работа на производстве. Техника безопасности | 2
-31 | Достижения науки и техники. Изобретения | 2
-32 | Современные информационные технологии. Интернет | 2
-33 | Известные учёные и их открытия | 2
-34 | Деятели культуры и искусства | 2
-35 | Написание резюме и сопроводительного письма | 2
-36 | Собеседование. Деловая переписка | 2
-37 | Контрольная работа №2 | 2
-38 | Дифференцированный зачёт | 2
+1. Приветствие, прощание. Представление себя и других людей — 2ч
+2. Отношение поколений в семье. Описание внешности человека — 2ч
+3. Описание характера личности. Семейные традиции — 2ч
+4. Рабочий день. Досуг. Активный и пассивный отдых — 2ч
+5. Молодёжные субкультуры. Хобби и увлечения — 2ч
+6. Волонтёрство в современном мире — 2ч
+7. Описание жилища и учебного заведения — 2ч
+8. Городская и сельская инфраструктура — 2ч
+9. Особенности проживания в городе и деревне — 2ч
+10. Виды магазинов. Ассортимент товаров — 2ч
+11. Совершение покупок. Диалоги в магазине — 2ч
+12. Национальная кухня. Еда и способы приготовления пищи — 2ч
+13. Физическая культура и спорт. Виды спорта — 2ч
+14. Здоровый образ жизни. Правильное питание — 2ч
+15. Вредные привычки. Отказ от вредных привычек — 2ч
+16. Посещение врача. У стоматолога. В аптеке — 2ч
+17. Экотуризм. Путешествия по России — 2ч
+18. Путешествие за рубеж. В аэропорту, на вокзале — 2ч
+19. Географическое положение, климат, население (страна изуч. языка) — 2ч
+20. Национальные символы. Политическое и экономическое устройство — 2ч
+21. Достопримечательности. Традиции и обычаи — 2ч
+22. Географическое положение, климат, население России — 2ч
+23. Национальные символы России. Государственное устройство — 2ч
+24. Москва — столица России. Достопримечательности — 2ч
+25. Традиции народов России. Мой родной город — 2ч
+26. Контрольная работа №1 — 2ч
+27. Мир профессий. Выбор профессии — 2ч
+28. Роль иностранного языка в профессиональной деятельности — 2ч
+29. Машины и механизмы. Промышленное оборудование — 2ч
+30. Работа на производстве. Техника безопасности — 2ч
+31. Достижения науки и техники. Изобретения — 2ч
+32. Современные информационные технологии. Интернет — 2ч
+33. Известные учёные и их открытия — 2ч
+34. Деятели культуры и искусства — 2ч
+35. Написание резюме и сопроводительного письма — 2ч
+36. Собеседование. Деловая переписка — 2ч
+37. Контрольная работа №2 — 2ч
+38. Дифференцированный зачёт — 2ч
 
-Итого: 78 часов (из них 4 часа — контрольные работы, 2 часа — дифференцированный зачёт)`,
+Итого: 78 часов`,
 
-  labs: `7. ЛАБОРАТОРНЫЕ РАБОТЫ
+labs:`7. ЛАБОРАТОРНЫЕ РАБОТЫ
 
 Лабораторные работы учебным планом не предусмотрены.`,
 
-  coursework: `8. КУРСОВЫЕ РАБОТЫ (ПРОЕКТЫ)
+coursework:`8. КУРСОВЫЕ РАБОТЫ (ПРОЕКТЫ)
 
 Курсовые работы (проекты) учебным планом не предусмотрены.`,
 
-  self_study: `9. САМОСТОЯТЕЛЬНАЯ РАБОТА ОБУЧАЮЩИХСЯ
-
-Перечень видов самостоятельной работы:
+self_study:`9. САМОСТОЯТЕЛЬНАЯ РАБОТА ОБУЧАЮЩИХСЯ
 
 Тема 1.1 — Составление лексического словаря по теме (2ч), Эссе «Моя семья» (1ч)
 Тема 1.2 — Написание рассказа о своём хобби (2ч), Презентация «Молодёжные движения» (1ч)
 Тема 1.3 — Составление описания дома/квартиры (2ч), Сравнительная таблица «Город vs село» (1ч)
-Тема 1.4 — Составление диалога «В магазине» (2ч), Рецепт национального блюда на иностранном языке (1ч)
+Тема 1.4 — Составление диалога «В магазине» (2ч), Рецепт национального блюда (1ч)
 Тема 1.5 — Презентация «Спорт в моей жизни» (2ч), Памятка «Здоровый образ жизни» (2ч)
 Тема 1.6 — Составление маршрута путешествия (2ч)
 Тема 1.7 — Доклад о стране изучаемого языка (2ч), Презентация «Достопримечательности» (1ч)
@@ -546,28 +508,25 @@ const PREFILL_DATA = {
 
 Итого: 39 часов`,
 
-  methodology: `10. УЧЕБНО-МЕТОДИЧЕСКОЕ И ИНФОРМАЦИОННОЕ ОБЕСПЕЧЕНИЕ
+methodology:`10. УЧЕБНО-МЕТОДИЧЕСКОЕ И ИНФОРМАЦИОННОЕ ОБЕСПЕЧЕНИЕ
 
 Основные источники:
-
 1. Афанасьева О.В., Дули Д., Михеева И.В. и др. Английский язык. 10 класс (базовый уровень). — М.: Просвещение, 2023.
 2. Афанасьева О.В., Дули Д., Михеева И.В. и др. Английский язык. 11 класс (базовый уровень). — М.: Просвещение, 2023.
 3. Безкоровайная Г.Т., Койранская Е.А. и др. Planet of English: учебник английского языка для учреждений СПО. — М.: Академия, 2022.
 
 Дополнительные источники:
-
 1. Голубев А.П., Балюк Н.В., Смирнова И.Б. Английский язык: учебник для студ. учреждений СПО. — М.: Академия, 2022.
 2. Карпова Т.А. English for Colleges = Английский язык для колледжей: учебное пособие. — М.: КНОРУС, 2022.
 
 Интернет-ресурсы:
-
 1. https://www.bbc.co.uk/learningenglish — BBC Learning English
 2. https://www.britishcouncil.org — British Council
 3. https://resh.edu.ru — Российская электронная школа
 4. https://www.duolingo.com — Duolingo
 5. https://www.ted.com — TED Talks`,
 
-  material_tech: `11. МАТЕРИАЛЬНО-ТЕХНИЧЕСКОЕ ОБЕСПЕЧЕНИЕ
+material_tech:`11. МАТЕРИАЛЬНО-ТЕХНИЧЕСКОЕ ОБЕСПЕЧЕНИЕ
 
 Для реализации программы учебного предмета предусмотрен кабинет «Иностранный язык».
 
@@ -588,7 +547,7 @@ const PREFILL_DATA = {
 — лингафонное оборудование (при наличии);
 — доступ к сети Интернет.`,
 
-  approval: `12. РАССМОТРЕНИЕ И УТВЕРЖДЕНИЕ РАБОЧЕЙ ПРОГРАММЫ
+approval:`12. РАССМОТРЕНИЕ И УТВЕРЖДЕНИЕ РАБОЧЕЙ ПРОГРАММЫ
 
 Рабочая программа учебного предмета ОУП.06 Иностранный язык
 
@@ -619,11 +578,11 @@ const PREFILL_DATA = {
 // ======================================================================
 // STATE
 // ======================================================================
-let currentUser = null;
-let userRole = null;
-let currentProgramId = null;
-let currentProgramData = null;
-let currentSectionKey = null;
+let currentUser=null;
+let userRole=null;
+let currentProgramId=null;
+let currentProgramData=null;
+let currentSectionKey=null;
 
 // ======================================================================
 // THEME
@@ -649,21 +608,40 @@ document.querySelectorAll('.sheet-ov').forEach(ov=>{ov.addEventListener('click',
 function doLogin(){
   const email=document.getElementById('authEmail').value.trim();
   const pass=document.getElementById('authPass').value;
-  document.getElementById('authErr').textContent='';
-  if(!email||!pass){document.getElementById('authErr').textContent='Заполните все поля';return}
-  auth.signInWithEmailAndPassword(email,pass).catch(err=>{
-    if(err.code==='auth/user-not-found'){
-      auth.createUserWithEmailAndPassword(email,pass).then(cred=>{
-        const role=email==='admin@test.ru'?'admin':'viewer';
-        return db.ref('users/'+cred.user.uid).set({email,role,createdAt:Date.now()});
-      }).catch(e2=>{document.getElementById('authErr').textContent=e2.message});
-    } else if(err.code==='auth/wrong-password'||err.code==='auth/invalid-credential'){
-      document.getElementById('authErr').textContent='Неверный пароль';
-    } else {
-      document.getElementById('authErr').textContent=err.message;
-    }
-  });
+  const errEl=document.getElementById('authErr');
+  errEl.textContent='';
+  if(!email||!pass){errEl.textContent='Заполните все поля';return}
+  if(pass.length<6){errEl.textContent='Пароль минимум 6 символов';return}
+
+  auth.signInWithEmailAndPassword(email,pass)
+    .then(()=>{errEl.textContent=''})
+    .catch(err=>{
+      console.log('Login error:',err.code);
+      if(err.code==='auth/user-not-found'||err.code==='auth/invalid-credential'){
+        errEl.textContent='Создаю аккаунт...';
+        auth.createUserWithEmailAndPassword(email,pass)
+          .then(cred=>{
+            const role=(email==='admin@test.ru')?'admin':'viewer';
+            return db.ref('users/'+cred.user.uid).set({email,role,createdAt:Date.now()});
+          })
+          .then(()=>{errEl.textContent=''})
+          .catch(e2=>{
+            if(e2.code==='auth/email-already-in-use'){
+              errEl.textContent='Неверный пароль. Попробуйте снова.';
+            } else {
+              errEl.textContent='Ошибка: '+e2.message;
+            }
+          });
+      } else if(err.code==='auth/wrong-password'){
+        errEl.textContent='Неверный пароль';
+      } else if(err.code==='auth/too-many-requests'){
+        errEl.textContent='Слишком много попыток. Подождите минуту.';
+      } else {
+        errEl.textContent='Ошибка: '+err.message;
+      }
+    });
 }
+
 function doLogout(){auth.signOut()}
 
 auth.onAuthStateChanged(user=>{
@@ -691,11 +669,12 @@ function showApp(){
   document.getElementById('authScreen').classList.add('hidden');
   document.getElementById('appMain').classList.remove('hidden');
   document.getElementById('userLabel').textContent=currentUser.email;
-  document.getElementById('roleLabel').innerHTML=userRole==='admin'? ae(E.wrench)+' Редактор' : ae(E.eye)+' Просмотр';
+  document.getElementById('roleLabel').innerHTML=userRole==='admin'?ae(E.wrench)+' Редактор':ae(E.eye)+' Просмотр';
   document.getElementById('roleLabel').className='pill '+(userRole==='admin'?'gr':'bl');
   document.getElementById('btnAddProgram').classList.toggle('hidden',userRole!=='admin');
   loadPrograms();showProgramsList();
 }
+
 function isAdmin(){return userRole==='admin'}
 
 // ======================================================================
@@ -707,7 +686,7 @@ function showProgramsList(){
   currentProgramId=null;
 }
 function backToList(){
-  if(currentProgramId) db.ref('programs/'+currentProgramId).off('value');
+  if(currentProgramId)db.ref('programs/'+currentProgramId).off('value');
   showProgramsList();
 }
 
@@ -721,31 +700,26 @@ function loadPrograms(){
       container.innerHTML=`<div style="text-align:center;padding:60px 20px">
         <img src="https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.1.2/img/apple/64/1f4c4.png" style="width:64px;height:64px;margin-bottom:16px" alt="">
         <p style="color:var(--t3);font-size:15px">Нет рабочих программ</p>
-        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Добавить программу» чтобы создать первую</p>':'<p style="color:var(--t3);font-size:13px;margin-top:8px">Администратор ещё не добавил программы</p>'}
+        ${isAdmin()?'<p style="color:var(--t3);font-size:13px;margin-top:8px">Нажмите «+ Добавить программу»</p>':'<p style="color:var(--t3);font-size:13px;margin-top:8px">Администратор ещё не добавил программы</p>'}
       </div>`;
       return;
     }
     container.innerHTML='';
     Object.entries(programs).forEach(([id,prog])=>{
-      const sectionsCount=prog.sections?Object.keys(prog.sections).filter(k=>prog.sections[k]&&prog.sections[k].trim()).length:0;
-      const totalSections=SECTIONS.length;
-      const pct=Math.round((sectionsCount/totalSections)*100);
+      const sc=prog.sections?Object.keys(prog.sections).filter(k=>prog.sections[k]&&prog.sections[k].trim()).length:0;
+      const total=SECTIONS.length;
+      const pct=Math.round((sc/total)*100);
       const dateStr=prog.createdAt?new Date(prog.createdAt).toLocaleDateString('ru'):'';
       const updStr=prog.updatedAt?new Date(prog.updatedAt).toLocaleDateString('ru'):'';
       container.innerHTML+=`
         <div class="card" style="cursor:pointer;border-left:4px solid var(--purple)" onclick="openProgram('${id}')">
           <div class="flex-b">
-            <div>
-              <span class="pill pr">${prog.code||''}</span>
-              <span class="pill bl">${prog.year||''}</span>
-            </div>
-            <span class="pill ${pct>=80?'gr':pct>=40?'og':'rd'}">${sectionsCount}/${totalSections} разделов</span>
+            <div><span class="pill pr">${prog.code||''}</span> <span class="pill bl">${prog.year||''}</span></div>
+            <span class="pill ${pct>=80?'gr':pct>=40?'og':'rd'}">${sc}/${total} разделов</span>
           </div>
           <h3 class="mt8">${prog.title||'Без названия'}</h3>
           <p>${prog.specialty||''}</p>
-          <p class="mt8" style="font-size:11px;color:var(--t3)">
-            ${ae(E.calendar)} Создано: ${dateStr}${updStr?' • Обновлено: '+updStr:''}
-          </p>
+          <p class="mt8" style="font-size:11px;color:var(--t3)">${ae(E.calendar)} Создано: ${dateStr}${updStr?' | Обновлено: '+updStr:''}</p>
           ${isAdmin()?`<div class="mt8"><button class="btn btnSm btnD" onclick="event.stopPropagation();deleteProgram('${id}')">${ae(E.trash)} Удалить</button></div>`:''}
         </div>`;
     });
@@ -773,7 +747,6 @@ function saveNewProgram(){
   const title=document.getElementById('newTitle').value.trim();
   if(!code||!title){alert('Заполните код и название');return}
   const prefill=document.getElementById('newPrefill').checked;
-
   const data={
     code,title,
     specialty:document.getElementById('newSpecialty').value.trim(),
@@ -816,17 +789,13 @@ function openProgram(id){
 function renderEditor(){
   const prog=currentProgramData;
   document.getElementById('editorTitle').textContent=prog.code+' — '+prog.title;
-  document.getElementById('editorMeta').innerHTML=
-    `${prog.specialty||''} &bull; ${prog.qualification||''} &bull; ${prog.form||''} &bull; ${prog.year||''}`;
+  document.getElementById('editorMeta').innerHTML=`${prog.specialty||''} &bull; ${prog.qualification||''} &bull; ${prog.form||''} &bull; ${prog.year||''}`;
   const tabsEl=document.getElementById('sectionTabs');
   tabsEl.innerHTML='';
   SECTIONS.forEach(s=>{
-    const hasContent=prog.sections&&prog.sections[s.key]&&prog.sections[s.key].trim();
-    const isActive=currentSectionKey===s.key;
-    tabsEl.innerHTML+=`
-      <button class="sec-tab ${isActive?'active':''}" onclick="selectSection('${s.key}',this)">
-        ${ae(s.icon)} ${s.name} ${hasContent?ae(E.check):''}
-      </button>`;
+    const has=prog.sections&&prog.sections[s.key]&&prog.sections[s.key].trim();
+    const active=currentSectionKey===s.key;
+    tabsEl.innerHTML+=`<button class="sec-tab ${active?'active':''}" onclick="selectSection('${s.key}',this)">${ae(s.icon)} ${s.name} ${has?ae(E.check):''}</button>`;
   });
   if(currentSectionKey)renderSection(currentSectionKey);
 }
@@ -849,48 +818,46 @@ function renderSection(key){
       <div class="fg">
         <label>Содержимое раздела</label>
         <textarea class="inp" id="sectionTextarea" style="min-height:350px;font-size:14px;line-height:1.7"
-                  placeholder="Введите содержимое раздела «${sec.name}»..."
+                  placeholder="Введите содержимое раздела..."
                   oninput="markUnsaved()">${escapeHtml(content)}</textarea>
       </div>
       <div class="gap8">
-        <button class="btn btnP" onclick="saveSection()">${ae(E.save)} Сохранить раздел</button>
+        <button class="btn btnP" onclick="saveSection()">${ae(E.save)} Сохранить</button>
         <button class="btn btnSm btnS" onclick="clearSection()">${ae(E.trash)} Очистить</button>
       </div>
       <div id="saveStatus" class="mt8" style="font-size:12px;color:var(--t3)">
-        ${content?ae(E.check)+' Сохранено':ae(E.memo)+' Раздел пуст — заполните и сохраните'}
+        ${content?ae(E.check)+' Сохранено':ae(E.memo)+' Раздел пуст'}
       </div>`;
   } else {
     container.innerHTML=`
       <h4>${ae(sec.icon)} ${sec.name}</h4>
-      ${content
-        ?`<div class="readonly-text">${escapeHtml(content)}</div>`
-        :`<p style="color:var(--t3);padding:20px;text-align:center">Раздел не заполнен</p>`}`;
+      ${content?`<div class="readonly-text">${escapeHtml(content)}</div>`:`<p style="color:var(--t3);padding:20px;text-align:center">Раздел не заполнен</p>`}`;
   }
 }
 
 function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML}
-function markUnsaved(){const st=document.getElementById('saveStatus');if(st)st.innerHTML=`<span style="color:var(--orange)">${ae(E.warning)} Есть несохранённые изменения</span>`}
+function markUnsaved(){const s=document.getElementById('saveStatus');if(s)s.innerHTML=`<span style="color:var(--orange)">${ae(E.warning)} Несохранённые изменения</span>`}
 
 function saveSection(){
   if(!isAdmin()||!currentProgramId||!currentSectionKey)return;
   const text=document.getElementById('sectionTextarea').value;
   db.ref('programs/'+currentProgramId+'/sections/'+currentSectionKey).set(text);
   db.ref('programs/'+currentProgramId+'/updatedAt').set(Date.now());
-  const st=document.getElementById('saveStatus');
-  if(st)st.innerHTML=`<span style="color:var(--green)">${ae(E.check)} Сохранено</span>`;
+  const s=document.getElementById('saveStatus');
+  if(s)s.innerHTML=`<span style="color:var(--green)">${ae(E.check)} Сохранено</span>`;
   toast('Раздел сохранён');
 }
 
 function clearSection(){
   if(!isAdmin())return;
-  if(confirm('Очистить содержимое этого раздела?')){
+  if(confirm('Очистить раздел?')){
     document.getElementById('sectionTextarea').value='';
     saveSection();
   }
 }
 
 // ======================================================================
-// DOWNLOAD DOCX
+// DOCX
 // ======================================================================
 function downloadAsDocx(){
   if(!currentProgramData)return;
@@ -899,7 +866,7 @@ function downloadAsDocx(){
   const children=[];
   children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:200},children:[new TextRun({text:'РАБОЧАЯ ПРОГРАММА',bold:true,size:32})]}));
   children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`учебной дисциплины ${prog.code} ${prog.title}`,size:28})]}));
-  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`Специальность: ${prog.specialty||''}`,size:22})]}));
+  children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`${prog.specialty||''}`,size:22})]}));
   children.push(new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:100},children:[new TextRun({text:`${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}`,size:20})]}));
   children.push(new Paragraph({children:[new PageBreak()]}));
   SECTIONS.forEach(sec=>{
@@ -915,14 +882,13 @@ function downloadAsDocx(){
   });
   const doc=new Document({sections:[{children}]});
   Packer.toBlob(doc).then(blob=>{
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download=`РП_${prog.code}_${prog.title}.docx`;a.click();URL.revokeObjectURL(url);
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`РП_${prog.code}_${prog.title}.docx`;a.click();URL.revokeObjectURL(url);
   });
   toast('DOCX скачивается...');
 }
 
 // ======================================================================
-// DOWNLOAD PDF
+// PDF
 // ======================================================================
 function downloadAsPdf(){
   if(!currentProgramData)return;
@@ -930,26 +896,15 @@ function downloadAsPdf(){
   let html=`<div style="font-family:'Times New Roman',serif;color:#000;padding:20px">
     <h1 style="text-align:center;font-size:18px;margin-bottom:4px">РАБОЧАЯ ПРОГРАММА</h1>
     <h2 style="text-align:center;font-size:16px;font-weight:normal;margin-bottom:8px">учебной дисциплины ${prog.code} ${prog.title}</h2>
-    <p style="text-align:center;font-size:13px;color:#666;margin-bottom:24px">${prog.specialty||''} | ${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}</p>
-    <hr style="margin-bottom:24px">`;
+    <p style="text-align:center;font-size:13px;color:#666;margin-bottom:24px">${prog.specialty||''} | ${prog.qualification||''} | ${prog.form||''} | ${prog.year||''}</p><hr style="margin-bottom:24px">`;
   SECTIONS.forEach(sec=>{
     const text=(prog.sections&&prog.sections[sec.key])||'';
     html+=`<h3 style="font-size:14px;margin:20px 0 8px;color:#333">${sec.name}</h3>`;
-    if(text){
-      html+=`<div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${escapeHtml(text)}</div>`;
-    } else {
-      html+=`<p style="color:#999;font-style:italic;font-size:12px">(Раздел не заполнен)</p>`;
-    }
+    html+=text?`<div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${escapeHtml(text)}</div>`:`<p style="color:#999;font-style:italic;font-size:12px">(Раздел не заполнен)</p>`;
   });
   html+='</div>';
   const wrapper=document.createElement('div');wrapper.innerHTML=html;
-  html2pdf().set({
-    margin:[15,15,15,15],
-    filename:`РП_${prog.code}_${prog.title}.pdf`,
-    image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-  }).from(wrapper).save();
+  html2pdf().set({margin:[15,15,15,15],filename:`РП_${prog.code}_${prog.title}.pdf`,image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(wrapper).save();
   toast('PDF скачивается...');
 }
 </script>
