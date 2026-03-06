@@ -8,7 +8,7 @@
 :root{--bg:#000;--bg2:#1c1c1e;--bg3:#2c2c2e;--card:#1c1c1e;--text:#fff;--t2:rgba(255,255,255,.7);--t3:rgba(255,255,255,.4);--t4:rgba(255,255,255,.12);--blue:#0a84ff;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--purple:#bf5af2;--r:14px;--rs:10px}
 [data-theme="light"]{--bg:#f2f2f7;--bg2:#fff;--bg3:#e5e5ea;--card:#fff;--text:#000;--t2:rgba(0,0,0,.6);--t3:rgba(0,0,0,.35);--t4:rgba(0,0,0,.08);--blue:#007aff;--green:#34c759;--orange:#ff9500;--red:#ff3b30;--purple:#af52de}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif,'Apple Color Emoji';background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
+body{font-family:-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100vh}
 .topbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--t4);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .topbar h1{font-size:17px;font-weight:600}
 .topbar-right{display:flex;gap:8px;align-items:center}
@@ -51,8 +51,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .mt16{margin-top:16px}
 .mb12{margin-bottom:12px}
 .hidden{display:none!important}
-
-/* Sheet / Modal */
 .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
 .sheet-overlay.open{display:flex}
 .sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;padding:0;animation:sheetUp .3s ease}
@@ -62,8 +60,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .sheet-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 0}
 .sheet-header h2{font-size:17px;font-weight:600}
 .sheet-close{background:var(--bg3);border:none;color:var(--text);width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-
-/* Document preview */
 .doc-preview{background:#fff;color:#000;padding:40px;border-radius:8px;font-family:'Times New Roman',serif;font-size:14px;line-height:1.6;min-height:400px}
 .doc-preview h1{font-size:16px;text-align:center;margin-bottom:4px;font-family:'Times New Roman',serif}
 .doc-preview h2{font-size:14px;text-align:center;margin-bottom:16px;font-family:'Times New Roman',serif}
@@ -72,30 +68,15 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 .doc-preview table th{background:#f0f0f0;font-weight:700}
 .doc-preview .field-editable{border:none;border-bottom:1px solid #007aff;background:rgba(0,122,255,.05);padding:4px 6px;font-family:'Times New Roman',serif;font-size:14px;color:#000;width:100%;outline:none;min-height:20px}
 .doc-preview textarea.field-editable{min-height:60px;resize:vertical;border:1px solid #007aff;border-radius:4px;padding:8px}
-
-/* Theme toggle */
 .theme-toggle{background:var(--bg3);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
-
-/* Bottom nav */
 .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--t4);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
 .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 0;font-size:10px;color:var(--t3);cursor:pointer;transition:color .2s}
 .bnav-item.active{color:var(--blue)}
 .bnav-item svg{width:24px;height:24px;margin-bottom:2px}
 .page-content{padding-bottom:70px}
-
-/* Print styles for document */
 .print-doc{background:#fff;color:#000;font-family:'Times New Roman',serif}
-
-@media(min-width:900px){
-  .container{padding:24px}
-  .grid2{grid-template-columns:1fr 1fr}
-  .bnav{display:none}
-}
-@media(max-width:899px){
-  .grid2{grid-template-columns:1fr}
-}
-
-/* Scrollbar */
+@media(min-width:900px){.container{padding:24px}.grid2{grid-template-columns:1fr 1fr}.bnav{display:none}}
+@media(max-width:899px){.grid2{grid-template-columns:1fr}}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--t4);border-radius:3px}
@@ -103,26 +84,23 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
-  <h1>📄 Конструктор документов ООП</h1>
+  <h1>📋 Конструктор документов ООП</h1>
   <div class="topbar-right">
     <button class="theme-toggle" onclick="toggleTheme()" title="Тема">🌓</button>
     <span id="userInfo" style="font-size:12px;color:var(--t2)"></span>
   </div>
 </div>
 
-<!-- TABS -->
 <div class="container">
   <div class="tabs" id="mainTabs">
     <button class="tab active" onclick="showPage('templates')">📋 Шаблоны</button>
     <button class="tab" onclick="showPage('objects')">🎯 Объекты ООП</button>
-    <button class="tab" onclick="showPage('assignments')">📌 Назначения</button>
+    <button class="tab" onclick="showPage('assignments')">📎 Назначения</button>
     <button class="tab" onclick="showPage('myDocs')">📝 Мои документы</button>
   </div>
 </div>
 
-<!-- PAGE: TEMPLATES (Admin) -->
 <div class="container page-content" id="page-templates">
   <div class="flex-between mb12">
     <h2 style="font-size:20px;font-weight:700">Шаблоны документов</h2>
@@ -131,7 +109,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <div id="templatesList"></div>
 </div>
 
-<!-- PAGE: OOP OBJECTS -->
 <div class="container page-content hidden" id="page-objects">
   <div class="flex-between mb12">
     <h2 style="font-size:20px;font-weight:700">Объекты ООП</h2>
@@ -140,7 +117,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <div id="objectsList"></div>
 </div>
 
-<!-- PAGE: ASSIGNMENTS (Admin) -->
 <div class="container page-content hidden" id="page-assignments">
   <div class="flex-between mb12">
     <h2 style="font-size:20px;font-weight:700">Назначения</h2>
@@ -149,7 +125,6 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
   <div id="assignmentsList"></div>
 </div>
 
-<!-- PAGE: MY DOCS (Student) -->
 <div class="container page-content hidden" id="page-myDocs">
   <h2 style="font-size:20px;font-weight:700;margin-bottom:12px">Мои документы</h2>
   <div id="myDocsList"></div>
@@ -244,7 +219,7 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
         <label>Дедлайн</label>
         <input class="inp" type="datetime-local" id="asgDeadline">
       </div>
-      <button class="btnP" style="width:100%" onclick="saveAssignment()">📌 Назначить</button>
+      <button class="btnP" style="width:100%" onclick="saveAssignment()">📎 Назначить</button>
     </div>
   </div>
 </div>
@@ -280,7 +255,7 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
     Объекты
   </div>
   <div class="bnav-item" onclick="showPage('assignments')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15a2.25 2.25 0 012.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c.98 0 1.813.626 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75"/></svg>
     Назначения
   </div>
   <div class="bnav-item" onclick="showPage('myDocs')">
@@ -292,39 +267,36 @@ label{display:block;font-size:13px;color:var(--t2);margin-bottom:6px;font-weight
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<!-- html2pdf для PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- docx для DOCX генерации -->
 <script src="https://unpkg.com/docx@8.2.2/build/index.umd.js"></script>
 
 <script>
 // ============================================================
-// FIREBASE CONFIG — ЗАМЕНИ НА СВОИ ДАННЫЕ
+// FIREBASE CONFIG
 // ============================================================
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:abcdef123456"
+  apiKey: "AIzaSyBCy0hz_PHMGUX2M52Wnwb0C9nEnBBfeq8",
+  authDomain: "my-diary-e223c.firebaseapp.com",
+  databaseURL: "https://my-diary-e223c-default-rtdb.firebaseio.com",
+  projectId: "my-diary-e223c",
+  storageBucket: "my-diary-e223c.firebasestorage.app",
+  messagingSenderId: "903986378920",
+  appId: "1:903986378920:web:b6ebc6691f6d767f78aa9d"
 };
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 // ============================================================
-// ТЕКУЩИЙ ПОЛЬЗОВАТЕЛЬ (демо — в реальности из Firebase Auth)
+// ТЕКУЩИЙ ПОЛЬЗОВАТЕЛЬ
 // ============================================================
 let currentUser = {
   uid: 'admin1',
   name: 'Преподаватель Петров А.В.',
-  role: 'admin', // 'admin' | 'teacher' | 'student'
+  role: 'admin',
   group: ''
 };
-// Для демо можно переключить:
+// Для студента раскомментируй:
 // currentUser = { uid: 'student1', name: 'Иванов И.И.', role: 'student', group: 'ТЭРО-125' };
 
 document.getElementById('userInfo').textContent = currentUser.name + ' [' + currentUser.role + ']';
@@ -370,7 +342,6 @@ function loadPageData(page) {
 function openSheet(id) { document.getElementById(id).classList.add('open'); }
 function closeSheet(id) { document.getElementById(id).classList.remove('open'); }
 
-// Close on overlay click
 document.querySelectorAll('.sheet-overlay').forEach(ov => {
   ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('open'); });
 });
@@ -397,9 +368,7 @@ const DEFAULT_OBJECTS = [
 function seedObjects() {
   db.ref('oop_objects').once('value', snap => {
     if (!snap.exists()) {
-      DEFAULT_OBJECTS.forEach(obj => {
-        db.ref('oop_objects').push(obj);
-      });
+      DEFAULT_OBJECTS.forEach(obj => db.ref('oop_objects').push(obj));
     }
   });
 }
@@ -454,55 +423,34 @@ function deleteObject(id) {
 // ============================================================
 // TEMPLATES
 // ============================================================
-// Предустановленный HTML-шаблон практической работы
 const DEFAULT_TEMPLATE_HTML = `
 <div style="text-align:center;margin-bottom:20px">
   <p style="font-size:12px">Приложение 9.3.6<br>ОПОП-ППССЗ по специальности 11.02.06</p>
   <h1 style="font-size:16px;margin:16px 0 4px">ПРАКТИЧЕСКАЯ РАБОТА</h1>
   <h2 style="font-size:14px;font-weight:normal">по учебному предмету ОУП.06 Иностранный язык</h2>
 </div>
-
 <table>
-  <tr>
-    <td style="width:35%"><strong>ФИО студента:</strong></td>
-    <td>{{student_name}}</td>
-  </tr>
-  <tr>
-    <td><strong>Группа:</strong></td>
-    <td>{{group}}</td>
-  </tr>
-  <tr>
-    <td><strong>Дата выполнения:</strong></td>
-    <td>{{date}}</td>
-  </tr>
-  <tr>
-    <td><strong>Тема:</strong></td>
-    <td>{{topic}}</td>
-  </tr>
+  <tr><td style="width:35%"><strong>ФИО студента:</strong></td><td>{{student_name}}</td></tr>
+  <tr><td><strong>Группа:</strong></td><td>{{group}}</td></tr>
+  <tr><td><strong>Дата выполнения:</strong></td><td>{{date}}</td></tr>
+  <tr><td><strong>Тема:</strong></td><td>{{topic}}</td></tr>
 </table>
-
 <h3 style="margin:16px 0 8px;font-size:14px">Цель работы</h3>
 <p style="font-size:13px">Закрепить лексический и грамматический материал по теме, развить навыки говорения, чтения и письменной речи.</p>
-
 <h3 style="margin:16px 0 8px;font-size:14px">Задание 1. Лексико-грамматическое упражнение</h3>
 <div>{{task1}}</div>
-
 <h3 style="margin:16px 0 8px;font-size:14px">Задание 2. Работа с текстом</h3>
 <div>{{task2}}</div>
-
 <h3 style="margin:16px 0 8px;font-size:14px">Задание 3. Письменное высказывание</h3>
 <div>{{task3}}</div>
-
 <h3 style="margin:16px 0 8px;font-size:14px">Вывод</h3>
 <div>{{conclusion}}</div>
-
 <table style="margin-top:24px">
   <tr>
     <td style="width:50%"><strong>Оценка:</strong> {{grade}}</td>
     <td><strong>Подпись преподавателя:</strong> ___________</td>
   </tr>
-</table>
-`;
+</table>`;
 
 const DEFAULT_FIELDS = {
   student_name: { label: "ФИО студента", type: "text", required: true },
@@ -517,7 +465,6 @@ const DEFAULT_FIELDS = {
 };
 
 let templatesCache = {};
-
 function loadTemplates() {
   db.ref('templates').on('value', snap => {
     templatesCache = snap.val() || {};
@@ -539,7 +486,7 @@ function loadTemplates() {
           <p class="mt8">📎 ${objName}</p>
           <div class="mt8" style="display:flex;gap:6px;flex-wrap:wrap">
             <button class="mb bl" onclick="previewTemplate('${id}')">👁 Просмотр</button>
-            <button class="mb og" onclick="editTemplate('${id}')">✏️ Редакт.</button>
+            <button class="mb og" onclick="editTemplate('${id}')">✏ Редакт.</button>
             <button class="mb rd" onclick="deleteTemplate('${id}')">🗑 Удалить</button>
           </div>
         </div>`;
@@ -552,7 +499,6 @@ function openCreateTemplate() {
   document.getElementById('tplName').value = 'Практическая работа №1';
   document.getElementById('tplFields').value = JSON.stringify(DEFAULT_FIELDS, null, 2);
   document.getElementById('tplHtml').value = DEFAULT_TEMPLATE_HTML;
-  // Populate objects dropdown
   const sel = document.getElementById('tplObjectId');
   sel.innerHTML = '<option value="">— Не привязан —</option>';
   Object.entries(objectsCache).forEach(([id, obj]) => {
@@ -563,7 +509,6 @@ function openCreateTemplate() {
 }
 
 let currentEditTemplateId = null;
-
 function editTemplate(id) {
   const tpl = templatesCache[id];
   if (!tpl) return;
@@ -623,7 +568,6 @@ function previewTemplate(id) {
 // ASSIGNMENTS
 // ============================================================
 let assignmentsCache = {};
-
 function loadAssignments() {
   db.ref('assignments').on('value', snap => {
     assignmentsCache = snap.val() || {};
@@ -674,7 +618,7 @@ function deleteAssignment(id) {
 }
 
 // ============================================================
-// MY DOCS (Student view)
+// MY DOCS
 // ============================================================
 let currentFillDocId = null;
 let currentFillTemplateId = null;
@@ -684,38 +628,29 @@ let currentAssignmentId = null;
 function loadMyDocs() {
   const container = document.getElementById('myDocsList');
   container.innerHTML = '<p style="color:var(--t3);text-align:center;padding:20px">Загрузка...</p>';
-
-  // Get all assignments for this user
   db.ref('assignments').once('value', asnap => {
     const assignments = asnap.val() || {};
-    // Filter by user
     const myAssignments = Object.entries(assignments).filter(([_, a]) => {
       if (a.assignedTo === 'user:' + currentUser.uid) return true;
       if (a.assignedTo === 'group:' + currentUser.group) return true;
       if (currentUser.role === 'admin' || currentUser.role === 'teacher') return true;
       return false;
     });
-
-    // Get filled docs
     db.ref('filled_documents').orderByChild('studentUid').equalTo(currentUser.uid).once('value', dsnap => {
       const docs = dsnap.val() || {};
       container.innerHTML = '';
-
       if (myAssignments.length === 0) {
         container.innerHTML = '<p style="color:var(--t3);text-align:center;padding:40px">Нет назначенных документов</p>';
         return;
       }
-
       myAssignments.forEach(([asgId, asg]) => {
         const tpl = templatesCache[asg.templateId];
         if (!tpl) return;
-        // Find existing doc
         const existingDoc = Object.entries(docs).find(([_, d]) => d.assignmentId === asgId);
         const statusPill = existingDoc
           ? `<span class="pill ${existingDoc[1].status === 'submitted' ? 'gr' : existingDoc[1].status === 'graded' ? 'pr' : 'og'}">${existingDoc[1].status === 'submitted' ? 'Сдано' : existingDoc[1].status === 'graded' ? 'Оценено: ' + existingDoc[1].grade : 'Черновик'}</span>`
           : '<span class="pill og">Не начато</span>';
         const deadline = asg.deadline ? new Date(asg.deadline).toLocaleDateString('ru') : '';
-
         container.innerHTML += `
           <div class="card">
             <div class="flex-between">
@@ -725,7 +660,7 @@ function loadMyDocs() {
             <p class="mt8">${deadline ? '⏰ Дедлайн: ' + deadline : ''}</p>
             <div class="mt8">
               <button class="btnP btnSm" onclick="openFillDoc('${asgId}','${existingDoc ? existingDoc[0] : ''}')">
-                ${existingDoc ? '✏️ Продолжить' : '📝 Начать'}
+                ${existingDoc ? '✏ Продолжить' : '📝 Начать'}
               </button>
             </div>
           </div>`;
@@ -741,7 +676,6 @@ function openFillDoc(assignmentId, docId) {
   const tpl = templatesCache[asg.templateId];
   if (!tpl) return;
   currentFillTemplateId = asg.templateId;
-
   if (docId) {
     currentFillDocId = docId;
     db.ref('filled_documents/' + docId + '/fieldValues').once('value', snap => {
@@ -753,13 +687,11 @@ function openFillDoc(assignmentId, docId) {
   } else {
     currentFillDocId = null;
     currentFillValues = {};
-    // Auto-fill known fields
     if (currentUser.role === 'student') {
       currentFillValues.student_name = currentUser.name;
       currentFillValues.group = currentUser.group;
     }
     currentFillValues.date = new Date().toISOString().split('T')[0];
-    // Auto-fill topic from object
     if (tpl.objectId && objectsCache[tpl.objectId]) {
       currentFillValues.topic = objectsCache[tpl.objectId].theme + ': ' + objectsCache[tpl.objectId].title;
     }
@@ -772,8 +704,6 @@ function openFillDoc(assignmentId, docId) {
 function renderDocPreview(tpl, values) {
   let html = tpl.htmlContent || '';
   const fields = tpl.fields || {};
-
-  // Replace placeholders with editable inputs
   Object.entries(fields).forEach(([key, field]) => {
     const val = values[key] || '';
     let inputHtml;
@@ -786,7 +716,6 @@ function renderDocPreview(tpl, values) {
     }
     html = html.replace(new RegExp('\\{\\{' + key + '\\}\\}', 'g'), inputHtml);
   });
-
   document.getElementById('docPreviewArea').innerHTML = `<div class="doc-preview" id="docPrintable">${html}</div>`;
 }
 
@@ -808,7 +737,6 @@ function saveFilledDoc() {
     lastSavedAt: Date.now(),
     fieldValues: vals
   };
-
   if (currentFillDocId) {
     db.ref('filled_documents/' + currentFillDocId).update(data);
     alert('✅ Сохранено!');
@@ -830,10 +758,9 @@ function submitDoc() {
 }
 
 // ============================================================
-// PDF DOWNLOAD
+// PDF
 // ============================================================
 function downloadPDF() {
-  // First replace inputs with their values for clean print
   const printArea = buildPrintHtml();
   const opt = {
     margin: [10, 10, 10, 10],
@@ -851,7 +778,6 @@ function buildPrintHtml() {
   let html = tpl.htmlContent || '';
   const vals = collectFieldValues();
   const fields = tpl.fields || {};
-
   Object.entries(fields).forEach(([key, field]) => {
     const val = vals[key] || '______';
     const display = field.type === 'date' && val && val !== '______'
@@ -859,7 +785,6 @@ function buildPrintHtml() {
       : val;
     html = html.replace(new RegExp('\\{\\{' + key + '\\}\\}', 'g'), `<span style="border-bottom:1px solid #000;padding:0 4px">${display}</span>`);
   });
-
   const wrapper = document.createElement('div');
   wrapper.className = 'print-doc';
   wrapper.style.cssText = 'font-family:Times New Roman,serif;font-size:14px;line-height:1.6;color:#000;padding:20px';
@@ -868,7 +793,7 @@ function buildPrintHtml() {
 }
 
 // ============================================================
-// DOCX DOWNLOAD
+// DOCX
 // ============================================================
 function downloadDOCX() {
   const vals = collectFieldValues();
@@ -876,12 +801,9 @@ function downloadDOCX() {
   if (!tpl) return;
   const fields = tpl.fields || {};
   const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType } = docx;
-
   const children = [];
-
-  // Header
   children.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [
-    new TextRun({ text: 'Приложение 9.3.6  ОПОП-ППССЗ по специальности 11.02.06', size: 20 })
+    new TextRun({ text: 'Приложение 9.3.6 ОПОП-ППССЗ по специальности 11.02.06', size: 20 })
   ]}));
   children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [
     new TextRun({ text: 'ПРАКТИЧЕСКАЯ РАБОТА', bold: true, size: 28 })
@@ -889,8 +811,6 @@ function downloadDOCX() {
   children.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 400 }, children: [
     new TextRun({ text: 'по учебному предмету ОУП.06 Иностранный язык', size: 24 })
   ]}));
-
-  // Info table
   const infoRows = [
     ['ФИО студента:', vals.student_name || ''],
     ['Группа:', vals.group || ''],
@@ -899,7 +819,6 @@ function downloadDOCX() {
   ];
   const cellBorder = { style: BorderStyle.SINGLE, size: 1, color: '000000' };
   const borders = { top: cellBorder, bottom: cellBorder, left: cellBorder, right: cellBorder };
-
   children.push(new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     rows: infoRows.map(([label, value]) => new TableRow({
@@ -913,8 +832,6 @@ function downloadDOCX() {
       ]
     }))
   }));
-
-  // Tasks
   const taskFields = ['task1', 'task2', 'task3', 'conclusion'];
   taskFields.forEach(key => {
     if (fields[key]) {
@@ -926,17 +843,11 @@ function downloadDOCX() {
       ]}));
     }
   });
-
-  // Grade
   children.push(new Paragraph({ spacing: { before: 400 }, children: [
     new TextRun({ text: 'Оценка: ' + (vals.grade || '___'), size: 22 }),
-    new TextRun({ text: '          Подпись преподавателя: ___________', size: 22 })
+    new TextRun({ text: '    Подпись преподавателя: ___________', size: 22 })
   ]}));
-
-  const doc = new Document({
-    sections: [{ children }]
-  });
-
+  const doc = new Document({ sections: [{ children }] });
   Packer.toBlob(doc).then(blob => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -950,7 +861,6 @@ function downloadDOCX() {
 // ============================================================
 // INIT
 // ============================================================
-// Load objects first, then templates
 db.ref('oop_objects').once('value', snap => {
   objectsCache = snap.val() || {};
   loadTemplates();
